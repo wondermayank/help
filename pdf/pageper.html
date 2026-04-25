@@ -640,6 +640,8 @@
       const rows = Math.ceil(pps / cols);
 
       // Collect all page canvases from all PDFs
+      // We render at HIGH resolution: cell size in pt × 4 (≈ 300 DPI equivalent)
+      const PT_TO_PX = 4; // 4px per pt ≈ 288 DPI — crisp text, no blur
       const allCanvases = [];
       for (let fi = 0; fi < files.length; fi++) {
         setProgress(Math.round((fi / files.length) * 40), `Loading file ${fi+1}/${files.length}…`);
@@ -648,14 +650,19 @@
         for (let p = 1; p <= pdf.numPages; p++) {
           const page = await pdf.getPage(p);
           const vp = page.getViewport({ scale: 1 });
-          // Scale to fit one cell
+          // Target: fill one cell at full output resolution × PT_TO_PX
           const cellW = (outW * (1 - 2*margin)) / cols;
           const cellH = (outH * (1 - 2*margin)) / rows;
-          const scale = Math.min(cellW / vp.width, cellH / vp.height) * 2; // 2x for quality
-          const vp2 = page.getViewport({ scale });
+          const fitScale = Math.min(cellW / vp.width, cellH / vp.height);
+          const renderScale = fitScale * PT_TO_PX;
+          const vp2 = page.getViewport({ scale: renderScale });
           const c = document.createElement('canvas');
-          c.width = vp2.width; c.height = vp2.height;
-          await page.render({ canvasContext: c.getContext('2d'), viewport: vp2 }).promise;
+          c.width  = Math.round(vp2.width);
+          c.height = Math.round(vp2.height);
+          const ctx2d = c.getContext('2d');
+          ctx2d.imageSmoothingEnabled = true;
+          ctx2d.imageSmoothingQuality = 'high';
+          await page.render({ canvasContext: ctx2d, viewport: vp2 }).promise;
           allCanvases.push(c);
         }
       }
@@ -701,7 +708,8 @@
             if (dw / dh > ar) dw = dh * ar; else dh = dw / ar;
             const dx = x + (cellW2 - dw) / 2;
             const dy = y + (cellH2 - dh) / 2;
-            doc.addImage(src.toDataURL('image/jpeg', 0.9), 'JPEG', dx, dy, dw, dh);
+            // PNG preserves sharpness — no JPEG artefacts on text
+            doc.addImage(src.toDataURL('image/png'), 'PNG', dx, dy, dw, dh, undefined, 'FAST');
           }
         }
       }
@@ -709,25 +717,33 @@
       setProgress(100, 'Done!');
       outputBlob = doc.output('blob');
 
-      // Preview first sheet
+      // Preview first sheet — use devicePixelRatio for crisp screen rendering
       const previewCanvas = document.createElement('canvas');
       previewCanvas.className = 'preview-canvas';
-      const scale = Math.min(760 / outW, 540 / outH);
-      previewCanvas.width  = outW * scale;
-      previewCanvas.height = outH * scale;
+      const dpr = window.devicePixelRatio || 2;
+      const previewW = Math.min(760, outW);
+      const previewH = outH * (previewW / outW);
+      const pScale = previewW / outW;
+      previewCanvas.width  = previewW  * dpr;
+      previewCanvas.height = previewH * dpr;
+      previewCanvas.style.width  = previewW  + 'px';
+      previewCanvas.style.height = previewH + 'px';
       const pctx = previewCanvas.getContext('2d');
+      pctx.scale(dpr, dpr);
+      pctx.imageSmoothingEnabled = true;
+      pctx.imageSmoothingQuality = 'high';
       pctx.fillStyle = '#ffffff';
-      pctx.fillRect(0, 0, previewCanvas.width, previewCanvas.height);
+      pctx.fillRect(0, 0, previewW, previewH);
 
       const maxSlot = Math.min(pps, allCanvases.length);
       for (let slot = 0; slot < maxSlot; slot++) {
         let col, row;
         if (order === 'horizontal') { col = slot % cols; row = Math.floor(slot / cols); }
         else                        { row = slot % rows; col = Math.floor(slot / rows); }
-        const x = (mgX + col * cellW2) * scale;
-        const y = (mgY + row * cellH2) * scale;
-        const cw = cellW2 * scale;
-        const ch = cellH2 * scale;
+        const x = (mgX + col * cellW2) * pScale;
+        const y = (mgY + row * cellH2) * pScale;
+        const cw = cellW2 * pScale;
+        const ch = cellH2 * pScale;
         const src = allCanvases[slot];
         const ar  = src.width / src.height;
         let dw = cw - 4, dh = ch - 4;
@@ -735,8 +751,8 @@
         pctx.drawImage(src, x + (cw - dw)/2, y + (ch - dh)/2, dw, dh);
         if (borderOn) {
           pctx.strokeStyle = bColor;
-          pctx.lineWidth = 1.5;
-          pctx.strokeRect(x, y, cw, ch);
+          pctx.lineWidth = 1;
+          pctx.strokeRect(x + 0.5, y + 0.5, cw - 1, ch - 1);
         }
       }
       previewWrap.appendChild(previewCanvas);
