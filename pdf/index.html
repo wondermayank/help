@@ -1,0 +1,996 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WonderPDF — Free PDF Tools, No Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── RESET ── */
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+:target{scroll-margin-top:40vh}
+body{font-family:'Inter',sans-serif;background:#000;color:#fff;overflow-x:hidden}
+
+/* ── CSS VARIABLES ── */
+:root{
+  --blue:#2563eb;--blue-l:#3b82f6;--blue-soft:#eff6ff;--blue-mid:#bfdbfe;
+  --gray:#f8fafc;--gray2:#f1f5f9;--gray3:#e2e8f0;
+  --text:#0f172a;--text2:#475569;--text3:#94a3b8;
+  --r:14px;--rs:8px;
+}
+
+/* ── LIQUID GLASS ── */
+.liquid-glass{
+  background:rgba(255,255,255,0.01);
+  background-blend-mode:luminosity;
+  backdrop-filter:blur(4px);
+  -webkit-backdrop-filter:blur(4px);
+  border:none;
+  box-shadow:inset 0 1px 1px rgba(255,255,255,0.1);
+  position:relative;
+  overflow:hidden;
+  cursor:pointer;
+  color:#fff;
+  font-family:'Inter',sans-serif;
+  transition:background .2s
+}
+.liquid-glass::before{
+  content:'';
+  position:absolute;
+  inset:0;
+  border-radius:inherit;
+  padding:1.4px;
+  background:linear-gradient(180deg,
+    rgba(255,255,255,0.45) 0%,
+    rgba(255,255,255,0.15) 20%,
+    rgba(255,255,255,0) 40%,
+    rgba(255,255,255,0) 60%,
+    rgba(255,255,255,0.15) 80%,
+    rgba(255,255,255,0.45) 100%
+  );
+  -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  pointer-events:none
+}
+.liquid-glass:hover{background:rgba(255,255,255,0.12)}
+
+/* ── BLUR FADE UP ANIMATION ── */
+@keyframes blurFadeUp{
+  from{opacity:0;filter:blur(20px);transform:translateY(40px)}
+  to{opacity:1;filter:blur(0px);transform:translateY(0px)}
+}
+.animate-blur-fade-up{
+  animation:blurFadeUp 1s ease-out forwards;
+  opacity:0
+}
+
+/* ── HERO SECTION ── */
+.hero{
+  position:relative;
+  height:100vh;
+  min-height:600px;
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+  background:#000
+}
+
+/* background video */
+.hero-video{
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  z-index:0
+}
+
+/* bottom blur overlay — no darkening gradient, only blur with mask */
+.hero-blur-overlay{
+  position:absolute;
+  inset:0;
+  z-index:1;
+  pointer-events:none;
+  backdrop-filter:blur(24px);
+  -webkit-backdrop-filter:blur(24px);
+  -webkit-mask-image:linear-gradient(to top, black 0%, transparent 45%);
+  mask-image:linear-gradient(to top, black 0%, transparent 45%)
+}
+
+/* ── NAVBAR ── */
+.navbar{
+  position:relative;
+  z-index:50;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:24px 48px;
+  flex-shrink:0
+}
+.nav-logo{
+  font-size:22px;
+  font-weight:600;
+  color:#fff;
+  text-decoration:none;
+  letter-spacing:-0.02em;
+  line-height:1
+}
+.nav-logo span{color:#60a5fa}
+.nav-center{
+  display:flex;
+  gap:32px;
+  list-style:none
+}
+.nav-center a{
+  color:rgba(255,255,255,0.75);
+  font-size:13px;
+  font-weight:400;
+  text-decoration:none;
+  transition:color .2s
+}
+.nav-center a:hover{color:#fff}
+.nav-right{
+  display:flex;
+  gap:10px;
+  align-items:center
+}
+.btn-search{
+  border-radius:999px;
+  padding:8px 20px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:13px;
+  font-weight:400
+}
+.btn-user{
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  display:flex;
+  align-items:center;
+  justify-content:center
+}
+.btn-hamburger{
+  border-radius:50%;
+  width:40px;
+  height:40px;
+  display:none;
+  align-items:center;
+  justify-content:center
+}
+
+/* ── MOBILE MENU ── */
+.mobile-menu{
+  position:absolute;
+  top:72px;
+  left:0;
+  right:0;
+  z-index:40;
+  background:rgba(17,24,39,0.97);
+  backdrop-filter:blur(16px);
+  -webkit-backdrop-filter:blur(16px);
+  border-top:1px solid #1f2937;
+  border-bottom:1px solid #1f2937;
+  box-shadow:0 25px 50px rgba(0,0,0,0.5);
+  transition:transform .5s ease-out, opacity .5s ease-out;
+  padding:12px 16px 20px
+}
+.mobile-menu.open{
+  transform:translateY(0);
+  opacity:1;
+  pointer-events:auto
+}
+.mobile-menu.closed{
+  transform:translateY(-16px);
+  opacity:0;
+  pointer-events:none
+}
+.mobile-link{
+  display:block;
+  padding:12px;
+  border-radius:10px;
+  color:rgba(255,255,255,0.85);
+  font-size:14px;
+  text-decoration:none;
+  transition:background .2s, transform .3s ease-out, opacity .3s ease-out
+}
+.mobile-link:hover{background:rgba(255,255,255,0.08)}
+.mobile-menu-bottom{
+  margin-top:12px;
+  padding-top:16px;
+  border-top:1px solid #1f2937;
+  display:none;
+  gap:10px
+}
+.mobile-link-anim{
+  opacity:0;
+  transform:translateX(-12px);
+  transition:transform .4s ease-out, opacity .4s ease-out
+}
+.mobile-menu.open .mobile-link-anim{
+  opacity:1;
+  transform:translateX(0)
+}
+.mobile-link-anim:nth-child(1){transition-delay:50ms}
+.mobile-link-anim:nth-child(2){transition-delay:100ms}
+.mobile-link-anim:nth-child(3){transition-delay:150ms}
+.mobile-link-anim:nth-child(4){transition-delay:200ms}
+.mobile-link-anim:nth-child(5){transition-delay:250ms}
+
+/* ── HERO BODY ── */
+.hero-body{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-end;
+  padding:0 48px 64px;
+  position:relative;
+  z-index:10
+}
+.hero-inner{
+  display:flex;
+  flex-direction:row;
+  align-items:flex-end;
+  gap:40px
+}
+.hero-left{flex:1}
+
+/* metadata row */
+.hero-meta{
+  display:flex;
+  flex-wrap:wrap;
+  gap:24px;
+  margin-bottom:32px;
+  align-items:center
+}
+.meta-chip{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  font-size:13px;
+  color:rgba(255,255,255,0.85)
+}
+
+/* title */
+.hero-title{
+  font-size:72px;
+  font-weight:300;
+  color:#fff;
+  line-height:1.04;
+  letter-spacing:-0.04em;
+  margin-bottom:20px
+}
+.hero-title strong{font-weight:700}
+
+/* description */
+.hero-desc{
+  font-size:18px;
+  color:rgba(255,255,255,0.45);
+  line-height:1.65;
+  max-width:560px;
+  margin-bottom:40px
+}
+
+/* CTA buttons */
+.hero-ctas{
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px
+}
+.btn-watch-now{
+  background:#fff;
+  color:#000;
+  border:none;
+  border-radius:999px;
+  padding:12px 32px;
+  font-family:'Inter',sans-serif;
+  font-size:14px;
+  font-weight:500;
+  display:flex;
+  align-items:center;
+  gap:8px;
+  cursor:pointer;
+  transition:background .2s
+}
+.btn-watch-now:hover{background:#e2e8f0}
+.btn-learn-more{
+  border-radius:999px;
+  padding:12px 28px;
+  font-size:14px;
+  font-weight:500
+}
+
+/* right arrows */
+.hero-right{
+  display:flex;
+  align-items:flex-end;
+  flex-shrink:0
+}
+.arrow-row{
+  display:flex;
+  gap:10px
+}
+.arrow-btn{
+  border-radius:999px;
+  padding:12px 24px;
+  display:flex;
+  align-items:center;
+  gap:7px;
+  font-size:13px;
+  font-weight:400
+}
+
+/* ── SVG ICON HELPER ── */
+.ico{
+  display:inline-block;
+  vertical-align:middle;
+  flex-shrink:0;
+  fill:none;
+  stroke:currentColor;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round
+}
+
+/* ── HAMBURGER ICON ANIM ── */
+.icon-menu{transition:opacity .5s ease-out, transform .5s ease-out, scale .5s ease-out}
+.icon-x{transition:opacity .5s ease-out, transform .5s ease-out, scale .5s ease-out;position:absolute}
+.state-open .icon-menu{opacity:0;transform:rotate(180deg);scale:.5}
+.state-open .icon-x{opacity:1;transform:rotate(0deg);scale:1}
+.state-closed .icon-menu{opacity:1;transform:rotate(0deg);scale:1}
+.state-closed .icon-x{opacity:0;transform:rotate(-180deg);scale:.5}
+
+/* ── TOOLS SECTION ── */
+.tools-section{
+  background:#fff;
+  color:var(--text);
+  padding:0 48px 80px
+}
+.tools-intro{
+  padding:72px 0 52px;
+  text-align:center
+}
+.section-badge{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:var(--blue-soft);
+  color:var(--blue);
+  border-radius:999px;
+  padding:6px 16px;
+  font-size:11px;
+  font-weight:600;
+  letter-spacing:.08em;
+  text-transform:uppercase;
+  margin-bottom:20px;
+  border:1px solid var(--blue-mid)
+}
+.section-title{
+  font-size:44px;
+  font-weight:300;
+  letter-spacing:-0.03em;
+  color:var(--text);
+  margin-bottom:12px;
+  line-height:1.1
+}
+.section-title strong{font-weight:700}
+.section-desc{
+  font-size:16px;
+  color:var(--text2);
+  max-width:480px;
+  margin:0 auto 0
+}
+
+/* stats */
+.stats-bar{
+  background:linear-gradient(135deg,#eff6ff 0%,#f0f9ff 100%);
+  border:1px solid var(--blue-mid);
+  border-radius:var(--r);
+  padding:28px 40px;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  margin-bottom:64px;
+  flex-wrap:wrap;
+  gap:20px
+}
+.stat{text-align:center}
+.stat-num{font-size:32px;font-weight:700;color:var(--blue);letter-spacing:-0.03em;line-height:1}
+.stat-label{font-size:12px;color:var(--text2);margin-top:4px}
+.stat-divider{width:1px;height:40px;background:var(--gray3)}
+
+/* categories */
+.cat-block{margin-bottom:52px}
+.cat-label-row{display:flex;align-items:center;gap:12px;margin-bottom:18px}
+.cat-icon-box{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.cat-label-text{font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--text3);white-space:nowrap}
+.cat-rule{flex:1;height:1px;background:var(--gray3)}
+
+/* tool grid */
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:8px}
+.tool-card{
+  display:flex;align-items:center;gap:11px;
+  background:var(--gray);border:1px solid var(--gray3);
+  border-radius:var(--rs);padding:12px 14px;
+  text-decoration:none;color:var(--text);
+  transition:all .18s;cursor:pointer
+}
+.tool-card:hover{
+  background:var(--blue-soft);
+  border-color:var(--blue-mid);
+  transform:translateY(-2px);
+  box-shadow:0 6px 20px rgba(37,99,235,0.1)
+}
+.tool-card:hover .tool-icon{background:var(--blue);color:#fff}
+.tool-icon{
+  width:32px;height:32px;border-radius:7px;
+  background:var(--gray2);display:flex;
+  align-items:center;justify-content:center;
+  font-size:15px;flex-shrink:0;transition:all .18s
+}
+.tool-info{flex:1;min-width:0}
+.tool-name{font-size:12px;font-weight:500;color:var(--text);line-height:1.3;margin-bottom:1px}
+.tool-desc{font-size:11px;color:var(--text3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tool-arrow{color:var(--text3);font-size:14px;flex-shrink:0;transition:color .18s}
+.tool-card:hover .tool-arrow{color:var(--blue)}
+
+/* footer */
+footer{
+  background:#0f172a;
+  color:rgba(255,255,255,0.55);
+  text-align:center;
+  padding:32px 20px;
+  font-size:13px
+}
+footer a{color:#60a5fa;text-decoration:none;font-weight:500}
+footer a:hover{text-decoration:underline}
+.heart{color:#f43f5e}
+
+/* ── RESPONSIVE ── */
+
+/* below lg (< 1024px): hide nav-center, show hamburger, hide search+user */
+@media(max-width:1023px){
+  .nav-center{display:none}
+  .btn-hamburger{display:flex}
+  .btn-search-wrap,.btn-user{display:none}
+  .navbar{padding:20px 24px}
+  .hero-body{padding:0 24px 40px}
+}
+
+/* below sm (< 640px): smaller text, tighter layout, arrows stack under CTAs */
+@media(max-width:639px){
+  .navbar{padding:16px 16px}
+  .hero-body{padding:0 16px 32px}
+  .hero-title{font-size:36px}
+  .hero-desc{font-size:15px;margin-bottom:28px}
+  .hero-meta{gap:16px;margin-bottom:20px}
+  .meta-chip{font-size:11px}
+  .hero-inner{flex-direction:column;align-items:flex-start;gap:20px}
+  .btn-watch-now{padding:10px 22px;font-size:13px}
+  .btn-learn-more{padding:10px 20px;font-size:13px}
+  .arrow-btn{padding:10px 18px;font-size:12px}
+  .mobile-menu-bottom{display:flex}
+  .btn-search-wrap,.btn-user{display:none !important}
+}
+
+/* md and up: side by side */
+@media(min-width:768px){
+  .hero-inner{flex-direction:row;align-items:flex-end}
+}
+
+/* sm and up: show search+user, hide hamburger-only items */
+@media(min-width:640px){
+  .btn-search-wrap,.btn-user{display:flex}
+}
+
+@media(max-width:767px){
+  .tools-section{padding:0 16px 60px}
+  .section-title{font-size:28px}
+  .stats-bar{padding:20px 16px}
+  .tools-intro{padding:48px 0 36px}
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     HERO SECTION
+══════════════════════════════════════════ -->
+<section class="hero" id="top">
+
+  <!-- background video -->
+  <video class="hero-video" autoplay muted loop playsinline>
+    <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260406_094145_4a271a6c-3869-4f1c-8aa7-aeb0cb227994.mp4" type="video/mp4">
+  </video>
+
+  <!-- bottom blur overlay (no gradient darkness, blur only) -->
+  <div class="hero-blur-overlay"></div>
+
+  <!-- ── NAVBAR ── -->
+  <nav class="navbar">
+
+    <!-- LEFT: logo -->
+    <a class="nav-logo animate-blur-fade-up" style="animation-delay:0ms" href="#">
+      Wonder<span>PDF</span>
+    </a>
+
+    <!-- CENTER: nav links (desktop only, hidden below lg) -->
+   <ul class="nav-center">
+  <li class="animate-blur-fade-up" style="animation-delay:100ms"><a href="#cat-organize">Organize</a></li>
+  <li class="animate-blur-fade-up" style="animation-delay:150ms"><a href="#cat-to-pdf">Convert</a></li>
+  <li class="animate-blur-fade-up" style="animation-delay:200ms"><a href="#cat-from-pdf">Convert From</a></li>
+  <li class="animate-blur-fade-up" style="animation-delay:250ms"><a href="#cat-security">Security</a></li>
+  <li class="animate-blur-fade-up" style="animation-delay:300ms"><a href="#cat-edit">Edit</a></li>
+</ul>
+
+    <!-- RIGHT: search + user (sm+), hamburger (below lg) -->
+    <div class="nav-right">
+      <!-- Search pill (hidden below sm via CSS) -->
+      <div class="btn-search-wrap animate-blur-fade-up" style="animation-delay:350ms">
+        <button class="liquid-glass btn-search" onclick="toggleSearch()">
+  <svg class="ico" width="16" height="16" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+  </svg>
+  Search
+</button>
+
+      <!-- Hamburger (shown below lg via CSS) -->
+      <button class="liquid-glass btn-hamburger animate-blur-fade-up state-closed"
+              style="animation-delay:350ms" id="hamburger-btn" onclick="toggleMenu()">
+        <!-- menu icon -->
+        <span class="icon-menu" style="position:relative;display:flex;align-items:center;justify-content:center">
+          <svg class="ico" width="16" height="16" viewBox="0 0 24 24">
+            <line x1="4" y1="6" x2="20" y2="6"/>
+            <line x1="4" y1="12" x2="20" y2="12"/>
+            <line x1="4" y1="18" x2="20" y2="18"/>
+          </svg>
+        </span>
+        <!-- x icon -->
+        <span class="icon-x" style="display:flex;align-items:center;justify-content:center">
+          <svg class="ico" width="16" height="16" viewBox="0 0 24 24">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
+          </svg>
+        </span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- SEARCH BAR -->
+<div id="search-bar" style="
+  position:absolute;top:72px;left:0;right:0;z-index:45;
+  padding:12px 48px;
+  background:rgba(0,0,0,0.6);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border-bottom:1px solid rgba(255,255,255,0.08);
+  display:none;align-items:center;gap:12px;
+">
+  <svg style="width:18px;height:18px;flex-shrink:0;stroke:#fff;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;opacity:.6" viewBox="0 0 24 24">
+    <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+  </svg>
+  <input id="search-input" type="text" placeholder="Search 110+ PDF tools..."
+    oninput="runSearch(this.value)"
+    style="flex:1;background:transparent;border:none;outline:none;color:#fff;font-family:'Inter',sans-serif;font-size:15px;"
+  />
+  <button onclick="toggleSearch()" style="background:none;border:none;color:rgba(255,255,255,.5);cursor:pointer;font-size:20px;line-height:1">✕</button>
+</div>
+
+<!-- SEARCH RESULTS DROPDOWN -->
+<div id="search-results" style="
+  position:absolute;top:120px;left:48px;right:48px;z-index:44;
+  background:rgba(15,23,42,0.97);
+  backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+  border:1px solid rgba(255,255,255,0.1);
+  border-radius:14px;
+  max-height:360px;overflow-y:auto;
+  display:none;
+  box-shadow:0 20px 60px rgba(0,0,0,0.5);
+"></div>
+
+  <!-- ── MOBILE MENU ── -->
+  <div class="mobile-menu closed" id="mobile-menu">
+    <a class="mobile-link mobile-link-anim" href="#tools">Organize</a>
+    <a class="mobile-link mobile-link-anim" href="#tools">Convert</a>
+    <a class="mobile-link mobile-link-anim" href="#tools">Security</a>
+    <a class="mobile-link mobile-link-anim" href="#tools">Edit</a>
+    <a class="mobile-link mobile-link-anim" href="#tools">More Tools</a>
+    <!-- search + profile only shown on < sm -->
+    <div class="mobile-menu-bottom" id="mobile-menu-bottom">
+      <button class="liquid-glass btn-search" style="flex:1;justify-content:center">
+        <svg class="ico" width="15" height="15" viewBox="0 0 24 24">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+        Search
+      </button>
+      <button class="liquid-glass btn-user">
+        <svg class="ico" width="15" height="15" viewBox="0 0 24 24">
+          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/>
+          <circle cx="12" cy="7" r="4"/>
+        </svg>
+      </button>
+    </div>
+  </div>
+
+  <!-- ── HERO CONTENT ── -->
+  <div class="hero-body">
+    <div class="hero-inner">
+
+      <!-- LEFT: meta + title + desc + CTAs -->
+      <div class="hero-left">
+
+        <!-- Metadata row -->
+        <div class="hero-meta animate-blur-fade-up" style="animation-delay:300ms">
+          <div class="meta-chip">
+            <svg class="ico" width="15" height="15" viewBox="0 0 24 24"
+                 style="fill:#fff;stroke:none">
+              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+            </svg>
+            <span style="font-weight:500">100% Free</span>
+          </div>
+          <div class="meta-chip">
+            <svg class="ico" width="15" height="15" viewBox="0 0 24 24">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            No Login Required
+          </div>
+          <div class="meta-chip">
+            <svg class="ico" width="15" height="15" viewBox="0 0 24 24">
+              <rect x="2" y="3" width="20" height="14" rx="2"/>
+              <path d="M8 21h8M12 17v4"/>
+            </svg>
+            110+ Tools
+          </div>
+        </div>
+
+        <!-- Title -->
+        <h1 class="hero-title animate-blur-fade-up" style="animation-delay:400ms">
+          Every PDF Tool You Need.<br><strong>No More Finding.</strong>
+        </h1>
+
+        <!-- Description -->
+        <p class="hero-desc animate-blur-fade-up" style="animation-delay:500ms">
+          100+ powerful PDF tools — completely free, no account, no watermark. Merge, split, compress, convert, and secure your documents in seconds.
+        </p>
+
+        <!-- CTA buttons -->
+        <div class="hero-ctas">
+          <button class="btn-watch-now animate-blur-fade-up" style="animation-delay:600ms"
+                  onclick="document.getElementById('tools').scrollIntoView({behavior:'smooth'})">
+            <svg class="ico" width="16" height="16" viewBox="0 0 24 24"
+                 style="fill:#000;stroke:none">
+              <polygon points="5 3 19 12 5 21 5 3"/>
+            </svg>
+            Explore All Tools
+          </button>
+        </div>
+      </div>
+
+      <!-- RIGHT: prev / next arrows -->
+
+
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     TOOLS SECTION
+══════════════════════════════════════════ -->
+<section id="tools" class="tools-section">
+
+  <div class="tools-intro">
+    <div class="section-badge">
+      <svg class="ico" width="12" height="12" viewBox="0 0 24 24" style="stroke:var(--blue)">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+      </svg>
+      PDF Toolkit
+    </div>
+    <h2 class="section-title">Every tool you need.<br><strong>Zero friction.</strong></h2>
+    <p class="section-desc">Free forever · No signup · No watermark · Works on any device</p>
+  </div>
+
+  <!-- Stats bar -->
+  <div class="stats-bar">
+    <div class="stat">
+      <div class="stat-num">110+</div>
+      <div class="stat-label">PDF Tools</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Free & No Login</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">0</div>
+      <div class="stat-label">Watermarks</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">∞</div>
+      <div class="stat-label">Files Per Day</div>
+    </div>
+    <div class="stat-divider"></div>
+    <div class="stat">
+      <div class="stat-num">256-bit</div>
+      <div class="stat-label">SSL Encrypted</div>
+    </div>
+  </div>
+
+  <!-- Tool grids injected by JS -->
+  <div id="cats-container"></div>
+
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <p>Made with <span class="heart">💕</span> by
+    <a href="https://wondermayank.github.io" target="_blank" rel="noopener">Wondermayank</a>
+    &nbsp;·&nbsp;
+    <a href="https://wondermayank.github.io/help/pdf" target="_blank" rel="noopener">wondermayank.github.io/help/pdf</a>
+  </p>
+  <p style="margin-top:8px;font-size:11px;opacity:.45">Free forever · No login · No watermark · 110+ tools</p>
+</footer>
+
+<!-- ══════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════ -->
+<script>
+  /* ── Search ── */
+function toggleSearch(){
+  const bar = document.getElementById('search-bar');
+  const res = document.getElementById('search-results');
+  const isOpen = bar.style.display === 'flex';
+  if(isOpen){
+    bar.style.display = 'none';
+    res.style.display = 'none';
+    document.getElementById('search-input').value = '';
+  } else {
+    bar.style.display = 'flex';
+    setTimeout(()=>document.getElementById('search-input').focus(), 50);
+  }
+}
+
+function runSearch(q){
+  const res = document.getElementById('search-results');
+  if(!q.trim()){res.style.display='none';return}
+  const matches = [];
+  categories.forEach(cat=>{
+    cat.tools.forEach(t=>{
+      if(t.n.toLowerCase().includes(q.toLowerCase()) || t.d.toLowerCase().includes(q.toLowerCase())){
+        matches.push({...t, cat:cat.label});
+      }
+    });
+  });
+  if(!matches.length){
+    res.style.display='block';
+    res.innerHTML=`<div style="padding:20px;text-align:center;color:rgba(255,255,255,.4);font-size:13px">No tools found for "${q}"</div>`;
+    return;
+  }
+  res.style.display='block';
+  res.innerHTML = matches.map(t=>`
+    <a href="${BASE}/${t.s}" target="_blank" rel="noopener"
+      style="display:flex;align-items:center;gap:12px;padding:12px 16px;text-decoration:none;
+             border-bottom:1px solid rgba(255,255,255,0.05);transition:background .15s"
+      onmouseover="this.style.background='rgba(255,255,255,0.07)'"
+      onmouseout="this.style.background='transparent'">
+      <span style="font-size:18px">${t.e}</span>
+      <span style="flex:1">
+        <span style="display:block;font-size:13px;font-weight:500;color:#fff">${t.n}</span>
+        <span style="display:block;font-size:11px;color:rgba(255,255,255,.4);margin-top:1px">${t.cat}</span>
+      </span>
+      <span style="font-size:11px;color:rgba(255,255,255,.3)">${t.d}</span>
+    </a>
+  `).join('');
+}
+
+/* close search on Escape key */
+document.addEventListener('keydown', e=>{
+  if(e.key==='Escape') {
+    document.getElementById('search-bar').style.display='none';
+    document.getElementById('search-results').style.display='none';
+  }
+});
+/* ── Mobile menu toggle ── */
+function toggleMenu(){
+  const menu = document.getElementById('mobile-menu');
+  const btn  = document.getElementById('hamburger-btn');
+  const isOpen = menu.classList.contains('open');
+  if(isOpen){
+    menu.classList.remove('open');
+    menu.classList.add('closed');
+    btn.classList.remove('state-open');
+    btn.classList.add('state-closed');
+  } else {
+    menu.classList.remove('closed');
+    menu.classList.add('open');
+    btn.classList.remove('state-closed');
+    btn.classList.add('state-open');
+  }
+}
+/* close menu when a link inside it is clicked */
+document.getElementById('mobile-menu').querySelectorAll('a').forEach(a=>{
+  a.addEventListener('click',()=>{
+    document.getElementById('mobile-menu').classList.remove('open');
+    document.getElementById('mobile-menu').classList.add('closed');
+    document.getElementById('hamburger-btn').classList.remove('state-open');
+    document.getElementById('hamburger-btn').classList.add('state-closed');
+  });
+});
+
+/* ── Tool categories data ── */
+const BASE = 'https://wondermayank.github.io/help/pdf';
+
+const categories = [
+  {
+    id:'organize', label:'Organize & Manage', icon:'📂', bg:'#eff6ff',
+    tools:[
+      {e:'🔗',n:'PDF Merger',d:'Combine multiple PDFs into one',s:'merger'},
+      {e:'✂️',n:'PDF Splitter',d:'Split into separate files',s:'splitter'},
+      {e:'📄',n:'Extract Pages',d:'Pick specific pages to extract',s:'extract-pages'},
+      {e:'🗑️',n:'Delete Pages',d:'Remove unwanted pages',s:'delete-pages'},
+      {e:'🔄',n:'Rotate PDF',d:'Rotate pages to any angle',s:'rotate'},
+      {e:'📋',n:'Reorder Pages',d:'Drag & drop to reorder',s:'reorder'},
+      {e:'🔀',n:'PDF Shuffle',d:'Randomize page order',s:'shuffle'},
+      {e:'📑',n:'Bookmarks Manager',d:'Add & manage bookmarks',s:'bookmarks'},
+      {e:'🔢',n:'Page Numbers',d:'Add custom page numbering',s:'page-numbers'},
+      {e:'📌',n:'PDF Crop',d:'Crop & trim page margins',s:'crop'},
+      {e:'🖨️',n:'Print to PDF',d:'Print any file as PDF',s:'print'},
+      {e:'📐',n:'Resize PDF',d:'Change page dimensions',s:'resize'},
+      {e:'🗂️',n:'PDF Binder',d:'Bind chapters into one doc',s:'binder'},
+      {e:'📦',n:'Batch Process',d:'Process multiple PDFs at once',s:'batch'},
+      {e:'🔍',n:'PDF Preview',d:'Preview without downloading',s:'preview'},
+    ]
+  },
+  {
+    id:'to-pdf', label:'Convert to PDF', icon:'🔄', bg:'#f0fdf4',
+    tools:[
+      {e:'📝',n:'Word to PDF',d:'DOCX/DOC → PDF instantly',s:'word-to-pdf'},
+      {e:'📊',n:'Excel to PDF',d:'XLSX/XLS → PDF sheets',s:'excel-to-pdf'},
+      {e:'📈',n:'PowerPoint to PDF',d:'PPTX/PPT → PDF slides',s:'ppt-to-pdf'},
+      {e:'🖼️',n:'Image to PDF',d:'JPG, PNG, WEBP → PDF',s:'image-to-pdf'},
+      {e:'🌐',n:'HTML to PDF',d:'Webpage or URL → PDF',s:'html-to-pdf'},
+      {e:'📖',n:'EPUB to PDF',d:'eBook → PDF convert',s:'epub-to-pdf'},
+      {e:'📎',n:'TXT to PDF',d:'Plain text → styled PDF',s:'txt-to-pdf'},
+      {e:'🗺️',n:'SVG to PDF',d:'Vector art → PDF',s:'svg-to-pdf'},
+      {e:'📉',n:'CSV to PDF',d:'Spreadsheet data → PDF',s:'csv-to-pdf'},
+      {e:'📧',n:'Email to PDF',d:'MSG/EML → PDF archive',s:'email-to-pdf'},
+      {e:'📋',n:'ODT to PDF',d:'LibreOffice Writer → PDF',s:'odt-to-pdf'},
+      {e:'📄',n:'RTF to PDF',d:'Rich text format → PDF',s:'rtf-to-pdf'},
+      {e:'🖥️',n:'Markdown to PDF',d:'MD files → styled PDF',s:'markdown-to-pdf'},
+      {e:'🗒️',n:'Pages to PDF',d:'Apple Pages → PDF',s:'pages-to-pdf'},
+      {e:'🎨',n:'PSD to PDF',d:'Photoshop file → PDF',s:'psd-to-pdf'},
+    ]
+  },
+  {
+    id:'from-pdf', label:'Convert from PDF', icon:'📤', bg:'#fefce8',
+    tools:[
+      {e:'📝',n:'PDF to Word',d:'PDF → editable DOCX',s:'pdf-to-word'},
+      {e:'📊',n:'PDF to Excel',d:'Tables → XLSX spreadsheet',s:'pdf-to-excel'},
+      {e:'📈',n:'PDF to PowerPoint',d:'PDF → editable PPTX',s:'pdf-to-ppt'},
+      {e:'🖼️',n:'PDF to JPG',d:'Export pages as JPG images',s:'pdf-to-jpg'},
+      {e:'🎨',n:'PDF to PNG',d:'High-resolution PNG export',s:'pdf-to-png'},
+      {e:'📖',n:'PDF to EPUB',d:'PDF → e-reader format',s:'pdf-to-epub'},
+      {e:'📝',n:'PDF to TXT',d:'Extract all readable text',s:'pdf-to-txt'},
+      {e:'🌐',n:'PDF to HTML',d:'PDF → web page format',s:'pdf-to-html'},
+      {e:'📋',n:'PDF to CSV',d:'Extract tables as CSV data',s:'pdf-to-csv'},
+      {e:'🗜️',n:'PDF to ZIP',d:'Bundle all pages as ZIP',s:'pdf-to-zip'},
+      {e:'📉',n:'PDF to SVG',d:'Convert pages to vector SVG',s:'pdf-to-svg'},
+      {e:'🎞️',n:'PDF to GIF',d:'Animated page preview GIF',s:'pdf-to-gif'},
+      {e:'📦',n:'PDF to TIFF',d:'High-quality TIFF export',s:'pdf-to-tiff'},
+      {e:'🖼️',n:'PDF to WEBP',d:'Modern web image format',s:'pdf-to-webp'},
+      {e:'📄',n:'PDF to ODT',d:'PDF → LibreOffice Writer',s:'pdf-to-odt'},
+    ]
+  },
+  {
+    id:'security', label:'Security & Privacy', icon:'🔒', bg:'#fff7ed',
+    tools:[
+      {e:'🔑',n:'Add Password',d:'Encrypt PDF with password',s:'password'},
+      {e:'🔓',n:'Remove Password',d:'Unlock password-protected PDF',s:'unlock'},
+      {e:'🚫',n:'Add Watermark',d:'Text or image watermark',s:'watermark'},
+      {e:'🧹',n:'Remove Watermark',d:'Erase watermarks from PDF',s:'remove-watermark'},
+      {e:'🔏',n:'Sign PDF',d:'Add digital signature',s:'sign'},
+      {e:'⬛',n:'Redact PDF',d:'Black out sensitive info',s:'redact'},
+      {e:'📜',n:'Certify PDF',d:'Add certificate to document',s:'certify'},
+      {e:'🔐',n:'Permissions',d:'Set print / copy / edit rights',s:'permissions'},
+      {e:'🛡️',n:'Flatten PDF',d:'Remove interactive form fields',s:'flatten'},
+      {e:'🕵️',n:'Remove Metadata',d:'Strip personal / hidden data',s:'remove-metadata'},
+      {e:'📋',n:'PDF Validator',d:'Check PDF/A compliance',s:'validate'},
+      {e:'🔍',n:'Check Signature',d:'Verify digital signatures',s:'verify-signature'},
+      {e:'🗝️',n:'Change Password',d:'Update document password',s:'change-password'},
+      {e:'📵',n:'Restrict Editing',d:'Lock content from editing',s:'restrict-editing'},
+      {e:'🧾',n:'Audit Trail',d:'View document change log',s:'audit-trail'},
+    ]
+  },
+  {
+    id:'optimize', label:'Optimize & Compress', icon:'⚡', bg:'#fdf4ff',
+    tools:[
+      {e:'⚡',n:'Compress PDF',d:'Reduce file size drastically',s:'compress'},
+      {e:'🔦',n:'Optimize for Web',d:'Fast-loading web-ready PDF',s:'optimize-web'},
+      {e:'🖨️',n:'Optimize for Print',d:'High-res print-ready PDF',s:'optimize-print'},
+      {e:'📱',n:'Optimize for Mobile',d:'Small size for mobile devices',s:'optimize-mobile'},
+      {e:'🗜️',n:'Lossless Compress',d:'Reduce size without quality loss',s:'lossless-compress'},
+      {e:'📊',n:'PDF Analyser',d:'Inspect file size & structure',s:'analyser'},
+      {e:'🖼️',n:'Image Compression',d:'Compress embedded images',s:'image-compress'},
+      {e:'📐',n:'DPI Converter',d:'Change image resolution / DPI',s:'dpi'},
+      {e:'🎨',n:'Grayscale PDF',d:'Convert full colour to B&W',s:'grayscale'},
+      {e:'🔆',n:'Linearize PDF',d:'Enable fast web streaming',s:'linearize'},
+    ]
+  },
+  {
+    id:'edit', label:'Edit & Annotate', icon:'✏️', bg:'#f0f9ff',
+    tools:[
+      {e:'✏️',n:'Edit PDF',d:'Add and edit text & shapes',s:'edit'},
+      {e:'🖊️',n:'Annotate PDF',d:'Highlight, comment, underline',s:'annotate'},
+      {e:'🔍',n:'OCR PDF',d:'Make scanned PDFs searchable',s:'ocr'},
+      {e:'📐',n:'Deskew PDF',d:'Straighten crooked scans',s:'deskew'},
+      {e:'📋',n:'PDF Form Filler',d:'Fill interactive PDF forms',s:'form-filler'},
+      {e:'📝',n:'PDF Form Creator',d:'Create fillable form fields',s:'form-creator'},
+      {e:'🗂️',n:'PDF Compare',d:'Diff two versions side-by-side',s:'compare'},
+      {e:'📊',n:'Edit Metadata',d:'Change title, author, keywords',s:'metadata'},
+      {e:'🔗',n:'Add Hyperlinks',d:'Insert clickable links into PDF',s:'hyperlink'},
+      {e:'🖼️',n:'Insert Image',d:'Add images anywhere in PDF',s:'add-image'},
+      {e:'📑',n:'Headers & Footers',d:'Add custom header and footer',s:'header-footer'},
+      {e:'📏',n:'Ruler & Measure',d:'Measure distances on PDF',s:'measure'},
+      {e:'✒️',n:'Draw on PDF',d:'Freehand drawing tool',s:'draw'},
+      {e:'💬',n:'Sticky Notes',d:'Add pop-up comment notes',s:'sticky-notes'},
+      {e:'🎨',n:'PDF Colouring',d:'Colour-fill text & shapes',s:'colour-fill'},
+    ]
+  },
+  {
+    id:'advanced', label:'Advanced & Developer', icon:'🛠️', bg:'#f1f5f9',
+    tools:[
+      {e:'🔄',n:'PDF/A Converter',d:'Archive-compliant PDF/A',s:'pdf-a'},
+      {e:'📄',n:'Flatten Layers',d:'Merge all PDF layers into one',s:'flatten-layers'},
+      {e:'🧩',n:'PDF to XML',d:'Extract structure as XML',s:'pdf-to-xml'},
+      {e:'🗃️',n:'Extract Attachments',d:'Save embedded file attachments',s:'extract-attachments'},
+      {e:'📦',n:'Embed Attachments',d:'Attach files inside PDF',s:'embed-attachments'},
+      {e:'🖼️',n:'Extract Images',d:'Save all embedded images',s:'extract-images'},
+      {e:'📋',n:'Extract Tables',d:'Pull tables into spreadsheet',s:'extract-tables'},
+      {e:'🔗',n:'PDF Link Extractor',d:'List all hyperlinks in PDF',s:'extract-links'},
+      {e:'🧾',n:'Invoice Generator',d:'Create PDF invoices fast',s:'invoice'},
+      {e:'📊',n:'Chart to PDF',d:'Export chart images as PDF',s:'chart-to-pdf'},
+      {e:'🖥️',n:'Screenshot to PDF',d:'Convert screenshots to PDF',s:'screenshot-to-pdf'},
+      {e:'📱',n:'QR Code to PDF',d:'Add QR codes to pages',s:'qr-code'},
+      {e:'🗺️',n:'PDF Page Layout',d:'Print booklet / 2-up / 4-up',s:'page-layout'},
+      {e:'📰',n:'PDF Newsletter',d:'Multi-column layout tool',s:'newsletter'},
+      {e:'🔬',n:'PDF Inspector',d:'View raw PDF internals',s:'inspector'},
+    ]
+  },
+];
+
+/* render grids */
+const container = document.getElementById('cats-container');
+categories.forEach(cat => {
+  const block = document.createElement('div');
+  block.className = 'cat-block';
+block.id = 'cat-' + cat.id;
+  block.innerHTML = `
+    <div class="cat-label-row">
+      <div class="cat-icon-box" style="background:${cat.bg}">${cat.icon}</div>
+      <span class="cat-label-text">${cat.label}</span>
+      <div class="cat-rule"></div>
+    </div>
+    <div class="tool-grid">
+      ${cat.tools.map(t=>`
+        <a class="tool-card" href="${BASE}/${t.s}" target="_blank" rel="noopener" title="${t.n}">
+          <div class="tool-icon">${t.e}</div>
+          <div class="tool-info">
+            <div class="tool-name">${t.n}</div>
+            <div class="tool-desc">${t.d}</div>
+          </div>
+          <span class="tool-arrow">›</span>
+        </a>
+      `).join('')}
+    </div>
+  `;
+  container.appendChild(block);
+});
+</script>
+</body>
+</html>
