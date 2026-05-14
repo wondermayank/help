@@ -1,0 +1,1341 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NeurIQ — Professional Intelligence Assessment</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --ink:#0d2340;
+  --ink2:#1a3a5c;
+  --paper:#edf5ff;
+  --blue1:#1a7fd4;
+  --blue2:#2196f3;
+  --blue3:#5ab4f5;
+  --blue4:#d0e8fb;
+  --blue5:#e8f4ff;
+  --white:#ffffff;
+  --correct:#17b26a;
+  --wrong:#f04438;
+  --card:#ffffff;
+  --border:#bdd9f5;
+  --border2:#d6ebff;
+  --shadow:0 8px 40px rgba(26,127,212,0.10);
+  --shadow2:0 2px 12px rgba(26,127,212,0.08);
+  --r:16px;
+}
+html{scroll-behavior:smooth}
+body{
+  font-family:'DM Sans',sans-serif;
+  background:var(--paper);
+  color:var(--ink);
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* ── SOFT CIRCLE BLOBS ── */
+body::after{
+  content:'';
+  position:fixed;inset:0;
+  background:
+    radial-gradient(ellipse 60% 40% at 10% 20%,rgba(90,180,245,0.13) 0%,transparent 70%),
+    radial-gradient(ellipse 50% 40% at 90% 80%,rgba(33,150,243,0.10) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;position:relative;z-index:1}
+.page.active{display:flex;flex-direction:column;align-items:center;justify-content:center;animation:fadeUp 0.5s ease both}
+
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.5}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes countDown{from{stroke-dashoffset:0}to{stroke-dashoffset:283}}
+@keyframes shimmer{0%{background-position:-200% center}100%{background-position:200% center}}
+@keyframes pop{0%{transform:scale(0.8);opacity:0}60%{transform:scale(1.05)}100%{transform:scale(1);opacity:1}}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
+/* ── HERO / LANDING ── */
+#page-landing{
+  background:linear-gradient(150deg,#1565c0 0%,#1a7fd4 45%,#42a5f5 100%);
+  color:#fff;padding:40px 20px;
+}
+#page-landing::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 60% at 50% 0%,rgba(255,255,255,0.12),transparent 70%);
+  pointer-events:none;
+}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,0.15);border:1px solid rgba(255,255,255,0.35);
+  color:#fff;border-radius:50px;padding:6px 18px;font-size:12px;
+  font-family:'DM Mono',monospace;letter-spacing:2px;text-transform:uppercase;
+  margin-bottom:24px;animation:float 3s ease-in-out infinite;
+}
+.hero-title{
+  font-family:'Playfair Display',serif;
+  font-size:clamp(48px,8vw,96px);font-weight:900;
+  line-height:0.95;text-align:center;margin-bottom:16px;
+  color:#fff;
+  text-shadow:0 4px 32px rgba(21,101,192,0.3);
+}
+.hero-sub{
+  font-size:clamp(15px,2vw,18px);color:rgba(255,255,255,0.82);text-align:center;
+  max-width:520px;line-height:1.6;margin-bottom:48px;
+}
+.mode-cards{
+  display:grid;grid-template-columns:1fr 1fr;gap:20px;
+  max-width:680px;width:100%;
+}
+@media(max-width:540px){.mode-cards{grid-template-columns:1fr}}
+.mode-card{
+  background:rgba(255,255,255,0.14);border:1px solid rgba(255,255,255,0.28);
+  border-radius:24px;padding:32px 28px;cursor:pointer;transition:all 0.3s;
+  text-align:left;position:relative;overflow:hidden;backdrop-filter:blur(8px);
+}
+.mode-card::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.18),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.mode-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,0.55);box-shadow:0 24px 60px rgba(21,101,192,0.35)}
+.mode-card:hover::before{opacity:1}
+.mode-icon{font-size:40px;margin-bottom:16px;display:block}
+.mode-label{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:rgba(255,255,255,0.65);font-family:'DM Mono',monospace;margin-bottom:8px}
+.mode-title{font-family:'Playfair Display',serif;font-size:24px;font-weight:700;margin-bottom:10px;color:#fff}
+.mode-desc{font-size:14px;color:rgba(255,255,255,0.65);line-height:1.5}
+.mode-arrow{position:absolute;bottom:24px;right:24px;opacity:0.45;font-size:20px;transition:all 0.3s;color:#fff}
+.mode-card:hover .mode-arrow{opacity:1;transform:translateX(4px)}
+
+/* ── PROFILE FORMS ── */
+#page-profile-with,#page-profile-without{
+  padding:40px 20px;
+  background:linear-gradient(150deg,#1565c0 0%,#1a7fd4 50%,#42a5f5 100%);
+  color:#fff;
+}
+.form-box{
+  background:rgba(255,255,255,0.13);border:1px solid rgba(255,255,255,0.28);
+  border-radius:28px;padding:48px 40px;max-width:520px;width:100%;
+  backdrop-filter:blur(16px);
+}
+@media(max-width:540px){.form-box{padding:32px 24px}}
+.form-title{font-family:'Playfair Display',serif;font-size:36px;font-weight:700;margin-bottom:8px;color:#fff}
+.form-sub{font-size:14px;color:rgba(255,255,255,0.68);margin-bottom:36px;line-height:1.5}
+.form-group{margin-bottom:24px}
+.form-label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.75);font-family:'DM Mono',monospace;margin-bottom:10px;display:block}
+.form-input{
+  width:100%;padding:14px 18px;background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.25);border-radius:12px;
+  color:#fff;font-family:'DM Sans',sans-serif;font-size:16px;outline:none;
+  transition:border-color 0.2s;
+}
+.form-input::placeholder{color:rgba(255,255,255,0.45)}
+.form-input:focus{border-color:rgba(255,255,255,0.7);background:rgba(255,255,255,0.2)}
+.form-input option{color:var(--ink);background:#fff}
+.gender-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.gender-btn{
+  padding:16px;border:1px solid rgba(255,255,255,0.25);border-radius:12px;
+  background:rgba(255,255,255,0.10);color:#fff;font-size:24px;cursor:pointer;
+  transition:all 0.2s;text-align:center;
+}
+.gender-btn span{display:block;font-size:13px;margin-top:6px;color:rgba(255,255,255,0.75)}
+.gender-btn.selected,.gender-btn:hover{background:rgba(255,255,255,0.25);border-color:rgba(255,255,255,0.65)}
+.btn-primary{
+  width:100%;padding:18px;background:#fff;
+  border:none;border-radius:14px;color:var(--blue1);font-family:'DM Sans',sans-serif;
+  font-size:17px;font-weight:700;cursor:pointer;transition:all 0.3s;margin-top:8px;
+  letter-spacing:0.5px;box-shadow:0 4px 20px rgba(21,101,192,0.18);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(21,101,192,0.28);background:#f0f7ff}
+.btn-back{
+  background:none;border:none;color:rgba(255,255,255,0.55);cursor:pointer;
+  font-size:14px;margin-bottom:24px;display:flex;align-items:center;gap:6px;
+  font-family:'DM Sans',sans-serif;transition:color 0.2s;
+}
+.btn-back:hover{color:#fff}
+
+/* ── QUIZ PAGE ── */
+#page-quiz{
+  background:var(--paper);padding:0;align-items:stretch;
+  flex-direction:column;justify-content:flex-start;
+}
+.quiz-header{
+  background:var(--white);border-bottom:1px solid var(--border2);
+  padding:16px 32px;display:flex;align-items:center;gap:16px;
+  position:sticky;top:0;z-index:100;
+  box-shadow:0 2px 16px rgba(26,127,212,0.07);
+}
+@media(max-width:600px){.quiz-header{padding:12px 16px}}
+.quiz-logo{font-family:'Playfair Display',serif;font-size:20px;font-weight:900;color:var(--blue1)}
+.quiz-meta{margin-left:auto;display:flex;align-items:center;gap:20px}
+.category-tag{
+  font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  font-family:'DM Mono',monospace;color:var(--blue1);
+  background:var(--blue5);padding:4px 12px;border-radius:50px;
+  border:1px solid var(--border2);
+}
+.timer-wrap{position:relative;width:48px;height:48px}
+.timer-wrap svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.timer-text{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:13px;font-weight:500;color:var(--ink);
+}
+.progress-bar-outer{height:5px;background:var(--border2);position:relative}
+.progress-bar-inner{height:100%;background:linear-gradient(90deg,var(--blue1),var(--blue3));transition:width 0.4s}
+.progress-label{
+  font-size:11px;font-family:'DM Mono',monospace;color:#7aaccc;
+  position:absolute;right:16px;top:9px;
+}
+
+.quiz-body{
+  flex:1;display:flex;align-items:center;justify-content:center;
+  padding:32px 20px;background:var(--paper);
+}
+.question-card{
+  background:var(--card);border:1px solid var(--border2);border-radius:28px;
+  padding:48px;max-width:720px;width:100%;box-shadow:var(--shadow);
+  animation:pop 0.4s ease both;
+}
+@media(max-width:600px){.question-card{padding:28px 20px}}
+.q-number{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-family:'DM Mono',monospace;color:var(--blue3);margin-bottom:16px}
+.q-text{
+  font-family:'Playfair Display',serif;font-size:clamp(18px,3vw,24px);
+  font-weight:600;line-height:1.4;color:var(--ink);margin-bottom:28px;
+}
+.q-svg-wrap{
+  background:var(--blue5);border:1px solid var(--border2);border-radius:16px;
+  padding:24px;margin-bottom:24px;display:flex;align-items:center;justify-content:center;
+}
+.options-grid{display:grid;gap:12px}
+.option-btn{
+  padding:16px 22px;border:1.5px solid var(--border2);border-radius:14px;
+  background:#fff;cursor:pointer;text-align:left;font-family:'DM Sans',sans-serif;
+  font-size:15px;color:var(--ink);transition:all 0.2s;display:flex;align-items:center;gap:14px;
+  line-height:1.4;
+}
+.option-btn:hover:not(:disabled){border-color:var(--blue2);background:var(--blue5);transform:translateX(4px);box-shadow:var(--shadow2)}
+.option-btn .opt-label{
+  width:28px;height:28px;border-radius:8px;background:var(--blue5);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;font-size:12px;font-weight:500;
+  flex-shrink:0;transition:all 0.2s;border:1px solid var(--border);color:var(--blue1);
+}
+.option-btn.selected{border-color:var(--blue2);background:var(--blue5)}
+.option-btn.selected .opt-label{background:var(--blue2);color:#fff;border-color:var(--blue2)}
+.option-btn.correct{border-color:var(--correct);background:rgba(23,178,106,0.06)}
+.option-btn.correct .opt-label{background:var(--correct);color:#fff;border-color:var(--correct)}
+.option-btn.wrong{border-color:var(--wrong);background:rgba(240,68,56,0.05)}
+.option-btn.wrong .opt-label{background:var(--wrong);color:#fff;border-color:var(--wrong)}
+.option-btn:disabled{cursor:default}
+
+.btn-next{
+  margin-top:28px;padding:16px 40px;
+  background:linear-gradient(135deg,var(--blue1),var(--blue2));
+  color:#fff;border:none;border-radius:14px;font-family:'DM Sans',sans-serif;
+  font-size:16px;font-weight:600;cursor:pointer;transition:all 0.3s;float:right;
+  box-shadow:0 4px 16px rgba(26,127,212,0.25);
+}
+.btn-next:hover{transform:translateY(-2px);box-shadow:0 10px 28px rgba(26,127,212,0.35)}
+.btn-next:disabled{opacity:0.38;cursor:not-allowed;transform:none;box-shadow:none}
+
+/* Section divider */
+.section-divider{
+  background:linear-gradient(150deg,#1565c0,#1a7fd4 60%,#42a5f5);
+  color:#fff;padding:80px 20px;text-align:center;
+  animation:pop 0.5s ease both;width:100%;
+}
+.section-divider h2{font-family:'Playfair Display',serif;font-size:42px;font-weight:900;margin-bottom:12px}
+.section-divider p{color:rgba(255,255,255,0.75);font-size:16px;margin-bottom:32px}
+.section-icon{font-size:64px;margin-bottom:24px;animation:float 2s ease-in-out infinite;display:block}
+.section-divider .btn-primary{max-width:260px;margin:0 auto;display:block;background:#fff;color:var(--blue1)}
+
+/* ── RESULTS ── */
+#page-results{
+  background:linear-gradient(150deg,#1060b8 0%,#1a7fd4 50%,#42a5f5 100%);
+  color:#fff;padding:60px 20px;align-items:center;
+}
+#page-results::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 80% 50% at 50% 0%,rgba(255,255,255,0.10),transparent 65%);
+  pointer-events:none;
+}
+.result-box{max-width:720px;width:100%;text-align:center;position:relative;z-index:1}
+.result-badge{
+  display:inline-block;background:rgba(255,255,255,0.15);
+  border:1px solid rgba(255,255,255,0.35);color:#fff;
+  padding:8px 24px;border-radius:50px;font-size:12px;
+  letter-spacing:3px;text-transform:uppercase;font-family:'DM Mono',monospace;
+  margin-bottom:24px;
+}
+.iq-score-ring{
+  position:relative;width:200px;height:200px;margin:0 auto 32px;
+}
+.iq-score-ring svg{position:absolute;inset:0;transform:rotate(-90deg)}
+.iq-score-ring .score-center{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+}
+.iq-number{font-family:'Playfair Display',serif;font-size:64px;font-weight:900;line-height:1;color:#fff;}
+.iq-label-small{font-size:12px;color:rgba(255,255,255,0.65);letter-spacing:2px;font-family:'DM Mono',monospace}
+.result-classification{
+  font-family:'Playfair Display',serif;font-size:32px;font-weight:700;margin-bottom:8px;color:#fff;
+}
+.result-sub{color:rgba(255,255,255,0.75);font-size:15px;margin-bottom:40px;line-height:1.6;max-width:500px;margin-left:auto;margin-right:auto}
+.percentile-bar{
+  background:rgba(255,255,255,0.18);border-radius:50px;height:12px;
+  margin-bottom:8px;overflow:hidden;
+}
+.percentile-fill{height:100%;border-radius:50px;background:linear-gradient(90deg,rgba(255,255,255,0.5),#fff);transition:width 1.5s ease}
+.percentile-labels{display:flex;justify-content:space-between;font-size:12px;color:rgba(255,255,255,0.55);font-family:'DM Mono',monospace;margin-bottom:40px}
+
+.stats-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:40px}
+@media(max-width:540px){.stats-grid{grid-template-columns:1fr 1fr}}
+.stat-card{
+  background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.22);
+  border-radius:18px;padding:20px 16px;
+}
+.stat-num{font-family:'Playfair Display',serif;font-size:32px;font-weight:700;color:#fff}
+.stat-label{font-size:12px;color:rgba(255,255,255,0.6);margin-top:4px;font-family:'DM Mono',monospace;letter-spacing:1px;text-transform:uppercase}
+
+.category-breakdown{
+  background:rgba(255,255,255,0.10);border:1px solid rgba(255,255,255,0.18);
+  border-radius:20px;padding:28px;margin-bottom:32px;text-align:left;
+}
+.cat-title{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.75);font-family:'DM Mono',monospace;margin-bottom:20px}
+.cat-row{margin-bottom:16px}
+.cat-row-top{display:flex;justify-content:space-between;font-size:14px;margin-bottom:6px;color:#fff}
+.cat-bar{background:rgba(255,255,255,0.15);border-radius:50px;height:8px;overflow:hidden}
+.cat-fill{height:100%;border-radius:50px;transition:width 1.5s ease}
+
+/* Profile prediction box */
+.prediction-box{
+  background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);
+  border-radius:20px;padding:28px;margin-bottom:32px;text-align:left;
+}
+.prediction-title{color:rgba(255,255,255,0.85);font-size:12px;letter-spacing:2px;text-transform:uppercase;font-family:'DM Mono',monospace;margin-bottom:16px}
+.prediction-item{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid rgba(255,255,255,0.1)}
+.prediction-item:last-child{border-bottom:none}
+.pred-label{font-size:14px;color:rgba(255,255,255,0.78)}
+.pred-value{font-size:14px;font-weight:600;color:#fff}
+
+.result-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-outline{
+  padding:14px 28px;border:1.5px solid rgba(255,255,255,0.35);border-radius:12px;
+  background:rgba(255,255,255,0.10);color:#fff;font-family:'DM Sans',sans-serif;
+  font-size:15px;cursor:pointer;transition:all 0.2s;
+}
+.btn-outline:hover{border-color:#fff;background:rgba(255,255,255,0.18)}
+
+/* Bell curve */
+.bell-wrap{
+  background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.18);
+  border-radius:20px;padding:24px;margin-bottom:32px;
+}
+.bell-title{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,0.75);font-family:'DM Mono',monospace;margin-bottom:16px;text-align:left}
+
+/* Loading */
+.loading-overlay{
+  position:fixed;inset:0;
+  background:linear-gradient(135deg,#1565c0,#1a7fd4);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  z-index:9999;transition:opacity 0.5s;color:#fff;
+}
+.loading-spinner{
+  width:48px;height:48px;border:3px solid rgba(255,255,255,0.2);
+  border-top-color:#fff;border-radius:50%;
+  animation:spin 0.8s linear infinite;margin-bottom:20px;
+}
+.loading-text{font-family:'DM Mono',monospace;font-size:14px;color:rgba(255,255,255,0.65);letter-spacing:2px}
+
+/* Tooltip feedback */
+.feedback-toast{
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%);
+  background:var(--ink2);color:#fff;padding:14px 28px;border-radius:50px;
+  font-size:14px;opacity:0;pointer-events:none;transition:all 0.3s;z-index:9999;
+  border:1px solid rgba(255,255,255,0.15);box-shadow:0 8px 32px rgba(26,58,92,0.25);
+}
+.feedback-toast.show{opacity:1;transform:translateX(-50%) translateY(-8px)}
+
+/* ── WONDERMAYANK BANNER ── */
+.wm-banner{
+  margin-top:40px;background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.25);
+  border-radius:20px;padding:20px 28px;max-width:680px;width:100%;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  backdrop-filter:blur(8px);
+}
+.wm-brand{display:flex;align-items:center;gap:12px}
+.wm-logo{
+  width:40px;height:40px;border-radius:10px;
+  background:linear-gradient(135deg,#fff,#d0e8fb);
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Playfair Display',serif;font-size:17px;font-weight:900;color:#1565c0;
+  flex-shrink:0;
+}
+.wm-info{}
+.wm-name{font-family:'Playfair Display',serif;font-size:16px;font-weight:700;color:#fff}
+.wm-tagline{font-size:12px;color:rgba(255,255,255,0.6);margin-top:2px}
+.wm-links{display:flex;gap:10px;flex-wrap:wrap}
+.wm-link{
+  padding:8px 16px;border-radius:50px;font-size:13px;font-weight:600;
+  text-decoration:none;transition:all 0.2s;white-space:nowrap;
+}
+.wm-link.primary{background:#fff;color:#1565c0;}
+.wm-link.primary:hover{background:#e8f4ff;transform:translateY(-1px)}
+.wm-link.secondary{background:rgba(255,255,255,0.15);color:#fff;border:1px solid rgba(255,255,255,0.3)}
+.wm-link.secondary:hover{background:rgba(255,255,255,0.25);transform:translateY(-1px)}
+
+/* ── SITE FOOTER ── */
+.site-footer{
+  background:#0d2340;color:rgba(255,255,255,0.7);
+  padding:28px 32px;font-size:13px;
+  display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:16px;
+  border-top:1px solid rgba(255,255,255,0.08);
+}
+.footer-left{display:flex;align-items:center;gap:10px}
+.footer-brand{font-family:'Playfair Display',serif;font-weight:700;color:#fff;font-size:15px}
+.footer-sep{color:rgba(255,255,255,0.2)}
+.footer-copy{font-size:12px;color:rgba(255,255,255,0.45)}
+.footer-links{display:flex;gap:6px;flex-wrap:wrap;align-items:center}
+.footer-link{
+  color:rgba(255,255,255,0.55);text-decoration:none;padding:5px 12px;
+  border-radius:50px;font-size:12px;transition:all 0.2s;
+  border:1px solid rgba(255,255,255,0.1);
+}
+.footer-link:hover{color:#fff;border-color:rgba(255,255,255,0.35);background:rgba(255,255,255,0.07)}
+.footer-link.donate{
+  background:linear-gradient(135deg,#f97316,#fb923c);
+  color:#fff;border-color:transparent;font-weight:600;
+}
+.footer-link.donate:hover{transform:translateY(-1px);box-shadow:0 4px 16px rgba(249,115,22,0.4)}
+@media(max-width:600px){
+  .site-footer{flex-direction:column;text-align:center;padding:24px 20px}
+  .wm-banner{flex-direction:column;text-align:center}
+  .wm-links{justify-content:center}
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-overlay" id="loading">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">INITIALIZING TEST</div>
+</div>
+
+<!-- TOAST -->
+<div class="feedback-toast" id="toast"></div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE 1: LANDING                        -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-landing">
+  <div class="hero-badge">🧠 Certified Assessment Protocol</div>
+  <h1 class="hero-title">NeurIQ</h1>
+  <p class="hero-sub">A professional intelligence assessment covering logical, spatial, verbal, numerical, and abstract reasoning. Choose your mode below.</p>
+  <div class="mode-cards">
+    <div class="mode-card" onclick="startMode('with')">
+      <span class="mode-icon">🎯</span>
+      <div class="mode-label">Mode 01</div>
+      <div class="mode-title">With Profile</div>
+      <div class="mode-desc">Enter your age, education & gender. Get a personalized IQ score calibrated to your demographic group with prediction analysis.</div>
+      <div class="mode-arrow">→</div>
+    </div>
+    <div class="mode-card" onclick="startMode('without')">
+      <span class="mode-icon">⚡</span>
+      <div class="mode-label">Mode 02</div>
+      <div class="mode-title">Quick Mode</div>
+      <div class="mode-desc">Just your gender. Get your raw IQ score instantly. Results also predict your likely age group & education level from your answers.</div>
+      <div class="mode-arrow">→</div>
+    </div>
+  </div>
+
+  <!-- WONDERMAYANK BANNER -->
+  <div class="wm-banner">
+    <div class="wm-brand">
+      <div class="wm-logo">W</div>
+      <div class="wm-info">
+        <div class="wm-name">Wondermayank</div>
+        <div class="wm-tagline">Free Educational Resources · By Students, For Students</div>
+      </div>
+    </div>
+    <div class="wm-links">
+      <a class="wm-link primary" href="https://commercesehoga.github.io/cuet" target="_blank">🎯 Free CUET Mock</a>
+      <a class="wm-link secondary" href="https://wondermayank.github.io" target="_blank">🌐 Visit Portal</a>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- GLOBAL FOOTER                          -->
+<!-- ══════════════════════════════════════ -->
+<footer class="site-footer" id="site-footer" style="display:none">
+  <div class="footer-left">
+    <span class="footer-brand">Wondermayank</span>
+    <span class="footer-sep">·</span>
+    <span class="footer-copy">NeurIQ Assessment © 2025</span>
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="https://wondermayank.github.io/terms" target="_blank">Terms</a>
+    <a class="footer-link" href="https://wondermayank.github.io/privacy" target="_blank">Privacy</a>
+    <a class="footer-link" href="https://wondermayank.github.io/disclaimer" target="_blank">Disclaimer</a>
+    <a class="footer-link" href="https://wondermayank.github.io/help" target="_blank">Help</a>
+    <a class="footer-link donate" href="https://wondermayank.github.io/donate" target="_blank">❤️ Donate</a>
+  </div>
+</footer>
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-profile-with">
+  <div class="form-box">
+    <button class="btn-back" onclick="showPage('page-landing')">← Back</button>
+    <div class="form-title">Your Profile</div>
+    <div class="form-sub">This helps calibrate your IQ score against your demographic group for a more accurate result.</div>
+
+    <div class="form-group">
+      <label class="form-label">Your Name</label>
+      <input class="form-input" id="inp-name" type="text" placeholder="Enter your name"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Age</label>
+      <select class="form-input" id="inp-age">
+        <option value="">Select age range</option>
+        <option value="under12">Under 12</option>
+        <option value="12-14">12 – 14</option>
+        <option value="15-17">15 – 17</option>
+        <option value="18-20">18 – 20</option>
+        <option value="21-25">21 – 25</option>
+        <option value="26-35">26 – 35</option>
+        <option value="36-50">36 – 50</option>
+        <option value="50+">50+</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Education Level</label>
+      <select class="form-input" id="inp-edu">
+        <option value="">Select education</option>
+        <option value="primary">Primary School (up to 5th)</option>
+        <option value="middle">Middle School (6th–8th)</option>
+        <option value="highschool">High School (9th–10th)</option>
+        <option value="senior">Senior Secondary (11th–12th)</option>
+        <option value="graduate">Graduate / Bachelor's</option>
+        <option value="postgrad">Post Graduate / Master's</option>
+        <option value="phd">PhD / Doctorate</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Gender</label>
+      <div class="gender-grid">
+        <button class="gender-btn" id="g-male" onclick="selectGender('male')">♂️<span>Male</span></button>
+        <button class="gender-btn" id="g-female" onclick="selectGender('female')">♀️<span>Female</span></button>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="beginTest('with')">Begin Assessment →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE 2B: PROFILE WITHOUT              -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-profile-without">
+  <div class="form-box">
+    <button class="btn-back" onclick="showPage('page-landing')">← Back</button>
+    <div class="form-title">Quick Start</div>
+    <div class="form-sub">Just tell us your name and gender to get started. We'll predict your age group and education from your performance!</div>
+    <div class="form-group">
+      <label class="form-label">Your Name</label>
+      <input class="form-input" id="inp-name2" type="text" placeholder="Enter your name"/>
+    </div>
+    <div class="form-group">
+      <label class="form-label">Gender</label>
+      <div class="gender-grid">
+        <button class="gender-btn" id="g2-male" onclick="selectGender2('male')">♂️<span>Male</span></button>
+        <button class="gender-btn" id="g2-female" onclick="selectGender2('female')">♀️<span>Female</span></button>
+      </div>
+    </div>
+    <button class="btn-primary" onclick="beginTest('without')">Begin Assessment →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE 3: QUIZ                          -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-quiz">
+  <div class="quiz-header">
+    <div class="quiz-logo">NeurIQ</div>
+    <span class="category-tag" id="quiz-cat-tag">Logic</span>
+    <div class="quiz-meta">
+      <div class="timer-wrap" id="timer-wrap">
+        <svg viewBox="0 0 48 48" width="48" height="48">
+          <circle cx="24" cy="24" r="20" fill="none" stroke="#d0e8fb" stroke-width="3"/>
+          <circle cx="24" cy="24" r="20" fill="none" stroke="#1a7fd4" stroke-width="3"
+            stroke-dasharray="125.6" stroke-dashoffset="0"
+            id="timer-circle" style="transition:stroke-dashoffset 1s linear,stroke 0.3s"/>
+        </svg>
+        <div class="timer-text" id="timer-text">45</div>
+      </div>
+    </div>
+  </div>
+  <div class="progress-bar-outer">
+    <div class="progress-bar-inner" id="progress-bar" style="width:0%"></div>
+    <span class="progress-label" id="progress-label">0 / 35</span>
+  </div>
+  <div class="quiz-body">
+    <div class="question-card" id="question-card">
+      <!-- injected by JS -->
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE 4: SECTION BREAK                 -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-break">
+  <div class="section-divider">
+    <div class="section-icon" id="break-icon">🚀</div>
+    <h2 id="break-title">Great Progress!</h2>
+    <p id="break-desc">You've completed the first section. Take a breath, then continue.</p>
+    <button class="btn-primary" style="max-width:260px;margin:0 auto" onclick="continueFromBreak()">Continue →</button>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════ -->
+<!-- PAGE 5: RESULTS                       -->
+<!-- ══════════════════════════════════════ -->
+<div class="page" id="page-results">
+  <div class="result-box">
+    <div class="result-badge">Assessment Complete</div>
+    <div class="iq-score-ring" id="score-ring">
+      <svg viewBox="0 0 200 200" width="200" height="200">
+        <circle cx="100" cy="100" r="85" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="8"/>
+        <circle cx="100" cy="100" r="85" fill="none" stroke="url(#scoreGrad)" stroke-width="8"
+          stroke-dasharray="534" stroke-dashoffset="534" stroke-linecap="round"
+          id="score-circle" style="transition:stroke-dashoffset 2s ease"/>
+        <defs>
+          <linearGradient id="scoreGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stop-color="#42a5f5"/>
+            <stop offset="100%" stop-color="#1565c0"/>
+          </linearGradient>
+        </defs>
+      </svg>
+      <div class="score-center">
+        <div class="iq-number" id="iq-display">0</div>
+        <div class="iq-label-small">IQ SCORE</div>
+      </div>
+    </div>
+
+    <div class="result-classification" id="result-class">Above Average</div>
+    <div class="result-sub" id="result-sub-text">Your cognitive performance exceeds the majority of the population.</div>
+
+    <div class="stats-grid" id="stats-grid"></div>
+
+    <div class="percentile-bar"><div class="percentile-fill" id="pct-fill" style="width:0%"></div></div>
+    <div class="percentile-labels"><span>0th</span><span>Percentile Rank: <span id="pct-label">-</span></span><span>100th</span></div>
+
+    <div class="bell-wrap">
+      <div class="bell-title">Population Distribution</div>
+      <svg id="bell-svg" viewBox="0 0 500 140" width="100%" style="overflow:visible"></svg>
+    </div>
+
+    <div class="category-breakdown">
+      <div class="cat-title">Category Breakdown</div>
+      <div id="cat-breakdown"></div>
+    </div>
+
+    <div class="prediction-box" id="prediction-box" style="display:none">
+      <div class="prediction-title">🔮 AI Prediction from Your Answers</div>
+      <div id="prediction-content"></div>
+    </div>
+
+    <div class="result-actions">
+      <button class="btn-outline" onclick="retakeTest()">↺ Retake Test</button>
+      <button class="btn-primary" style="max-width:200px" onclick="shareResult()">Share Result ↗</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ══════════════════════════════════════════
+// STATE
+// ══════════════════════════════════════════
+let appState = {
+  mode: null,        // 'with' | 'without'
+  name: '',
+  gender: null,
+  age: null,
+  edu: null,
+  selectedGender: null,
+  selectedGender2: null,
+  currentQ: 0,
+  answers: [],       // {qIndex, correct, category, time}
+  sectionBreaks: [17], // after Q17 show break
+  timerInterval: null,
+  timeLeft: 45,
+  questionStartTime: null,
+  iqScore: 0,
+  catScores: {},
+};
+
+// ══════════════════════════════════════════
+// QUESTION BANK (35 questions, 7 categories)
+// ══════════════════════════════════════════
+const QUESTIONS = [
+  // ── LOGICAL REASONING (5) ──
+  {
+    id:1,cat:'Logical',type:'mcq',time:45,
+    q:'If all Bloops are Razzies and all Razzies are Lazzies, which must be true?',
+    opts:['All Bloops are Lazzies','All Lazzies are Bloops','Some Razzies are not Lazzies','None of the above'],
+    ans:0,
+  },
+  {
+    id:2,cat:'Logical',type:'mcq',time:40,
+    q:'A is taller than B. C is shorter than A. D is taller than C but shorter than B. Who is the tallest?',
+    opts:['B','A','C','D'],ans:1,
+  },
+  {
+    id:3,cat:'Logical',type:'mcq',time:50,
+    q:'In a row of 10 students, Ram is 4th from the left. Shyam is 3rd from the right. How many students are between them?',
+    opts:['2','3','4','5'],ans:1,
+  },
+  {
+    id:4,cat:'Logical',type:'mcq',time:45,
+    q:'If Monday is day 1 and the pattern 1,3,5,7... applies to weekdays, what day is the 9th term?',
+    opts:['Tuesday','Wednesday','Friday','Monday'],ans:0,
+  },
+  {
+    id:5,cat:'Logical',type:'mcq',time:40,
+    q:'All roses are flowers. Some flowers fade quickly. Therefore:',
+    opts:['All roses fade quickly','Some roses may fade quickly','No roses fade quickly','Roses never fade'],
+    ans:1,
+  },
+
+  // ── NUMERICAL (5) ──
+  {
+    id:6,cat:'Numerical',type:'mcq',time:45,
+    q:'What is the next number in the sequence? 2, 6, 12, 20, 30, __',
+    opts:['38','40','42','44'],ans:2,
+  },
+  {
+    id:7,cat:'Numerical',type:'mcq',time:50,
+    q:'A train travels 360 km in 4 hours. At the same speed, how long to travel 540 km?',
+    opts:['5 hours','6 hours','6.5 hours','7 hours'],ans:1,
+  },
+  {
+    id:8,cat:'Numerical',type:'mcq',time:45,
+    q:'What is 15% of 480?',
+    opts:['62','68','72','78'],ans:2,
+  },
+  {
+    id:9,cat:'Numerical',type:'mcq',time:55,
+    q:'Find the missing number: 3, 9, 27, __, 243',
+    opts:['54','72','81','108'],ans:2,
+  },
+  {
+    id:10,cat:'Numerical',type:'mcq',time:45,
+    q:'If a product costs ₹800 after a 20% discount, what was the original price?',
+    opts:['₹960','₹980','₹1000','₹1020'],ans:2,
+  },
+
+  // ── VERBAL (5) ──
+  {
+    id:11,cat:'Verbal',type:'mcq',time:35,
+    q:'Choose the word most similar in meaning to: EPHEMERAL',
+    opts:['Eternal','Transient','Ancient','Robust'],ans:1,
+  },
+  {
+    id:12,cat:'Verbal',type:'mcq',time:35,
+    q:'Book is to Library as Painting is to ___',
+    opts:['Canvas','Gallery','Artist','Frame'],ans:1,
+  },
+  {
+    id:13,cat:'Verbal',type:'mcq',time:35,
+    q:'Complete the analogy: Stethoscope : Doctor :: Gavel : ___',
+    opts:['Lawyer','Judge','Jury','Police'],ans:1,
+  },
+  {
+    id:14,cat:'Verbal',type:'mcq',time:40,
+    q:'Choose the odd one out:',
+    opts:['Flute','Guitar','Drum','Violin'],ans:2,
+  },
+  {
+    id:15,cat:'Verbal',type:'mcq',time:35,
+    q:'The opposite of "Verbose" is:',
+    opts:['Talkative','Concise','Loud','Ambiguous'],ans:1,
+  },
+
+  // ── SPATIAL / SVG (5) ──
+  {
+    id:16,cat:'Spatial',type:'svg',time:60,
+    q:'Which shape comes next in the pattern?',
+    svg:`<svg viewBox="0 0 300 80" width="280">
+      <rect x="10" y="20" width="40" height="40" fill="none" stroke="#0d2340" stroke-width="2.5"/>
+      <text x="70" y="48" font-size="28" fill="#aaa">→</text>
+      <rect x="100" y="15" width="50" height="50" fill="none" stroke="#0d2340" stroke-width="2.5"/>
+      <text x="170" y="48" font-size="28" fill="#aaa">→</text>
+      <rect x="200" y="10" width="60" height="60" fill="none" stroke="#0d2340" stroke-width="2.5"/>
+      <text x="275" y="48" font-size="28" fill="#aaa">→</text>
+    </svg>`,
+    opts:['A smaller square','A square same size','A larger square (70×70)','A circle'],ans:2,
+  },
+  {
+    id:17,cat:'Spatial',type:'svg',time:65,
+    q:'How many triangles are in the figure?',
+    svg:`<svg viewBox="0 0 200 160" width="200">
+      <polygon points="100,10 10,150 190,150" fill="none" stroke="#0d2340" stroke-width="2.5"/>
+      <line x1="10" y1="150" x2="100" y2="10" stroke="#0d2340" stroke-width="2"/>
+      <line x1="100" y1="10" x2="190" y2="150" stroke="#0d2340" stroke-width="2"/>
+      <line x1="55" y1="80" x2="145" y2="80" stroke="#0d2340" stroke-width="2"/>
+      <line x1="55" y1="80" x2="190" y2="150" stroke="#0d2340" stroke-width="1.5"/>
+      <line x1="145" y1="80" x2="10" y2="150" stroke="#0d2340" stroke-width="1.5"/>
+    </svg>`,
+    opts:['4','6','8','10'],ans:1,
+  },
+  {
+    id:18,cat:'Spatial',type:'svg',time:60,
+    q:'Which is the mirror image of the shape on the left?',
+    svg:`<svg viewBox="0 0 300 100" width="280">
+      <text x="5" y="20" font-size="11" fill="#aaa" font-family="monospace">ORIGINAL</text>
+      <path d="M20,80 L20,40 L50,40 L50,60 L70,60 L70,80 Z" fill="none" stroke="#1a7fd4" stroke-width="2.5"/>
+      <line x1="150" y1="10" x2="150" y2="90" stroke="#ccc" stroke-width="1.5" stroke-dasharray="4"/>
+      <text x="160" y="20" font-size="11" fill="#aaa" font-family="monospace">OPTIONS →</text>
+      <text x="10" y="98" font-size="10" fill="#aaa">L-shape</text>
+    </svg>`,
+    opts:['Flipped L (right side)','Upside-down L','Rotated 90° L','Same L shape'],ans:0,
+  },
+  {
+    id:19,cat:'Spatial',type:'svg',time:70,
+    q:'Which shape is the odd one out?',
+    svg:`<svg viewBox="0 0 300 80" width="280">
+      <circle cx="40" cy="40" r="28" fill="none" stroke="#0d2340" stroke-width="2.5"/>
+      <text x="34" y="45" font-size="11" fill="#0d2340" font-family="sans-serif">A</text>
+      <ellipse cx="120" cy="40" rx="35" ry="22" fill="none" stroke="#0d2340" stroke-width="2.5"/>
+      <text x="114" y="45" font-size="11" fill="#0d2340" font-family="sans-serif">B</text>
+      <rect x="170" y="15" width="55" height="52" rx="5" fill="none" stroke="#0d2340" stroke-width="2.5"/>
+      <text x="191" y="45" font-size="11" fill="#0d2340" font-family="sans-serif">C</text>
+      <ellipse cx="265" cy="40" rx="25" ry="30" fill="none" stroke="#0d2340" stroke-width="2.5"/>
+      <text x="259" y="45" font-size="11" fill="#0d2340" font-family="sans-serif">D</text>
+    </svg>`,
+    opts:['A – Circle','B – Ellipse','C – Rectangle','D – Tall Ellipse'],ans:2,
+  },
+  {
+    id:20,cat:'Spatial',type:'svg',time:65,
+    q:'If this cube net is folded, which face is opposite the shaded face?',
+    svg:`<svg viewBox="0 0 200 180" width="200">
+      <rect x="60" y="10" width="50" height="50" fill="none" stroke="#0d2340" stroke-width="2"/>
+      <text x="80" y="40" font-size="12" fill="#7aaccc">Top</text>
+      <rect x="10" y="60" width="50" height="50" fill="#bdd9f5" stroke="#0d2340" stroke-width="2"/>
+      <text x="22" y="90" font-size="11" fill="#1a3a5c">Shaded</text>
+      <rect x="60" y="60" width="50" height="50" fill="none" stroke="#0d2340" stroke-width="2"/>
+      <text x="78" y="90" font-size="12" fill="#aaa">Mid</text>
+      <rect x="110" y="60" width="50" height="50" fill="none" stroke="#0d2340" stroke-width="2"/>
+      <text x="124" y="90" font-size="12" fill="#aaa">Right</text>
+      <rect x="60" y="110" width="50" height="50" fill="none" stroke="#0d2340" stroke-width="2"/>
+      <text x="78" y="140" font-size="12" fill="#aaa">Bot</text>
+      <rect x="60" y="160" width="50" height="50" fill="none" stroke="#0d2340" stroke-width="2"/>
+      <text x="78" y="190" font-size="12" fill="#aaa">Last</text>
+    </svg>`,
+    opts:['Top face','Right face','Mid face','Last face'],ans:3,
+  },
+
+  // ── ABSTRACT (5) ──
+  {
+    id:21,cat:'Abstract',type:'mcq',time:55,
+    q:'Find the pattern: ○●○○●○○○●○○○○● — what comes after the last ●?',
+    opts:['○○○○○','○●','○○○○○●','●○'],ans:0,
+  },
+  {
+    id:22,cat:'Abstract',type:'mcq',time:50,
+    q:'If ♦ = 4, ♣ = 3, ♠ = 2, what is ♦♣ + ♠♦ - ♣♠?',
+    opts:['18','20','22','24'],ans:1,
+  },
+  {
+    id:23,cat:'Abstract',type:'mcq',time:50,
+    q:'ABC : ZYX :: DEF : ___',
+    opts:['WVU','UVW','VWU','XYZ'],ans:0,
+  },
+  {
+    id:24,cat:'Abstract',type:'mcq',time:55,
+    q:'In a code, PENCIL = RGPEKN. What does ERASER mean?',
+    opts:['GTCUGT','GUCUGT','GTCUCT','GTCUCR'],ans:0,
+  },
+  {
+    id:25,cat:'Abstract',type:'mcq',time:50,
+    q:'Which number replaces the "?" — 4:16::7:?',
+    opts:['28','42','49','56'],ans:2,
+  },
+
+  // ── HISTORY / GK (5) ──
+  {
+    id:26,cat:'Knowledge',type:'mcq',time:30,
+    q:'The Battle of Plassey (1757) was fought between the British East India Company and the Nawab of:',
+    opts:['Mysore','Bengal','Awadh','Maratha'],ans:1,
+  },
+  {
+    id:27,cat:'Knowledge',type:'mcq',time:30,
+    q:'Which country launched the first artificial satellite, Sputnik 1, in 1957?',
+    opts:['USA','China','Soviet Union','Germany'],ans:2,
+  },
+  {
+    id:28,cat:'Knowledge',type:'mcq',time:30,
+    q:'Who wrote "The Republic"?',
+    opts:['Aristotle','Socrates','Plato','Cicero'],ans:2,
+  },
+  {
+    id:29,cat:'Knowledge',type:'mcq',time:30,
+    q:'Which element has the chemical symbol "Au"?',
+    opts:['Silver','Aluminum','Gold','Argon'],ans:2,
+  },
+  {
+    id:30,cat:'Knowledge',type:'mcq',time:30,
+    q:'The French Revolution began in the year:',
+    opts:['1776','1789','1799','1804'],ans:1,
+  },
+
+  // ── MEMORY / PROCESSING (5) ──
+  {
+    id:31,cat:'Memory',type:'mcq',time:35,
+    q:'A list was shown: CAT, DOG, TREE, SUN, MOON, RIVER, CLOUD. How many are living things?',
+    opts:['1','2','3','4'],ans:1,
+  },
+  {
+    id:32,cat:'Memory',type:'mcq',time:40,
+    q:'Which word was NOT in the list: CAT, DOG, TREE, SUN, MOON, RIVER, CLOUD?',
+    opts:['TREE','STAR','SUN','RIVER'],ans:1,
+  },
+  {
+    id:33,cat:'Memory',type:'mcq',time:35,
+    q:'If you count 7 items starting from 3 (3,4,5...) what is the last number?',
+    opts:['8','9','10','11'],ans:1,
+  },
+  {
+    id:34,cat:'Memory',type:'mcq',time:40,
+    q:'FIRE : SMOKE :: ACTION : ___',
+    opts:['Heat','Consequence','Motion','Energy'],ans:1,
+  },
+  {
+    id:35,cat:'Memory',type:'mcq',time:35,
+    q:'How many vowels are in the word "INTELLIGENCE"?',
+    opts:['4','5','6','7'],ans:1,
+  },
+];
+
+const CATEGORIES = ['Logical','Numerical','Verbal','Spatial','Abstract','Knowledge','Memory'];
+const CAT_COLORS = {
+  Logical:'#1a7fd4',Numerical:'#17b26a',Verbal:'#f472b6',
+  Spatial:'#42a5f5',Abstract:'#06b6d4',Knowledge:'#f97316',Memory:'#a855f7'
+};
+
+// IQ classification
+function classify(iq){
+  if(iq>=145)return{label:'Genius',desc:'You are in the top 0.1% of human intelligence. Exceptional cognitive ability across all domains.',emoji:'🏆'};
+  if(iq>=130)return{label:'Very Superior',desc:'Your intellectual abilities place you in the top 2% of the population. Outstanding performance.',emoji:'🌟'};
+  if(iq>=120)return{label:'Superior',desc:'You demonstrate strong intellectual capability, significantly above the average population.',emoji:'⭐'};
+  if(iq>=110)return{label:'High Average',desc:'Your intelligence is well above the general population average. Sharp and analytical.',emoji:'💡'};
+  if(iq>=90)return{label:'Average',desc:'Your cognitive performance is within the typical range for the general population.',emoji:'✅'};
+  if(iq>=80)return{label:'Low Average',desc:'Your score is slightly below average. Specific areas of strength remain evident.',emoji:'📈'};
+  if(iq>=70)return{label:'Borderline',desc:'Some cognitive areas may benefit from additional development and practice.',emoji:'🔄'};
+  return{label:'Below Average',desc:'This result may not reflect your true ability. Consider retaking in a calm environment.',emoji:'🔄'};
+}
+
+function iqToPercentile(iq){
+  // Approximate normal distribution (mean=100, sd=15)
+  const z=(iq-100)/15;
+  return Math.round(50*(1+erf(z/Math.sqrt(2))));
+}
+function erf(x){
+  const a1=0.254829592,a2=-0.284496736,a3=1.421413741,a4=-1.453152027,a5=1.061405429,p=0.3275911;
+  const sign=x<0?-1:1;x=Math.abs(x);
+  const t=1/(1+p*x);
+  const y=1-(((((a5*t+a4)*t)+a3)*t+a2)*t+a1)*t*Math.exp(-x*x);
+  return sign*y;
+}
+
+// ══════════════════════════════════════════
+// NAVIGATION
+// ══════════════════════════════════════════
+function showPage(id){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  // Show footer on landing & results; hide during quiz/forms/break
+  const footerPages=['page-landing','page-results'];
+  const footer=document.getElementById('site-footer');
+  if(footer) footer.style.display=footerPages.includes(id)?'flex':'none';
+}
+function startMode(m){
+  appState.mode=m;
+  showPage(m==='with'?'page-profile-with':'page-profile-without');
+}
+function selectGender(g){
+  appState.selectedGender=g;
+  document.getElementById('g-male').classList.toggle('selected',g==='male');
+  document.getElementById('g-female').classList.toggle('selected',g==='female');
+}
+function selectGender2(g){
+  appState.selectedGender2=g;
+  document.getElementById('g2-male').classList.toggle('selected',g==='male');
+  document.getElementById('g2-female').classList.toggle('selected',g==='female');
+}
+
+function beginTest(mode){
+  if(mode==='with'){
+    const name=document.getElementById('inp-name').value.trim();
+    const age=document.getElementById('inp-age').value;
+    const edu=document.getElementById('inp-edu').value;
+    if(!name){showToast('Please enter your name');return}
+    if(!age){showToast('Please select your age range');return}
+    if(!edu){showToast('Please select your education level');return}
+    if(!appState.selectedGender){showToast('Please select your gender');return}
+    appState.name=name;appState.age=age;appState.edu=edu;appState.gender=appState.selectedGender;
+  } else {
+    const name=document.getElementById('inp-name2').value.trim();
+    if(!name){showToast('Please enter your name');return}
+    if(!appState.selectedGender2){showToast('Please select your gender');return}
+    appState.name=name;appState.gender=appState.selectedGender2;
+  }
+  appState.currentQ=0;
+  appState.answers=[];
+  appState.breakShown=false;
+  showPage('page-quiz');
+  loadQuestion();
+}
+
+// ══════════════════════════════════════════
+// QUIZ ENGINE
+// ══════════════════════════════════════════
+function loadQuestion(){
+  const q=QUESTIONS[appState.currentQ];
+  if(!q){finishTest();return}
+
+  // Section break after Q17 (only once)
+  if(appState.currentQ===17 && !appState.breakShown){
+    appState.breakShown=true;
+    showBreak();return;
+  }
+
+  const total=QUESTIONS.length;
+  const pct=Math.round((appState.currentQ/total)*100);
+  document.getElementById('progress-bar').style.width=pct+'%';
+  document.getElementById('progress-label').textContent=(appState.currentQ+1)+' / '+total;
+  document.getElementById('quiz-cat-tag').textContent=q.cat;
+
+  const card=document.getElementById('question-card');
+  let svgHtml='';
+  if(q.type==='svg'){
+    svgHtml=`<div class="q-svg-wrap">${q.svg}</div>`;
+  }
+
+  const optLabels=['A','B','C','D'];
+  let optsHtml=q.opts.map((o,i)=>`
+    <button class="option-btn" id="opt-${i}" onclick="selectAnswer(${i})">
+      <span class="opt-label">${optLabels[i]}</span>
+      <span>${o}</span>
+    </button>`).join('');
+
+  card.innerHTML=`
+    <div class="q-number">Question ${appState.currentQ+1} of ${total} · ${q.cat.toUpperCase()}</div>
+    <div class="q-text">${q.q}</div>
+    ${svgHtml}
+    <div class="options-grid">${optsHtml}</div>
+    <button class="btn-next" id="btn-next" onclick="nextQuestion()" disabled>Next →</button>
+  `;
+
+  startTimer(q.time);
+  appState.questionStartTime=Date.now();
+  appState._selected=null;
+}
+
+let timerIv=null;
+function startTimer(sec){
+  clearInterval(timerIv);
+  appState.timeLeft=sec;
+  updateTimerUI(sec,sec);
+  timerIv=setInterval(()=>{
+    appState.timeLeft--;
+    updateTimerUI(appState.timeLeft,sec);
+    if(appState.timeLeft<=0){
+      clearInterval(timerIv);
+      autoAdvance();
+    }
+  },1000);
+}
+function updateTimerUI(left,total){
+  document.getElementById('timer-text').textContent=left;
+  const circle=document.getElementById('timer-circle');
+  const pct=left/total;
+  const circumference=125.6;
+  circle.style.strokeDashoffset=(circumference*(1-pct))+'';
+  circle.style.stroke=left<=10?'#f04438':left<=20?'#42a5f5':'#1a7fd4';
+}
+function autoAdvance(){
+  // Time out – record as wrong
+  const q=QUESTIONS[appState.currentQ];
+  appState.answers.push({qIndex:appState.currentQ,correct:false,category:q.cat,time:q.time});
+  // Show correct answer
+  const opts=document.querySelectorAll('.option-btn');
+  opts.forEach((o,i)=>{
+    o.disabled=true;
+    if(i===q.ans)o.classList.add('correct');
+  });
+  setTimeout(()=>advanceQ(),900);
+}
+
+function selectAnswer(idx){
+  if(appState._selected!==null)return;
+  appState._selected=idx;
+  clearInterval(timerIv);
+  const q=QUESTIONS[appState.currentQ];
+  const timeTaken=(Date.now()-appState.questionStartTime)/1000;
+  const correct=idx===q.ans;
+  appState.answers.push({qIndex:appState.currentQ,correct,category:q.cat,time:timeTaken});
+
+  const opts=document.querySelectorAll('.option-btn');
+  opts.forEach((o,i)=>{
+    o.disabled=true;
+    if(i===idx)o.classList.add(correct?'correct':'wrong');
+    if(!correct && i===q.ans)o.classList.add('correct');
+  });
+  document.getElementById('btn-next').disabled=false;
+}
+
+function nextQuestion(){
+  advanceQ();
+}
+function advanceQ(){
+  appState.currentQ++;
+  loadQuestion();
+}
+
+function showBreak(){
+  clearInterval(timerIv);
+  document.getElementById('break-icon').textContent='🎯';
+  document.getElementById('break-title').textContent='Halfway There!';
+  document.getElementById('break-desc').textContent=`Great work, ${appState.name}! You've completed 17 questions. The second half covers Abstract, History & Memory. Ready?`;
+  showPage('page-break');
+}
+function continueFromBreak(){
+  showPage('page-quiz');
+  loadQuestion();
+}
+
+// ══════════════════════════════════════════
+// SCORING
+// ══════════════════════════════════════════
+function finishTest(){
+  clearInterval(timerIv);
+  showPage('page-results');
+  calculateAndRender();
+}
+
+function calculateAndRender(){
+  const answers=appState.answers;
+  const total=QUESTIONS.length;
+  const correct=answers.filter(a=>a.correct).length;
+
+  // Base score (raw accuracy 0–1)
+  let raw=correct/total;
+
+  // Speed bonus (avg time taken vs allowed)
+  let speedFactor=0;
+  answers.forEach(a=>{
+    const q=QUESTIONS[a.qIndex];
+    if(a.correct){
+      const ratio=1-(a.time/q.time);
+      speedFactor+=Math.max(0,ratio);
+    }
+  });
+  speedFactor=speedFactor/total;
+
+  // IQ formula: mean 100, range ~60–160
+  let iq=Math.round(70+(raw*70)+(speedFactor*20));
+
+  // Clamp
+  iq=Math.max(60,Math.min(160,iq));
+
+  // Demographic calibration (mode:with)
+  if(appState.mode==='with'){
+    const ageBonuses={'under12':5,'12-14':4,'15-17':3,'18-20':2,'21-25':0,'26-35':0,'36-50':-2,'50+':-3};
+    const eduBonuses={'primary':6,'middle':4,'highschool':2,'senior':1,'graduate':0,'postgrad':-1,'phd':-2};
+    const ab=ageBonuses[appState.age]||0;
+    const eb=eduBonuses[appState.edu]||0;
+    iq=Math.max(60,Math.min(160,iq+ab+eb));
+  }
+
+  appState.iqScore=iq;
+
+  // Category scores
+  const catScores={};
+  CATEGORIES.forEach(c=>{
+    const qs=answers.filter(a=>a.category===c);
+    catScores[c]=qs.length>0?Math.round((qs.filter(a=>a.correct).length/qs.length)*100):0;
+  });
+
+  // Render
+  renderResults(iq,correct,total,catScores,speedFactor);
+}
+
+function renderResults(iq,correct,total,catScores,speedFactor){
+  const cls=classify(iq);
+  const pct=iqToPercentile(iq);
+
+  // Animate IQ number
+  document.getElementById('result-class').textContent=cls.emoji+' '+cls.label;
+  document.getElementById('result-sub-text').textContent=`${appState.name}, ${cls.desc}`;
+
+  let n=60;
+  const iqInterval=setInterval(()=>{
+    n=Math.min(n+2,iq);
+    document.getElementById('iq-display').textContent=n;
+    if(n>=iq)clearInterval(iqInterval);
+  },30);
+
+  // Score ring
+  setTimeout(()=>{
+    const circle=document.getElementById('score-circle');
+    const pctRing=(iq-60)/100;
+    const circumference=534;
+    circle.style.strokeDashoffset=(circumference*(1-pctRing))+'';
+  },200);
+
+  // Stats
+  const accuracy=Math.round((correct/total)*100);
+  const avgTime=Math.round(appState.answers.reduce((s,a)=>s+a.time,0)/appState.answers.length);
+  document.getElementById('stats-grid').innerHTML=`
+    <div class="stat-card"><div class="stat-num">${correct}/${total}</div><div class="stat-label">Correct</div></div>
+    <div class="stat-card"><div class="stat-num">${accuracy}%</div><div class="stat-label">Accuracy</div></div>
+    <div class="stat-card"><div class="stat-num">${avgTime}s</div><div class="stat-label">Avg Speed</div></div>
+  `;
+
+  // Percentile
+  setTimeout(()=>{
+    document.getElementById('pct-fill').style.width=pct+'%';
+    document.getElementById('pct-label').textContent=pct+'th';
+  },400);
+
+  // Category breakdown
+  const breakdown=document.getElementById('cat-breakdown');
+  breakdown.innerHTML=CATEGORIES.map(c=>`
+    <div class="cat-row">
+      <div class="cat-row-top"><span>${c}</span><span style="color:${CAT_COLORS[c]}">${catScores[c]}%</span></div>
+      <div class="cat-bar"><div class="cat-fill" id="cf-${c}" style="width:0%;background:${CAT_COLORS[c]}"></div></div>
+    </div>
+  `).join('');
+  setTimeout(()=>{
+    CATEGORIES.forEach(c=>{
+      const el=document.getElementById('cf-'+c);
+      if(el)el.style.width=catScores[c]+'%';
+    });
+  },500);
+
+  // Bell curve SVG
+  renderBellCurve(iq);
+
+  // Prediction (mode:without)
+  if(appState.mode==='without'){
+    renderPredictions(iq,catScores,speedFactor);
+  }
+}
+
+function renderBellCurve(iq){
+  const svg=document.getElementById('bell-svg');
+  const W=500,H=120;
+  // Gaussian
+  function gauss(x){return Math.exp(-0.5*Math.pow((x-100)/15,2))}
+  let pts=[];
+  for(let i=55;i<=145;i+=2){
+    const xp=((i-55)/90)*W;
+    const yp=H-gauss(i)*H*0.9;
+    pts.push([xp,yp]);
+  }
+  const path='M'+pts.map(p=>p[0].toFixed(1)+','+p[1].toFixed(1)).join(' L');
+  const userX=((iq-55)/90)*W;
+  const userY=H-gauss(iq)*H*0.9;
+
+  svg.innerHTML=`
+    <defs>
+      <linearGradient id="bg" x1="0%" y1="0%" x2="0%" y2="100%">
+        <stop offset="0%" stop-color="rgba(255,255,255,0.35)"/>
+        <stop offset="100%" stop-color="rgba(255,255,255,0)"/>
+      </linearGradient>
+    </defs>
+    <path d="${path} L${W},${H} L0,${H} Z" fill="url(#bg)"/>
+    <path d="${path}" fill="none" stroke="rgba(255,255,255,0.75)" stroke-width="2.5"/>
+    <line x1="${userX}" y1="10" x2="${userX}" y2="${H}" stroke="#fff" stroke-width="2" stroke-dasharray="4"/>
+    <circle cx="${userX}" cy="${userY}" r="7" fill="#fff"/>
+    <text x="${Math.min(Math.max(userX-14,20),W-60)}" y="${userY-14}" fill="#fff" font-size="12" font-weight="bold" font-family="monospace">IQ ${iq}</text>
+    <text x="5" y="${H+16}" fill="rgba(255,255,255,0.5)" font-size="10" font-family="monospace">55</text>
+    <text x="${W/2-8}" y="${H+16}" fill="rgba(255,255,255,0.5)" font-size="10" font-family="monospace">100</text>
+    <text x="${W-24}" y="${H+16}" fill="rgba(255,255,255,0.5)" font-size="10" font-family="monospace">145</text>
+  `;
+}
+
+function renderPredictions(iq,catScores,speedFactor){
+  const box=document.getElementById('prediction-box');
+  const content=document.getElementById('prediction-content');
+  box.style.display='block';
+
+  // Predict age from score pattern
+  let predictedAge,predictedEdu,agePct,eduPct;
+
+  if(iq>=135){predictedAge='18–25 (Young Adult)';agePct=72}
+  else if(iq>=120){predictedAge='21–35 (Adult)';agePct=65}
+  else if(iq>=110){predictedAge='17–28 (Teen/Young Adult)';agePct=60}
+  else if(iq>=95){predictedAge='14–22 (Teen/Young Adult)';agePct=55}
+  else if(iq>=85){predictedAge='12–16 (Teenager)';agePct=50}
+  else{predictedAge='10–14 (Child/Early Teen)';agePct=42}
+
+  const topCat=Object.entries(catScores).sort((a,b)=>b[1]-a[1])[0][0];
+  const weakCat=Object.entries(catScores).sort((a,b)=>a[1]-b[1])[0][0];
+
+  if(iq>=130){predictedEdu='Graduate / Post-Graduate Level';eduPct=78}
+  else if(iq>=115){predictedEdu='Senior Secondary / Graduate';eduPct=68}
+  else if(iq>=100){predictedEdu='High School / Senior Secondary';eduPct=60}
+  else if(iq>=88){predictedEdu='Middle to High School';eduPct=52}
+  else{predictedEdu='Primary to Middle School';eduPct=44}
+
+  content.innerHTML=`
+    <div class="prediction-item"><span class="pred-label">📅 Predicted Age Group</span><span class="pred-value">${predictedAge} <small style="opacity:0.6">(${agePct}%)</small></span></div>
+    <div class="prediction-item"><span class="pred-label">🎓 Likely Education</span><span class="pred-value">${predictedEdu} <small style="opacity:0.6">(${eduPct}%)</small></span></div>
+    <div class="prediction-item"><span class="pred-label">💪 Strongest Domain</span><span class="pred-value">${topCat} (${catScores[topCat]}%)</span></div>
+    <div class="prediction-item"><span class="pred-label">🎯 Growth Area</span><span class="pred-value">${weakCat} (${catScores[weakCat]}%)</span></div>
+    <div class="prediction-item"><span class="pred-label">⚡ Processing Speed</span><span class="pred-value">${speedFactor>0.4?'Fast':'Methodical'}</span></div>
+  `;
+}
+
+// ══════════════════════════════════════════
+// UTILITIES
+// ══════════════════════════════════════════
+function showToast(msg){
+  const t=document.getElementById('toast');
+  t.textContent=msg;t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'),2500);
+}
+
+function retakeTest(){
+  appState={...appState,currentQ:0,answers:[],iqScore:0,selectedGender:null,selectedGender2:null};
+  showPage('page-landing');
+}
+
+function shareResult(){
+  const iq=appState.iqScore;
+  const cls=classify(iq);
+  const text=`I scored IQ ${iq} (${cls.label}) on the NeurIQ Professional Assessment! 🧠`;
+  if(navigator.share){
+    navigator.share({title:'NeurIQ Result',text,url:window.location.href});
+  } else {
+    navigator.clipboard.writeText(text).then(()=>showToast('Result copied to clipboard!'));
+  }
+}
+
+// ── BOOT ──
+window.addEventListener('load',()=>{
+  setTimeout(()=>{
+    document.getElementById('loading').style.opacity='0';
+    setTimeout(()=>{
+      document.getElementById('loading').style.display='none';
+      showPage('page-landing');
+      document.getElementById('site-footer').style.display='flex';
+    },500);
+  },1200);
+});
+</script>
+</body>
+</html>
