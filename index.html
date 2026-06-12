@@ -1,0 +1,1077 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Help Tools · Wondermayank</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            /* Apple design tokens from DESIGN-apple.md */
+            --primary:        #0066cc;
+            --primary-focus:  #0071e3;
+            --ink:            #1d1d1f;
+            --ink-muted-80:   #333333;
+            --ink-muted-48:   #7a7a7a;
+            --divider-soft:   #f0f0f0;
+            --hairline:       #e0e0e0;
+            --canvas:         #ffffff;
+            --canvas-parchment: #f5f5f7;
+            --surface-pearl:  #fafafc;
+            --surface-chip:   #d2d2d7;
+            --on-dark:        #ffffff;
+
+            --font: -apple-system, "SF Pro Display", "SF Pro Text", system-ui, sans-serif;
+            --radius-sm: 8px;
+            --radius-md: 11px;
+            --radius-lg: 18px;
+            --radius-pill: 980px;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: var(--font);
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 1.47;
+            letter-spacing: -0.374px;
+            background: var(--canvas);
+            color: var(--ink);
+            overflow-x: hidden;
+        }
+
+        /* ── BOOT SCREEN ── */
+        #boot {
+            position: fixed; inset: 0;
+            background: var(--canvas);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 0;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+        #boot.gone { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        .boot-wordmark {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.28px;
+            color: var(--ink);
+            opacity: 0;
+            animation: bootUp 0.5s 0.15s forwards;
+        }
+        .boot-wordmark span { color: var(--primary); }
+        .boot-caption {
+            font-size: 14px;
+            font-weight: 400;
+            color: var(--ink-muted-48);
+            letter-spacing: -0.224px;
+            margin-top: 5px;
+            opacity: 0;
+            animation: bootUp 0.45s 0.4s forwards;
+        }
+        .boot-bar-wrap {
+            width: 140px; height: 2px;
+            background: var(--divider-soft);
+            border-radius: 99px;
+            overflow: hidden;
+            margin-top: 36px;
+            opacity: 0;
+            animation: bootUp 0.35s 0.55s forwards;
+        }
+        .boot-bar {
+            height: 100%; width: 0%;
+            background: var(--primary);
+            border-radius: 99px;
+            animation: barFill 1s 0.65s cubic-bezier(0.4,0,0.2,1) forwards;
+        }
+        @keyframes bootUp  { to { opacity: 1; transform: translateY(0); } from { opacity: 0; transform: translateY(8px); } }
+        @keyframes barFill { to { width: 100%; } }
+
+        /* ── THREE.JS CANVAS ── */
+        #canvas-bg {
+            position: fixed; inset: 0;
+            z-index: 0;
+            pointer-events: none;
+        }
+
+        /* ── PAGE SHELL ── */
+        .page {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* ── GLOBAL NAV ── (Apple: true black background) */
+        .nav {
+            position: sticky; top: 0; z-index: 100;
+            background: rgba(0, 0, 0, 0.88);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 0.5px solid rgba(255,255,255,0.12);
+            height: 48px;
+            display: flex;
+            align-items: center;
+            padding: 0 22px;
+            gap: 0;
+        }
+        .nav-brand {
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: -0.374px;
+            color: var(--on-dark);
+            text-decoration: none;
+            margin-right: auto;
+        }
+        .nav-brand span { color: #2997ff; }
+        .nav-links {
+            display: flex;
+            gap: 4px;
+        }
+        .nav-links a {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -0.224px;
+            color: rgba(255,255,255,0.75);
+            text-decoration: none;
+            padding: 6px 14px;
+            border-radius: var(--radius-sm);
+            background: rgba(255,255,255,0.07);
+            border: 0.5px solid rgba(255,255,255,0.1);
+            transition: background 0.15s, color 0.15s;
+        }
+        .nav-links a:hover { background: rgba(255,255,255,0.13); color: #fff; }
+
+        /* ── HERO — white tile ── */
+        .hero {
+            background: var(--canvas);
+            text-align: center;
+            padding: 88px 24px 80px;
+        }
+        .hero-eyebrow {
+            font-size: 14px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--ink-muted-48);
+            margin-bottom: 14px;
+            display: block;
+        }
+        .hero h1 {
+            font-size: clamp(34px, 5.5vw, 56px);
+            font-weight: 600;
+            line-height: 1.07;
+            letter-spacing: -0.28px;
+            color: var(--ink);
+            margin-bottom: 14px;
+        }
+        .hero h1 em {
+            font-style: normal;
+            color: var(--primary);
+        }
+        .hero-sub {
+            font-size: clamp(19px, 2.5vw, 28px);
+            font-weight: 400;
+            line-height: 1.14;
+            letter-spacing: 0.196px;
+            color: var(--ink-muted-48);
+            max-width: 560px;
+            margin: 0 auto 36px;
+        }
+        .hero-ctas {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 14px;
+            flex-wrap: wrap;
+        }
+        /* Apple primary pill CTA */
+        .btn-primary {
+            display: inline-block;
+            background: var(--primary);
+            color: #fff;
+            font-size: 17px;
+            font-weight: 400;
+            letter-spacing: -0.374px;
+            line-height: 1;
+            padding: 12px 24px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            border: none;
+            cursor: pointer;
+            transition: background 0.15s, transform 0.12s;
+        }
+        .btn-primary:hover { background: var(--primary-focus); }
+        .btn-primary:active { transform: scale(0.95); }
+        .btn-ghost {
+            display: inline-block;
+            background: transparent;
+            color: var(--primary);
+            font-size: 17px;
+            font-weight: 400;
+            letter-spacing: -0.374px;
+            line-height: 1;
+            padding: 11px 24px;
+            border-radius: var(--radius-pill);
+            text-decoration: none;
+            border: 1px solid var(--primary);
+            cursor: pointer;
+            transition: background 0.15s, transform 0.12s;
+        }
+        .btn-ghost:hover { background: rgba(0,102,204,0.05); }
+        .btn-ghost:active { transform: scale(0.95); }
+
+        /* ── PARCHMENT BAND — stats row ── */
+        .stats-band {
+            background: var(--canvas-parchment);
+            padding: 40px 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+        }
+        .stat-item {
+            text-align: center;
+            padding: 0 48px;
+            border-right: 1px solid var(--hairline);
+        }
+        .stat-item:last-child { border-right: none; }
+        .stat-num {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.28px;
+            color: var(--ink);
+            display: block;
+        }
+        .stat-label {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -0.224px;
+            color: var(--ink-muted-48);
+            display: block;
+            margin-top: 4px;
+        }
+
+        /* ── SECTION DIVIDER ── (Apple: text only, no decorative lines) */
+        .section-label {
+            background: var(--canvas);
+            padding: 52px 24px 20px;
+            text-align: center;
+        }
+        .section-label h2 {
+            font-size: 40px;
+            font-weight: 600;
+            line-height: 1.1;
+            letter-spacing: -0.28px;
+            color: var(--ink);
+            margin-bottom: 8px;
+        }
+        .section-label p {
+            font-size: 17px;
+            color: var(--ink-muted-48);
+        }
+
+        /* ── UTILITY GRID — Apple store-utility-card style ── */
+        .tools-wrap {
+            background: var(--canvas);
+            padding: 16px 24px 80px;
+        }
+        .card-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        /* Apple store-utility-card */
+        .tool-card {
+            background: var(--canvas);
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius-lg);
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+            cursor: pointer;
+            transition: box-shadow 0.2s, transform 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+        .tool-card:hover {
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            transform: translateY(-3px);
+        }
+        .tool-card:active { transform: scale(0.98); }
+
+        /* subtle top accent line — single pixel, Action Blue */
+        .tool-card::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 2px;
+            background: var(--primary);
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+        .tool-card:hover::before { opacity: 1; }
+
+        .card-cat {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--primary);
+            margin-bottom: 12px;
+        }
+        .card-icon {
+            width: 48px; height: 48px;
+            border-radius: var(--radius-sm);
+            background: var(--canvas-parchment);
+            display: flex; align-items: center; justify-content: center;
+            font-size: 20px;
+            color: var(--ink-muted-80);
+            margin-bottom: 14px;
+            transition: background 0.2s;
+        }
+        .tool-card:hover .card-icon {
+            background: rgba(0,102,204,0.08);
+            color: var(--primary);
+        }
+        .card-title {
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: -0.374px;
+            color: var(--ink);
+            margin-bottom: 6px;
+        }
+        .card-desc {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -0.224px;
+            line-height: 1.43;
+            color: var(--ink-muted-48);
+            flex: 1;
+            margin-bottom: 18px;
+        }
+        /* Apple text-link style CTA */
+        .card-link {
+            font-size: 14px;
+            font-weight: 400;
+            letter-spacing: -0.224px;
+            color: var(--primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            width: fit-content;
+            transition: color 0.15s;
+        }
+        .card-link:hover { color: var(--primary-focus); }
+        .card-link i { font-size: 11px; transition: transform 0.15s; }
+        .tool-card:hover .card-link i { transform: translateX(3px); }
+
+        /* ── FOOTER — Apple parchment footer ── */
+        footer {
+            background: var(--canvas-parchment);
+            border-top: 1px solid var(--hairline);
+            padding: 48px 24px 32px;
+        }
+        .footer-inner { max-width: 1200px; margin: 0 auto; }
+        .footer-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 24px;
+            padding-bottom: 24px;
+            border-bottom: 1px solid var(--hairline);
+            margin-bottom: 16px;
+        }
+        .footer-brand-block {}
+        .footer-brand {
+            font-size: 17px;
+            font-weight: 600;
+            letter-spacing: -0.374px;
+            color: var(--ink);
+            display: block;
+        }
+        .footer-brand em { font-style: normal; color: var(--primary); }
+        .footer-tagline {
+            font-size: 12px;
+            color: var(--ink-muted-48);
+            margin-top: 3px;
+        }
+        .footer-nav {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0;
+            column-gap: 0;
+        }
+        .footer-nav a {
+            display: block;
+            font-size: 17px;
+            font-weight: 400;
+            line-height: 2.41;
+            letter-spacing: 0;
+            color: var(--ink-muted-80);
+            text-decoration: none;
+            padding: 0 16px;
+            border-right: 1px solid var(--hairline);
+            transition: color 0.15s;
+        }
+        .footer-nav a:first-child { padding-left: 0; }
+        .footer-nav a:last-child { border-right: none; }
+        .footer-nav a:hover { color: var(--primary); }
+        .footer-legal {
+            font-size: 12px;
+            font-weight: 400;
+            letter-spacing: -0.12px;
+            color: var(--ink-muted-48);
+            line-height: 1;
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 1068px) {
+            .card-grid { grid-template-columns: repeat(2, 1fr); }
+            .hero h1 { font-size: 40px; }
+        }
+        @media (max-width: 833px) {
+            .nav-links { display: none; }
+            .stats-band { flex-direction: column; gap: 20px; }
+            .stat-item { border-right: none; border-bottom: 1px solid var(--hairline); padding: 0 0 20px; width: 100%; max-width: 240px; }
+            .stat-item:last-child { border-bottom: none; padding-bottom: 0; }
+        }
+        @media (max-width: 640px) {
+            .card-grid { grid-template-columns: 1fr; }
+            .hero { padding: 64px 20px 56px; }
+            .hero h1 { font-size: 34px; }
+            .hero-sub { font-size: 19px; }
+            .footer-nav a { font-size: 14px; padding: 0 10px; }
+            .section-label h2 { font-size: 28px; }
+        }
+        @media (max-width: 419px) {
+            .hero h1 { font-size: 28px; }
+            .hero-sub { font-size: 17px; }
+        }
+
+        a { text-decoration: none; }
+
+        /* ── SEARCH / FILTER BAR ── */
+        .filter-wrap {
+            background: var(--canvas);
+            padding: 0 24px 28px;
+            max-width: 1200px;
+            margin: 0 auto;
+            width: 100%;
+        }
+        .filter-row {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .search-box {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--canvas-parchment);
+            border: 1px solid var(--hairline);
+            border-radius: var(--radius-pill);
+            padding: 0 16px;
+            height: 44px;
+            flex: 1;
+            min-width: 180px;
+            max-width: 300px;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .search-box:focus-within {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,102,204,0.12);
+        }
+        .search-box i { font-size: 13px; color: var(--ink-muted-48); flex-shrink: 0; }
+        .search-box input {
+            border: none; background: transparent;
+            font-family: var(--font); font-size: 14px;
+            letter-spacing: -0.224px; color: var(--ink);
+            outline: none; width: 100%;
+        }
+        .search-box input::placeholder { color: var(--ink-muted-48); }
+        .filter-chips {
+            display: flex; gap: 6px; flex-wrap: wrap;
+        }
+        .chip {
+            font-size: 13px; font-weight: 400;
+            letter-spacing: -0.224px;
+            padding: 0 14px; height: 34px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--hairline);
+            background: var(--canvas-parchment);
+            color: var(--ink-muted-80);
+            cursor: pointer;
+            transition: all 0.15s;
+            display: inline-flex; align-items: center;
+            white-space: nowrap;
+        }
+        .chip:hover { border-color: var(--primary); color: var(--primary); background: rgba(0,102,204,0.04); }
+        .chip.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+
+        /* ── CARD BADGE ── */
+        .card-badge {
+            display: inline-block;
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            padding: 2px 8px;
+            border-radius: var(--radius-pill);
+            margin-bottom: 8px;
+        }
+        .badge-new     { background: #e8f4e8; color: #1a7a1a; border: 1px solid #b8dbb8; }
+        .badge-popular { background: #fff3e0; color: #c45c00; border: 1px solid #f5c984; }
+        .badge-hot     { background: #fce8e8; color: #b91c1c; border: 1px solid #f5b4b4; }
+
+        /* card hidden state for filter */
+        .tool-card.hidden-by-filter { display: none; }
+
+        /* ── TELEGRAM CTA BANNER ── */
+        .tg-banner {
+            background: #1a1a2e;
+            padding: 48px 24px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        .tg-banner::before {
+            content: '';
+            position: absolute; inset: 0;
+            background: radial-gradient(ellipse 60% 80% at 50% 110%, rgba(41,150,255,0.18) 0%, transparent 70%);
+            pointer-events: none;
+        }
+        .tg-inner { position: relative; z-index: 1; max-width: 560px; margin: 0 auto; }
+        .tg-icon {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: #2AABEE;
+            display: flex; align-items: center; justify-content: center;
+            margin: 0 auto 18px;
+            font-size: 24px; color: #fff;
+        }
+        .tg-banner h2 {
+            font-size: 28px; font-weight: 600;
+            line-height: 1.14; letter-spacing: -0.28px;
+            color: #ffffff; margin-bottom: 10px;
+        }
+        .tg-banner p {
+            font-size: 16px; font-weight: 400;
+            color: rgba(255,255,255,0.62);
+            letter-spacing: -0.224px; margin-bottom: 24px;
+        }
+        .btn-tg {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: #2AABEE; color: #fff;
+            font-size: 16px; font-weight: 400;
+            letter-spacing: -0.374px; line-height: 1;
+            padding: 13px 26px; border-radius: var(--radius-pill);
+            text-decoration: none;
+            transition: background 0.15s, transform 0.12s;
+        }
+        .btn-tg:hover { background: #1f9de0; }
+        .btn-tg:active { transform: scale(0.95); }
+        .btn-tg i { font-size: 15px; }
+
+        /* ── REQUEST A TOOL SECTION ── */
+        .request-section {
+            background: var(--canvas-parchment);
+            border-top: 1px solid var(--hairline);
+            padding: 56px 24px 64px;
+            text-align: center;
+        }
+        .request-inner { max-width: 520px; margin: 0 auto; }
+        .request-eyebrow {
+            font-size: 12px; font-weight: 600;
+            letter-spacing: 0.1em; text-transform: uppercase;
+            color: var(--ink-muted-48); margin-bottom: 12px; display: block;
+        }
+        .request-section h2 {
+            font-size: 34px; font-weight: 600;
+            line-height: 1.1; letter-spacing: -0.28px;
+            color: var(--ink); margin-bottom: 12px;
+        }
+        .request-section p {
+            font-size: 17px; color: var(--ink-muted-48);
+            line-height: 1.47; margin-bottom: 28px;
+        }
+        .btn-request {
+            display: inline-flex; align-items: center; gap: 8px;
+            background: var(--primary); color: #fff;
+            font-size: 16px; font-weight: 400;
+            letter-spacing: -0.374px; line-height: 1;
+            padding: 13px 26px; border-radius: var(--radius-pill);
+            text-decoration: none;
+            transition: background 0.15s, transform 0.12s;
+        }
+        .btn-request:hover { background: var(--primary-focus); }
+        .btn-request:active { transform: scale(0.95); }
+        .request-note {
+            font-size: 12px; color: var(--ink-muted-48);
+            letter-spacing: -0.12px; margin-top: 14px;
+        }
+
+        /* ── BACK TO TOP ── */
+        #back-top {
+            position: fixed; bottom: 28px; right: 24px; z-index: 200;
+            width: 44px; height: 44px; border-radius: 50%;
+            background: rgba(0,0,0,0.82);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 0.5px solid rgba(255,255,255,0.15);
+            display: flex; align-items: center; justify-content: center;
+            color: #fff; font-size: 14px; cursor: pointer;
+            opacity: 0; pointer-events: none;
+            transform: translateY(8px);
+            transition: opacity 0.25s, transform 0.25s, background 0.15s;
+            text-decoration: none;
+        }
+        #back-top.visible { opacity: 1; pointer-events: all; transform: translateY(0); }
+        #back-top:hover { background: rgba(0,0,0,0.95); }
+        #back-top:active { transform: scale(0.95); }
+
+        /* ── NO RESULTS MESSAGE ── */
+        #no-results {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+            color: var(--ink-muted-48);
+            font-size: 15px;
+            grid-column: 1 / -1;
+        }
+        #no-results.show { display: block; }
+    </style>
+</head>
+<body>
+
+<!-- ── BOOT SCREEN ── -->
+<div id="boot">
+    <div class="boot-wordmark">wonder<span>mayank</span></div>
+    <div class="boot-caption">Help Tools · Loading</div>
+    <div class="boot-bar-wrap"><div class="boot-bar"></div></div>
+</div>
+
+<!-- ── 3D CANVAS BACKGROUND (light) ── -->
+<div id="canvas-bg"></div>
+
+<!-- ── PAGE ── -->
+<div class="page">
+
+    <!-- GLOBAL NAV — Apple true-black -->
+    <nav class="nav">
+        <a class="nav-brand" href="https://wondermayank.github.io" target="_blank">wonder<span>mayank</span></a>
+        <div class="nav-links">
+            <a href="https://commercesehoga.github.io/dashboard" target="_blank">CBT Platform</a>
+            <a href="https://wondermayank.github.io/contact" target="_blank">Contact</a>
+        </div>
+    </nav>
+
+    <!-- HERO — white tile -->
+    <section class="hero">
+        <span class="hero-eyebrow">wondermayank · utilities</span>
+        <h1>Essential<br><em>Help Tools.</em></h1>
+        <p class="hero-sub">Smart utilities for your everyday digital life — PDF, IQ, skincare, budgeting, and more.</p>
+        <div class="hero-ctas">
+            <a class="btn-primary" href="#tools">Explore all tools</a>
+            <a class="btn-ghost" href="https://commercesehoga.github.io/dashboard" target="_blank">CBT Platform</a>
+        </div>
+    </section>
+
+    <!-- STATS BAND — parchment tile -->
+    <section class="stats-band">
+        <div class="stat-item">
+            <span class="stat-num">9</span>
+            <span class="stat-label">Free Tools</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">3D</span>
+            <span class="stat-label">Experience</span>
+        </div>
+        <div class="stat-item">
+            <span class="stat-num">5K+</span>
+            <span class="stat-label">Students Served</span>
+        </div>
+    </section>
+
+    <!-- SECTION LABEL -->
+    <div class="section-label" id="tools">
+        <h2>All Tools.</h2>
+        <p>Pick a tool and get started — no login needed.</p>
+    </div>
+
+    <!-- SEARCH + FILTER BAR -->
+    <div class="tools-wrap" style="padding-bottom: 0;">
+        <div class="filter-wrap" style="padding: 0 0 24px;">
+            <div class="filter-row">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" id="searchInput" placeholder="Search tools…" autocomplete="off">
+                </div>
+                <div class="filter-chips" id="filterChips">
+                    <button class="chip active" data-cat="All">All</button>
+                    <button class="chip" data-cat="Documents">Documents</button>
+                    <button class="chip" data-cat="Brain">Brain</button>
+                    <button class="chip" data-cat="Wellness">Wellness</button>
+                    <button class="chip" data-cat="Media">Media</button>
+                    <button class="chip" data-cat="Design">Design</button>
+                    <button class="chip" data-cat="Style">Style</button>
+                    <button class="chip" data-cat="Fun">Fun</button>
+                    <button class="chip" data-cat="Finance">Finance</button>
+                    <button class="chip" data-cat="Beauty">Beauty</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- TOOL CARDS — utility grid -->
+    <div class="tools-wrap">
+        <div class="card-grid" id="toolsGrid">
+            <div id="no-results">No tools match your search.</div>
+        </div>
+    </div>
+
+    <!-- TELEGRAM CTA BANNER -->
+    <div class="tg-banner">
+        <div class="tg-inner">
+            <div class="tg-icon"><i class="fab fa-telegram-plane"></i></div>
+            <h2>Join the community.</h2>
+            <p>Get new tool drops, study tips, CUET updates and CBT mock test alerts — straight to Telegram.</p>
+            <a class="btn-tg" href="https://t.me/thunderstudy_official" target="_blank" rel="noopener noreferrer">
+                <i class="fab fa-telegram-plane"></i> Join @thunderstudy_official
+            </a>
+        </div>
+    </div>
+
+    <!-- REQUEST A TOOL -->
+    <div class="request-section">
+        <div class="request-inner">
+            <span class="request-eyebrow">Missing something?</span>
+            <h2>Request a tool.</h2>
+            <p>Have an idea for a useful tool? Tell us what you need — we build based on what students actually want.</p>
+            <a class="btn-request" href="https://forms.gle/jtdRSiHot2beSZ5Q9" target="_blank" rel="noopener noreferrer">
+                <i class="fas fa-paper-plane"></i> Submit a request
+            </a>
+            <div class="request-note">Takes less than a minute · Google Form · No login needed</div>
+        </div>
+    </div>
+
+    <!-- FOOTER — Apple parchment footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div class="footer-brand-block">
+                    <span class="footer-brand">wonder<em>mayank</em></span>
+                    <div class="footer-tagline">Smart tools for smart students</div>
+                </div>
+            </div>
+            <div class="footer-nav" id="footerNav"></div>
+            <div style="height: 16px;"></div>
+            <div class="footer-legal">Copyright © 2025 Wondermayank. All rights reserved.</div>
+        </div>
+    </footer>
+
+    <!-- BACK TO TOP -->
+    <a id="back-top" href="#" aria-label="Back to top"><i class="fas fa-chevron-up"></i></a>
+
+</div>
+
+<!-- THREE.JS — light background 3D scene -->
+<script type="importmap">{ "imports": { "three": "https://unpkg.com/three@0.128.0/build/three.module.js" } }</script>
+<script type="module">
+    import * as THREE from 'three';
+
+    // ── Light scene setup ──
+    const container = document.getElementById('canvas-bg');
+    const scene = new THREE.Scene();
+    // Apple canvas-parchment: #f5f5f7 — warm near-white
+    scene.background = new THREE.Color(0xf5f5f7);
+    scene.fog = new THREE.FogExp2(0xf5f5f7, 0.018);
+
+    const W = window.innerWidth, H = window.innerHeight;
+    const camera = new THREE.PerspectiveCamera(40, W / H, 0.1, 500);
+    camera.position.set(0, 1, 16);
+
+    const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+    renderer.setSize(W, H);
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+    renderer.shadowMap.enabled = false;
+    container.appendChild(renderer.domElement);
+
+    // ── Lighting — soft, neutral, Apple-like ──
+    scene.add(new THREE.AmbientLight(0xffffff, 1.8));
+
+    const sun = new THREE.DirectionalLight(0xffffff, 1.0);
+    sun.position.set(5, 8, 6);
+    scene.add(sun);
+
+    // Very faint blue fill — Apple Action Blue undertone
+    const fill = new THREE.PointLight(0x0066cc, 0.6, 40);
+    fill.position.set(-6, 3, 4);
+    scene.add(fill);
+
+    // ── Materials — light, minimal, muted ──
+    const matWhite = new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        roughness: 0.15,
+        metalness: 0.05,
+        transparent: true,
+        opacity: 0.82,
+    });
+    const matBlue = new THREE.MeshStandardMaterial({
+        color: 0xd8eaf7,      // very pale Action Blue tint
+        roughness: 0.2,
+        metalness: 0.1,
+        transparent: true,
+        opacity: 0.75,
+    });
+    const matGray = new THREE.MeshStandardMaterial({
+        color: 0xe8e8ea,      // Apple hairline gray
+        roughness: 0.3,
+        metalness: 0.05,
+        transparent: true,
+        opacity: 0.7,
+    });
+    const matBlueDeep = new THREE.MeshStandardMaterial({
+        color: 0xb3d4f0,
+        roughness: 0.1,
+        metalness: 0.2,
+        transparent: true,
+        opacity: 0.65,
+    });
+
+    const mats = [matWhite, matBlue, matGray, matBlueDeep];
+
+    // ── Floating shapes — rounded, calm, Apple-geometric ──
+    const shapes = [];
+
+    // A few icosahedra (Apple-feel, clean facets)
+    for (let i = 0; i < 6; i++) {
+        const m = new THREE.Mesh(
+            new THREE.IcosahedronGeometry(0.22 + Math.random() * 0.28, 0),
+            mats[i % mats.length]
+        );
+        m.position.set((Math.random()-0.5)*18, (Math.random()-0.5)*10, (Math.random()-0.5)*6 - 2);
+        m.userData = { rx: (Math.random()-0.5)*0.008, ry: (Math.random()-0.5)*0.008, vx: (Math.random()-0.5)*0.004, vy: (Math.random()-0.5)*0.004 };
+        scene.add(m); shapes.push(m);
+    }
+
+    // Octahedra
+    for (let i = 0; i < 5; i++) {
+        const m = new THREE.Mesh(
+            new THREE.OctahedronGeometry(0.18 + Math.random() * 0.22, 0),
+            mats[i % mats.length]
+        );
+        m.position.set((Math.random()-0.5)*16, (Math.random()-0.5)*9, (Math.random()-0.5)*5 - 2);
+        m.userData = { rx: (Math.random()-0.5)*0.01, ry: (Math.random()-0.5)*0.01, vx: (Math.random()-0.5)*0.003, vy: (Math.random()-0.5)*0.003 };
+        scene.add(m); shapes.push(m);
+    }
+
+    // Rounded boxes (Apple card-like)
+    for (let i = 0; i < 7; i++) {
+        const s = 0.2 + Math.random() * 0.3;
+        const m = new THREE.Mesh(
+            new THREE.BoxGeometry(s, s, s),
+            mats[i % mats.length]
+        );
+        m.position.set((Math.random()-0.5)*18, (Math.random()-0.5)*10, (Math.random()-0.5)*6 - 3);
+        m.userData = { rx: (Math.random()-0.5)*0.007, ry: (Math.random()-0.5)*0.007, vx: (Math.random()-0.5)*0.003, vy: (Math.random()-0.5)*0.003 };
+        scene.add(m); shapes.push(m);
+    }
+
+    // One elegant torus (thin, minimal)
+    const torus = new THREE.Mesh(
+        new THREE.TorusGeometry(1.1, 0.06, 32, 160),
+        new THREE.MeshStandardMaterial({ color: 0xc8dff0, roughness: 0.1, metalness: 0.3, transparent: true, opacity: 0.55 })
+    );
+    torus.position.set(3, 0, -4);
+    torus.rotation.x = Math.PI * 0.3;
+    scene.add(torus);
+
+    // Thin ring 2
+    const ring2 = new THREE.Mesh(
+        new THREE.TorusGeometry(0.7, 0.035, 24, 120),
+        new THREE.MeshStandardMaterial({ color: 0xddeef8, roughness: 0.15, metalness: 0.2, transparent: true, opacity: 0.5 })
+    );
+    ring2.position.set(-4, 1.5, -3);
+    ring2.rotation.y = Math.PI * 0.4;
+    scene.add(ring2);
+
+    // Subtle particle dust
+    const ptGeo = new THREE.BufferGeometry();
+    const ptCount = 600;
+    const ptPos = new Float32Array(ptCount * 3);
+    for (let i = 0; i < ptCount; i++) {
+        ptPos[i*3]   = (Math.random()-0.5) * 100;
+        ptPos[i*3+1] = (Math.random()-0.5) * 60;
+        ptPos[i*3+2] = (Math.random()-0.5) * 40 - 10;
+    }
+    ptGeo.setAttribute('position', new THREE.BufferAttribute(ptPos, 3));
+    const pts = new THREE.Points(ptGeo, new THREE.PointsMaterial({
+        color: 0xaacce0, size: 0.04, transparent: true, opacity: 0.35
+    }));
+    scene.add(pts);
+
+    // ── Animate ──
+    let t = 0;
+    function animate() {
+        requestAnimationFrame(animate);
+        t += 0.007;
+
+        // very slow gentle rotation + float — calming, not distracting
+        shapes.forEach((s, i) => {
+            s.rotation.x += s.userData.rx;
+            s.rotation.y += s.userData.ry;
+            s.position.x += s.userData.vx;
+            s.position.y += s.userData.vy + Math.sin(t + i) * 0.001;
+            // boundary wrap
+            if (Math.abs(s.position.x) > 10) s.userData.vx *= -1;
+            if (Math.abs(s.position.y) > 6)  s.userData.vy *= -1;
+        });
+
+        torus.rotation.z  += 0.004;
+        torus.rotation.x  += 0.002;
+        ring2.rotation.z  += 0.005;
+        ring2.rotation.y  += 0.003;
+
+        pts.rotation.y += 0.0002;
+
+        camera.lookAt(0, 0.5, 0);
+        renderer.render(scene, camera);
+    }
+    animate();
+
+    // ── Gentle parallax (very subtle on light theme) ──
+    window.addEventListener('mousemove', e => {
+        const mx = (e.clientX / window.innerWidth  - 0.5) * 0.6;
+        const my = (e.clientY / window.innerHeight - 0.5) * 0.4;
+        camera.position.x += (mx - camera.position.x) * 0.02;
+        camera.position.y += (-my - camera.position.y + 1) * 0.02;
+    });
+
+    window.addEventListener('resize', () => {
+        camera.aspect = window.innerWidth / window.innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+    });
+
+    // ── Tool cards data ──
+    const tools = [
+        { cat: "Documents", name: "PDF Master Suite",  desc: "Merge, compress, edit and convert PDFs instantly in your browser.",       icon: "fas fa-file-pdf",   url: "https://wondermayank.github.io/help/pdf",         badge: "popular" },
+        { cat: "Brain",     name: "IQ Spectrum Test",  desc: "Challenge your intelligence and track your cognitive performance.",        icon: "fas fa-brain",      url: "https://wondermayank.github.io/help/iq",          badge: "popular" },
+        { cat: "Wellness",  name: "Her Calendar",       desc: "Period tracker and wellness companion designed for her daily health.",     icon: "fas fa-female",     url: "https://wondermayank.github.io/help/period",      badge: null },
+        { cat: "Media",     name: "Image Forge",        desc: "Resize, filter, compress and run AI utilities on your images.",           icon: "fas fa-image",      url: "https://wondermayank.github.io/help/image",       badge: "new" },
+        { cat: "Design",    name: "Mehendi Canvas",     desc: "Browse elegant mehendi patterns and get design inspiration.",             icon: "fas fa-hand-peace", url: "https://wondermayank.github.io/help/Mehendi",     badge: null },
+        { cat: "Style",     name: "ToneWise Outfit",    desc: "Skin-tone based outfit suggester for smart, personalised styling.",       icon: "fas fa-palette",    url: "https://wondermayank.github.io/help/Skin_Tone",   badge: "new" },
+        { cat: "Fun",       name: "Fake Chat Creator",  desc: "Realistic WhatsApp chat generator for fun and pranks.",                  icon: "fab fa-whatsapp",   url: "https://wondermayank.github.io/help/Fake_WhatsApp", badge: "hot" },
+        { cat: "Finance",   name: "UPI Budget Boss",    desc: "Track expenses with a UPI-style UI. Manage your money, desi way.",       icon: "fas fa-rupee-sign", url: "https://wondermayank.github.io/help/upi",         badge: "popular" },
+        { cat: "Beauty",    name: "SkinCare Ritual",    desc: "Personalised skincare routines and honest product guidance.",            icon: "fas fa-spa",        url: "https://wondermayank.github.io/help/Skincare",    badge: "new" },
+    ];
+
+    const badgeHTML = { popular: '<span class="card-badge badge-popular">Popular</span>', new: '<span class="card-badge badge-new">New</span>', hot: '<span class="card-badge badge-hot">Hot</span>' };
+
+    const grid = document.getElementById('toolsGrid');
+    tools.forEach(t => {
+        const el = document.createElement('div');
+        el.className = 'tool-card';
+        el.dataset.cat = t.cat;
+        el.dataset.name = t.name.toLowerCase();
+        el.innerHTML = `
+            ${t.badge ? badgeHTML[t.badge] : ''}
+            <div class="card-cat">${t.cat}</div>
+            <div class="card-icon"><i class="${t.icon}"></i></div>
+            <div class="card-title">${t.name}</div>
+            <div class="card-desc">${t.desc}</div>
+            <a class="card-link" href="${t.url}" target="_blank" rel="noopener noreferrer">
+                Learn more <i class="fas fa-chevron-right"></i>
+            </a>
+        `;
+        el.addEventListener('click', e => {
+            if (!e.target.closest('.card-link')) window.open(t.url, '_blank', 'noopener,noreferrer');
+        });
+        grid.appendChild(el);
+    });
+
+    // ── Search + filter logic ──
+    const searchInput  = document.getElementById('searchInput');
+    const filterChips  = document.getElementById('filterChips');
+    const noResults    = document.getElementById('no-results');
+    let activeCategory = 'All';
+
+    function applyFilter() {
+        const q = searchInput.value.trim().toLowerCase();
+        const cards = grid.querySelectorAll('.tool-card');
+        let visible = 0;
+        cards.forEach(c => {
+            const catMatch  = activeCategory === 'All' || c.dataset.cat === activeCategory;
+            const nameMatch = !q || c.dataset.name.includes(q) || c.dataset.cat.toLowerCase().includes(q);
+            const show = catMatch && nameMatch;
+            c.classList.toggle('hidden-by-filter', !show);
+            if (show) visible++;
+        });
+        noResults.classList.toggle('show', visible === 0);
+    }
+
+    searchInput.addEventListener('input', applyFilter);
+
+    filterChips.addEventListener('click', e => {
+        const chip = e.target.closest('.chip');
+        if (!chip) return;
+        filterChips.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+        chip.classList.add('active');
+        activeCategory = chip.dataset.cat;
+        applyFilter();
+    });
+
+    // ── Back to top ──
+    const backTop = document.getElementById('back-top');
+    window.addEventListener('scroll', () => {
+        backTop.classList.toggle('visible', window.scrollY > 400);
+    }, { passive: true });
+    backTop.addEventListener('click', e => {
+        e.preventDefault();
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+
+    // ── Footer links ──
+    const footerLinks = [
+        { label: "wondermayank.github.io", url: "https://wondermayank.github.io" },
+        { label: "CBT Platform",           url: "https://commercesehoga.github.io/dashboard" },
+        { label: "Terms",                  url: "https://wondermayank.github.io/terms" },
+        { label: "Privacy",                url: "https://wondermayank.github.io/privacy" },
+        { label: "Disclaimer",             url: "https://wondermayank.github.io/disclaimer" },
+        { label: "Contact",                url: "https://wondermayank.github.io/contact" },
+        { label: "Donate",                 url: "https://commercesehoga.github.io/help" },
+    ];
+    const fnav = document.getElementById('footerNav');
+    footerLinks.forEach(l => {
+        const a = document.createElement('a');
+        a.href = l.url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+        a.textContent = l.label;
+        fnav.appendChild(a);
+    });
+
+    // ── Boot dismiss ──
+    const dismissBoot = () => {
+        const b = document.getElementById('boot');
+        if (b) b.classList.add('gone');
+    };
+    window.addEventListener('load', () => setTimeout(dismissBoot, 1700));
+    if (document.readyState === 'complete') setTimeout(dismissBoot, 1700);
+</script>
+</body>
+</html>
