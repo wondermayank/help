@@ -633,6 +633,202 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
 .analytics-tabs{display:flex;gap:6px;margin-bottom:14px;flex-wrap:wrap;}
 .analytics-tab{padding:7px 14px;border-radius:9999px;font-size:12px;font-weight:600;cursor:pointer;border:1.5px solid var(--hairline);color:var(--muted);transition:all .2s;background:var(--canvas);}
 .analytics-tab.active{background:var(--rose);color:#fff;border-color:var(--rose);}
+
+/* ── PHASE NICKNAMES ── */
+.phase-nick{font-size:10px;color:var(--rose-mid);font-weight:600;letter-spacing:.5px;text-align:center;margin-top:4px;}
+
+/* ── CUSTOM HYDRATION GOAL ── */
+.hydro-goal-row{display:flex;align-items:center;gap:8px;margin-top:10px;flex-wrap:wrap;}
+.hydro-goal-row label{font-size:11px;color:var(--muted);font-weight:600;}
+.hydro-unit-btn{padding:5px 12px;border-radius:9999px;border:1.5px solid var(--hairline-s);background:var(--canvas);color:var(--muted);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;}
+.hydro-unit-btn.active{background:var(--rose);color:#fff;border-color:var(--rose);}
+
+/* ── SUPPLEMENT TRACKER ── */
+.supp-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:8px;}
+.supp-item{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 6px;border-radius:12px;border:1.5px solid var(--hairline);background:var(--parchment);cursor:pointer;transition:all .2s;}
+.supp-item.taken{background:var(--rose-soft);border-color:var(--rose-light);}
+.supp-item .supp-emoji{font-size:20px;}
+.supp-item .supp-name{font-size:9px;font-weight:700;color:var(--muted);text-align:center;line-height:1.3;}
+.supp-item.taken .supp-name{color:var(--rose);}
+.supp-item .supp-time{font-size:8px;color:var(--muted-soft);margin-top:1px;}
+
+/* ── PERIOD PRODUCT LOG ── */
+.product-log-grid{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;}
+.prod-btn{padding:7px 12px;border-radius:9999px;border:1.5px solid var(--hairline-s);background:var(--canvas);color:var(--body);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .2s;}
+.prod-btn.active{background:var(--rose);color:#fff;border-color:var(--rose);}
+.prod-log-list{display:flex;flex-direction:column;gap:6px;margin-top:10px;}
+.prod-log-item{display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--parchment);border:1px solid var(--hairline);font-size:12px;}
+.prod-log-date{font-size:10px;color:var(--muted);min-width:70px;}
+
+/* ── MONTHLY SYMPTOM SUMMARY ── */
+.month-summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px;}
+.month-sym-card{padding:10px 12px;border-radius:12px;background:var(--parchment);border:1px solid var(--hairline);}
+.month-sym-emoji{font-size:20px;}
+.month-sym-name{font-size:11px;font-weight:600;color:var(--ink);margin-top:3px;}
+.month-sym-count{font-size:18px;font-weight:800;color:var(--rose);}
+.month-sym-label{font-size:9px;color:var(--muted);text-transform:uppercase;letter-spacing:.8px;}
+
+/* ── STREAK ── */
+.streak-display{display:flex;align-items:center;gap:16px;margin:8px 0;}
+.streak-number{font-size:48px;font-weight:800;color:var(--rose);line-height:1;}
+.streak-info{display:flex;flex-direction:column;}
+.streak-label{font-size:12px;color:var(--muted);}
+.streak-best{font-size:10px;color:var(--muted-soft);margin-top:2px;}
+.streak-dots{display:flex;gap:4px;margin-top:8px;flex-wrap:wrap;}
+.s-dot{width:12px;height:12px;border-radius:3px;background:var(--hairline);}
+.s-dot.on{background:var(--rose);}
+.s-dot.today{outline:2px solid var(--rose);outline-offset:1px;}
+
+/* ── MOOD × PHASE CHART ── */
+.mood-phase-chart{margin-top:8px;}
+.mpc-row{display:flex;align-items:center;gap:8px;margin-bottom:6px;}
+.mpc-phase{font-size:10px;font-weight:700;color:var(--muted);min-width:78px;text-transform:uppercase;letter-spacing:.5px;}
+.mpc-bar-wrap{flex:1;height:20px;background:var(--hairline);border-radius:6px;overflow:hidden;position:relative;}
+.mpc-bar{height:100%;border-radius:6px;display:flex;align-items:center;padding:0 6px;font-size:9px;font-weight:700;color:#fff;transition:width .8s ease;}
+.mpc-emoji{font-size:13px;margin-left:4px;}
+.mpc-count{font-size:9px;color:var(--muted);min-width:28px;text-align:right;}
+
+/* ── EMOTION TAGS ── */
+.emotion-tags{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0;}
+.emo-tag{padding:5px 12px;border-radius:9999px;border:1.5px solid var(--hairline-s);background:var(--canvas);color:var(--body);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;user-select:none;}
+.emo-tag.active{border-color:var(--rose);background:var(--rose-soft);color:var(--rose);}
+.emo-tag:hover{background:var(--parchment);}
+
+/* ── JOURNAL SEARCH ── */
+.journal-search-wrap{position:relative;margin-bottom:10px;}
+.journal-search-input{width:100%;height:40px;background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;border-radius:10px;border:1.5px solid var(--hairline);padding:0 36px 0 12px;outline:none;transition:border .2s;}
+.journal-search-input:focus{border-color:var(--rose);}
+.journal-search-icon{position:absolute;right:10px;top:50%;transform:translateY(-50%);color:var(--muted-soft);pointer-events:none;}
+.search-highlight{background:#FEF9C3;border-radius:2px;}
+.search-result-count{font-size:10px;color:var(--muted);margin-bottom:6px;}
+
+/* ── DAILY WRITING PROMPT ── */
+.prompt-card{background:linear-gradient(135deg,#7c3aed15,#a78bfa10);border:1.5px solid #a78bfa40;border-radius:14px;padding:14px;margin-bottom:14px;}
+.prompt-label{font-size:10px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:#7c3aed;margin-bottom:5px;display:flex;align-items:center;gap:5px;}
+.prompt-text{font-size:13px;color:var(--ink);line-height:1.6;font-style:italic;}
+.prompt-refresh{float:right;background:none;border:none;cursor:pointer;color:#7c3aed;font-size:11px;font-weight:600;padding:0;}
+
+/* ── PHASE PILL COLORS ── */
+.phase-pill.menstrual{background:#FFF1F2;border-color:var(--rose-light);color:var(--rose);}
+.phase-pill.follicular{background:#F0FDF4;border-color:#86EFAC;color:#16a34a;}
+.phase-pill.ovulation{background:#EFF6FF;border-color:#93C5FD;color:#2563EB;}
+.phase-pill.luteal{background:#FFFBEB;border-color:#FDE68A;color:#D97706;}
+
+/* ── CHATBOT ── */
+#chatFab{position:fixed;bottom:90px;right:20px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--rose),#f472b6);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(225,29,72,.4);z-index:3000;display:flex;align-items:center;justify-content:center;transition:transform .2s;}
+#chatFab:hover{transform:scale(1.1);}
+#chatFab .fab-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;background:#f472b6;border-radius:50%;border:2px solid var(--canvas);font-size:9px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;}
+@media(min-width:769px){#chatFab{bottom:26px;right:24px;}}
+
+#chatBox{position:fixed;bottom:160px;right:20px;width:320px;max-height:480px;background:var(--canvas);border:1px solid var(--hairline);border-radius:20px;box-shadow:0 16px 60px rgba(0,0,0,.2);z-index:3000;display:none;flex-direction:column;overflow:hidden;}
+#chatBox.open{display:flex;}
+@media(min-width:769px){#chatBox{bottom:92px;right:24px;width:340px;max-height:520px;}}
+@media(max-width:400px){#chatBox{right:8px;left:8px;width:auto;bottom:150px;}}
+
+.chat-header{background:linear-gradient(135deg,var(--rose),#f472b6);padding:14px 16px;display:flex;align-items:center;gap:10px;}
+.chat-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.chat-header-info{flex:1;}
+.chat-header-name{font-size:14px;font-weight:700;color:#fff;}
+.chat-header-status{font-size:10px;color:rgba(255,255,255,.8);margin-top:1px;}
+.chat-close{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);font-size:20px;line-height:1;padding:0;}
+
+.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;}
+.chat-msg{max-width:85%;display:flex;flex-direction:column;gap:3px;}
+.chat-msg.bot{align-self:flex-start;}
+.chat-msg.user{align-self:flex-end;}
+.chat-bubble{padding:10px 13px;border-radius:16px;font-size:13px;line-height:1.5;}
+.chat-msg.bot .chat-bubble{background:var(--parchment);border:1px solid var(--hairline);color:var(--ink);border-bottom-left-radius:4px;}
+.chat-msg.user .chat-bubble{background:var(--rose);color:#fff;border-bottom-right-radius:4px;}
+.chat-time{font-size:9px;color:var(--muted-soft);}
+.chat-msg.user .chat-time{text-align:right;}
+
+.chat-quick-btns{display:flex;flex-wrap:wrap;gap:5px;padding:0 14px 10px;}
+.chat-qbtn{padding:5px 10px;border-radius:9999px;border:1.5px solid var(--rose-light);background:var(--rose-soft);color:var(--rose);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;}
+.chat-qbtn:hover{background:var(--rose);color:#fff;}
+
+.chat-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--hairline);}
+.chat-input{flex:1;height:38px;background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;border-radius:10px;border:1.5px solid var(--hairline);padding:0 12px;outline:none;transition:border .2s;}
+.chat-input:focus{border-color:var(--rose);}
+.chat-send{width:38px;height:38px;border:none;cursor:pointer;background:var(--rose);color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
+.chat-send:hover{background:var(--rose-dark);}
+
+.chat-typing{display:flex;gap:4px;align-items:center;padding:8px 12px;}
+.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--muted-soft);animation:typingBounce 1.2s ease-in-out infinite;}
+.typing-dot:nth-child(2){animation-delay:.2s;}
+.typing-dot:nth-child(3){animation-delay:.4s;}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+
+/* ══ SEX PAGE ══ */
+.sex-hero{background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:20px;padding:24px;margin-bottom:20px;color:#fff;}
+.sex-hero-title{font-size:22px;font-weight:800;margin-bottom:4px;}
+.sex-hero-sub{font-size:13px;opacity:.85;line-height:1.5;}
+
+/* log card */
+.sex-log-form{display:flex;flex-direction:column;gap:12px;}
+.sex-field-label{font-size:11px;font-weight:700;letter-spacing:1.1px;text-transform:uppercase;color:var(--muted);margin-bottom:5px;}
+.sex-type-row{display:flex;flex-wrap:wrap;gap:6px;}
+.sex-type-btn{padding:7px 13px;border-radius:9999px;border:1.5px solid var(--hairline-s);background:var(--canvas);color:var(--body);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;}
+.sex-type-btn.active{background:#3b82f6;color:#fff;border-color:#3b82f6;}
+.sex-protect-btn{padding:7px 13px;border-radius:9999px;border:1.5px solid var(--hairline-s);background:var(--canvas);color:var(--body);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;cursor:pointer;transition:all .15s;}
+.sex-protect-btn.active-yes{background:#16a34a;color:#fff;border-color:#16a34a;}
+.sex-protect-btn.active-no{background:#dc2626;color:#fff;border-color:#dc2626;}
+.sex-mood-row{display:flex;flex-wrap:wrap;gap:6px;}
+.sex-mood-btn{padding:6px 10px;border-radius:9999px;border:1.5px solid var(--hairline-s);background:var(--canvas);font-size:13px;cursor:pointer;transition:all .15s;}
+.sex-mood-btn.active{border-color:#8b5cf6;background:#f5f3ff;}
+.sex-pain-row{display:flex;gap:6px;align-items:center;}
+.sex-pain-btn{width:32px;height:32px;border-radius:8px;border:1.5px solid var(--hairline-s);background:var(--canvas);font-family:'Inter',sans-serif;font-size:12px;font-weight:700;cursor:pointer;transition:all .15s;color:var(--muted);}
+.sex-pain-btn.active{background:#3b82f6;color:#fff;border-color:#3b82f6;}
+.sex-partner-input{width:100%;height:42px;background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;border-radius:10px;border:1.5px solid var(--hairline);padding:0 12px;outline:none;transition:border .2s;}
+.sex-partner-input:focus{border-color:#3b82f6;}
+.sex-note-input{width:100%;background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;border-radius:10px;border:1.5px solid var(--hairline);padding:10px 12px;outline:none;resize:none;transition:border .2s;min-height:70px;}
+.sex-note-input:focus{border-color:#3b82f6;}
+.sex-log-btn{width:100%;height:44px;border:none;cursor:pointer;background:linear-gradient(135deg,#3b82f6,#8b5cf6);color:#fff;font-family:'Inter',sans-serif;font-size:14px;font-weight:700;border-radius:12px;transition:all .2s;margin-top:4px;}
+.sex-log-btn:hover{opacity:.9;}
+
+/* history */
+.sex-history-item{display:flex;gap:12px;align-items:flex-start;padding:14px;border-radius:14px;background:var(--parchment);border:1px solid var(--hairline);margin-bottom:8px;}
+.sex-hist-icon{width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#3b82f620,#8b5cf620);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.sex-hist-body{flex:1;}
+.sex-hist-date{font-size:12px;font-weight:700;color:var(--ink);}
+.sex-hist-meta{display:flex;flex-wrap:wrap;gap:5px;margin-top:5px;}
+.sex-hist-tag{padding:3px 9px;border-radius:9999px;font-size:10px;font-weight:700;}
+.sex-hist-tag.type{background:#EFF6FF;color:#2563EB;}
+.sex-hist-tag.protected{background:#F0FDF4;color:#16a34a;}
+.sex-hist-tag.unprotected{background:#FEF2F2;color:#DC2626;}
+.sex-hist-tag.mood{background:#F5F3FF;color:#7c3aed;}
+.sex-hist-tag.pain{background:#FFF7ED;color:#EA580C;}
+.sex-hist-note{font-size:11px;color:var(--muted);margin-top:5px;line-height:1.5;}
+.sex-hist-del{background:none;border:none;cursor:pointer;color:var(--muted-soft);font-size:18px;line-height:1;padding:2px 4px;border-radius:6px;transition:all .15s;}
+.sex-hist-del:hover{color:#dc2626;background:#FEF2F2;}
+
+/* stats grid */
+.sex-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:16px;}
+.sex-stat-card{padding:14px 12px;border-radius:14px;background:var(--parchment);border:1px solid var(--hairline);text-align:center;}
+.sex-stat-val{font-size:26px;font-weight:800;color:#3b82f6;line-height:1;}
+.sex-stat-lbl{font-size:10px;color:var(--muted);margin-top:3px;line-height:1.3;}
+
+/* safety alert */
+.sex-safety-card{padding:14px 16px;border-radius:14px;margin-bottom:8px;display:flex;gap:10px;align-items:flex-start;}
+.sex-safety-card.safe{background:#F0FDF4;border:1px solid #86EFAC;}
+.sex-safety-card.caution{background:#FFFBEB;border:1px solid #FDE68A;}
+.sex-safety-card.danger{background:#FEF2F2;border:1px solid #FECACA;}
+.sex-safety-icon{font-size:22px;flex-shrink:0;}
+.sex-safety-title{font-size:13px;font-weight:700;color:var(--ink);margin-bottom:2px;}
+.sex-safety-text{font-size:12px;color:var(--muted);line-height:1.5;}
+
+/* cycle overlap chart */
+.sex-overlap-wrap{margin-top:8px;}
+.sex-ov-row{display:flex;align-items:center;gap:8px;margin-bottom:5px;}
+.sex-ov-label{font-size:10px;color:var(--muted);font-weight:600;min-width:70px;}
+.sex-ov-bar-wrap{flex:1;height:16px;background:var(--hairline);border-radius:6px;overflow:hidden;}
+.sex-ov-bar{height:100%;border-radius:6px;background:linear-gradient(90deg,#3b82f6,#8b5cf6);transition:width .6s ease;}
+.sex-ov-count{font-size:10px;color:var(--muted);min-width:20px;text-align:right;}
+
+/* tips */
+.sex-tip-list{display:flex;flex-direction:column;gap:8px;margin-top:8px;}
+.sex-tip-item{display:flex;gap:10px;padding:11px 13px;border-radius:12px;background:var(--parchment);border:1px solid var(--hairline);}
+.sex-tip-icon{font-size:18px;flex-shrink:0;}
+.sex-tip-text{font-size:12px;color:var(--ink);line-height:1.5;}
 </style>
 </head>
 <body>
@@ -773,6 +969,7 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
     <div class="sidebar-user" id="sidebarUser">
       <div class="sidebar-user-name" id="sidebarName">—</div>
       <div class="sidebar-user-phase" id="sidebarPhase">Loading...</div>
+      <div class="phase-nick" id="sidebarPhaseNick"></div>
     </div>
 
     <div class="sidebar-nav">
@@ -784,6 +981,10 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
       <div class="sidebar-item" id="si-period" onclick="goSection('period')">
         <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
         <span class="si-label">Period Log</span>
+      </div>
+      <div class="sidebar-item" id="si-sex" onclick="goSection('sex')">
+        <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+        <span class="si-label">Sex & Intimacy</span>
       </div>
       <div class="sidebar-item" id="si-diary" onclick="goSection('diary')">
         <div class="si-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div>
@@ -863,7 +1064,8 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
                 <div class="ring-center"><div class="ring-day" id="ringDay">—</div><div class="ring-of">day of cycle</div><div class="ring-total" id="ringTotal">— days</div></div>
               </div>
             </div>
-            <div class="phase-pill"><svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor" opacity=".5"/><circle cx="4" cy="4" r="2" fill="currentColor"/></svg><span id="phaseText">—</span></div>
+            <div class="phase-pill" id="phasePillEl"><svg width="7" height="7" viewBox="0 0 8 8"><circle cx="4" cy="4" r="4" fill="currentColor" opacity=".5"/><circle cx="4" cy="4" r="2" fill="currentColor"/></svg><span id="phaseText">—</span></div>
+            <div class="phase-nick" id="phaseNickEl"></div>
           </div>
           <div class="card card-rose">
             <div class="card-label">Next Period</div>
@@ -1049,7 +1251,13 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
             <div class="water-goal-setter">
               <label>Daily goal:</label>
               <input type="number" id="waterGoalInput" min="4" max="20" value="8" onchange="updateWaterGoal(this.value)"/>
-              <label>glasses</label>
+              <label id="waterGoalUnitLabel">glasses</label>
+            </div>
+            <div class="hydro-goal-row">
+              <label>Unit:</label>
+              <button class="hydro-unit-btn active" id="hbu-glasses" onclick="setWaterUnit('glasses',this)">Glasses</button>
+              <button class="hydro-unit-btn" id="hbu-ml" onclick="setWaterUnit('ml',this)">ml</button>
+              <button class="hydro-unit-btn" id="hbu-litres" onclick="setWaterUnit('litres',this)">Litres</button>
             </div>
             <div class="glass-size-row">
               <button class="glass-size-btn active" id="gs150" onclick="setGlassSize(150,this)">150ml</button>
@@ -1062,6 +1270,42 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
             <div class="card-label">Medicine &amp; Supplements</div>
             <div class="med-list" id="medList"></div>
             <button onclick="resetMeds()" style="width:100%;height:38px;border:1.5px solid var(--hairline-s);background:var(--canvas);color:var(--muted);font-family:'Inter',sans-serif;font-size:12px;font-weight:600;border-radius:12px;margin-top:10px;cursor:pointer;" onmouseover="this.style.background='var(--parchment)'" onmouseout="this.style.background='var(--canvas)'">Reset for Today</button>
+          </div>
+        </div>
+
+        <!-- Supplement Tracker + Product Log -->
+        <div class="g2 mb16">
+          <div class="card">
+            <div class="card-label">Supplement Tracker</div>
+            <div class="supp-grid" id="suppGrid"></div>
+          </div>
+          <div class="card">
+            <div class="card-label">Period Product Log</div>
+            <div class="product-log-grid" id="productLogBtns"></div>
+            <button onclick="logProduct()" style="width:100%;height:38px;border:none;cursor:pointer;background:var(--rose);color:#fff;font-family:'Inter',sans-serif;font-size:12px;font-weight:700;border-radius:12px;margin-top:10px;transition:all .2s;">Log Today's Product</button>
+            <div class="prod-log-list" id="productLogList"></div>
+          </div>
+        </div>
+
+        <!-- Monthly Symptom Summary + Streak -->
+        <div class="g2 mb16">
+          <div class="card">
+            <div class="card-label">Monthly Symptom Summary</div>
+            <div class="month-summary-grid" id="monthSymGrid"></div>
+          </div>
+          <div class="card">
+            <div class="card-label">Streak &amp; Consistency 🔥</div>
+            <div class="streak-display">
+              <div class="streak-number" id="streakCount">0</div>
+              <div class="streak-info">
+                <div style="font-size:15px;font-weight:700;color:var(--ink);">day streak</div>
+                <div class="streak-label">Logging daily</div>
+                <div class="streak-best" id="streakBest"></div>
+              </div>
+            </div>
+            <div class="streak-dots" id="streakDots"></div>
+            <div class="card-label" style="margin-top:14px;margin-bottom:6px;">Mood × Phase</div>
+            <div class="mood-phase-chart" id="moodPhaseChart"></div>
           </div>
         </div>
 
@@ -1086,13 +1330,23 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
         <div class="g2-alt mb16">
           <div class="card">
             <div class="card-label">Cycle Journal</div>
+            <div id="promptCard" class="prompt-card">
+              <div class="prompt-label">✨ Today's Prompt<button class="prompt-refresh" onclick="refreshPrompt()">New ↻</button></div>
+              <div class="prompt-text" id="promptText">What helped your energy today?</div>
+            </div>
             <div class="journal-entry">
               <div class="journal-date" id="journalDate"></div>
+              <div class="emotion-tags" id="emotionTags"></div>
               <textarea class="journal-textarea" id="journalText" placeholder="How are you feeling today? Any symptoms, thoughts, or observations..."></textarea>
               <button onclick="saveJournal()" style="width:100%;height:42px;border:none;cursor:pointer;background:var(--rose);color:#fff;font-family:'Inter',sans-serif;font-size:13px;font-weight:700;border-radius:12px;transition:all .2s;margin-top:10px;" onmouseover="this.style.background='var(--rose-dark)'" onmouseout="this.style.background='var(--rose)'">Save Entry</button>
             </div>
             <div style="margin-top:16px;">
-              <div class="card-label">Past Entries</div>
+              <div class="card-label" style="margin-bottom:8px;">Search Past Entries</div>
+              <div class="journal-search-wrap">
+                <input class="journal-search-input" id="journalSearch" type="text" placeholder="Search diary..." oninput="searchJournal(this.value)"/>
+                <svg class="journal-search-icon" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              </div>
+              <div class="search-result-count" id="searchCount" style="display:none;"></div>
               <div class="journal-past" id="journalPast"></div>
             </div>
           </div>
@@ -1236,6 +1490,129 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
       </div>
     </div>
 
+
+    <!-- ══════════ SEX & INTIMACY PAGE ══════════ -->
+    <div class="section-page" id="page-sex">
+      <div class="page-inner">
+
+        <div class="sex-hero">
+          <div class="sex-hero-title">💙 Sex &amp; Intimacy</div>
+          <div class="sex-hero-sub">Track your intimate moments privately. All data stays on your device.</div>
+        </div>
+
+        <div class="g2-alt mb16">
+
+          <!-- LEFT: Log + History -->
+          <div>
+            <!-- Log New Entry -->
+            <div class="card mb16">
+              <div class="card-label">Log Intimacy</div>
+              <div class="sex-log-form">
+
+                <div>
+                  <div class="sex-field-label">Date</div>
+                  <input type="date" id="sexDate" class="sex-partner-input" style="cursor:pointer;"/>
+                </div>
+
+                <div>
+                  <div class="sex-field-label">Type</div>
+                  <div class="sex-type-row" id="sexTypeRow">
+                    <button class="sex-type-btn" onclick="setSexType(this,'Vaginal')">Vaginal</button>
+                    <button class="sex-type-btn" onclick="setSexType(this,'Oral')">Oral</button>
+                    <button class="sex-type-btn" onclick="setSexType(this,'Anal')">Anal</button>
+                    <button class="sex-type-btn" onclick="setSexType(this,'Mutual')">Mutual</button>
+                    <button class="sex-type-btn" onclick="setSexType(this,'Solo')">Solo</button>
+                    <button class="sex-type-btn" onclick="setSexType(this,'Other')">Other</button>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="sex-field-label">Protection Used?</div>
+                  <div style="display:flex;gap:8px;">
+                    <button class="sex-protect-btn" id="sexProtYes" onclick="setSexProtect('yes')">✅ Yes — Protected</button>
+                    <button class="sex-protect-btn" id="sexProtNo" onclick="setSexProtect('no')">❌ No — Unprotected</button>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="sex-field-label">Your Mood / Feeling</div>
+                  <div class="sex-mood-row" id="sexMoodRow">
+                    <button class="sex-mood-btn" onclick="setSexMood(this,'😍')">😍 Loving</button>
+                    <button class="sex-mood-btn" onclick="setSexMood(this,'🔥')">🔥 Passionate</button>
+                    <button class="sex-mood-btn" onclick="setSexMood(this,'😌')">😌 Relaxed</button>
+                    <button class="sex-mood-btn" onclick="setSexMood(this,'😐')">😐 Neutral</button>
+                    <button class="sex-mood-btn" onclick="setSexMood(this,'😣')">😣 Uncomfortable</button>
+                    <button class="sex-mood-btn" onclick="setSexMood(this,'😴')">😴 Tired</button>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="sex-field-label">Discomfort / Pain Level</div>
+                  <div class="sex-pain-row" id="sexPainRow">
+                    <button class="sex-pain-btn" onclick="setSexPain(this,0)">0</button>
+                    <button class="sex-pain-btn" onclick="setSexPain(this,1)">1</button>
+                    <button class="sex-pain-btn" onclick="setSexPain(this,2)">2</button>
+                    <button class="sex-pain-btn" onclick="setSexPain(this,3)">3</button>
+                    <button class="sex-pain-btn" onclick="setSexPain(this,4)">4</button>
+                    <button class="sex-pain-btn" onclick="setSexPain(this,5)">5</button>
+                    <span style="font-size:11px;color:var(--muted);">0 = None, 5 = Severe</span>
+                  </div>
+                </div>
+
+                <div>
+                  <div class="sex-field-label">Partner (optional)</div>
+                  <input type="text" id="sexPartner" class="sex-partner-input" placeholder="e.g. Partner, Spouse, Solo..."/>
+                </div>
+
+                <div>
+                  <div class="sex-field-label">Notes (optional)</div>
+                  <textarea id="sexNote" class="sex-note-input" placeholder="How did you feel? Anything to remember..."></textarea>
+                </div>
+
+                <button class="sex-log-btn" onclick="logSexEntry()">💙 Log Entry</button>
+              </div>
+            </div>
+
+            <!-- History -->
+            <div class="card">
+              <div class="card-label" style="margin-bottom:10px;">Recent History</div>
+              <div id="sexHistoryList"></div>
+            </div>
+          </div>
+
+          <!-- RIGHT: Stats + Safety + Tips -->
+          <div>
+
+            <!-- Stats -->
+            <div class="card mb16">
+              <div class="card-label">Your Stats</div>
+              <div class="sex-stat-grid" id="sexStatGrid"></div>
+            </div>
+
+            <!-- Safety Status -->
+            <div class="card mb16">
+              <div class="card-label">Today's Safety Status</div>
+              <div id="sexSafetyStatus"></div>
+            </div>
+
+            <!-- Cycle Overlap -->
+            <div class="card mb16">
+              <div class="card-label">Activity by Cycle Phase</div>
+              <div class="sex-overlap-wrap" id="sexCycleOverlap"></div>
+            </div>
+
+            <!-- Health Tips -->
+            <div class="card">
+              <div class="card-label">Health &amp; Wellness Tips</div>
+              <div class="sex-tip-list" id="sexTipList"></div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </div>
+
     <!-- ══════════ PRIVATE PAGE ══════════ -->
     <div class="section-page" id="page-private">
       <div class="page-inner">
@@ -1266,6 +1643,10 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
       <div class="di-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M8 14s1.5 2 4 2 4-2 4-2"/><line x1="9" y1="9" x2="9.01" y2="9"/><line x1="15" y1="9" x2="15.01" y2="9"/></svg></div>
       <div class="di-lbl">Period</div>
     </div>
+    <div class="dock-item" id="di-sex" onclick="goSection('sex')">
+      <div class="di-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+      <div class="di-lbl">Sex</div>
+    </div>
     <div class="dock-item" id="di-diary" onclick="goSection('diary')">
       <div class="di-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div>
       <div class="di-lbl">Diary</div>
@@ -1281,11 +1662,37 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
   </div>
 </div>
 
+
+<!-- ── LUNA CHAT BOT ── -->
+<button id="chatFab" onclick="toggleChat()" title="Ask Luna">
+  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  <div class="fab-badge">🌙</div>
+</button>
+
+<div id="chatBox">
+  <div class="chat-header">
+    <div class="chat-avatar">🌙</div>
+    <div class="chat-header-info">
+      <div class="chat-header-name">Luna Assistant</div>
+      <div class="chat-header-status">Knows your cycle data</div>
+    </div>
+    <button class="chat-close" onclick="toggleChat()">×</button>
+  </div>
+  <div class="chat-messages" id="chatMessages"></div>
+  <div class="chat-quick-btns" id="chatQuickBtns"></div>
+  <div class="chat-input-row">
+    <input class="chat-input" id="chatInput" type="text" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendChat()"/>
+    <button class="chat-send" onclick="sendChat()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+    </button>
+  </div>
+</div>
+
 <div id="toast"></div>
 
 <script>
 // ── STATE ──
-var S={name:'',usualDay:11,cycleLen:28,periodActive:false,periodStart:null,periodEnd:null,mood:0,symptoms:[],flow:1,history:[],water:0,waterGoal:8,glassSize:150,pain:5,painParts:[],sleep:0,energy:2,bmiWeight:0,bmiHeight:0,bmiHistory:[],journal:{},spotting:[],dayNotes:{},darkMode:false,pregSymptoms:[],bbtLog:[],pregSymptomsToday:[],dayLogs:{},sexLog:[],pin:''};
+var S={name:'',usualDay:11,cycleLen:28,periodActive:false,periodStart:null,periodEnd:null,mood:0,symptoms:[],flow:1,history:[],water:0,waterGoal:8,waterUnit:'glasses',glassSize:150,pain:5,painParts:[],sleep:0,energy:2,bmiWeight:0,bmiHeight:0,bmiHistory:[],journal:{},journalTags:{},spotting:[],dayNotes:{},darkMode:false,pregSymptoms:[],bbtLog:[],pregSymptomsToday:[],dayLogs:{},sexLog:[],pin:'',supplements:{},productLog:[],streakData:{}};
 var currentSection='home';
 var currentPrivTab=0;
 var privTabs=['Sexual Log','Spotting Log','Period Guide','Backup'];
@@ -1303,7 +1710,7 @@ function updateStorage(){
 // ── NAVIGATION ──
 function goSection(sec){
   currentSection=sec;
-  ['home','period','diary','pregnancy','private'].forEach(function(s){
+  ['home','period','sex','diary','pregnancy','private'].forEach(function(s){
     var page=document.getElementById('page-'+s);
     var si=document.getElementById('si-'+s);
     var di=document.getElementById('di-'+s);
@@ -1996,6 +2403,1118 @@ setTimeout(function(){
   applyDark();
   showPinGate();
 },1600);
+
+// ── PHASE NICKNAMES ──
+var phaseNicknames={
+  menstrual:['Rest & Restore','Moon Time','Renewal Phase','Inner Winter'],
+  follicular:['Rising Energy','Fresh Start','Growth Phase','Inner Spring'],
+  ovulation:['Peak Power','Glow Up','Radiance Phase','Inner Summer'],
+  luteal:['Wind Down','Harvest Phase','Reflection Time','Inner Autumn']
+};
+function getPhaseNickname(phase){
+  var key=phase?phase.toLowerCase().replace(/[^a-z]/g,''):'menstrual';
+  var arr=phaseNicknames[key]||phaseNicknames.menstrual;
+  return arr[new Date().getDate()%arr.length];
+}
+function updatePhaseNick(phaseText){
+  var nick=getPhaseNickname(phaseText);
+  var el=document.getElementById('phaseNickEl');if(el)el.textContent=nick;
+  var el2=document.getElementById('sidebarPhaseNick');if(el2)el2.textContent=nick;
+}
+
+// ── CUSTOM WATER UNIT ──
+function setWaterUnit(unit,btn){
+  S.waterUnit=unit;save();
+  document.querySelectorAll('.hydro-unit-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+  var lbl=document.getElementById('waterGoalUnitLabel');if(lbl)lbl.textContent=unit;
+  updateWaterUI();
+}
+
+// ── SUPPLEMENT TRACKER ──
+var suppList=[
+  {name:'Iron',emoji:'💊',time:'8am',color:'#DC2626'},
+  {name:'Vit D',emoji:'🌞',time:'9am',color:'#D97706'},
+  {name:'Omega-3',emoji:'🐟',time:'1pm',color:'#2563EB'},
+  {name:'Magnesium',emoji:'🌙',time:'9pm',color:'#7C3AED'},
+  {name:'Folate',emoji:'🌿',time:'8am',color:'#16A34A'},
+  {name:'Zinc',emoji:'⚡',time:'12pm',color:'#0D9488'}
+];
+function buildSupplements(){
+  var grid=document.getElementById('suppGrid');if(!grid)return;
+  var todayKey=fmtKey(new Date());
+  var taken=JSON.parse(localStorage.getItem('luna_supp_'+todayKey)||'[]');
+  grid.innerHTML='';
+  suppList.forEach(function(s,i){
+    var div=document.createElement('div');
+    div.className='supp-item'+(taken.indexOf(i)>-1?' taken':'');
+    div.innerHTML='<div class="supp-emoji">'+s.emoji+'</div><div class="supp-name">'+s.name+'</div><div class="supp-time">'+s.time+'</div>';
+    div.onclick=function(){
+      var t=JSON.parse(localStorage.getItem('luna_supp_'+todayKey)||'[]');
+      var idx=t.indexOf(i);
+      if(idx>-1)t.splice(idx,1); else t.push(i);
+      localStorage.setItem('luna_supp_'+todayKey,JSON.stringify(t));
+      buildSupplements();
+      toast(idx>-1?'Supplement unmarked':''+s.emoji+' '+s.name+' taken!',idx===-1);
+    };
+    grid.appendChild(div);
+  });
+}
+
+// ── PERIOD PRODUCT LOG ──
+var productOptions=['🩸 Pad','🌊 Tampon','🫧 Cup','👙 Underwear','💧 Disc','🩹 Other'];
+var selectedProduct=null;
+function buildProductLog(){
+  var btns=document.getElementById('productLogBtns');if(!btns)return;
+  btns.innerHTML='';
+  productOptions.forEach(function(p,i){
+    var b=document.createElement('button');
+    b.className='prod-btn'+(selectedProduct===i?' active':'');
+    b.textContent=p;
+    b.onclick=function(){
+      selectedProduct=i;
+      document.querySelectorAll('.prod-btn').forEach(function(x){x.classList.remove('active');});
+      b.classList.add('active');
+    };
+    btns.appendChild(b);
+  });
+  buildProductLogList();
+}
+function logProduct(){
+  if(selectedProduct===null){toast('Select a product first!');return;}
+  if(!S.productLog)S.productLog=[];
+  S.productLog.push({date:fmtKey(new Date()),product:productOptions[selectedProduct]});
+  if(S.productLog.length>30)S.productLog=S.productLog.slice(-30);
+  save();buildProductLogList();toast('Product logged!',true);
+}
+function buildProductLogList(){
+  var el=document.getElementById('productLogList');if(!el)return;
+  var logs=(S.productLog||[]).slice(-5).reverse();
+  if(logs.length===0){el.innerHTML='<div style="font-size:11px;color:var(--muted);padding:6px 0;">No products logged yet.</div>';return;}
+  el.innerHTML=logs.map(function(l){return'<div class="prod-log-item"><span class="prod-log-date">'+l.date+'</span><span>'+l.product+'</span></div>';}).join('');
+}
+
+// ── MONTHLY SYMPTOM SUMMARY ──
+function buildMonthSympSummary(){
+  var el=document.getElementById('monthSymGrid');if(!el)return;
+  var now=new Date();var m=now.getMonth()+1;var y=now.getFullYear();
+  var prefix=y+'-'+(m<10?'0':'')+m+'-';
+  var counts={};
+  Object.keys(S.dayLogs||{}).forEach(function(k){
+    if(k.startsWith(prefix)&&S.dayLogs[k].symptoms){
+      S.dayLogs[k].symptoms.forEach(function(si){counts[si]=(counts[si]||0)+1;});
+    }
+  });
+  var syms=symptomsData.slice(0,8).map(function(s,i){return{i:i,s:s,cnt:counts[i]||0};});
+  syms.sort(function(a,b){return b.cnt-a.cnt;});
+  var top=syms.slice(0,4);
+  if(top.every(function(x){return x.cnt===0;})){el.innerHTML='<div style="font-size:12px;color:var(--muted);padding:10px 0;grid-column:1/-1;">Log symptoms to see this month&#39;s summary.</div>';return;}
+  el.innerHTML=top.map(function(t){return'<div class="month-sym-card"><div class="month-sym-emoji">'+t.s.e+'</div><div class="month-sym-name">'+t.s.l+'</div><div class="month-sym-count">'+t.cnt+'</div><div class="month-sym-label">times this month</div></div>';}).join('');
+}
+
+// ── STREAK ──
+function calcStreak(){
+  var today=new Date();today.setHours(0,0,0,0);
+  var streak=0;var best=parseInt(localStorage.getItem('luna_best_streak')||'0');
+  for(var i=0;i<365;i++){
+    var d=new Date(today);d.setDate(today.getDate()-i);
+    var k=fmtKey(d);
+    var hasLog=S.journal[k]||( S.dayLogs&&S.dayLogs[k]&&Object.keys(S.dayLogs[k]).length>1);
+    if(hasLog)streak++;else if(i>0)break;
+  }
+  if(streak>best){best=streak;localStorage.setItem('luna_best_streak',best);}
+  return{streak:streak,best:best};
+}
+function buildStreak(){
+  var res=calcStreak();
+  var el=document.getElementById('streakCount');if(el)el.textContent=res.streak;
+  var el2=document.getElementById('streakBest');if(el2)el2.textContent='Best: '+res.best+' days';
+  var dots=document.getElementById('streakDots');if(!dots)return;
+  dots.innerHTML='';
+  var today=new Date();today.setHours(0,0,0,0);
+  for(var i=20;i>=0;i--){
+    var d=new Date(today);d.setDate(today.getDate()-i);
+    var k=fmtKey(d);
+    var hasLog=S.journal[k]||(S.dayLogs&&S.dayLogs[k]&&Object.keys(S.dayLogs[k]).length>1);
+    var dot=document.createElement('div');
+    dot.className='s-dot'+(hasLog?' on':'')+(i===0?' today':'');
+    dot.title=k;
+    dots.appendChild(dot);
+  }
+}
+
+// ── MOOD × PHASE CHART ──
+function buildMoodPhaseChart(){
+  var el=document.getElementById('moodPhaseChart');if(!el)return;
+  var phases=['Menstrual','Follicular','Ovulation','Luteal'];
+  var colors=['#E11D48','#16a34a','#2563EB','#D97706'];
+  // Count moods by phase using cycleDay
+  var phaseRanges=[[1,5],[6,13],[14,16],[17,28]];
+  var results=phases.map(function(ph,pi){
+    var entries=Object.keys(S.dayLogs||{}).map(function(k){return S.dayLogs[k];})
+      .filter(function(e){return e.mood&&e.cycleDay&&e.cycleDay>=phaseRanges[pi][0]&&e.cycleDay<=phaseRanges[pi][1];});
+    if(entries.length===0)return{ph:ph,emoji:'—',count:0,avg:0};
+    var total=entries.reduce(function(a,e){return a+e.mood;},0);
+    var avg=total/entries.length;
+    var moodIdx=Math.round(avg)-1;
+    var emoji=moods[moodIdx]?moods[moodIdx].e:'😐';
+    return{ph:ph,emoji:emoji,count:entries.length,avg:avg,color:colors[pi]};
+  });
+  var maxC=Math.max.apply(null,results.map(function(r){return r.count;}));
+  el.innerHTML=results.map(function(r){
+    var pct=maxC>0?Math.max(8,r.count/maxC*100):8;
+    return'<div class="mpc-row"><div class="mpc-phase">'+r.ph+'</div><div class="mpc-bar-wrap"><div class="mpc-bar" style="width:'+pct+'%;background:'+r.color+'">'+r.emoji+'</div></div><div class="mpc-count">'+r.count+'x</div></div>';
+  }).join('');
+}
+
+// ── EMOTION TAGS (DIARY) ──
+var emotionTagsList=['😰 Anxious','😌 Calm','😠 Irritable','🌟 Hopeful','😢 Sad','🥰 Loved','😤 Frustrated','😴 Tired','💪 Strong','🌸 Grateful'];
+var selectedTags=[];
+function buildEmotionTags(){
+  var el=document.getElementById('emotionTags');if(!el)return;
+  el.innerHTML='';
+  emotionTagsList.forEach(function(tag){
+    var btn=document.createElement('button');
+    btn.className='emo-tag'+(selectedTags.indexOf(tag)>-1?' active':'');
+    btn.textContent=tag;
+    btn.onclick=function(){
+      var idx=selectedTags.indexOf(tag);
+      if(idx>-1)selectedTags.splice(idx,1); else selectedTags.push(tag);
+      btn.classList.toggle('active',selectedTags.indexOf(tag)>-1);
+    };
+    el.appendChild(btn);
+  });
+}
+
+// ── DAILY WRITING PROMPTS ──
+var writingPrompts=[
+  'What helped your energy today?',
+  'How did your body feel this morning?',
+  'What emotion surprised you today?',
+  'What are you grateful for right now?',
+  'How did your cycle affect your mood today?',
+  'What did you do to take care of yourself?',
+  'What craving did you have and why?',
+  'Describe your pain level and where you felt it.',
+  'What brought you joy today?',
+  'How did you sleep and what affected it?',
+  'What stress are you carrying this week?',
+  'Write about a moment of calm today.',
+  'How did your energy shift throughout the day?',
+  'What would you tell yourself on a hard cycle day?',
+  'What has your body been asking for lately?',
+  'Describe today\'s mood in three words.',
+  'What habit felt easy today? What felt hard?',
+  'How did you nourish yourself today?',
+  'What do you want to release this cycle?',
+  'What does your body need most right now?',
+  'How did movement (or rest) feel today?',
+  'What surprised you about yourself today?'
+];
+var currentPromptIdx=new Date().getDate()%writingPrompts.length;
+function buildPrompt(){var el=document.getElementById('promptText');if(el)el.textContent=writingPrompts[currentPromptIdx];}
+function refreshPrompt(){currentPromptIdx=(currentPromptIdx+1)%writingPrompts.length;buildPrompt();}
+
+// ── JOURNAL SEARCH ──
+function searchJournal(query){
+  var past=document.getElementById('journalPast');
+  var countEl=document.getElementById('searchCount');
+  query=query.trim().toLowerCase();
+  var entries=Object.entries(S.journal||{}).sort().reverse();
+  if(!query){
+    if(countEl)countEl.style.display='none';
+    renderJournalEntries(entries.slice(0,10),'');
+    return;
+  }
+  var filtered=entries.filter(function(e){return e[1].toLowerCase().indexOf(query)>-1||e[0].indexOf(query)>-1;});
+  if(countEl){countEl.style.display='block';countEl.textContent=filtered.length+' result'+(filtered.length!==1?'s':'');}
+  renderJournalEntries(filtered,'');
+}
+function renderJournalEntries(entries,highlight){
+  var past=document.getElementById('journalPast');if(!past)return;
+  if(entries.length===0){past.innerHTML='<div style="font-size:12px;color:var(--muted);padding:8px 0;">No entries found.</div>';return;}
+  past.innerHTML='';
+  entries.forEach(function(e){
+    var item=document.createElement('div');
+    item.className='journal-past-item';
+    var tags=(S.journalTags&&S.journalTags[e[0]])||[];
+    var tagsHtml=tags.length?'<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">'+tags.map(function(t){return'<span style="font-size:9px;padding:2px 7px;border-radius:9999px;background:var(--rose-soft);color:var(--rose);font-weight:600;">'+t+'</span>';}).join('')+'</div>':'';
+    item.innerHTML='<div class="journal-past-date">'+e[0]+'</div><div class="journal-past-text">'+e[1]+'</div>'+tagsHtml;
+    past.appendChild(item);
+  });
+}
+
+// ── PATCH saveJournal to save tags ──
+var _origSaveJournal=saveJournal;
+saveJournal=function(){
+  var text=document.getElementById('journalText').value.trim();
+  if(!text){toast('Write something first!');return;}
+  if(!S.journal)S.journal={};
+  if(!S.journalTags)S.journalTags={};
+  var key=fmtKey(new Date());
+  S.journal[key]=text;
+  if(selectedTags.length>0)S.journalTags[key]=selectedTags.slice();
+  selectedTags=[];
+  save();
+  document.getElementById('journalText').value='';
+  buildEmotionTags();
+  buildJournal();
+  buildDiaryStats();
+  toast('Entry saved! ✍️',true);
+};
+
+// ── PATCH buildJournal to use search-aware render ──
+var _origBuildJournal=buildJournal;
+buildJournal=function(){
+  var jd=document.getElementById('journalDate');if(jd)jd.textContent=new Date().toLocaleDateString('en-IN',{weekday:'long',day:'numeric',month:'long'});
+  buildPrompt();
+  buildEmotionTags();
+  var entries=Object.entries(S.journal||{}).sort().reverse().slice(0,10);
+  renderJournalEntries(entries,'');
+};
+
+// ── PATCH updatePhaseText to add nickname ──
+var _origUpdateNextPeriod=updateNextPeriod;
+updateNextPeriod=function(){
+  _origUpdateNextPeriod();
+  // get phase text and update nick
+  var el=document.getElementById('phaseText');
+  if(el)updatePhaseNick(el.textContent);
+};
+
+// ── INIT PATCH: add new builds to init ──
+var _origInit=init;
+init=function(){
+  _origInit();
+  buildSupplements();
+  buildProductLog();
+  buildMonthSympSummary();
+  buildStreak();
+  buildMoodPhaseChart();
+  buildJournal();
+  // Set water unit button
+  if(S.waterUnit){
+    var btn=document.getElementById('hbu-'+S.waterUnit);
+    if(btn){document.querySelectorAll('.hydro-unit-btn').forEach(function(b){b.classList.remove('active');});btn.classList.add('active');}
+    var lbl=document.getElementById('waterGoalUnitLabel');if(lbl)lbl.textContent=S.waterUnit;
+  }
+  // apply phase nickname after init
+  var pEl=document.getElementById('phaseText');if(pEl)updatePhaseNick(pEl.textContent);
+};
+
+
+// ══════════════════════════════════════════
+// LUNA CHATBOT — rule-based, reads all S data
+// ══════════════════════════════════════════
+var chatOpen = false;
+var chatHistory = [];
+
+var quickQuestions = [
+  'When is my next period?',
+  'When was my last period?',
+  'Am I in fertile window?',
+  'What phase am I in?',
+  'Last time I had sex?',
+  'How many cycles tracked?',
+  'Am I pregnant?',
+  'My average cycle length?',
+  'How many days left?',
+  'My water today?',
+  'My streak?',
+  'Ovulation date?'
+];
+
+function toggleChat() {
+  chatOpen = !chatOpen;
+  var box = document.getElementById('chatBox');
+  if (chatOpen) {
+    box.classList.add('open');
+    if (chatHistory.length === 0) {
+      var name = S.name || 'there';
+      addBotMsg('Hi ' + name + '! 🌙 I know all your Luna data. Ask me anything about your cycle, period, sex log, pregnancy, water, mood — anything!');
+      buildQuickBtns();
+    }
+    setTimeout(function() { document.getElementById('chatInput').focus(); }, 200);
+  } else {
+    box.classList.remove('open');
+  }
+}
+
+function buildQuickBtns() {
+  var el = document.getElementById('chatQuickBtns');
+  if (!el) return;
+  el.innerHTML = '';
+  quickQuestions.slice(0, 6).forEach(function(q) {
+    var btn = document.createElement('button');
+    btn.className = 'chat-qbtn';
+    btn.textContent = q;
+    btn.onclick = function() { handleChat(q); };
+    el.appendChild(btn);
+  });
+}
+
+function addBotMsg(text) {
+  var msgs = document.getElementById('chatMessages');
+  var wrap = document.createElement('div');
+  wrap.className = 'chat-msg bot';
+  var now = new Date();
+  var t = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+  wrap.innerHTML = '<div class="chat-bubble">' + text + '</div><div class="chat-time">' + t + '</div>';
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+  chatHistory.push({ role: 'bot', text: text });
+}
+
+function addUserMsg(text) {
+  var msgs = document.getElementById('chatMessages');
+  var wrap = document.createElement('div');
+  wrap.className = 'chat-msg user';
+  var now = new Date();
+  var t = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+  wrap.innerHTML = '<div class="chat-bubble">' + text + '</div><div class="chat-time">' + t + '</div>';
+  msgs.appendChild(wrap);
+  msgs.scrollTop = msgs.scrollHeight;
+  chatHistory.push({ role: 'user', text: text });
+}
+
+function showTyping() {
+  var msgs = document.getElementById('chatMessages');
+  var div = document.createElement('div');
+  div.className = 'chat-msg bot';
+  div.id = 'chatTyping';
+  div.innerHTML = '<div class="chat-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function hideTyping() {
+  var el = document.getElementById('chatTyping');
+  if (el) el.remove();
+}
+
+function sendChat() {
+  var input = document.getElementById('chatInput');
+  var text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+  handleChat(text);
+}
+
+function handleChat(text) {
+  addUserMsg(text);
+  showTyping();
+  setTimeout(function() {
+    hideTyping();
+    var reply = lunaAnswer(text.toLowerCase());
+    addBotMsg(reply);
+    buildQuickBtns();
+  }, 600);
+}
+
+// ── HELPER FUNCTIONS ──
+function chatFmtDate(dateStr) {
+  if (!dateStr) return 'unknown';
+  var d = new Date(dateStr);
+  return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function chatDaysAgo(dateStr) {
+  if (!dateStr) return null;
+  var d = new Date(dateStr);
+  d.setHours(0, 0, 0, 0);
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  return Math.round((today - d) / 86400000);
+}
+
+function chatDaysFromNow(dateStr) {
+  if (!dateStr) return null;
+  var d = new Date(dateStr);
+  d.setHours(0, 0, 0, 0);
+  var today = new Date(); today.setHours(0, 0, 0, 0);
+  return Math.round((d - today) / 86400000);
+}
+
+function getChatPhase() {
+  var el = document.getElementById('phaseText');
+  return el ? el.textContent : 'unknown';
+}
+
+function getChatCycleDay() {
+  var el = document.getElementById('ringDay');
+  return el ? el.textContent : '?';
+}
+
+function getChatNextPeriod() {
+  if (typeof getNextPeriodDate === 'function') {
+    return getNextPeriodDate();
+  }
+  return null;
+}
+
+function getLastSexDate() {
+  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
+  if (logs.length > 0) return logs[logs.length - 1];
+  // also check sexLog in S and dayNotes sex markers
+  if (S.sexLog && S.sexLog.length > 0) return S.sexLog[S.sexLog.length - 1];
+  // check dayLogs for sex
+  var sexDays = Object.keys(S.dayLogs || {}).filter(function(k) {
+    return S.dayLogs[k].sex;
+  }).sort();
+  if (sexDays.length > 0) return { date: sexDays[sexDays.length - 1] };
+  return null;
+}
+
+function getAvgCycle() {
+  if (S.history && S.history.length > 0) {
+    var total = S.history.reduce(function(a, h) { return a + (h.cycleLen || S.cycleLen); }, 0);
+    return Math.round(total / S.history.length);
+  }
+  return S.cycleLen || 28;
+}
+
+function getAvgPeriodLen() {
+  if (S.history && S.history.length > 0) {
+    var total = S.history.reduce(function(a, h) { return a + (h.duration || 5); }, 0);
+    return Math.round(total / S.history.length);
+  }
+  return 5;
+}
+
+function isFertileToday() {
+  var day = parseInt(getChatCycleDay());
+  var cycleLen = S.cycleLen || 28;
+  var ovDay = cycleLen - 14;
+  return day >= ovDay - 5 && day <= ovDay + 1;
+}
+
+function getOvulationDate() {
+  var nextP = getChatNextPeriod();
+  if (!nextP) return null;
+  var ov = new Date(nextP.getTime() - 14 * 86400000);
+  return ov;
+}
+
+// ── MAIN ANSWER ENGINE ──
+function lunaAnswer(q) {
+  var name = S.name || 'you';
+
+  // ── GREETINGS ──
+  if (/^(hi|hello|hey|hii|helo|namaste|hola)/.test(q)) {
+    return 'Hello ' + name + '! 🌸 How can I help you today? Ask me about your period, cycle, pregnancy, sex log, water intake — anything!';
+  }
+
+  // ── NAME ──
+  if (/my name|who am i/.test(q)) {
+    return 'Your name is ' + (S.name || 'not set yet') + ' 😊';
+  }
+
+  // ── NEXT PERIOD ──
+  if (/next period|period coming|when.*period|period.*when|period date/.test(q)) {
+    var np = getChatNextPeriod();
+    if (!np) return 'I need at least one period logged to predict your next one!';
+    var days = chatDaysFromNow(np);
+    if (days < 0) return 'Your period may have already started or is late by ' + Math.abs(days) + ' days. Did you forget to log it?';
+    if (days === 0) return '🩸 Your period is expected TODAY! Make sure you have supplies ready.';
+    if (days === 1) return '🩸 Your period is expected TOMORROW — ' + chatFmtDate(np) + '. Be prepared!';
+    return '🩸 Your next period is in ' + days + ' days, on ' + chatFmtDate(np) + '.';
+  }
+
+  // ── LAST PERIOD ──
+  if (/last period|previous period|period was|when.*last|last.*bleed/.test(q)) {
+    if (S.periodActive && S.periodStart) {
+      return '🩸 You are currently ON your period! It started on ' + chatFmtDate(S.periodStart) + ', that is ' + chatDaysAgo(S.periodStart) + ' days ago.';
+    }
+    if (S.history && S.history.length > 0) {
+      var last = S.history[S.history.length - 1];
+      var ago = chatDaysAgo(last.start);
+      return '🩸 Your last period started on ' + chatFmtDate(last.start) + ' (' + ago + ' days ago) and lasted ' + last.duration + ' days.';
+    }
+    if (S.periodStart) {
+      return '🩸 Your last logged period started on ' + chatFmtDate(S.periodStart) + '.';
+    }
+    return 'No period data found. Please log your period first!';
+  }
+
+  // ── PERIOD ACTIVE / CURRENT ──
+  if (/am i.*period|on.*period|period.*now|currently.*period|period.*active/.test(q)) {
+    if (S.periodActive) {
+      var day = chatDaysAgo(S.periodStart) + 1;
+      return '🩸 Yes, you are currently on your period! Day ' + day + ', started ' + chatFmtDate(S.periodStart) + '.';
+    }
+    return 'No, you are not currently on your period.';
+  }
+
+  // ── CYCLE DAY ──
+  if (/cycle day|what day|which day of cycle|day.*cycle/.test(q)) {
+    var cd = getChatCycleDay();
+    var phase = getChatPhase();
+    return 'You are on cycle day ' + cd + ' of your ' + (S.cycleLen || 28) + '-day cycle. Current phase: ' + phase + '.';
+  }
+
+  // ── PHASE ──
+  if (/phase|what phase|which phase/.test(q)) {
+    var ph = getChatPhase();
+    var nick = getPhaseNickname(ph);
+    var phDesc = {
+      'Menstrual': 'Your uterine lining is shedding. Rest, stay warm, and eat iron-rich foods.',
+      'Follicular': 'Estrogen is rising. Your energy is increasing — great time to start new things!',
+      'Ovulation': 'Peak fertility! You are most likely to conceive now. Energy is at its highest.',
+      'Luteal': 'Progesterone is rising. You may feel PMS symptoms. Be gentle with yourself.'
+    };
+    var desc = phDesc[ph] || 'Keep tracking to learn more about your phases.';
+    return '🌸 You are in the ' + ph + ' phase — also called "' + nick + '". ' + desc;
+  }
+
+  // ── SEX / LAST SEX ──
+  if (/sex|intercourse|last time.*sex|sex.*last|intimate|made love/.test(q)) {
+    var sexEntry = getLastSexDate();
+    if (!sexEntry) return 'No sex activity logged yet. You can log it by tapping a day on the calendar.';
+    var sexDate = sexEntry.date || sexEntry.start || sexEntry;
+    if (typeof sexDate === 'object' && sexDate.date) sexDate = sexDate.date;
+    var ago = chatDaysAgo(sexDate);
+    var reply = '💙 Last logged sex was on ' + chatFmtDate(sexDate) + ' (' + ago + ' days ago).';
+    // Check if it was during fertile window
+    var ovDate = getOvulationDate();
+    if (ovDate) {
+      var sexD = new Date(sexDate);
+      var diff = Math.abs((ovDate - sexD) / 86400000);
+      if (diff <= 5) reply += ' ⚠️ This was near your fertile window — pregnancy is possible if no protection was used.';
+    }
+    return reply;
+  }
+
+  // ── PREGNANCY / AM I PREGNANT ──
+  if (/pregnant|pregnancy|am i.*pregn|pregn.*am i|baby|conceive|conception/.test(q)) {
+    if (S.periodActive) {
+      return 'You are currently on your period, so pregnancy is very unlikely right now.';
+    }
+    var np2 = getChatNextPeriod();
+    var lateBy = np2 ? chatDaysFromNow(np2) * -1 : 0;
+    if (lateBy > 3) {
+      return '⚠️ Your period is ' + lateBy + ' days late. This could be a sign of pregnancy — consider taking a home pregnancy test. But stress or hormonal changes can also delay periods.';
+    }
+    var sexEntry2 = getLastSexDate();
+    if (sexEntry2) {
+      var ovDate2 = getOvulationDate();
+      if (ovDate2) {
+        var sexD2 = new Date(sexEntry2.date || sexEntry2.start || sexEntry2);
+        var diff2 = (ovDate2 - sexD2) / 86400000;
+        if (diff2 >= -1 && diff2 <= 5) {
+          return '⚠️ You had sex near your fertile window (' + Math.round(diff2) + ' days before ovulation). There is a chance of pregnancy. Wait until your period is due — if it is late, take a test.';
+        }
+      }
+    }
+    return 'I cannot confirm pregnancy — only a pregnancy test can do that. Your period is not late yet. Keep tracking!';
+  }
+
+  // ── FERTILE WINDOW ──
+  if (/fertile|fertility|ovulat|best.*conceive|best.*sex|best.*baby/.test(q)) {
+    var ovD = getOvulationDate();
+    var cd2 = parseInt(getChatCycleDay());
+    var fertile = isFertileToday();
+    if (!ovD) return 'Log your cycle length and period dates so I can calculate your fertile window!';
+    var fertileStart = new Date(ovD.getTime() - 5 * 86400000);
+    var fertileEnd = new Date(ovD.getTime() + 1 * 86400000);
+    var reply2 = '🌸 Your estimated fertile window is ' + fertileStart.toLocaleDateString('en-IN', {day:'numeric',month:'short'}) + ' to ' + fertileEnd.toLocaleDateString('en-IN', {day:'numeric',month:'short'}) + '. Ovulation is expected on ' + chatFmtDate(ovD) + '.';
+    if (fertile) reply2 += ' 🔥 You are IN your fertile window right now!';
+    else reply2 += ' You are not in your fertile window today.';
+    return reply2;
+  }
+
+  // ── OVULATION ──
+  if (/ovulat/.test(q)) {
+    var ovD3 = getOvulationDate();
+    if (!ovD3) return 'Not enough data to calculate ovulation. Please log at least one cycle.';
+    var daysToOv = chatDaysFromNow(ovD3);
+    if (daysToOv === 0) return '🥚 Today is your estimated OVULATION day! Highest chance of pregnancy.';
+    if (daysToOv > 0) return '🥚 Estimated ovulation is in ' + daysToOv + ' days, on ' + chatFmtDate(ovD3) + '.';
+    return '🥚 Ovulation was approximately ' + Math.abs(daysToOv) + ' days ago, on ' + chatFmtDate(ovD3) + '.';
+  }
+
+  // ── AVERAGE CYCLE ──
+  if (/average.*cycle|cycle.*average|cycle.*length|how long.*cycle|my cycle/.test(q)) {
+    var avg = getAvgCycle();
+    var avgP = getAvgPeriodLen();
+    var tracked = (S.history || []).length;
+    if (tracked === 0) return 'Your cycle is set to ' + (S.cycleLen || 28) + ' days (default). Log more periods to get your real average.';
+    return '📊 Your average cycle length is ' + avg + ' days and average period duration is ' + avgP + ' days, based on ' + tracked + ' tracked cycles.';
+  }
+
+  // ── CYCLE COUNT ──
+  if (/how many cycle|cycles tracked|total cycle|number.*cycle/.test(q)) {
+    var count = (S.history || []).length;
+    return '📊 You have tracked ' + count + ' cycle' + (count !== 1 ? 's' : '') + ' so far.';
+  }
+
+  // ── DAYS LEFT IN CYCLE ──
+  if (/days left|days remain|how many days|days until period|days till/.test(q)) {
+    var np3 = getChatNextPeriod();
+    if (!np3) return 'No period data yet — please log your period first.';
+    var left = chatDaysFromNow(np3);
+    if (left <= 0) return 'Your period is due now or overdue by ' + Math.abs(left) + ' days.';
+    return '📅 ' + left + ' days left until your next period on ' + chatFmtDate(np3) + '.';
+  }
+
+  // ── WATER ──
+  if (/water|hydrat|drink|glasses/.test(q)) {
+    var goal = S.waterGoal || 8;
+    var current = S.water || 0;
+    var unit = S.waterUnit || 'glasses';
+    var pct = Math.round(current / goal * 100);
+    if (current >= goal) return '💧 Amazing! You have reached your water goal today — ' + current + '/' + goal + ' ' + unit + ' (' + pct + '%). Well done!';
+    return '💧 You have had ' + current + ' out of ' + goal + ' ' + unit + ' today (' + pct + '%). ' + (goal - current) + ' more to go!';
+  }
+
+  // ── MOOD ──
+  if (/mood|feeling|how.*feel|feel.*how|emotion/.test(q)) {
+    var moodIdx = S.mood;
+    if (!moodIdx) return 'No mood logged today yet. Head to the Period Log page to track your mood!';
+    var moodNames = ['', 'Terrible', 'Bad', 'Okay', 'Good', 'Great'];
+    var moodEmoji = ['', '😢', '😔', '😐', '😊', '😄'];
+    return moodEmoji[moodIdx] + ' Your mood today is logged as: ' + moodNames[moodIdx] + '.';
+  }
+
+  // ── SYMPTOMS ──
+  if (/symptom|cramp|headache|bloat|nausea|breast|backache/.test(q)) {
+    var syms = S.symptoms || [];
+    if (syms.length === 0) return 'No symptoms logged today. Go to Period Log to track how you feel.';
+    var sympNames = ['Cramps','Headache','Bloating','Fatigue','Nausea','Breast Tenderness','Backache','Acne','Mood Swings','Spotting'];
+    var logged = syms.map(function(i) { return sympNames[i] || 'Symptom ' + i; });
+    return '🩺 Today you logged: ' + logged.join(', ') + '.';
+  }
+
+  // ── PAIN ──
+  if (/pain|pain level|hurt|ache/.test(q)) {
+    var pain = parseInt(localStorage.getItem('luna_pain') || '0');
+    if (!pain) return 'No pain level logged today. You can track it on the Home page.';
+    var parts = S.painParts || [];
+    var reply3 = '🩺 Your pain level today is ' + pain + '/10.';
+    if (parts.length > 0) reply3 += ' Pain areas: ' + parts.join(', ') + '.';
+    return reply3;
+  }
+
+  // ── SLEEP ──
+  if (/sleep|slept|rest|sleep.*quality/.test(q)) {
+    var sl = parseInt(localStorage.getItem('luna_sleep') || '0');
+    var sleepLabels2 = ['Not rated', 'Very Poor', 'Poor', 'Fair', 'Good', 'Excellent'];
+    if (!sl) return 'No sleep logged today. Rate your sleep on the Period Log page!';
+    return '😴 Your sleep quality today: ' + sleepLabels2[sl] + ' (' + sl + '/5).';
+  }
+
+  // ── ENERGY ──
+  if (/energy|energi|tired|fatigue|active/.test(q)) {
+    var en = parseInt(localStorage.getItem('luna_energy') || '0');
+    var energyLabels = ['', 'Drained', 'Low', 'Okay', 'Good', 'High'];
+    if (!en) return 'No energy level logged today. Track it on the Period Log page!';
+    return '⚡ Your energy level today: ' + energyLabels[en] + ' (' + en + '/5).';
+  }
+
+  // ── BMI / WEIGHT ──
+  if (/bmi|weight|height|body mass/.test(q)) {
+    if (!S.bmiWeight || !S.bmiHeight) return 'No BMI data yet. Enter your weight and height on the Home page!';
+    var bmi = S.bmiWeight / Math.pow(S.bmiHeight / 100, 2);
+    bmi = Math.round(bmi * 10) / 10;
+    var cat = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Healthy Weight' : bmi < 30 ? 'Overweight' : 'Obese';
+    return '⚖️ Your BMI is ' + bmi + ' (' + cat + '). Weight: ' + S.bmiWeight + ' kg, Height: ' + S.bmiHeight + ' cm.';
+  }
+
+  // ── PERIOD DURATION ──
+  if (/how long.*period|period.*how long|period.*last|duration/.test(q)) {
+    if (S.periodActive && S.periodStart) {
+      var days2 = chatDaysAgo(S.periodStart) + 1;
+      return '🩸 Your current period has been going for ' + days2 + ' days.';
+    }
+    var avgPLen = getAvgPeriodLen();
+    return '🩸 Your average period lasts ' + avgPLen + ' days.';
+  }
+
+  // ── STREAK ──
+  if (/streak|consist|logging streak|how long.*track/.test(q)) {
+    if (typeof calcStreak === 'function') {
+      var st = calcStreak();
+      return '🔥 Your current logging streak is ' + st.streak + ' day' + (st.streak !== 1 ? 's' : '') + '! Best ever: ' + st.best + ' days.';
+    }
+    return 'Keep logging daily to build your streak!';
+  }
+
+  // ── JOURNAL / DIARY ──
+  if (/journal|diary|entries|wrote|writing/.test(q)) {
+    var entryCount = Object.keys(S.journal || {}).length;
+    if (entryCount === 0) return 'No journal entries yet. Go to Daily Diary to start writing!';
+    var lastEntry = Object.keys(S.journal).sort().reverse()[0];
+    return '📔 You have ' + entryCount + ' journal ' + (entryCount === 1 ? 'entry' : 'entries') + '. Last entry was on ' + lastEntry + '.';
+  }
+
+  // ── SPOTTING ──
+  if (/spotting|spot|light.*bleed|bleed.*light/.test(q)) {
+    var spots = S.spotting || [];
+    if (spots.length === 0) return 'No spotting logged. You can log it by tapping a calendar day.';
+    var lastSpot = spots[spots.length - 1];
+    return '🩸 Last spotting logged on ' + lastSpot.date + ' (' + (lastSpot.intensity || '') + ').';
+  }
+
+  // ── PMS ──
+  if (/pms|premenstrual|pmt/.test(q)) {
+    var phase2 = getChatPhase();
+    if (phase2 === 'Luteal') {
+      return '⚠️ You are in the Luteal phase — this is when PMS typically occurs (Days 17–28). Common symptoms: mood swings, bloating, cramps, fatigue. Eat magnesium-rich foods and reduce caffeine.';
+    }
+    return 'PMS typically occurs in the Luteal phase (about 1–2 weeks before your period). You are currently in ' + phase2 + ' phase.';
+  }
+
+  // ── SAFE PERIOD / UNPROTECTED SEX ──
+  if (/safe.*sex|sex.*safe|unprotected|safe day|is it safe/.test(q)) {
+    var fertile2 = isFertileToday();
+    var ph2 = getChatPhase();
+    if (fertile2) return '⚠️ You are in your fertile window right now! This is NOT a safe time for unprotected sex if you want to avoid pregnancy.';
+    if (ph2 === 'Menstrual') return '🩸 You are on your period. Pregnancy risk is low, but STIs can still spread. Use protection to be safe.';
+    return '✅ You are not in your fertile window today. However, cycles can vary and no method is 100% reliable. Always use protection to prevent STIs.';
+  }
+
+  // ── LATE PERIOD ──
+  if (/late|overdue|missed period|period.*late|late.*period/.test(q)) {
+    var np4 = getChatNextPeriod();
+    if (!np4) return 'No period data yet to determine if you are late.';
+    var daysLate = chatDaysFromNow(np4) * -1;
+    if (daysLate <= 0) return 'Your period is not late yet — it is due in ' + Math.abs(daysLate) + ' days.';
+    if (daysLate <= 3) return '⏰ Your period is ' + daysLate + ' day' + (daysLate > 1 ? 's' : '') + ' late. This is still within normal variation.';
+    if (daysLate <= 7) return '⚠️ Your period is ' + daysLate + ' days late. Stress, diet changes, or illness can cause this. Consider a pregnancy test if you had unprotected sex.';
+    return '⚠️ Your period is ' + daysLate + ' days late! Please consider taking a pregnancy test and consulting a doctor if needed.';
+  }
+
+  // ── PERIOD PRODUCT ──
+  if (/product|pad|tampon|cup|underwear|disc|what.*using|using.*what/.test(q)) {
+    var prods = S.productLog || [];
+    if (prods.length === 0) return 'No period products logged yet. Log them on the Period Log page!';
+    var lastProd = prods[prods.length - 1];
+    return '🩸 Last logged product: ' + lastProd.product + ' on ' + lastProd.date + '.';
+  }
+
+  // ── SUPPLEMENTS ──
+  if (/supplement|vitamin|iron|magnesium|omega|zinc|folate/.test(q)) {
+    var todayKey = fmtKey(new Date());
+    var taken = JSON.parse(localStorage.getItem('luna_supp_' + todayKey) || '[]');
+    var suppNames2 = ['Iron', 'Vit D', 'Omega-3', 'Magnesium', 'Folate', 'Zinc'];
+    if (taken.length === 0) return '💊 No supplements taken today yet. Track them on the Period Log page!';
+    var takenNames = taken.map(function(i) { return suppNames2[i]; });
+    return '💊 Supplements taken today: ' + takenNames.join(', ') + '. (' + taken.length + '/' + suppNames2.length + ')';
+  }
+
+  // ── PHASE GUIDE ──
+  if (/what.*eat|food|diet|exercise|workout/.test(q)) {
+    var ph3 = getChatPhase();
+    var guideMap = {
+      'Menstrual': 'Eat iron-rich foods (spinach, lentils, dark chocolate). Gentle yoga and light walks are best. Avoid alcohol and caffeine.',
+      'Follicular': 'Eat leafy greens, protein, and berries. Great time for running, cardio, and strength training!',
+      'Ovulation': 'Eat zinc-rich foods and whole grains. Best phase for HIIT and intense workouts.',
+      'Luteal': 'Eat magnesium-rich foods (bananas, nuts). Good for cycling, pilates, and swimming. Reduce salty/processed foods.'
+    };
+    return '🥗 In your ' + ph3 + ' phase: ' + (guideMap[ph3] || 'Keep eating balanced and stay active!');
+  }
+
+  // ── HISTORY / PAST PERIODS ──
+  if (/history|past period|all period|period.*list/.test(q)) {
+    var hist = S.history || [];
+    if (hist.length === 0) return 'No period history yet. Start logging your periods!';
+    var last3 = hist.slice(-3).reverse();
+    var lines = last3.map(function(h, i) {
+      return (i + 1) + '. ' + chatFmtDate(h.start) + ' — ' + h.duration + ' days';
+    });
+    return '📋 Last ' + last3.length + ' periods:\n' + lines.join('\n');
+  }
+
+  // ── THANK YOU ──
+  if (/thank|thanks|great|awesome|good bot|nice/.test(q)) {
+    return 'You are welcome ' + name + '! 🌸 I am always here to help with your cycle questions.';
+  }
+
+  // ── HELP ──
+  if (/help|what.*ask|what can|command|option/.test(q)) {
+    return 'You can ask me:\n• When is my next period?\n• When was my last period?\n• Am I in fertile window?\n• Last time I had sex?\n• Am I pregnant?\n• What phase am I in?\n• My water today?\n• My sleep/energy?\n• My BMI?\n• My streak?\n• Is it safe to have sex?\n• Is my period late?\n...and much more!';
+  }
+
+  // ── FALLBACK ──
+  var fallbacks = [
+    'I am not sure about that. Try asking about your period, cycle, sex log, pregnancy, or health stats!',
+    'Hmm, I did not understand that. Ask me things like "when is my next period?" or "am I fertile today?"',
+    'I know your cycle data well, but I could not understand that question. Try rephrasing it!'
+  ];
+  return fallbacks[Math.floor(Math.random() * fallbacks.length)];
+}
+
+
+// ══════════════════════════════════════════
+// SEX & INTIMACY PAGE
+// ══════════════════════════════════════════
+var sexEntry = { date:'', type:'', protect:'', mood:'', pain:0, partner:'', note:'' };
+
+function initSexPage() {
+  // Set today's date
+  var dateEl = document.getElementById('sexDate');
+  if (dateEl && !dateEl.value) dateEl.value = new Date().toISOString().split('T')[0];
+  buildSexHistory();
+  buildSexStats();
+  buildSexSafety();
+  buildSexCycleOverlap();
+  buildSexTips();
+}
+
+function setSexType(btn, val) {
+  sexEntry.type = val;
+  document.querySelectorAll('.sex-type-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+}
+
+function setSexProtect(val) {
+  sexEntry.protect = val;
+  var y = document.getElementById('sexProtYes');
+  var n = document.getElementById('sexProtNo');
+  if (y) { y.classList.remove('active-yes'); }
+  if (n) { n.classList.remove('active-no'); }
+  if (val === 'yes' && y) y.classList.add('active-yes');
+  if (val === 'no' && n) n.classList.add('active-no');
+}
+
+function setSexMood(btn, val) {
+  sexEntry.mood = val;
+  document.querySelectorAll('.sex-mood-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+}
+
+function setSexPain(btn, val) {
+  sexEntry.pain = val;
+  document.querySelectorAll('.sex-pain-btn').forEach(function(b){b.classList.remove('active');});
+  btn.classList.add('active');
+}
+
+function logSexEntry() {
+  var dateEl = document.getElementById('sexDate');
+  var date = dateEl ? dateEl.value : fmtKey(new Date());
+  if (!date) { toast('Please select a date!'); return; }
+
+  var entry = {
+    date: date,
+    type: sexEntry.type || 'Not specified',
+    protect: sexEntry.protect || 'not logged',
+    mood: sexEntry.mood || '',
+    pain: sexEntry.pain || 0,
+    partner: (document.getElementById('sexPartner') || {}).value || '',
+    note: (document.getElementById('sexNote') || {}).value || '',
+    cycleDay: cycleDayFor(date.replace(/-/g, '-')) || null,
+    phase: getCyclePhaseForDay(cycleDayFor(date) || 0)
+  };
+
+  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
+  logs.push(entry);
+  localStorage.setItem('luna_sexual', JSON.stringify(logs));
+
+  // also mark on calendar
+  if (!S.dayLogs) S.dayLogs = {};
+  if (!S.dayLogs[date]) S.dayLogs[date] = {};
+  S.dayLogs[date].sex = true;
+  save();
+
+  // reset form
+  sexEntry = { date:'', type:'', protect:'', mood:'', pain:0, partner:'', note:'' };
+  document.querySelectorAll('.sex-type-btn,.sex-mood-btn,.sex-pain-btn').forEach(function(b){b.classList.remove('active');});
+  var yb = document.getElementById('sexProtYes'); if(yb) yb.classList.remove('active-yes');
+  var nb = document.getElementById('sexProtNo'); if(nb) nb.classList.remove('active-no');
+  if (document.getElementById('sexPartner')) document.getElementById('sexPartner').value = '';
+  if (document.getElementById('sexNote')) document.getElementById('sexNote').value = '';
+  if (dateEl) dateEl.value = new Date().toISOString().split('T')[0];
+
+  buildSexHistory();
+  buildSexStats();
+  buildSexSafety();
+  buildSexCycleOverlap();
+  toast('Entry logged! 💙', true);
+}
+
+function getCyclePhaseForDay(day) {
+  if (!day) return 'Unknown';
+  if (day <= 5) return 'Menstrual';
+  if (day <= 13) return 'Follicular';
+  if (day <= 16) return 'Ovulation';
+  return 'Luteal';
+}
+
+function buildSexHistory() {
+  var el = document.getElementById('sexHistoryList');
+  if (!el) return;
+  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]').slice().reverse();
+  if (logs.length === 0) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:10px 0;text-align:center;">No entries yet. Log your first one above!</div>';
+    return;
+  }
+  el.innerHTML = '';
+  logs.slice(0, 20).forEach(function(log, i) {
+    var item = document.createElement('div');
+    item.className = 'sex-history-item';
+    var protTag = log.protect === 'yes'
+      ? '<span class="sex-hist-tag protected">✅ Protected</span>'
+      : log.protect === 'no'
+        ? '<span class="sex-hist-tag unprotected">❌ Unprotected</span>'
+        : '';
+    var moodTag = log.mood ? '<span class="sex-hist-tag mood">' + log.mood + '</span>' : '';
+    var painTag = log.pain > 0 ? '<span class="sex-hist-tag pain">Pain ' + log.pain + '/5</span>' : '';
+    var phaseTag = log.phase ? '<span class="sex-hist-tag type">' + log.phase + '</span>' : '';
+    var noteHtml = log.note ? '<div class="sex-hist-note">' + log.note + '</div>' : '';
+    var partnerHtml = log.partner ? '<div style="font-size:10px;color:var(--muted);margin-top:3px;">With: ' + log.partner + '</div>' : '';
+    item.innerHTML =
+      '<div class="sex-hist-icon">💙</div>' +
+      '<div class="sex-hist-body">' +
+        '<div class="sex-hist-date">' + log.date + (log.type && log.type !== 'Not specified' ? ' · ' + log.type : '') + '</div>' +
+        '<div class="sex-hist-meta">' + protTag + moodTag + painTag + phaseTag + '</div>' +
+        partnerHtml + noteHtml +
+      '</div>' +
+      '<button class="sex-hist-del" onclick="deleteSexEntry(' + (logs.length - 1 - i) + ')" title="Delete">×</button>';
+    el.appendChild(item);
+  });
+}
+
+function deleteSexEntry(idx) {
+  if (!confirm('Delete this entry?')) return;
+  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
+  logs.splice(idx, 1);
+  localStorage.setItem('luna_sexual', JSON.stringify(logs));
+  buildSexHistory();
+  buildSexStats();
+  buildSexCycleOverlap();
+  toast('Entry deleted.');
+}
+
+function buildSexStats() {
+  var el = document.getElementById('sexStatGrid');
+  if (!el) return;
+  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
+  var total = logs.length;
+
+  // last 30 days count
+  var now = new Date(); now.setHours(0,0,0,0);
+  var month = logs.filter(function(l) {
+    var d = new Date(l.date); d.setHours(0,0,0,0);
+    return (now - d) <= 30 * 86400000;
+  }).length;
+
+  // protected %
+  var protLogs = logs.filter(function(l){ return l.protect === 'yes' || l.protect === 'no'; });
+  var protPct = protLogs.length > 0
+    ? Math.round(protLogs.filter(function(l){return l.protect==='yes';}).length / protLogs.length * 100)
+    : '—';
+
+  // last entry days ago
+  var lastAgo = '—';
+  if (logs.length > 0) {
+    var last = new Date(logs[logs.length-1].date); last.setHours(0,0,0,0);
+    var diff = Math.round((now - last) / 86400000);
+    lastAgo = diff === 0 ? 'Today' : diff === 1 ? '1 day ago' : diff + ' days ago';
+  }
+
+  // avg per month
+  var avgPerMonth = '—';
+  if (logs.length >= 2) {
+    var first = new Date(logs[0].date);
+    var monthsSpan = Math.max(1, Math.round((now - first) / (30 * 86400000)));
+    avgPerMonth = (total / monthsSpan).toFixed(1);
+  }
+
+  // most common type
+  var typeCounts = {};
+  logs.forEach(function(l){ if(l.type && l.type !== 'Not specified') typeCounts[l.type] = (typeCounts[l.type]||0)+1; });
+  var topType = Object.keys(typeCounts).sort(function(a,b){return typeCounts[b]-typeCounts[a];})[0] || '—';
+
+  el.innerHTML =
+    '<div class="sex-stat-card"><div class="sex-stat-val">' + total + '</div><div class="sex-stat-lbl">Total Entries</div></div>' +
+    '<div class="sex-stat-card"><div class="sex-stat-val">' + month + '</div><div class="sex-stat-lbl">Last 30 Days</div></div>' +
+    '<div class="sex-stat-card"><div class="sex-stat-val">' + (protPct === '—' ? '—' : protPct + '%') + '</div><div class="sex-stat-lbl">Protected Rate</div></div>' +
+    '<div class="sex-stat-card"><div class="sex-stat-val" style="font-size:14px;">' + lastAgo + '</div><div class="sex-stat-lbl">Last Entry</div></div>' +
+    '<div class="sex-stat-card"><div class="sex-stat-val">' + avgPerMonth + '</div><div class="sex-stat-lbl">Avg / Month</div></div>' +
+    '<div class="sex-stat-card"><div class="sex-stat-val" style="font-size:13px;">' + topType + '</div><div class="sex-stat-lbl">Most Common</div></div>';
+}
+
+function buildSexSafety() {
+  var el = document.getElementById('sexSafetyStatus');
+  if (!el) return;
+  var phase = getChatPhase();
+  var cd = parseInt(getChatCycleDay()) || 1;
+  var cycleLen = S.cycleLen || 28;
+  var ovDay = cycleLen - 14;
+  var inFertile = cd >= ovDay - 5 && cd <= ovDay + 1;
+  var onPeriod = S.periodActive;
+
+  var cards = [];
+
+  if (onPeriod) {
+    cards.push({ cls:'caution', icon:'🩸', title:'You are on your period', text:'Pregnancy risk is low but not zero. STIs can still spread through blood. Use protection.' });
+  } else if (inFertile) {
+    cards.push({ cls:'danger', icon:'⚠️', title:'Fertile Window — High Pregnancy Risk', text:'You are in your fertile window (Day ' + cd + ' of ' + cycleLen + '). Unprotected sex now has the highest chance of pregnancy.' });
+  } else {
+    cards.push({ cls:'safe', icon:'✅', title:'Lower risk period', text:'You are in ' + phase + ' phase (Day ' + cd + '). Pregnancy risk is lower, but always use protection to prevent STIs.' });
+  }
+
+  // Last unprotected near fertile?
+  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
+  var unprotLogs = logs.filter(function(l){ return l.protect === 'no'; });
+  if (unprotLogs.length > 0) {
+    var lastUnprot = unprotLogs[unprotLogs.length - 1];
+    var daysAgoUnprot = Math.round((new Date() - new Date(lastUnprot.date)) / 86400000);
+    if (daysAgoUnprot <= 5) {
+      cards.push({ cls:'caution', icon:'💊', title:'Recent unprotected sex (' + daysAgoUnprot + ' days ago)', text:'If this was near your fertile window, consider emergency contraception within 72 hours. Consult a doctor or pharmacist.' });
+    }
+  }
+
+  el.innerHTML = cards.map(function(c) {
+    return '<div class="sex-safety-card ' + c.cls + '"><div class="sex-safety-icon">' + c.icon + '</div><div><div class="sex-safety-title">' + c.title + '</div><div class="sex-safety-text">' + c.text + '</div></div></div>';
+  }).join('');
+}
+
+function buildSexCycleOverlap() {
+  var el = document.getElementById('sexCycleOverlap');
+  if (!el) return;
+  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
+  if (logs.length === 0) {
+    el.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:8px 0;">Log entries to see which cycle phase you are most intimate in.</div>';
+    return;
+  }
+  var phases = ['Menstrual', 'Follicular', 'Ovulation', 'Luteal'];
+  var counts = { Menstrual:0, Follicular:0, Ovulation:0, Luteal:0 };
+  logs.forEach(function(l) {
+    var ph = l.phase || getCyclePhaseForDay(l.cycleDay || 0);
+    if (counts[ph] !== undefined) counts[ph]++;
+  });
+  var max = Math.max.apply(null, Object.values(counts)) || 1;
+  var colors = { Menstrual:'#E11D48', Follicular:'#16a34a', Ovulation:'#2563EB', Luteal:'#D97706' };
+  el.innerHTML = phases.map(function(ph) {
+    var pct = Math.round(counts[ph] / max * 100);
+    return '<div class="sex-ov-row"><div class="sex-ov-label">' + ph + '</div><div class="sex-ov-bar-wrap"><div class="sex-ov-bar" style="width:' + pct + '%;background:' + colors[ph] + ';"></div></div><div class="sex-ov-count">' + counts[ph] + '</div></div>';
+  }).join('');
+}
+
+function buildSexTips() {
+  var el = document.getElementById('sexTipList');
+  if (!el) return;
+  var tips = [
+    { icon:'🛡️', text:'Always use protection (condoms) to prevent STIs and unintended pregnancy, regardless of cycle phase.' },
+    { icon:'💬', text:'Open communication with your partner about comfort, boundaries, and desires leads to better intimacy.' },
+    { icon:'🩺', text:'Get regular STI screenings if you have multiple partners. Many STIs have no symptoms.' },
+    { icon:'💧', text:'Stay hydrated and maintain good hygiene before and after intimacy.' },
+    { icon:'😌', text:'Pain or discomfort during sex is not normal — speak to a gynecologist if you experience it regularly.' },
+    { icon:'🌙', text:'Your libido naturally changes with your cycle. It often peaks around ovulation and dips during luteal phase.' },
+    { icon:'💊', text:'If on birth control pills, take them at the same time daily for maximum effectiveness.' },
+    { icon:'🧘', text:'Stress and fatigue affect your sex drive. Prioritize rest and self-care throughout your cycle.' }
+  ];
+  el.innerHTML = tips.map(function(t) {
+    return '<div class="sex-tip-item"><div class="sex-tip-icon">' + t.icon + '</div><div class="sex-tip-text">' + t.text + '</div></div>';
+  }).join('');
+}
+
+// Hook into goSection to init sex page
+var _origGoSection = goSection;
+goSection = function(sec) {
+  _origGoSection(sec);
+  if (sec === 'sex') initSexPage();
+};
+
 </script>
 </body>
 </html>
