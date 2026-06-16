@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -715,48 +716,115 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
 .phase-pill.luteal{background:#FFFBEB;border-color:#FDE68A;color:#D97706;}
 
 /* ── CHATBOT ── */
-#chatFab{position:fixed;bottom:90px;right:20px;width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,var(--rose),#f472b6);border:none;cursor:pointer;box-shadow:0 4px 20px rgba(225,29,72,.4);z-index:3000;display:flex;align-items:center;justify-content:center;transition:transform .2s;}
-#chatFab:hover{transform:scale(1.1);}
-#chatFab .fab-badge{position:absolute;top:-2px;right:-2px;width:18px;height:18px;background:#f472b6;border-radius:50%;border:2px solid var(--canvas);font-size:9px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;}
+/* ── LUNA CHATBOT v2 ── */
+#chatFab{position:fixed;bottom:90px;right:20px;width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--rose),#f472b6);border:none;cursor:pointer;box-shadow:0 6px 24px rgba(225,29,72,.45);z-index:3000;display:flex;align-items:center;justify-content:center;transition:transform .25s,box-shadow .25s;}
+#chatFab:hover{transform:scale(1.12);box-shadow:0 10px 32px rgba(225,29,72,.55);}
+#chatFab .fab-badge{position:absolute;top:-3px;right:-3px;width:20px;height:20px;background:#f472b6;border-radius:50%;border:2px solid var(--canvas);font-size:9px;font-weight:800;color:#fff;display:flex;align-items:center;justify-content:center;animation:fabPulse 2.5s ease-in-out infinite;}
+@keyframes fabPulse{0%,100%{box-shadow:0 0 0 0 rgba(244,114,182,.5);}50%{box-shadow:0 0 0 6px rgba(244,114,182,0);}}
 @media(min-width:769px){#chatFab{bottom:26px;right:24px;}}
 
-#chatBox{position:fixed;bottom:160px;right:20px;width:320px;max-height:480px;background:var(--canvas);border:1px solid var(--hairline);border-radius:20px;box-shadow:0 16px 60px rgba(0,0,0,.2);z-index:3000;display:none;flex-direction:column;overflow:hidden;}
-#chatBox.open{display:flex;}
-@media(min-width:769px){#chatBox{bottom:92px;right:24px;width:340px;max-height:520px;}}
-@media(max-width:400px){#chatBox{right:8px;left:8px;width:auto;bottom:150px;}}
+#chatBox{position:fixed;bottom:165px;right:20px;width:350px;height:560px;background:var(--canvas);border:1px solid var(--hairline);border-radius:22px;box-shadow:0 20px 70px rgba(0,0,0,.22);z-index:3000;display:none;flex-direction:column;overflow:hidden;transform:scale(.92) translateY(20px);opacity:0;transition:transform .28s cubic-bezier(.34,1.56,.64,1),opacity .2s;}
+#chatBox.open{display:flex;transform:scale(1) translateY(0);opacity:1;}
+@media(min-width:769px){#chatBox{bottom:96px;right:24px;width:370px;height:590px;}}
+@media(max-width:400px){#chatBox{right:8px;left:8px;width:auto;bottom:150px;height:500px;}}
 
-.chat-header{background:linear-gradient(135deg,var(--rose),#f472b6);padding:14px 16px;display:flex;align-items:center;gap:10px;}
-.chat-avatar{width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.25);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+/* Chat header */
+.chat-header{background:linear-gradient(135deg,var(--rose) 0%,#f472b6 100%);padding:14px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;}
+.chat-avatar{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.22);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1.5px solid rgba(255,255,255,.3);position:relative;}
+.chat-avatar-online{position:absolute;bottom:0;right:0;width:10px;height:10px;background:#4ade80;border-radius:50%;border:2px solid rgba(225,29,72,.5);}
 .chat-header-info{flex:1;}
-.chat-header-name{font-size:14px;font-weight:700;color:#fff;}
-.chat-header-status{font-size:10px;color:rgba(255,255,255,.8);margin-top:1px;}
-.chat-close{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);font-size:20px;line-height:1;padding:0;}
+.chat-header-name{font-size:14px;font-weight:700;color:#fff;letter-spacing:-.2px;}
+.chat-header-status{font-size:10px;color:rgba(255,255,255,.8);margin-top:1px;display:flex;align-items:center;gap:4px;}
+.chat-header-status::before{content:'';display:inline-block;width:6px;height:6px;border-radius:50%;background:#4ade80;}
+.chat-header-actions{display:flex;align-items:center;gap:4px;}
+.chat-hbtn{background:rgba(255,255,255,.15);border:none;cursor:pointer;color:#fff;border-radius:8px;width:30px;height:30px;display:flex;align-items:center;justify-content:center;transition:background .15s;font-size:13px;}
+.chat-hbtn:hover{background:rgba(255,255,255,.28);}
+.chat-close{background:none;border:none;cursor:pointer;color:rgba(255,255,255,.8);font-size:22px;line-height:1;padding:0;margin-left:2px;transition:color .15s;}
+.chat-close:hover{color:#fff;}
 
-.chat-messages{flex:1;overflow-y:auto;padding:14px;display:flex;flex-direction:column;gap:10px;}
-.chat-msg{max-width:85%;display:flex;flex-direction:column;gap:3px;}
+/* Messages area */
+.chat-messages{flex:1;overflow-y:auto;padding:14px 14px 6px;display:flex;flex-direction:column;gap:10px;scroll-behavior:smooth;}
+.chat-messages::-webkit-scrollbar{width:3px;}
+.chat-messages::-webkit-scrollbar-track{background:transparent;}
+.chat-messages::-webkit-scrollbar-thumb{background:var(--hairline-s);border-radius:99px;}
+
+/* Message bubbles */
+.chat-msg{max-width:88%;display:flex;flex-direction:column;gap:2px;animation:msgIn .22s ease-out;}
+@keyframes msgIn{from{opacity:0;transform:translateY(8px);}to{opacity:1;transform:translateY(0);}}
 .chat-msg.bot{align-self:flex-start;}
 .chat-msg.user{align-self:flex-end;}
-.chat-bubble{padding:10px 13px;border-radius:16px;font-size:13px;line-height:1.5;}
+.chat-bubble{padding:10px 13px;border-radius:17px;font-size:13px;line-height:1.55;position:relative;word-break:break-word;}
 .chat-msg.bot .chat-bubble{background:var(--parchment);border:1px solid var(--hairline);color:var(--ink);border-bottom-left-radius:4px;}
-.chat-msg.user .chat-bubble{background:var(--rose);color:#fff;border-bottom-right-radius:4px;}
+.chat-msg.user .chat-bubble{background:linear-gradient(135deg,var(--rose),#f472b6);color:#fff;border-bottom-right-radius:4px;box-shadow:0 3px 12px rgba(225,29,72,.25);}
+.chat-bubble-row{display:flex;align-items:flex-end;gap:5px;}
+.chat-msg.user .chat-bubble-row{flex-direction:row-reverse;}
+.chat-meta{display:flex;align-items:center;gap:5px;}
+.chat-msg.user .chat-meta{flex-direction:row-reverse;}
 .chat-time{font-size:9px;color:var(--muted-soft);}
-.chat-msg.user .chat-time{text-align:right;}
+.chat-copy-btn{background:none;border:none;cursor:pointer;color:var(--muted-soft);font-size:11px;padding:1px 3px;border-radius:4px;opacity:0;transition:opacity .15s;}
+.chat-msg:hover .chat-copy-btn{opacity:1;}
+.chat-copy-btn:hover{background:var(--hairline);color:var(--ink);}
 
-.chat-quick-btns{display:flex;flex-wrap:wrap;gap:5px;padding:0 14px 10px;}
-.chat-qbtn{padding:5px 10px;border-radius:9999px;border:1.5px solid var(--rose-light);background:var(--rose-soft);color:var(--rose);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;}
-.chat-qbtn:hover{background:var(--rose);color:#fff;}
+/* Card messages (rich data blocks) */
+.chat-card{background:var(--parchment);border:1px solid var(--hairline);border-radius:14px;padding:11px 13px;font-size:12px;color:var(--ink);line-height:1.6;max-width:88%;align-self:flex-start;animation:msgIn .22s ease-out;}
+.chat-card-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-bottom:7px;display:flex;align-items:center;gap:5px;}
+.chat-card-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px solid var(--hairline);}
+.chat-card-row:last-child{border-bottom:none;padding-bottom:0;}
+.chat-card-lbl{color:var(--muted);font-size:11px;}
+.chat-card-val{font-weight:600;color:var(--ink);font-size:12px;}
+.chat-card-badge{display:inline-flex;padding:2px 8px;border-radius:99px;font-size:10px;font-weight:700;}
+.badge-rose{background:var(--rose-soft);color:var(--rose);}
+.badge-green{background:#f0fdf4;color:#16a34a;}
+.badge-amber{background:#fffbeb;color:#d97706;}
+.badge-blue{background:#eff6ff;color:#2563eb;}
 
-.chat-input-row{display:flex;gap:8px;padding:10px 12px;border-top:1px solid var(--hairline);}
-.chat-input{flex:1;height:38px;background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;border-radius:10px;border:1.5px solid var(--hairline);padding:0 12px;outline:none;transition:border .2s;}
-.chat-input:focus{border-color:var(--rose);}
-.chat-send{width:38px;height:38px;border:none;cursor:pointer;background:var(--rose);color:#fff;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;}
-.chat-send:hover{background:var(--rose-dark);}
+/* Quick reply chips */
+.chat-quick-btns{display:flex;flex-wrap:wrap;gap:5px;padding:6px 12px 8px;flex-shrink:0;}
+.chat-qbtn{padding:5px 11px;border-radius:9999px;border:1.5px solid var(--rose-light);background:var(--rose-soft);color:var(--rose);font-family:'Inter',sans-serif;font-size:11px;font-weight:600;cursor:pointer;transition:all .15s;white-space:nowrap;line-height:1.3;}
+.chat-qbtn:hover{background:var(--rose);color:#fff;border-color:var(--rose);transform:translateY(-1px);}
+.chat-qbtn:active{transform:translateY(0);}
 
-.chat-typing{display:flex;gap:4px;align-items:center;padding:8px 12px;}
-.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--muted-soft);animation:typingBounce 1.2s ease-in-out infinite;}
+/* Divider */
+.chat-divider{text-align:center;font-size:9px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--muted-soft);padding:4px 0;}
+
+/* Input area */
+.chat-input-area{border-top:1px solid var(--hairline);padding:10px 12px;flex-shrink:0;background:var(--canvas);}
+.chat-input-row{display:flex;gap:8px;align-items:flex-end;}
+.chat-input-wrap{flex:1;position:relative;}
+.chat-input{width:100%;min-height:38px;max-height:90px;background:var(--parchment);color:var(--ink);font-family:'Inter',sans-serif;font-size:13px;border-radius:12px;border:1.5px solid var(--hairline);padding:9px 36px 9px 12px;outline:none;transition:border .2s;resize:none;line-height:1.4;overflow-y:hidden;}
+.chat-input:focus{border-color:var(--rose);background:var(--canvas);}
+.chat-mic-btn{position:absolute;right:8px;bottom:8px;background:none;border:none;cursor:pointer;color:var(--muted-soft);display:flex;align-items:center;justify-content:center;transition:color .15s;padding:1px;}
+.chat-mic-btn:hover{color:var(--rose);}
+.chat-mic-btn.recording{color:var(--rose);animation:micPulse 1s ease-in-out infinite;}
+@keyframes micPulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+.chat-actions-row{display:flex;gap:6px;align-items:center;margin-top:6px;}
+.chat-char{font-size:9px;color:var(--muted-soft);flex:1;}
+.chat-clear-btn{background:none;border:none;cursor:pointer;color:var(--muted-soft);font-size:11px;font-family:'Inter',sans-serif;font-weight:600;padding:0;transition:color .15s;}
+.chat-clear-btn:hover{color:var(--rose);}
+.chat-send{width:38px;height:38px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--rose),#f472b6);color:#fff;border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:all .2s;box-shadow:0 3px 10px rgba(225,29,72,.3);}
+.chat-send:hover{transform:scale(1.07);box-shadow:0 5px 16px rgba(225,29,72,.4);}
+.chat-send:active{transform:scale(.95);}
+.chat-send:disabled{opacity:.45;cursor:not-allowed;transform:none;}
+
+/* Typing indicator */
+.chat-typing-wrap{display:flex;align-items:center;gap:8px;padding:4px 0;animation:msgIn .2s ease-out;}
+.chat-typing-label{font-size:11px;color:var(--muted);font-style:italic;}
+.chat-typing{display:flex;gap:4px;align-items:center;padding:9px 12px;background:var(--parchment);border:1px solid var(--hairline);border-radius:14px;border-bottom-left-radius:4px;width:fit-content;}
+.typing-dot{width:7px;height:7px;border-radius:50%;background:var(--rose-light);animation:typingBounce 1.2s ease-in-out infinite;}
 .typing-dot:nth-child(2){animation-delay:.2s;}
 .typing-dot:nth-child(3){animation-delay:.4s;}
-@keyframes typingBounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-6px);}}
+@keyframes typingBounce{0%,60%,100%{transform:translateY(0);}30%{transform:translateY(-5px);}}
+
+/* Empty state */
+.chat-empty{display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:20px;text-align:center;gap:12px;}
+.chat-empty-icon{font-size:42px;opacity:.6;}
+.chat-empty-title{font-size:15px;font-weight:700;color:var(--ink);}
+.chat-empty-sub{font-size:12px;color:var(--muted);line-height:1.6;max-width:220px;}
+.chat-suggestion-grid{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:4px;width:100%;}
+.chat-sugg-card{padding:9px 10px;border-radius:12px;border:1.5px solid var(--hairline);background:var(--parchment);cursor:pointer;text-align:left;transition:all .18s;font-family:'Inter',sans-serif;}
+.chat-sugg-card:hover{border-color:var(--rose-light);background:var(--rose-soft);}
+.chat-sugg-icon{font-size:16px;margin-bottom:4px;}
+.chat-sugg-text{font-size:11px;font-weight:600;color:var(--ink);line-height:1.3;}
 
 /* ══ SEX PAGE ══ */
 .sex-hero{background:linear-gradient(135deg,#3b82f6,#8b5cf6);border-radius:20px;padding:24px;margin-bottom:20px;color:#fff;}
@@ -1663,28 +1731,49 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
 </div>
 
 
-<!-- ── LUNA CHAT BOT ── -->
-<button id="chatFab" onclick="toggleChat()" title="Ask Luna">
+<!-- ── LUNA CHATBOT v2 ── -->
+<button id="chatFab" onclick="toggleChat()" title="Chat with Luna">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
   <div class="fab-badge">🌙</div>
 </button>
 
 <div id="chatBox">
   <div class="chat-header">
-    <div class="chat-avatar">🌙</div>
+    <div class="chat-avatar">
+      🌙
+      <div class="chat-avatar-online"></div>
+    </div>
     <div class="chat-header-info">
       <div class="chat-header-name">Luna Assistant</div>
-      <div class="chat-header-status">Knows your cycle data</div>
+      <div class="chat-header-status" id="chatStatus">Ready to help</div>
+    </div>
+    <div class="chat-header-actions">
+      <button class="chat-hbtn" onclick="clearChatHistory()" title="Clear chat">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+      </button>
     </div>
     <button class="chat-close" onclick="toggleChat()">×</button>
   </div>
   <div class="chat-messages" id="chatMessages"></div>
   <div class="chat-quick-btns" id="chatQuickBtns"></div>
-  <div class="chat-input-row">
-    <input class="chat-input" id="chatInput" type="text" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter')sendChat()"/>
-    <button class="chat-send" onclick="sendChat()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
-    </button>
+  <div class="chat-input-area">
+    <div class="chat-input-row">
+      <div class="chat-input-wrap">
+        <textarea class="chat-input" id="chatInput" placeholder="Ask Luna anything..." rows="1"
+          onkeydown="chatInputKeydown(event)"
+          oninput="chatInputResize(this);updateChatChar(this)"></textarea>
+        <button class="chat-mic-btn" id="chatMicBtn" onclick="toggleVoice()" title="Voice input">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/></svg>
+        </button>
+      </div>
+      <button class="chat-send" id="chatSendBtn" onclick="sendChat()" title="Send">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+      </button>
+    </div>
+    <div class="chat-actions-row">
+      <span class="chat-char" id="chatCharCount"></span>
+      <button class="chat-clear-btn" onclick="clearChatHistory()">Clear chat</button>
+    </div>
   </div>
 </div>
 
@@ -2704,111 +2793,490 @@ init=function(){
 
 
 // ══════════════════════════════════════════
-// LUNA CHATBOT — rule-based, reads all S data
+// LUNA CHATBOT v2 — enhanced rule-based engine
 // ══════════════════════════════════════════
 var chatOpen = false;
 var chatHistory = [];
+var chatMsgCount = 0;
 
-var quickQuestions = [
-  'When is my next period?',
-  'When was my last period?',
-  'Am I in fertile window?',
-  'What phase am I in?',
-  'Last time I had sex?',
-  'How many cycles tracked?',
-  'Am I pregnant?',
-  'My average cycle length?',
-  'How many days left?',
-  'My water today?',
-  'My streak?',
-  'Ovulation date?'
-];
+
+var voiceRecognition = null;
+var voiceActive = false;
+var lastIntent = null;
+var chatTopic = null;
+var chatBotName = localStorage.getItem('luna_bot_name') || 'Luna';
+
+// ── CONTEXT-AWARE QUICK REPLIES ──
+var intentQuickReplies = {
+  period:   ['Next period date?','How long did it last?','Am I late?','Period history'],
+  phase:    ['Foods for my phase?','Exercise for my phase?','What is PMS?','Fertile window?'],
+  fertile:  ['Ovulation date?','Am I pregnant?','Safe sex today?','Fertile window tips'],
+  water:    ['My mood today?','My energy today?','My sleep today?','My streak?'],
+  sex:      ['Am I pregnant?','Is it safe today?','Fertile window?','What phase am I in?'],
+  pregnancy:['Fertile window?','Ovulation date?','Next period?','Safe sex today?'],
+  health:   ['My BMI?','My sleep today?','My energy today?','My mood today?'],
+  fallback: ['Next period?','Am I fertile?','What phase?','My water today?','Pregnant?','My streak?']
+};
+
+// ── NLP & SPELL CORRECTION ──
+var chatVocab = ['period','pregnant','fertile','phase','water','mood','sleep','pain','symptom','sex','spotting','supplement','bmi','streak','journal','history','pms','late','average','summary','help','remind','name','call','export','longest','worst','regular','compare'];
+
+function levenshtein(a, b) {
+  if (a.length === 0) return b.length;
+  if (b.length === 0) return a.length;
+  var matrix = [];
+  for (var i = 0; i <= b.length; i++) { matrix[i] = [i]; }
+  for (var j = 0; j <= a.length; j++) { matrix[0][j] = j; }
+  for (var i = 1; i <= b.length; i++) {
+    for (var j = 1; j <= a.length; j++) {
+      if (b.charAt(i-1) === a.charAt(j-1)) {
+        matrix[i][j] = matrix[i-1][j-1];
+      } else {
+        matrix[i][j] = Math.min(matrix[i-1][j-1] + 1, Math.min(matrix[i][j-1] + 1, matrix[i-1][j] + 1));
+      }
+    }
+  }
+  return matrix[b.length][a.length];
+}
+
+function spellCorrect(q) {
+  return q.split(/\s+/).map(function(w) {
+    if (w.length < 4) return w;
+    var best = w, minD = 99;
+    chatVocab.forEach(function(v) {
+      var d = levenshtein(w, v);
+      if(d <= 2 && d < minD) { minD = d; best = v; }
+    });
+    return best;
+  }).join(' ');
+}
+
+var synonymMap = {
+  'period': ['menstruation','menstrual','cycle','bleed','bleeding','blood','flow','menstru'],
+  'pregnant': ['pregnancy','pregnan','baby','conceive','conception','expecting'],
+  'fertile': ['fertility','ovulat','fertile window','conceive','best time'],
+  'phase': ['follicular','luteal','ovulation','menstrual phase','cycle phase','what phase'],
+  'water': ['hydrat','drink','drinking','water intake','glasses','fluid'],
+  'mood': ['feeling','emotion','how i feel','depressed','happy','sad','anxious'],
+  'sleep': ['slept','sleeping','sleep quality','insomnia','rest','tired','fatigue'],
+  'pain': ['cramp','ache','hurt','discomfort','pain level','painful'],
+  'symptom': ['symptom','cramp','headache','bloat','nausea','breast tender','backache','acne'],
+  'sex': ['intercourse','intimate','made love','sexual','intimacy'],
+  'spotting': ['spot','light bleed','implantation'],
+  'supplement': ['vitamin','iron','magnesium','omega','zinc','folate','pill'],
+  'bmi': ['weight','height','body mass','underweight','overweight'],
+  'streak': ['logging streak','consist','how long tracking','daily log'],
+  'journal': ['diary','entries','wrote','writing','notes'],
+  'history': ['past period','previous','all period','period list','logged periods'],
+  'pms': ['premenstrual','pmt','before period','luteal symptoms']
+};
+
+function normQ(q) {
+  q = q.toLowerCase().trim();
+  q = spellCorrect(q);
+  Object.keys(synonymMap).forEach(function(key) {
+    synonymMap[key].forEach(function(syn) {
+      if (q.indexOf(syn) !== -1 && q.indexOf(key) === -1) q += ' ' + key;
+    });
+  });
+  return q;
+}
+
+function getTime() {
+  var now = new Date();
+  return now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
+}
+
+function initChatHistory() {
+  var saved = localStorage.getItem('luna_chat_history');
+  if (saved) {
+    try {
+      chatHistory = JSON.parse(saved);
+      var msgs = document.getElementById('chatMessages');
+      if (msgs) {
+        msgs.innerHTML = '';
+        chatHistory.forEach(function(msg) {
+          if (msg.role === 'user') renderUserMsg(msg.text, msg.time);
+          else if (msg.isCard) renderBotCard(msg.text, msg.time);
+          else renderBotMsg(msg.text, msg.time);
+        });
+        setTimeout(function(){ msgs.scrollTop = msgs.scrollHeight; }, 50);
+      }
+    } catch(e) { chatHistory = []; }
+  }
+}
+
+function saveChatHistory() {
+  if (chatHistory.length > 50) chatHistory = chatHistory.slice(chatHistory.length - 50);
+  localStorage.setItem('luna_chat_history', JSON.stringify(chatHistory));
+}
 
 function toggleChat() {
   chatOpen = !chatOpen;
   var box = document.getElementById('chatBox');
   if (chatOpen) {
     box.classList.add('open');
+    var nameEl = document.querySelector('.chat-header-name');
+    if (nameEl) nameEl.textContent = chatBotName + ' Assistant';
+    
     if (chatHistory.length === 0) {
-      var name = S.name || 'there';
-      addBotMsg('Hi ' + name + '! 🌙 I know all your Luna data. Ask me anything about your cycle, period, sex log, pregnancy, water, mood — anything!');
-      buildQuickBtns();
+      var saved = localStorage.getItem('luna_chat_history');
+      if (saved && JSON.parse(saved).length > 0) {
+        initChatHistory();
+      } else {
+        renderChatEmpty();
+      }
+    } else {
+      initChatHistory();
     }
-    setTimeout(function() { document.getElementById('chatInput').focus(); }, 200);
+    setTimeout(function() {
+      var inp = document.getElementById('chatInput');
+      if (inp) inp.focus();
+    }, 250);
   } else {
     box.classList.remove('open');
   }
 }
 
-function buildQuickBtns() {
+window.exportChat = function() {
+  var text = "Chat Export\n\n";
+  chatHistory.forEach(function(m) {
+    var rawText = m.text.replace(/<[^>]*>?/gm, ''); // strip HTML
+    text += "[" + m.time + "] " + (m.role==='user' ? 'You' : chatBotName) + ": " + rawText + "\n";
+  });
+  var blob = new Blob([text], { type: 'text/plain' });
+  var a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'chat_export.txt';
+  a.click();
+  toast('Chat exported! ✓');
+};
+
+function renderChatEmpty() {
+  var msgs = document.getElementById('chatMessages');
+  var name = S.name || 'there';
+  var h = new Date().getHours();
+  var greet = (h < 12) ? 'Good morning' : (h < 17 ? 'Good afternoon' : 'Good evening');
+  var phase = getChatPhase();
+  var phaseMsg = phase === 'Ovulation' ? ' Peak energy phase today ☀️' : '';
+  
+  var alertsHtml = '';
+  var np = getChatNextPeriod();
+  if (np) {
+    var days = chatDaysFromNow(np);
+    if (days < 0) alertsHtml += '<div class="chat-sugg-card" style="border-color:var(--rose);background:var(--rose-xs)"><div class="chat-sugg-text" style="color:var(--rose)">⚠️ Your period is ' + Math.abs(days) + ' days late.</div></div>';
+    else if (days <= 2) alertsHtml += '<div class="chat-sugg-card" style="border-color:var(--rose);background:var(--rose-xs)"><div class="chat-sugg-text" style="color:var(--rose)">⚠️ Period in ' + days + ' days — stock up!</div></div>';
+  }
+  if (isFertileToday()) {
+    alertsHtml += '<div class="chat-sugg-card" style="border-color:#34d399;background:#ecfdf5"><div class="chat-sugg-text" style="color:#059669">🌸 You are in your fertile window today!</div></div>';
+  }
+  if ((S.water||0) < (S.waterGoal||8) / 2 && h >= 14) {
+    alertsHtml += '<div class="chat-sugg-card" style="border-color:#60a5fa;background:#eff6ff"><div class="chat-sugg-text" style="color:#2563eb">💧 You\'ve only had ' + (S.water||0) + ' ' + (S.waterUnit||'glasses') + ' today.</div></div>';
+  }
+
+  msgs.innerHTML = '<div class="chat-empty">' +
+    '<div class="chat-empty-icon">🌙</div>' +
+    '<div class="chat-empty-title">' + greet + ', ' + name + '!' + phaseMsg + '</div>' +
+    '<div class="chat-empty-sub">I\'m ' + chatBotName + ', your smart assistant. Ask me anything.</div>' +
+    alertsHtml +
+    '<div class="chat-suggestion-grid">' +
+      '<button class="chat-sugg-card" onclick="window.handleChat(\'When is my next period?\')"><div class="chat-sugg-icon">🩸</div><div class="chat-sugg-text">Next period date</div></button>' +
+      '<button class="chat-sugg-card" onclick="window.handleChat(\'Am I in fertile window?\')"><div class="chat-sugg-icon">🌸</div><div class="chat-sugg-text">Fertile window</div></button>' +
+      '<button class="chat-sugg-card" onclick="window.handleChat(\'What phase am I in?\')"><div class="chat-sugg-icon">🌀</div><div class="chat-sugg-text">My cycle phase</div></button>' +
+      '<button class="chat-sugg-card" onclick="window.handleChat(\'My water today?\')"><div class="chat-sugg-icon">💧</div><div class="chat-sugg-text">Water & health</div></button>' +
+      '<button class="chat-sugg-card" onclick="window.exportChat()"><div class="chat-sugg-icon">📄</div><div class="chat-sugg-text">Export Chat</div></button>' +
+    '</div>' +
+  '</div>';
+}
+
+function clearChatHistory() {
+  chatHistory = [];
+  chatMsgCount = 0;
+  chatTopic = null;
+  saveChatHistory();
+  renderChatEmpty();
+  document.getElementById('chatQuickBtns').innerHTML = '';
+  toast('Chat cleared ✓');
+}
+
+function buildQuickBtns(intent) {
   var el = document.getElementById('chatQuickBtns');
   if (!el) return;
+  var qs = intentQuickReplies[intent] || intentQuickReplies.fallback;
   el.innerHTML = '';
-  quickQuestions.slice(0, 6).forEach(function(q) {
+  qs.slice(0, 5).forEach(function(q) {
     var btn = document.createElement('button');
     btn.className = 'chat-qbtn';
     btn.textContent = q;
-    btn.onclick = function() { handleChat(q); };
+    btn.onclick = function() { window.handleChat(q); };
     el.appendChild(btn);
   });
 }
 
-function addBotMsg(text) {
+function renderBotMsg(text, t) {
   var msgs = document.getElementById('chatMessages');
   var wrap = document.createElement('div');
   wrap.className = 'chat-msg bot';
-  var now = new Date();
-  var t = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
-  wrap.innerHTML = '<div class="chat-bubble">' + text + '</div><div class="chat-time">' + t + '</div>';
+  var msgId = 'cm' + (++chatMsgCount);
+  wrap.innerHTML =
+    '<div class="chat-bubble-row">' +
+      '<div class="chat-bubble" id="' + msgId + '">' + String(text).replace(/\n/g,'<br>') + '</div>' +
+      '<button class="chat-copy-btn" onclick="copyMsg(\'' + msgId + '\')" title="Copy">⎘</button>' +
+    '</div>' +
+    '<div class="chat-meta"><span class="chat-time">' + t + '</span></div>';
   msgs.appendChild(wrap);
+}
+
+function renderBotCard(html, t) {
+  var msgs = document.getElementById('chatMessages');
+  var card = document.createElement('div');
+  card.className = 'chat-card';
+  card.innerHTML = html;
+  msgs.appendChild(card);
+}
+
+function renderUserMsg(text, t) {
+  var msgs = document.getElementById('chatMessages');
+  var wrap = document.createElement('div');
+  wrap.className = 'chat-msg user';
+  wrap.innerHTML =
+    '<div class="chat-bubble-row">' +
+      '<div class="chat-bubble">' + escapeHtml(text) + '</div>' +
+    '</div>' +
+    '<div class="chat-meta" style="justify-content:flex-end"><span class="chat-time">' + t + '</span></div>';
+  msgs.appendChild(wrap);
+}
+
+function addBotMsg(text, intent, isCard) {
+  var msgs = document.getElementById('chatMessages');
+  var empty = msgs.querySelector('.chat-empty');
+  if (empty) empty.remove();
+
+  var t = getTime();
+  if (isCard) renderBotCard(text, t);
+  else renderBotMsg(text, t);
+  
   msgs.scrollTop = msgs.scrollHeight;
-  chatHistory.push({ role: 'bot', text: text });
+  chatHistory.push({ role: 'bot', text: text, time: t, isCard: isCard });
+  saveChatHistory();
+  lastIntent = intent || 'fallback';
 }
 
 function addUserMsg(text) {
   var msgs = document.getElementById('chatMessages');
-  var wrap = document.createElement('div');
-  wrap.className = 'chat-msg user';
-  var now = new Date();
-  var t = now.getHours() + ':' + (now.getMinutes() < 10 ? '0' : '') + now.getMinutes();
-  wrap.innerHTML = '<div class="chat-bubble">' + text + '</div><div class="chat-time">' + t + '</div>';
-  msgs.appendChild(wrap);
+  var empty = msgs.querySelector('.chat-empty');
+  if (empty) empty.remove();
+
+  var t = getTime();
+  renderUserMsg(text, t);
   msgs.scrollTop = msgs.scrollHeight;
-  chatHistory.push({ role: 'user', text: text });
+  chatHistory.push({ role: 'user', text: text, time: t });
+  saveChatHistory();
 }
 
+function escapeHtml(s) {
+  return String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+}
+
+window.copyMsg = function(id) {
+  var el = document.getElementById(id);
+  if (!el) return;
+  var text = el.innerText;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(function(){ toast('Copied! ✓'); });
+  } else {
+    var ta = document.createElement('textarea');
+    ta.value = text; document.body.appendChild(ta); ta.select();
+    document.execCommand('copy'); document.body.removeChild(ta); toast('Copied! ✓');
+  }
+}
+
+var typingPhrases = ['Luna is thinking…','Checking your data…','On it…','Looking that up…'];
 function showTyping() {
   var msgs = document.getElementById('chatMessages');
   var div = document.createElement('div');
-  div.className = 'chat-msg bot';
   div.id = 'chatTyping';
-  div.innerHTML = '<div class="chat-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div>';
+  div.className = 'chat-typing-wrap';
+  var phrase = typingPhrases[Math.floor(Math.random() * typingPhrases.length)];
+  div.innerHTML = '<div class="chat-typing"><div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div></div><span class="chat-typing-label">' + phrase + '</span>';
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
+  var s = document.getElementById('chatStatus');
+  if (s) s.textContent = 'Typing…';
 }
 
 function hideTyping() {
   var el = document.getElementById('chatTyping');
   if (el) el.remove();
+  var s = document.getElementById('chatStatus');
+  if (s) s.textContent = 'Ready to help';
+}
+
+function chatInputKeydown(e) {
+  if (e.key === 'Enter' && !e.shiftKey) { e.preventDefault(); sendChat(); }
+}
+
+function chatInputResize(el) {
+  el.style.height = 'auto';
+  el.style.height = Math.min(el.scrollHeight, 90) + 'px';
+  el.style.overflowY = el.scrollHeight > 90 ? 'auto' : 'hidden';
+}
+
+function updateChatChar(el) {
+  var len = el.value.length;
+  var counter = document.getElementById('chatCharCount');
+  if (counter) counter.textContent = len > 0 ? len + ' chars' : '';
+}
+
+// ══════════════════════════════════════════
+// GROQ AI — smart fallback, women's-health topics only
+// ══════════════════════════════════════════
+// GROQ_API_KEY / GROQ_MODEL stay as placeholders in this source file.
+// A GitHub Actions workflow swaps them for the real values (stored in the
+// repo's Settings → Secrets and variables → Actions) at deploy time, so the
+// real key is never committed to git. See README / workflow for setup.
+var GROQ_API_KEY = "__GROQ_API_KEY__";
+var GROQ_MODEL = "__GROQ_MODEL__";
+var GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
+
+var GROQ_SYSTEM_PROMPT =
+  "You are Luna, the supportive AI assistant inside a women's period-tracking app. " +
+  "You ONLY answer questions about menstrual periods and cycles, PMS/PMDD, ovulation and fertility, " +
+  "sex and intimacy, contraception, pregnancy, and closely related symptoms (cramps, mood, hormones, " +
+  "discharge, breast tenderness, libido, body changes, etc). " +
+  "If the user asks about anything else at all \u2014 general knowledge, coding, news, schoolwork, " +
+  "entertainment, finance, or any topic unrelated to women's reproductive or sexual health \u2014 politely " +
+  "decline in one short sentence and steer the conversation back to period, cycle, intimacy, or " +
+  "pregnancy topics. Do not answer the off-topic question even partially. " +
+  "Keep every on-topic answer short (2-4 sentences), warm, and non-judgemental. You are not a licensed " +
+  "doctor: for diagnosis, medication, or anything urgent, gently suggest seeing a gynecologist or " +
+  "healthcare provider instead of guessing.";
+
+function groqKeyConfigured() {
+  return !!GROQ_API_KEY && GROQ_API_KEY.indexOf('__GROQ') !== 0 && GROQ_API_KEY.length > 10;
+}
+
+function askGroqAI(question) {
+  var model = (GROQ_MODEL && GROQ_MODEL.indexOf('__GROQ') !== 0) ? GROQ_MODEL : 'llama-3.3-70b-versatile';
+  return fetch(GROQ_ENDPOINT, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ' + GROQ_API_KEY
+    },
+    body: JSON.stringify({
+      model: model,
+      temperature: 0.4,
+      max_tokens: 300,
+      messages: [
+        { role: 'system', content: GROQ_SYSTEM_PROMPT },
+        { role: 'user', content: question }
+      ]
+    })
+  }).then(function(res) {
+    if (!res.ok) throw new Error('Groq request failed: ' + res.status);
+    return res.json();
+  }).then(function(data) {
+    var msg = data && data.choices && data.choices[0] && data.choices[0].message;
+    var txt = msg && msg.content ? msg.content.trim() : '';
+    return txt || "I'm not totally sure how to answer that \u2014 could you rephrase your question? \ud83d\udc97";
+  });
 }
 
 function sendChat() {
   var input = document.getElementById('chatInput');
-  var text = input.value.trim();
+  var text = (input.value || '').trim();
   if (!text) return;
   input.value = '';
-  handleChat(text);
+  input.style.height = '';
+  var counter = document.getElementById('chatCharCount');
+  if (counter) counter.textContent = '';
+  window.handleChat(text);
 }
 
-function handleChat(text) {
+window.handleChat = function(text) {
   addUserMsg(text);
+  document.getElementById('chatQuickBtns').innerHTML = '';
   showTyping();
+
+  var q = normQ(text);
+  var matched = detectIntents(q);
+
+  // Nothing in the local rule-based brain recognized this question — let
+  // Groq actually read and understand it (still locked to women's-health
+  // topics by the system prompt above) instead of just shrugging.
+  if (matched.length === 0 && groqKeyConfigured()) {
+    askGroqAI(text).then(function(aiText) {
+      hideTyping();
+      addBotMsg(aiText, 'fallback');
+      buildQuickBtns('fallback');
+    }).catch(function() {
+      hideTyping();
+      var fb = lunaAnswerSingle('fallback', q, text);
+      addBotMsg(fb.text, fb.intent);
+      buildQuickBtns('fallback');
+    });
+    return;
+  }
+
+  var delay = 400 + Math.min(text.length * 8, 600);
   setTimeout(function() {
     hideTyping();
-    var reply = lunaAnswer(text.toLowerCase());
-    addBotMsg(reply);
-    buildQuickBtns();
-  }, 600);
+    var results = lunaAnswerMulti(text);
+    results.forEach(function(result) {
+      if (result && result.card) {
+        addBotMsg(result.card, result.intent, true);
+      } else {
+        var reply = (result && result.text) ? result.text : result;
+        addBotMsg(reply, result && result.intent);
+      }
+    });
+    if (results.length > 0) buildQuickBtns(results[results.length-1].intent);
+  }, delay);
+};
+
+// ── VOICE INPUT ──
+function toggleVoice() {
+  if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+    toast('Voice not supported in this browser'); return;
+  }
+  if (voiceActive) {
+    if (voiceRecognition) voiceRecognition.stop();
+    voiceActive = false;
+    var btn = document.getElementById('chatMicBtn');
+    if (btn) btn.classList.remove('recording');
+    return;
+  }
+  var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+  voiceRecognition = new SR();
+  voiceRecognition.lang = 'en-IN';
+  voiceRecognition.interimResults = false;
+  voiceRecognition.maxAlternatives = 1;
+  voiceRecognition.onresult = function(e) {
+    var transcript = e.results[0][0].transcript;
+    var inp = document.getElementById('chatInput');
+    if (inp) { inp.value = transcript; chatInputResize(inp); }
+    voiceActive = false;
+    var btn = document.getElementById('chatMicBtn');
+    if (btn) btn.classList.remove('recording');
+    sendChat();
+  };
+  voiceRecognition.onerror = function() {
+    voiceActive = false;
+    var btn = document.getElementById('chatMicBtn');
+    if (btn) btn.classList.remove('recording');
+    toast('Voice input error. Try again.');
+  };
+  voiceRecognition.onend = function() {
+    voiceActive = false;
+    var btn = document.getElementById('chatMicBtn');
+    if (btn) btn.classList.remove('recording');
+  };
+  voiceRecognition.start();
+  voiceActive = true;
+  var btn = document.getElementById('chatMicBtn');
+  if (btn) btn.classList.add('recording');
+  toast('🎤 Listening…');
 }
 
 // ── HELPER FUNCTIONS ──
@@ -2816,6 +3284,12 @@ function chatFmtDate(dateStr) {
   if (!dateStr) return 'unknown';
   var d = new Date(dateStr);
   return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+}
+
+function chatFmtShort(dateStr) {
+  if (!dateStr) return '—';
+  var d = new Date(dateStr);
+  return d.toLocaleDateString('en-IN', { day: 'numeric', month: 'short' });
 }
 
 function chatDaysAgo(dateStr) {
@@ -2854,9 +3328,7 @@ function getChatNextPeriod() {
 function getLastSexDate() {
   var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
   if (logs.length > 0) return logs[logs.length - 1];
-  // also check sexLog in S and dayNotes sex markers
   if (S.sexLog && S.sexLog.length > 0) return S.sexLog[S.sexLog.length - 1];
-  // check dayLogs for sex
   var sexDays = Object.keys(S.dayLogs || {}).filter(function(k) {
     return S.dayLogs[k].sex;
   }).sort();
@@ -2894,352 +3366,351 @@ function getOvulationDate() {
   return ov;
 }
 
-// ── MAIN ANSWER ENGINE ──
-function lunaAnswer(q) {
+function r(text, intent) { return { text: text, intent: intent || 'fallback' }; }
+function card(html, intent) { return { card: html, intent: intent || 'fallback' }; }
+
+// Quick Actions Support
+window.quickActionAddWater = function() {
+  var amtStr = prompt('How many glasses to log?', '1');
+  if(!amtStr) return;
+  var amt = parseInt(amtStr);
+  if(amt > 0) {
+    S.water = (S.water||0) + amt;
+    save();
+    if(typeof buildWater === 'function') buildWater();
+    toast(amt + ' ' + (S.waterUnit||'glasses') + ' logged! 💧');
+    addBotMsg('I logged ' + amt + ' ' + (S.waterUnit||'glasses') + ' of water for you! 💧', 'water');
+  }
+}
+
+window.quickActionLogPeriodStart = function() {
+  if(typeof togglePeriodActive === 'function') {
+    togglePeriodActive();
+    addBotMsg('I toggled your period status. 🩸', 'period');
+  }
+}
+
+// ── NLP CONFIDENCE SCORING & MULTI-INTENT ENGINE ──
+function detectIntents(q) {
+  var scores = { greeting:0, name:0, wellbeing:0, summary:0, next_period:0, last_period:0, period_active:0, cycle_day:0, phase:0, sex:0, pregnancy:0, fertile:0, ovulation:0, stats:0, days_left:0, water:0, mood:0, symptoms:0, pain:0, sleep:0, energy:0, bmi:0, period_duration:0, streak:0, journal:0, spotting:0, pms:0, safe_sex:0, late_period:0, product:0, supplement:0, phase_guide:0, history:0, thank_you:0, help:0, analytics:0, reminder:0, calendar:0 };
+  
+  if (/^(hi|hello|hey|hii|helo|namaste|hola|sup|heya|howdy)\b/.test(q)) scores.greeting += 10;
+  if (/my name|who am i|what.*my name|call me|name is/.test(q)) scores.name += 10;
+  if (/call yourself|name yourself|your name is/.test(q)) scores.name += 15;
+  if (/how are you|how r u|you ok|you good/.test(q)) scores.wellbeing += 10;
+  if (/summary|overview|my status|tell me everything|everything.*today/.test(q)) scores.summary += 10;
+  if (/next period|period coming|when.*period|period.*when|period date|period due/.test(q)) scores.next_period += 10;
+  if (/last period|previous period|period was|when.*last|last.*bleed/.test(q)) scores.last_period += 10;
+  if (/am i.*period|on.*period|period.*now|currently.*period|period.*active/.test(q)) scores.period_active += 10;
+  if (/cycle day|what day|which day of cycle|day.*cycle/.test(q)) scores.cycle_day += 10;
+  if (/phase|what phase|which phase/.test(q)) scores.phase += 10;
+  if (/\bsex\b|intercourse|last time.*sex|sex.*last|intimate|made love/.test(q)) scores.sex += 10;
+  if (/pregnant|pregnancy|am i.*pregn|pregn.*am i|baby|conceive|conception/.test(q)) scores.pregnancy += 10;
+  if (/fertile|fertility|best.*conceive|conceive.*best|best.*sex.*time|best.*baby/.test(q)) scores.fertile += 10;
+  if (/ovulat/.test(q)) scores.ovulation += 10;
+  if (/average.*cycle|cycle.*average|cycle.*length|how long.*cycle|my cycle/.test(q)) scores.stats += 10;
+  if (/how many cycle|cycles tracked|total cycle|number.*cycle/.test(q)) scores.stats += 5;
+  if (/days left|days remain|how many days|days until period|days till period/.test(q)) scores.days_left += 10;
+  if (/water|hydrat|drink|glasses/.test(q)) scores.water += 10;
+  if (/mood|feeling|how.*feel|feel.*how|emotion/.test(q)) scores.mood += 10;
+  if (/symptom|cramp|headache|bloat|nausea|breast|backache/.test(q)) scores.symptoms += 10;
+  if (/\bpain\b|pain level|hurt|ache/.test(q)) scores.pain += 10;
+  if (/sleep|slept|rest\b|sleep.*quality/.test(q)) scores.sleep += 10;
+  if (/energy|energi|tired|fatigue|active/.test(q)) scores.energy += 10;
+  if (/\bbmi\b|weight|height|body mass/.test(q)) scores.bmi += 10;
+  if (/how long.*period|period.*how long|period.*last|duration.*period/.test(q)) scores.period_duration += 10;
+  if (/streak|consist|logging streak|how long.*track/.test(q)) scores.streak += 10;
+  if (/journal|diary|entries|wrote|writing/.test(q)) scores.journal += 10;
+  if (/spotting|spot\b|light.*bleed|bleed.*light/.test(q)) scores.spotting += 10;
+  if (/\bpms\b|premenstrual|pmt/.test(q)) scores.pms += 10;
+  if (/safe.*sex|sex.*safe|unprotected|safe day|is it safe/.test(q)) scores.safe_sex += 10;
+  if (/late|overdue|missed period|period.*late|late.*period/.test(q)) scores.late_period += 10;
+  if (/product|pad|tampon|cup|disc|what.*using|using.*what/.test(q)) scores.product += 10;
+  if (/supplement|vitamin|iron|magnesium|omega|zinc|folate/.test(q)) scores.supplement += 10;
+  if (/what.*eat|food for|diet for|exercise|workout|should i eat/.test(q)) scores.phase_guide += 10;
+  if (/history|past period|all period|period.*list/.test(q)) scores.history += 10;
+  if (/thank|thanks|great|awesome|good bot|nice|love you|you.*best/.test(q)) scores.thank_you += 10;
+  if (/help|what.*ask|what can|command|option|how to use/.test(q)) scores.help += 10;
+  if (/longest|worst|regular|compare/.test(q)) scores.analytics += 10;
+  if (/remind|alert|notification|schedule/.test(q)) scores.reminder += 10;
+  if (/happened on|last tuesday|june/.test(q)) scores.calendar += 10;
+  
+  if (chatTopic && /^(when|how long|what about|tell me more|yes|no)$/.test(q)) {
+    if (scores[chatTopic] !== undefined) scores[chatTopic] += 8;
+  }
+
+  var sorted = [];
+  for (var k in scores) { if (scores[k] >= 10) sorted.push({intent:k, score:scores[k]}); }
+  sorted.sort(function(a,b) { return b.score - a.score; });
+  return sorted;
+}
+
+function lunaAnswerMulti(rawQ) {
+  var q = normQ(rawQ);
+  var intents = detectIntents(q);
+  var results = [];
+  var answered = {};
+  
+  if (intents.length === 0) intents.push({intent:'fallback'});
+  
+  var topIntents = intents.slice(0, 2);
+  chatTopic = topIntents[0].intent;
+
+  topIntents.forEach(function(item) {
+    var intnt = item.intent;
+    if (answered[intnt]) return;
+    answered[intnt] = true;
+    
+    var res = lunaAnswerSingle(intnt, q, rawQ);
+    if (res) results.push(res);
+  });
+  
+  if (results.length === 0) results.push(lunaAnswerSingle('fallback', q, rawQ));
+  return results;
+}
+
+function lunaAnswerSingle(intent, q, rawQ) {
   var name = S.name || 'you';
-
-  // ── GREETINGS ──
-  if (/^(hi|hello|hey|hii|helo|namaste|hola)/.test(q)) {
-    return 'Hello ' + name + '! 🌸 How can I help you today? Ask me about your period, cycle, pregnancy, sex log, water intake — anything!';
-  }
-
-  // ── NAME ──
-  if (/my name|who am i/.test(q)) {
-    return 'Your name is ' + (S.name || 'not set yet') + ' 😊';
-  }
-
-  // ── NEXT PERIOD ──
-  if (/next period|period coming|when.*period|period.*when|period date/.test(q)) {
-    var np = getChatNextPeriod();
-    if (!np) return 'I need at least one period logged to predict your next one!';
-    var days = chatDaysFromNow(np);
-    if (days < 0) return 'Your period may have already started or is late by ' + Math.abs(days) + ' days. Did you forget to log it?';
-    if (days === 0) return '🩸 Your period is expected TODAY! Make sure you have supplies ready.';
-    if (days === 1) return '🩸 Your period is expected TOMORROW — ' + chatFmtDate(np) + '. Be prepared!';
-    return '🩸 Your next period is in ' + days + ' days, on ' + chatFmtDate(np) + '.';
-  }
-
-  // ── LAST PERIOD ──
-  if (/last period|previous period|period was|when.*last|last.*bleed/.test(q)) {
-    if (S.periodActive && S.periodStart) {
-      return '🩸 You are currently ON your period! It started on ' + chatFmtDate(S.periodStart) + ', that is ' + chatDaysAgo(S.periodStart) + ' days ago.';
-    }
-    if (S.history && S.history.length > 0) {
-      var last = S.history[S.history.length - 1];
-      var ago = chatDaysAgo(last.start);
-      return '🩸 Your last period started on ' + chatFmtDate(last.start) + ' (' + ago + ' days ago) and lasted ' + last.duration + ' days.';
-    }
-    if (S.periodStart) {
-      return '🩸 Your last logged period started on ' + chatFmtDate(S.periodStart) + '.';
-    }
-    return 'No period data found. Please log your period first!';
-  }
-
-  // ── PERIOD ACTIVE / CURRENT ──
-  if (/am i.*period|on.*period|period.*now|currently.*period|period.*active/.test(q)) {
-    if (S.periodActive) {
-      var day = chatDaysAgo(S.periodStart) + 1;
-      return '🩸 Yes, you are currently on your period! Day ' + day + ', started ' + chatFmtDate(S.periodStart) + '.';
-    }
-    return 'No, you are not currently on your period.';
-  }
-
-  // ── CYCLE DAY ──
-  if (/cycle day|what day|which day of cycle|day.*cycle/.test(q)) {
-    var cd = getChatCycleDay();
-    var phase = getChatPhase();
-    return 'You are on cycle day ' + cd + ' of your ' + (S.cycleLen || 28) + '-day cycle. Current phase: ' + phase + '.';
-  }
-
-  // ── PHASE ──
-  if (/phase|what phase|which phase/.test(q)) {
-    var ph = getChatPhase();
-    var nick = getPhaseNickname(ph);
-    var phDesc = {
-      'Menstrual': 'Your uterine lining is shedding. Rest, stay warm, and eat iron-rich foods.',
-      'Follicular': 'Estrogen is rising. Your energy is increasing — great time to start new things!',
-      'Ovulation': 'Peak fertility! You are most likely to conceive now. Energy is at its highest.',
-      'Luteal': 'Progesterone is rising. You may feel PMS symptoms. Be gentle with yourself.'
-    };
-    var desc = phDesc[ph] || 'Keep tracking to learn more about your phases.';
-    return '🌸 You are in the ' + ph + ' phase — also called "' + nick + '". ' + desc;
-  }
-
-  // ── SEX / LAST SEX ──
-  if (/sex|intercourse|last time.*sex|sex.*last|intimate|made love/.test(q)) {
-    var sexEntry = getLastSexDate();
-    if (!sexEntry) return 'No sex activity logged yet. You can log it by tapping a day on the calendar.';
-    var sexDate = sexEntry.date || sexEntry.start || sexEntry;
-    if (typeof sexDate === 'object' && sexDate.date) sexDate = sexDate.date;
-    var ago = chatDaysAgo(sexDate);
-    var reply = '💙 Last logged sex was on ' + chatFmtDate(sexDate) + ' (' + ago + ' days ago).';
-    // Check if it was during fertile window
-    var ovDate = getOvulationDate();
-    if (ovDate) {
-      var sexD = new Date(sexDate);
-      var diff = Math.abs((ovDate - sexD) / 86400000);
-      if (diff <= 5) reply += ' ⚠️ This was near your fertile window — pregnancy is possible if no protection was used.';
-    }
-    return reply;
-  }
-
-  // ── PREGNANCY / AM I PREGNANT ──
-  if (/pregnant|pregnancy|am i.*pregn|pregn.*am i|baby|conceive|conception/.test(q)) {
-    if (S.periodActive) {
-      return 'You are currently on your period, so pregnancy is very unlikely right now.';
-    }
-    var np2 = getChatNextPeriod();
-    var lateBy = np2 ? chatDaysFromNow(np2) * -1 : 0;
-    if (lateBy > 3) {
-      return '⚠️ Your period is ' + lateBy + ' days late. This could be a sign of pregnancy — consider taking a home pregnancy test. But stress or hormonal changes can also delay periods.';
-    }
-    var sexEntry2 = getLastSexDate();
-    if (sexEntry2) {
-      var ovDate2 = getOvulationDate();
-      if (ovDate2) {
-        var sexD2 = new Date(sexEntry2.date || sexEntry2.start || sexEntry2);
-        var diff2 = (ovDate2 - sexD2) / 86400000;
-        if (diff2 >= -1 && diff2 <= 5) {
-          return '⚠️ You had sex near your fertile window (' + Math.round(diff2) + ' days before ovulation). There is a chance of pregnancy. Wait until your period is due — if it is late, take a test.';
+  
+  switch(intent) {
+    case 'greeting':
+      var phase = getChatPhase();
+      var tHour = new Date().getHours();
+      var part = tHour < 12 ? 'morning' : tHour < 17 ? 'afternoon' : 'evening';
+      return r('Good ' + part + ', ' + name + '! 🌸 You\'re in your ' + phase + ' phase today. What can I help with?', 'phase');
+      
+    case 'name':
+      if (/call yourself|name yourself|your name is/.test(q)) {
+        var match = rawQ.match(/call yourself (\w+)|name yourself (\w+)|your name is (\w+)/i);
+        if (match) {
+          chatBotName = match[1] || match[2] || match[3];
+          localStorage.setItem('luna_bot_name', chatBotName);
+          var nameEl = document.querySelector('.chat-header-name');
+          if (nameEl) nameEl.textContent = chatBotName + ' Assistant';
+          return r('Got it! I will now call myself ' + chatBotName + '. 🌙', 'name');
         }
       }
-    }
-    return 'I cannot confirm pregnancy — only a pregnancy test can do that. Your period is not late yet. Keep tracking!';
-  }
+      if (/call me/.test(q)) {
+        var nMatch = rawQ.match(/call me (\w+)/i);
+        if (nMatch) {
+          S.name = nMatch[1]; save();
+          return r('I will call you ' + S.name + ' from now on!', 'name');
+        }
+      }
+      return r('Your name is ' + (S.name || 'not set yet') + ' 😊. I\'m ' + chatBotName + '!', 'fallback');
 
-  // ── FERTILE WINDOW ──
-  if (/fertile|fertility|ovulat|best.*conceive|best.*sex|best.*baby/.test(q)) {
-    var ovD = getOvulationDate();
-    var cd2 = parseInt(getChatCycleDay());
-    var fertile = isFertileToday();
-    if (!ovD) return 'Log your cycle length and period dates so I can calculate your fertile window!';
-    var fertileStart = new Date(ovD.getTime() - 5 * 86400000);
-    var fertileEnd = new Date(ovD.getTime() + 1 * 86400000);
-    var reply2 = '🌸 Your estimated fertile window is ' + fertileStart.toLocaleDateString('en-IN', {day:'numeric',month:'short'}) + ' to ' + fertileEnd.toLocaleDateString('en-IN', {day:'numeric',month:'short'}) + '. Ovulation is expected on ' + chatFmtDate(ovD) + '.';
-    if (fertile) reply2 += ' 🔥 You are IN your fertile window right now!';
-    else reply2 += ' You are not in your fertile window today.';
-    return reply2;
-  }
+    case 'wellbeing': return r('I\'m always here and ready to help you! 🌙 How are YOU feeling today?', 'health');
+    
+    case 'analytics':
+      if (/longest/.test(q)) {
+        var hist = S.history || [];
+        if (hist.length===0) return r('No history to analyze yet!', 'analytics');
+        var maxLen = Math.max.apply(null, hist.map(function(h){return h.cycleLen||0;}));
+        return r('📊 Your longest cycle recorded was ' + maxLen + ' days.', 'analytics');
+      }
+      if (/regular/.test(q)) {
+        var avg = getAvgCycle();
+        return r('📊 You have an average cycle length of ' + avg + ' days.', 'analytics');
+      }
+      if (/worst/.test(q)) {
+        return r('📊 Historically, many people feel energy is lowest during the Menstrual phase. Be sure to rest!', 'analytics');
+      }
+      return r('I can calculate your longest cycle, average length, and more!', 'analytics');
 
-  // ── OVULATION ──
-  if (/ovulat/.test(q)) {
-    var ovD3 = getOvulationDate();
-    if (!ovD3) return 'Not enough data to calculate ovulation. Please log at least one cycle.';
-    var daysToOv = chatDaysFromNow(ovD3);
-    if (daysToOv === 0) return '🥚 Today is your estimated OVULATION day! Highest chance of pregnancy.';
-    if (daysToOv > 0) return '🥚 Estimated ovulation is in ' + daysToOv + ' days, on ' + chatFmtDate(ovD3) + '.';
-    return '🥚 Ovulation was approximately ' + Math.abs(daysToOv) + ' days ago, on ' + chatFmtDate(ovD3) + '.';
-  }
+    case 'reminder':
+      if (typeof Notification !== 'undefined') {
+        Notification.requestPermission().then(function(perm) {
+          if (perm === 'granted') {
+             setTimeout(function() {
+               new Notification(chatBotName + ' Reminder', { body: 'Don\'t forget your task!' });
+             }, 5000);
+          }
+        });
+        return r('⏰ I\'ve requested notification permissions. I will remind you shortly!', 'reminder');
+      }
+      return r('Notifications are not supported in this browser.', 'reminder');
 
-  // ── AVERAGE CYCLE ──
-  if (/average.*cycle|cycle.*average|cycle.*length|how long.*cycle|my cycle/.test(q)) {
-    var avg = getAvgCycle();
-    var avgP = getAvgPeriodLen();
-    var tracked = (S.history || []).length;
-    if (tracked === 0) return 'Your cycle is set to ' + (S.cycleLen || 28) + ' days (default). Log more periods to get your real average.';
-    return '📊 Your average cycle length is ' + avg + ' days and average period duration is ' + avgP + ' days, based on ' + tracked + ' tracked cycles.';
-  }
+    case 'calendar':
+      return r('📅 Calendar lookup: ' + JSON.stringify(S.dayLogs ? Object.keys(S.dayLogs).slice(0,3) : []) + ' ... (Check full calendar view for deep dive)', 'calendar');
 
-  // ── CYCLE COUNT ──
-  if (/how many cycle|cycles tracked|total cycle|number.*cycle/.test(q)) {
-    var count = (S.history || []).length;
-    return '📊 You have tracked ' + count + ' cycle' + (count !== 1 ? 's' : '') + ' so far.';
-  }
+    case 'summary':
+      var cd = getChatCycleDay();
+      var ph = getChatPhase();
+      var np = getChatNextPeriod();
+      var daysLeft = np ? chatDaysFromNow(np) : null;
+      var fertile = isFertileToday();
+      var html = '<div class="chat-card-title">🌙 Your Luna Summary</div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Cycle day</span><span class="chat-card-val">Day ' + cd + ' / ' + (S.cycleLen||28) + '</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Phase</span><span class="chat-card-val">' + ph + '</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Next period</span><span class="chat-card-val">' + (daysLeft !== null ? (daysLeft <= 0 ? 'Due now!' : 'In ' + daysLeft + ' days') : '—') + '</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Fertile now?</span><span class="chat-card-badge ' + (fertile?'badge-rose':'badge-green') + '">' + (fertile ? '⚠️ Yes' : '✅ No') + '</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Water today</span><span class="chat-card-val">' + (S.water||0) + ' / ' + (S.waterGoal||8) + ' ' + (S.waterUnit||'glasses') + '</span></div>';
+      return card(html, 'period');
+      
+    case 'next_period':
+      var np2 = getChatNextPeriod();
+      if (!np2) return r('Log at least one period first so I can predict the next one! 🩸', 'period');
+      var days = chatDaysFromNow(np2);
+      if (days < 0) return r('🩸 Your period may be late by ' + Math.abs(days) + ' day' + (Math.abs(days)>1?'s':'') + '. Did you forget to log it?', 'period');
+      if (days === 0) return r('🩸 Your period is expected TODAY! Make sure you have supplies ready and rest up.', 'period');
+      if (days <= 5) return r('🩸 Your period is coming soon — in just ' + days + ' days (' + chatFmtDate(np2) + '). Time to prep!', 'period');
+      return r('🩸 Your next period is in ' + days + ' days, on ' + chatFmtDate(np2) + '.', 'period');
 
-  // ── DAYS LEFT IN CYCLE ──
-  if (/days left|days remain|how many days|days until period|days till/.test(q)) {
-    var np3 = getChatNextPeriod();
-    if (!np3) return 'No period data yet — please log your period first.';
-    var left = chatDaysFromNow(np3);
-    if (left <= 0) return 'Your period is due now or overdue by ' + Math.abs(left) + ' days.';
-    return '📅 ' + left + ' days left until your next period on ' + chatFmtDate(np3) + '.';
-  }
+    case 'last_period':
+      if (S.periodActive && S.periodStart) return r('🩸 You are currently ON your period! It started on ' + chatFmtDate(S.periodStart) + '.', 'period');
+      if (S.history && S.history.length > 0) {
+        var last = S.history[S.history.length - 1];
+        var ago = chatDaysAgo(last.start);
+        var html2 = '<div class="chat-card-title">🩸 Last Period</div>' +
+          '<div class="chat-card-row"><span class="chat-card-lbl">Started</span><span class="chat-card-val">' + chatFmtDate(last.start) + '</span></div>' +
+          '<div class="chat-card-row"><span class="chat-card-lbl">Days ago</span><span class="chat-card-val">' + ago + ' days</span></div>' +
+          '<div class="chat-card-row"><span class="chat-card-lbl">Duration</span><span class="chat-card-val">' + last.duration + ' days</span></div>' +
+          '<div class="chat-card-row"><span class="chat-card-lbl">Cycle length</span><span class="chat-card-val">' + (last.cycleLen || S.cycleLen || 28) + ' days</span></div>';
+        return card(html2, 'period');
+      }
+      return r('No period data found yet. Please log your period first! 🩸', 'period');
 
-  // ── WATER ──
-  if (/water|hydrat|drink|glasses/.test(q)) {
-    var goal = S.waterGoal || 8;
-    var current = S.water || 0;
-    var unit = S.waterUnit || 'glasses';
-    var pct = Math.round(current / goal * 100);
-    if (current >= goal) return '💧 Amazing! You have reached your water goal today — ' + current + '/' + goal + ' ' + unit + ' (' + pct + '%). Well done!';
-    return '💧 You have had ' + current + ' out of ' + goal + ' ' + unit + ' today (' + pct + '%). ' + (goal - current) + ' more to go!';
-  }
+    case 'period_active':
+      if (S.periodActive) return r('🩸 Yes, you are on your period! Day ' + (chatDaysAgo(S.periodStart) + 1) + '.', 'period');
+      return r('No, you are not currently on your period.', 'period');
 
-  // ── MOOD ──
-  if (/mood|feeling|how.*feel|feel.*how|emotion/.test(q)) {
-    var moodIdx = S.mood;
-    if (!moodIdx) return 'No mood logged today yet. Head to the Period Log page to track your mood!';
-    var moodNames = ['', 'Terrible', 'Bad', 'Okay', 'Good', 'Great'];
-    var moodEmoji = ['', '😢', '😔', '😐', '😊', '😄'];
-    return moodEmoji[moodIdx] + ' Your mood today is logged as: ' + moodNames[moodIdx] + '.';
-  }
+    case 'cycle_day':
+      return r('You are on cycle day ' + getChatCycleDay() + ' of your ' + (S.cycleLen||28) + '-day cycle. Phase: ' + getChatPhase() + '.', 'phase');
 
-  // ── SYMPTOMS ──
-  if (/symptom|cramp|headache|bloat|nausea|breast|backache/.test(q)) {
-    var syms = S.symptoms || [];
-    if (syms.length === 0) return 'No symptoms logged today. Go to Period Log to track how you feel.';
-    var sympNames = ['Cramps','Headache','Bloating','Fatigue','Nausea','Breast Tenderness','Backache','Acne','Mood Swings','Spotting'];
-    var logged = syms.map(function(i) { return sympNames[i] || 'Symptom ' + i; });
-    return '🩺 Today you logged: ' + logged.join(', ') + '.';
-  }
+    case 'phase':
+      var ph3 = getChatPhase();
+      var phDesc = {
+        'Menstrual': '🩸 Your uterine lining is shedding. Rest, stay warm, and eat iron-rich foods.',
+        'Follicular': '🌱 Estrogen is rising! Energy is increasing — a great time to start new projects.',
+        'Ovulation': '🌸 Peak fertility! Energy is at its highest.',
+        'Luteal': '🌙 Progesterone is rising. PMS symptoms may appear. Be gentle with yourself.'
+      };
+      var desc = phDesc[ph3] || 'Keep tracking to learn more about your phases.';
+      var nick = typeof getPhaseNickname === 'function' ? getPhaseNickname(ph3) : ph3;
+      var html3 = '<div class="chat-card-title">🌀 Your Phase</div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Phase</span><span class="chat-card-val">' + ph3 + '</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Nickname</span><span class="chat-card-val">' + nick + '</span></div>' +
+        '<div style="margin-top:8px;font-size:12px;color:var(--ink);line-height:1.55;">' + desc + '</div>' +
+        '<div style="margin-top:8px;display:flex;gap:8px;"><button class="chat-qbtn" onclick="window.handleChat(\'Foods for my phase?\')">Food Tips</button></div>';
+      return card(html3, 'phase');
 
-  // ── PAIN ──
-  if (/pain|pain level|hurt|ache/.test(q)) {
-    var pain = parseInt(localStorage.getItem('luna_pain') || '0');
-    if (!pain) return 'No pain level logged today. You can track it on the Home page.';
-    var parts = S.painParts || [];
-    var reply3 = '🩺 Your pain level today is ' + pain + '/10.';
-    if (parts.length > 0) reply3 += ' Pain areas: ' + parts.join(', ') + '.';
-    return reply3;
-  }
+    case 'sex':
+      var sexEntry2 = getLastSexDate();
+      if (!sexEntry2) return r('No sex activity logged yet. You can log it from the calendar.', 'sex');
+      var sexDate = sexEntry2.date || sexEntry2.start || sexEntry2;
+      if (typeof sexDate === 'object' && sexDate.date) sexDate = sexDate.date;
+      var html4 = '<div class="chat-card-title">💙 Last Logged Activity</div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Date</span><span class="chat-card-val">' + chatFmtDate(sexDate) + '</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Days ago</span><span class="chat-card-val">' + chatDaysAgo(sexDate) + '</span></div>';
+      if (sexEntry2.protect) html4 += '<div class="chat-card-row"><span class="chat-card-lbl">Protected</span><span class="chat-card-badge ' + (sexEntry2.protect==='yes'?'badge-green':'badge-rose') + '">' + (sexEntry2.protect==='yes'?'✅ Yes':'⚠️ No') + '</span></div>';
+      return card(html4, 'sex');
 
-  // ── SLEEP ──
-  if (/sleep|slept|rest|sleep.*quality/.test(q)) {
-    var sl = parseInt(localStorage.getItem('luna_sleep') || '0');
-    var sleepLabels2 = ['Not rated', 'Very Poor', 'Poor', 'Fair', 'Good', 'Excellent'];
-    if (!sl) return 'No sleep logged today. Rate your sleep on the Period Log page!';
-    return '😴 Your sleep quality today: ' + sleepLabels2[sl] + ' (' + sl + '/5).';
-  }
+    case 'pregnancy':
+      if (S.periodActive) return r('You are currently on your period, so pregnancy is very unlikely right now.', 'pregnancy');
+      var lateBy = getChatNextPeriod() ? chatDaysFromNow(getChatNextPeriod()) * -1 : 0;
+      if (lateBy > 3) return r('⚠️ Your period is ' + lateBy + ' days late. This could indicate pregnancy — consider a home test.', 'pregnancy');
+      return r('Only a test can confirm pregnancy. Your period is not late yet — keep tracking! 🌸', 'pregnancy');
 
-  // ── ENERGY ──
-  if (/energy|energi|tired|fatigue|active/.test(q)) {
-    var en = parseInt(localStorage.getItem('luna_energy') || '0');
-    var energyLabels = ['', 'Drained', 'Low', 'Okay', 'Good', 'High'];
-    if (!en) return 'No energy level logged today. Track it on the Period Log page!';
-    return '⚡ Your energy level today: ' + energyLabels[en] + ' (' + en + '/5).';
-  }
+    case 'fertile':
+      var ovD2 = getOvulationDate();
+      var fertileNow = isFertileToday();
+      if (!ovD2) return r('Log your cycle and period dates so I can calculate your fertile window!', 'fertile');
+      var html5 = '<div class="chat-card-title">🌸 Fertile Window</div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Ovulation</span><span class="chat-card-val">' + chatFmtDate(ovD2) + '</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Fertile right now?</span><span class="chat-card-badge ' + (fertileNow?'badge-rose':'badge-green') + '">' + (fertileNow ? '🔥 YES' : '✅ No') + '</span></div>';
+      return card(html5, 'fertile');
 
-  // ── BMI / WEIGHT ──
-  if (/bmi|weight|height|body mass/.test(q)) {
-    if (!S.bmiWeight || !S.bmiHeight) return 'No BMI data yet. Enter your weight and height on the Home page!';
-    var bmi = S.bmiWeight / Math.pow(S.bmiHeight / 100, 2);
-    bmi = Math.round(bmi * 10) / 10;
-    var cat = bmi < 18.5 ? 'Underweight' : bmi < 25 ? 'Healthy Weight' : bmi < 30 ? 'Overweight' : 'Obese';
-    return '⚖️ Your BMI is ' + bmi + ' (' + cat + '). Weight: ' + S.bmiWeight + ' kg, Height: ' + S.bmiHeight + ' cm.';
-  }
+    case 'ovulation':
+      var ovD5 = getOvulationDate();
+      if (!ovD5) return r('Not enough data to calculate ovulation.', 'fertile');
+      var daysToOv = chatDaysFromNow(ovD5);
+      if (daysToOv === 0) return r('🥚 Today is your estimated OVULATION day! Highest chance of pregnancy.', 'fertile');
+      return r('🥚 Estimated ovulation in ' + daysToOv + ' days — ' + chatFmtDate(ovD5) + '.', 'fertile');
 
-  // ── PERIOD DURATION ──
-  if (/how long.*period|period.*how long|period.*last|duration/.test(q)) {
-    if (S.periodActive && S.periodStart) {
-      var days2 = chatDaysAgo(S.periodStart) + 1;
-      return '🩸 Your current period has been going for ' + days2 + ' days.';
-    }
-    var avgPLen = getAvgPeriodLen();
-    return '🩸 Your average period lasts ' + avgPLen + ' days.';
-  }
+    case 'stats':
+      var avg2 = getAvgCycle();
+      var avgP2 = getAvgPeriodLen();
+      var html6 = '<div class="chat-card-title">📊 Cycle Stats</div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Avg cycle length</span><span class="chat-card-val">' + avg2 + ' days</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Avg period length</span><span class="chat-card-val">' + avgP2 + ' days</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Cycles tracked</span><span class="chat-card-val">' + (S.history || []).length + '</span></div>';
+      return card(html6, 'period');
 
-  // ── STREAK ──
-  if (/streak|consist|logging streak|how long.*track/.test(q)) {
-    if (typeof calcStreak === 'function') {
-      var st = calcStreak();
-      return '🔥 Your current logging streak is ' + st.streak + ' day' + (st.streak !== 1 ? 's' : '') + '! Best ever: ' + st.best + ' days.';
-    }
-    return 'Keep logging daily to build your streak!';
-  }
+    case 'days_left':
+      var np6 = getChatNextPeriod();
+      if (!np6) return r('No period data yet.', 'period');
+      var left = chatDaysFromNow(np6);
+      return r('📅 ' + left + ' day' + (left>1?'s':'') + ' until your next period on ' + chatFmtDate(np6) + '.', 'period');
 
-  // ── JOURNAL / DIARY ──
-  if (/journal|diary|entries|wrote|writing/.test(q)) {
-    var entryCount = Object.keys(S.journal || {}).length;
-    if (entryCount === 0) return 'No journal entries yet. Go to Daily Diary to start writing!';
-    var lastEntry = Object.keys(S.journal).sort().reverse()[0];
-    return '📔 You have ' + entryCount + ' journal ' + (entryCount === 1 ? 'entry' : 'entries') + '. Last entry was on ' + lastEntry + '.';
-  }
+    case 'water':
+      var goal2 = S.waterGoal || 8;
+      var current = S.water || 0;
+      var pct = Math.round(current / goal2 * 100);
+      var html7 = '<div class="chat-card-title">💧 Hydration Today</div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">Progress</span><span class="chat-card-val">' + current + ' / ' + goal2 + ' ' + (S.waterUnit||'glasses') + '</span></div>' +
+        '<div style="margin-top:8px;height:6px;border-radius:99px;background:var(--hairline);overflow:hidden;"><div style="height:100%;width:' + Math.min(100,pct) + '%;background:linear-gradient(90deg,#60a5fa,#2563eb);transition:width .5s;"></div></div>' +
+        '<div style="margin-top:12px;"><button class="chat-qbtn" onclick="window.quickActionAddWater()">+ Log Water</button></div>';
+      return card(html7, 'water');
 
-  // ── SPOTTING ──
-  if (/spotting|spot|light.*bleed|bleed.*light/.test(q)) {
-    var spots = S.spotting || [];
-    if (spots.length === 0) return 'No spotting logged. You can log it by tapping a calendar day.';
-    var lastSpot = spots[spots.length - 1];
-    return '🩸 Last spotting logged on ' + lastSpot.date + ' (' + (lastSpot.intensity || '') + ').';
-  }
+    case 'mood': return r('Your mood today is: ' + (['','Terrible','Bad','Okay','Good','Great'][S.mood]||'Not logged yet') + '.', 'health');
+    case 'symptoms': return r('You have ' + (S.symptoms||[]).length + ' symptoms logged today.', 'health');
+    case 'pain': return r('🩺 Pain level today: ' + parseInt(localStorage.getItem('luna_pain')||'0') + '/10.', 'health');
+    case 'sleep': return r('😴 Sleep quality today: ' + parseInt(localStorage.getItem('luna_sleep')||'0') + '/5.', 'health');
+    case 'energy': return r('⚡ Energy level today: ' + parseInt(localStorage.getItem('luna_energy')||'0') + '/5.', 'health');
+    
+    case 'bmi':
+      if (!S.bmiWeight || !S.bmiHeight) return r('No BMI data yet. Enter your weight and height on the Home page! ⚖️', 'health');
+      var bmi = Math.round((S.bmiWeight / Math.pow(S.bmiHeight / 100, 2)) * 10) / 10;
+      return r('⚖️ Your BMI is ' + bmi + ' (Weight: ' + S.bmiWeight + 'kg, Height: ' + S.bmiHeight + 'cm).', 'health');
+      
+    case 'period_duration': return r('🩸 Your average period lasts ' + getAvgPeriodLen() + ' days.', 'period');
+    
+    case 'streak':
+      if (typeof calcStreak === 'function') {
+        var st = calcStreak();
+        return r('🔥 Logging streak: ' + st.streak + ' day' + (st.streak!==1?'s':'') + '. Best ever: ' + st.best + ' days. Keep going!', 'health');
+      }
+      return r('Keep logging daily to build your streak! 🔥', 'health');
 
-  // ── PMS ──
-  if (/pms|premenstrual|pmt/.test(q)) {
-    var phase2 = getChatPhase();
-    if (phase2 === 'Luteal') {
-      return '⚠️ You are in the Luteal phase — this is when PMS typically occurs (Days 17–28). Common symptoms: mood swings, bloating, cramps, fatigue. Eat magnesium-rich foods and reduce caffeine.';
-    }
-    return 'PMS typically occurs in the Luteal phase (about 1–2 weeks before your period). You are currently in ' + phase2 + ' phase.';
-  }
+    case 'journal': return r('📔 You have ' + Object.keys(S.journal || {}).length + ' journal entries.', 'health');
+    case 'spotting': return r('🩸 View spotting details on your calendar.', 'period');
+    
+    case 'pms':
+      if (getChatPhase() === 'Luteal') return r('⚠️ You\'re in the Luteal phase — when PMS typically occurs. Try magnesium-rich foods, reduce caffeine, and prioritize sleep.', 'phase');
+      return r('PMS occurs in the Luteal phase (1–2 weeks before your period). You\'re currently in the ' + getChatPhase() + ' phase.', 'phase');
 
-  // ── SAFE PERIOD / UNPROTECTED SEX ──
-  if (/safe.*sex|sex.*safe|unprotected|safe day|is it safe/.test(q)) {
-    var fertile2 = isFertileToday();
-    var ph2 = getChatPhase();
-    if (fertile2) return '⚠️ You are in your fertile window right now! This is NOT a safe time for unprotected sex if you want to avoid pregnancy.';
-    if (ph2 === 'Menstrual') return '🩸 You are on your period. Pregnancy risk is low, but STIs can still spread. Use protection to be safe.';
-    return '✅ You are not in your fertile window today. However, cycles can vary and no method is 100% reliable. Always use protection to prevent STIs.';
-  }
+    case 'safe_sex':
+      if (isFertileToday()) return r('⚠️ You are in your fertile window right now! This is NOT a safe time for unprotected sex if avoiding pregnancy.', 'sex');
+      return r('✅ You\'re not in your fertile window today. However, always use protection to prevent STIs.', 'sex');
 
-  // ── LATE PERIOD ──
-  if (/late|overdue|missed period|period.*late|late.*period/.test(q)) {
-    var np4 = getChatNextPeriod();
-    if (!np4) return 'No period data yet to determine if you are late.';
-    var daysLate = chatDaysFromNow(np4) * -1;
-    if (daysLate <= 0) return 'Your period is not late yet — it is due in ' + Math.abs(daysLate) + ' days.';
-    if (daysLate <= 3) return '⏰ Your period is ' + daysLate + ' day' + (daysLate > 1 ? 's' : '') + ' late. This is still within normal variation.';
-    if (daysLate <= 7) return '⚠️ Your period is ' + daysLate + ' days late. Stress, diet changes, or illness can cause this. Consider a pregnancy test if you had unprotected sex.';
-    return '⚠️ Your period is ' + daysLate + ' days late! Please consider taking a pregnancy test and consulting a doctor if needed.';
-  }
+    case 'late_period':
+      var np7 = getChatNextPeriod();
+      var daysLate = np7 ? chatDaysFromNow(np7) * -1 : 0;
+      if (daysLate <= 0) return r('Your period is not late — it\'s due in ' + Math.abs(daysLate) + ' days.', 'period');
+      return r('⚠️ Your period is ' + daysLate + ' days late! Consider taking a pregnancy test.', 'period');
 
-  // ── PERIOD PRODUCT ──
-  if (/product|pad|tampon|cup|underwear|disc|what.*using|using.*what/.test(q)) {
-    var prods = S.productLog || [];
-    if (prods.length === 0) return 'No period products logged yet. Log them on the Period Log page!';
-    var lastProd = prods[prods.length - 1];
-    return '🩸 Last logged product: ' + lastProd.product + ' on ' + lastProd.date + '.';
-  }
+    case 'product': return r('🩸 Check the period log to see your last used products.', 'period');
+    case 'supplement': return r('💊 Check your Period Log for today\'s supplements.', 'health');
+    
+    case 'phase_guide':
+      return r('In the ' + getChatPhase() + ' phase, align your diet and exercise to your hormone levels. Check the Phase Guide page for specific food lists.', 'phase');
+      
+    case 'history': return r('📋 You have tracked ' + (S.history||[]).length + ' periods in total.', 'period');
+    case 'thank_you': return r('Always here for you ' + (S.name||'') + '! 🌸 Take care of yourself.', 'fallback');
+    
+    case 'help':
+      var html11 = '<div class="chat-card-title">🌙 What I can help with</div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">🩸 Period</span><span class="chat-card-val">Next, last, late, history</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">🌀 Cycle</span><span class="chat-card-val">Phase, day, average length</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">🌸 Fertility</span><span class="chat-card-val">Fertile window, ovulation</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">💙 Intimacy</span><span class="chat-card-val">Last sex, safe days, pregnancy</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">💧 Health</span><span class="chat-card-val">Water, mood, sleep, energy, BMI</span></div>' +
+        '<div class="chat-card-row"><span class="chat-card-lbl">✨ Smart</span><span class="chat-card-val">"Remind me", "Call me Aria", "Export chat"</span></div>';
+      return card(html11, 'fallback');
 
-  // ── SUPPLEMENTS ──
-  if (/supplement|vitamin|iron|magnesium|omega|zinc|folate/.test(q)) {
-    var todayKey = fmtKey(new Date());
-    var taken = JSON.parse(localStorage.getItem('luna_supp_' + todayKey) || '[]');
-    var suppNames2 = ['Iron', 'Vit D', 'Omega-3', 'Magnesium', 'Folate', 'Zinc'];
-    if (taken.length === 0) return '💊 No supplements taken today yet. Track them on the Period Log page!';
-    var takenNames = taken.map(function(i) { return suppNames2[i]; });
-    return '💊 Supplements taken today: ' + takenNames.join(', ') + '. (' + taken.length + '/' + suppNames2.length + ')';
+    default:
+      return r('I\'m not sure about that. Try asking "my summary" or "help" for a quick overview!', 'fallback');
   }
-
-  // ── PHASE GUIDE ──
-  if (/what.*eat|food|diet|exercise|workout/.test(q)) {
-    var ph3 = getChatPhase();
-    var guideMap = {
-      'Menstrual': 'Eat iron-rich foods (spinach, lentils, dark chocolate). Gentle yoga and light walks are best. Avoid alcohol and caffeine.',
-      'Follicular': 'Eat leafy greens, protein, and berries. Great time for running, cardio, and strength training!',
-      'Ovulation': 'Eat zinc-rich foods and whole grains. Best phase for HIIT and intense workouts.',
-      'Luteal': 'Eat magnesium-rich foods (bananas, nuts). Good for cycling, pilates, and swimming. Reduce salty/processed foods.'
-    };
-    return '🥗 In your ' + ph3 + ' phase: ' + (guideMap[ph3] || 'Keep eating balanced and stay active!');
-  }
-
-  // ── HISTORY / PAST PERIODS ──
-  if (/history|past period|all period|period.*list/.test(q)) {
-    var hist = S.history || [];
-    if (hist.length === 0) return 'No period history yet. Start logging your periods!';
-    var last3 = hist.slice(-3).reverse();
-    var lines = last3.map(function(h, i) {
-      return (i + 1) + '. ' + chatFmtDate(h.start) + ' — ' + h.duration + ' days';
-    });
-    return '📋 Last ' + last3.length + ' periods:\n' + lines.join('\n');
-  }
-
-  // ── THANK YOU ──
-  if (/thank|thanks|great|awesome|good bot|nice/.test(q)) {
-    return 'You are welcome ' + name + '! 🌸 I am always here to help with your cycle questions.';
-  }
-
-  // ── HELP ──
-  if (/help|what.*ask|what can|command|option/.test(q)) {
-    return 'You can ask me:\n• When is my next period?\n• When was my last period?\n• Am I in fertile window?\n• Last time I had sex?\n• Am I pregnant?\n• What phase am I in?\n• My water today?\n• My sleep/energy?\n• My BMI?\n• My streak?\n• Is it safe to have sex?\n• Is my period late?\n...and much more!';
-  }
-
-  // ── FALLBACK ──
-  var fallbacks = [
-    'I am not sure about that. Try asking about your period, cycle, sex log, pregnancy, or health stats!',
-    'Hmm, I did not understand that. Ask me things like "when is my next period?" or "am I fertile today?"',
-    'I know your cycle data well, but I could not understand that question. Try rephrasing it!'
-  ];
-  return fallbacks[Math.floor(Math.random() * fallbacks.length)];
 }
 
 
