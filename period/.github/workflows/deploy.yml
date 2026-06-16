@@ -1,0 +1,22 @@
+name: Deploy Luna
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Inject Groq credentials
+        run: |
+          sed -i 's/__GROQ_API_KEY__/${{ secrets.GROQ_API_KEY }}/g' index.html
+          sed -i 's/__GROQ_MODEL__/${{ secrets.GROQ_MODEL }}/g' index.html
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: .
