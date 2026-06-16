@@ -1,0 +1,2257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ToneWise — Outfit Suggestions for Your Skin Tone | by wondermayank</title>
+<meta name="description" content="ToneWise analyses your skin tone and undertone using the Fitzpatrick scale and seasonal colour theory, then gives you a personalised outfit palette — free, instant, no signup.">
+<meta name="keywords" content="skin tone outfit suggestions, seasonal colour analysis, Fitzpatrick scale, undertone quiz, outfit colour palette, colour analysis tool">
+<meta name="author" content="wondermayank">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://wondermayank.github.io/tonewise/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="ToneWise — Outfit Suggestions for Your Skin Tone">
+<meta property="og:description" content="Find your seasonal colour palette and get curated outfit suggestions matched to your skin tone and undertone. Built on the Fitzpatrick scale.">
+<meta property="og:url" content="https://wondermayank.github.io/tonewise/">
+<meta property="og:site_name" content="ToneWise by wondermayank">
+<meta property="og:image" content="/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<!-- Twitter Card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="ToneWise — Outfit Suggestions for Your Skin Tone">
+<meta name="twitter:description" content="Find your seasonal colour palette and get curated outfit suggestions matched to your skin tone and undertone.">
+<meta name="twitter:image" content="/og-image.png">
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebApplication",
+      "name": "ToneWise",
+      "url": "https://wondermayank.github.io/tonewise/",
+      "description": "A free skin tone analyser that uses the Fitzpatrick scale and seasonal colour theory to give personalised outfit colour palettes.",
+      "applicationCategory": "LifestyleApplication",
+      "operatingSystem": "Any",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" },
+      "author": { "@type": "Person", "name": "wondermayank", "url": "https://wondermayank.github.io/" }
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is skin tone analysis?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Skin tone analysis identifies your visible skin colour (overtone) and the underlying hue (undertone — warm, cool, neutral, or olive) to determine which clothing colours will flatter you most. ToneWise uses the Fitzpatrick scale to classify your tone and maps it to a seasonal colour palette." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is seasonal colour analysis?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Seasonal colour analysis divides people into four colour seasons — Spring, Summer, Autumn, and Winter — based on the combination of their skin tone and undertone. Each season has a characteristic palette of flattering colours used in fashion and styling." }
+        },
+        {
+          "@type": "Question",
+          "name": "How do I find my undertone?",
+          "acceptedAnswer": { "@type": "Answer", "text": "Check the veins on your inner wrist in natural light: green veins suggest a warm undertone, blue/purple veins suggest cool, and a mix suggests neutral. You can also use the Quick Quiz in ToneWise's guide section for a more thorough assessment." }
+        },
+        {
+          "@type": "Question",
+          "name": "What is the Fitzpatrick scale?",
+          "acceptedAnswer": { "@type": "Answer", "text": "The Fitzpatrick scale is a dermatological classification system that categorises human skin colour into six types (Type I through Type VI) based on visible tone and reaction to sun exposure. It is used in medical, cosmetic, and fashion contexts." }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --sand: #f5f5f7;
+    --cream: #ffffff;
+    --terracotta: #573AFC;
+    --terra-light: #E7E0FB;
+    --terra-dark: #4527E0;
+    --sage: #22c55e;
+    --sage-light: #dcfce7;
+    --plum: #9A7AFB;
+    --gold: #f59e0b;
+    --charcoal: #1d1d1f;
+    --gray: #6b6b6b;
+    --light-gray: #e6e6e6;
+    --white: #FFFFFF;
+    --font-display: 'Playfair Display', Georgia, serif;
+    --font-body: 'DM Sans', system-ui, sans-serif;
+    --radius: 16px;
+    --radius-sm: 8px;
+    --radius-pill: 100px;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: var(--font-body);
+    background: var(--sand);
+    color: var(--charcoal);
+    font-size: 16px;
+    line-height: 1.6;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: rgba(245,245,247,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--light-gray);
+    padding: 0 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+  }
+  .nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: var(--charcoal);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .logo-dot {
+    width: 10px; height: 10px;
+    background: var(--terracotta);
+    border-radius: 50%;
+    display: inline-block;
+  }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--gray); font-size: 0.9rem; font-weight: 400; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--terracotta); }
+  .nav-cta {
+    background: var(--charcoal);
+    color: var(--white);
+    padding: 8px 20px;
+    border-radius: var(--radius-pill);
+    font-size: 0.85rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .nav-cta:hover { background: var(--terracotta); }
+
+  /* ── HERO ── */
+  .hero {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 5rem 2rem 4rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .hero-eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--terra-light);
+    color: var(--terra-dark);
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .hero h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    font-weight: 700;
+    line-height: 1.12;
+    color: var(--charcoal);
+    margin-bottom: 1.25rem;
+  }
+  .hero h1 em {
+    font-style: italic;
+    color: var(--terracotta);
+  }
+  .hero-sub {
+    color: var(--gray);
+    font-size: 1.05rem;
+    font-weight: 300;
+    margin-bottom: 2rem;
+    max-width: 420px;
+    line-height: 1.7;
+  }
+  .hero-actions { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--terracotta);
+    color: var(--white);
+    padding: 13px 28px;
+    border-radius: var(--radius-pill);
+    font-weight: 500;
+    font-size: 0.95rem;
+    text-decoration: none;
+    border: none;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary:hover { background: var(--terra-dark); transform: translateY(-1px); }
+  .btn-secondary {
+    color: var(--charcoal);
+    font-weight: 500;
+    font-size: 0.9rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    opacity: 0.7;
+    transition: opacity 0.2s;
+  }
+  .btn-secondary:hover { opacity: 1; }
+
+  /* ── HERO VISUAL ── */
+  .hero-visual {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .skin-ring-display {
+    width: 340px;
+    height: 340px;
+    position: relative;
+  }
+  .skin-ring-display svg { width: 100%; height: 100%; }
+
+  /* ── SECTION COMMON ── */
+  section { padding: 5rem 2rem; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--terracotta);
+    margin-bottom: 0.75rem;
+  }
+  .section-heading {
+    font-family: var(--font-display);
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+  }
+  .section-sub {
+    color: var(--gray);
+    font-size: 1rem;
+    font-weight: 300;
+    max-width: 520px;
+    line-height: 1.7;
+  }
+
+  /* ── HOW IT WORKS ── */
+  #how { background: var(--cream); }
+  .steps-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  .step-card {
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius);
+    padding: 2rem;
+    position: relative;
+  }
+  .step-num {
+    font-family: var(--font-display);
+    font-size: 3.5rem;
+    font-weight: 700;
+    color: var(--terra-light);
+    line-height: 1;
+    margin-bottom: 1rem;
+  }
+  .step-icon {
+    width: 48px; height: 48px;
+    background: var(--sand);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 1rem;
+    color: var(--terracotta);
+    font-size: 1.4rem;
+  }
+  .step-card h3 {
+    font-weight: 500;
+    font-size: 1.05rem;
+    margin-bottom: 0.5rem;
+  }
+  .step-card p { color: var(--gray); font-size: 0.9rem; font-weight: 300; }
+
+  /* ── ANALYZER ── */
+  #analyzer { background: var(--sand); }
+  .analyzer-layout {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+
+  /* Input panel */
+  .input-panel {
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius);
+    padding: 2rem;
+  }
+  .input-panel h3 {
+    font-weight: 500;
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    color: var(--charcoal);
+  }
+
+  /* Upload zone */
+  .upload-zone {
+    border: 2px dashed var(--light-gray);
+    border-radius: var(--radius-sm);
+    padding: 2.5rem 1.5rem;
+    text-align: center;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+    margin-bottom: 1.5rem;
+    position: relative;
+  }
+  .upload-zone:hover, .upload-zone.drag-over {
+    border-color: var(--terracotta);
+    background: var(--terra-light);
+  }
+  .upload-zone input[type="file"] {
+    position: absolute;
+    inset: 0;
+    opacity: 0;
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+  .upload-icon { font-size: 2.5rem; color: var(--light-gray); margin-bottom: 0.75rem; }
+  .upload-zone p { color: var(--gray); font-size: 0.85rem; }
+  .upload-zone strong { color: var(--terracotta); }
+
+  /* Preview image */
+  .img-preview-wrap {
+    display: none;
+    position: relative;
+    margin-bottom: 1.5rem;
+  }
+  .img-preview-wrap img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--light-gray);
+  }
+  .img-remove-btn {
+    position: absolute;
+    top: 8px; right: 8px;
+    background: rgba(29,29,31,0.7);
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 28px; height: 28px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+  }
+
+  .divider-or {
+    text-align: center;
+    color: var(--gray);
+    font-size: 0.8rem;
+    position: relative;
+    margin: 1rem 0;
+  }
+  .divider-or::before, .divider-or::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background: var(--light-gray);
+  }
+  .divider-or::before { left: 0; }
+  .divider-or::after { right: 0; }
+
+  /* Manual tone picker */
+  .tone-picker-section h4 {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+  }
+  .tone-swatches {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+  .tone-swatch {
+    aspect-ratio: 1;
+    border-radius: 50%;
+    cursor: pointer;
+    border: 3px solid transparent;
+    transition: transform 0.15s, border-color 0.15s;
+    position: relative;
+  }
+  .tone-swatch:hover { transform: scale(1.12); }
+  .tone-swatch.active { border-color: var(--charcoal); transform: scale(1.12); }
+  .tone-swatch::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 2px solid transparent;
+  }
+
+  /* Undertone selector */
+  .undertone-row {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 1.5rem;
+  }
+  .undertone-btn {
+    flex: 1;
+    padding: 8px 4px;
+    border: 1px solid var(--light-gray);
+    background: transparent;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 400;
+    color: var(--gray);
+    transition: all 0.2s;
+    text-align: center;
+  }
+  .undertone-btn.active {
+    border-color: var(--terracotta);
+    background: var(--terra-light);
+    color: var(--terra-dark);
+    font-weight: 500;
+  }
+
+  .analyze-btn {
+    width: 100%;
+    padding: 13px;
+    background: var(--charcoal);
+    color: var(--white);
+    border: none;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .analyze-btn:hover { background: var(--terracotta); transform: translateY(-1px); }
+  .analyze-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* Output panel */
+  .output-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+
+  .result-card {
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius);
+    padding: 2rem;
+    animation: fadeUp 0.4s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .result-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+    padding-bottom: 1.25rem;
+    border-bottom: 1px solid var(--light-gray);
+  }
+  .detected-swatch {
+    width: 56px; height: 56px;
+    border-radius: 50%;
+    border: 3px solid var(--white);
+    box-shadow: 0 0 0 2px var(--light-gray);
+    flex-shrink: 0;
+  }
+  .result-meta h3 { font-weight: 500; font-size: 1.1rem; margin-bottom: 4px; }
+  .result-meta p { color: var(--gray); font-size: 0.85rem; font-weight: 300; }
+
+  .season-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 5px 14px;
+    border-radius: var(--radius-pill);
+    font-size: 0.78rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    margin-left: auto;
+  }
+
+  /* Palette strip */
+  .palette-section { margin-bottom: 1.25rem; }
+  .palette-section h4 { font-size: 0.8rem; font-weight: 500; color: var(--gray); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.06em; }
+  .palette-strip { display: flex; gap: 6px; }
+  .palette-chip {
+    flex: 1;
+    height: 40px;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    transition: transform 0.15s;
+    position: relative;
+  }
+  .palette-chip:hover { transform: scaleY(1.1); }
+  .palette-chip .chip-label {
+    position: absolute;
+    bottom: -22px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.65rem;
+    color: var(--gray);
+    white-space: nowrap;
+    opacity: 0;
+    transition: opacity 0.2s;
+  }
+  .palette-chip:hover .chip-label { opacity: 1; }
+
+  /* Outfit suggestions */
+  .outfit-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  .outfit-item {
+    background: var(--sand);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius-sm);
+    padding: 1rem;
+    display: flex;
+    gap: 0.75rem;
+    align-items: flex-start;
+  }
+  .outfit-colors {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    flex-shrink: 0;
+  }
+  .outfit-dot {
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+  .outfit-text h5 { font-size: 0.85rem; font-weight: 500; margin-bottom: 3px; }
+  .outfit-text p { font-size: 0.78rem; color: var(--gray); font-weight: 300; }
+
+  /* Avoid colors */
+  .avoid-strip { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 0.75rem; }
+  .avoid-chip {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--sand);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius-pill);
+    padding: 4px 12px;
+    font-size: 0.78rem;
+    color: var(--gray);
+  }
+  .avoid-dot { width: 12px; height: 12px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); }
+
+  /* Tips card */
+  .tip-list { list-style: none; }
+  .tip-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--sand);
+    font-size: 0.88rem;
+    color: var(--charcoal);
+    font-weight: 300;
+  }
+  .tip-list li:last-child { border-bottom: none; }
+  .tip-icon { color: var(--terracotta); flex-shrink: 0; margin-top: 2px; }
+
+  /* Placeholder/empty state */
+  .empty-state {
+    background: var(--white);
+    border: 1px dashed var(--light-gray);
+    border-radius: var(--radius);
+    padding: 3rem 2rem;
+    text-align: center;
+    color: var(--gray);
+  }
+  .empty-state .empty-icon { font-size: 3rem; color: var(--light-gray); margin-bottom: 1rem; }
+  .empty-state h3 { font-weight: 500; font-size: 1rem; margin-bottom: 0.5rem; color: var(--charcoal); }
+  .empty-state p { font-size: 0.85rem; font-weight: 300; }
+
+  /* ── SCIENCE ── */
+  #science { background: var(--cream); }
+  .science-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 3rem;
+    margin-top: 3rem;
+    align-items: start;
+  }
+  .science-block h3 { font-weight: 500; font-size: 1rem; margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+  .science-block p { color: var(--gray); font-size: 0.9rem; font-weight: 300; line-height: 1.7; margin-bottom: 1rem; }
+  .tag-group { display: flex; flex-wrap: wrap; gap: 6px; }
+  .tag {
+    background: var(--sand);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius-pill);
+    padding: 4px 14px;
+    font-size: 0.78rem;
+    color: var(--gray);
+  }
+  .tag.highlight { background: var(--terra-light); border-color: transparent; color: var(--terra-dark); }
+  .github-card {
+    background: var(--charcoal);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    margin-top: 1rem;
+  }
+  .github-card .gh-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+  .gh-icon { font-size: 1.5rem; }
+  .github-card h4 { font-weight: 500; font-size: 0.95rem; }
+  .github-card p { color: rgba(255,255,255,0.6); font-size: 0.8rem; font-weight: 300; margin-bottom: 1rem; }
+  .gh-links { display: flex; flex-direction: column; gap: 6px; }
+  .gh-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: rgba(255,255,255,0.8);
+    text-decoration: none;
+    font-size: 0.82rem;
+    padding: 6px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+    transition: color 0.2s;
+  }
+  .gh-link:last-child { border-bottom: none; }
+  .gh-link:hover { color: var(--terra-light); }
+  .gh-link .gh-tag {
+    margin-left: auto;
+    background: rgba(255,255,255,0.1);
+    padding: 2px 8px;
+    border-radius: var(--radius-pill);
+    font-size: 0.7rem;
+  }
+
+  /* ── FITZPATRICK ── */
+  .fitz-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+  .fitz-card {
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    border: 1px solid var(--light-gray);
+    background: var(--white);
+  }
+  .fitz-swatch { height: 60px; }
+  .fitz-info { padding: 0.75rem; }
+  .fitz-type { font-weight: 500; font-size: 0.82rem; }
+  .fitz-label { font-size: 0.72rem; color: var(--gray); font-weight: 300; }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--sand);
+    color: var(--gray);
+    padding: 64px 2rem 40px;
+    border-top: 1px solid var(--light-gray);
+  }
+  .footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+    margin-bottom: 48px;
+  }
+  .footer-col h4 {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--charcoal);
+    margin-bottom: 1rem;
+  }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 0.55rem; }
+  .footer-col ul li a {
+    font-size: 0.85rem;
+    font-weight: 400;
+    color: var(--gray);
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer-col ul li a:hover { color: var(--terracotta); }
+  .footer-bottom {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding-top: 24px;
+    border-top: 1px solid var(--light-gray);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .footer-bottom p { font-size: 0.75rem; color: var(--gray); }
+  .footer-bottom a { color: var(--gray); text-decoration: none; }
+  .footer-bottom a:hover { color: var(--terracotta); }
+  @media (max-width: 768px) {
+    .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+    .footer-bottom { flex-direction: column; align-items: flex-start; }
+  }
+
+  /* ── LOADING STATE ── */
+  .loading-spinner {
+    display: inline-block;
+    width: 18px; height: 18px;
+    border: 2px solid rgba(255,255,255,0.3);
+    border-top-color: white;
+    border-radius: 50%;
+    animation: spin 0.7s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── MOBILE ── */
+  @media (max-width: 768px) {
+    nav { padding: 0 1rem; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; padding: 3rem 1.5rem; gap: 2.5rem; }
+    .hero-visual { order: -1; }
+    .skin-ring-display { width: 260px; height: 260px; }
+    .steps-grid { grid-template-columns: 1fr; }
+    .analyzer-layout { grid-template-columns: 1fr; }
+    .science-grid { grid-template-columns: 1fr; }
+    .fitz-grid { grid-template-columns: repeat(3, 1fr); }
+    section { padding: 3rem 1.5rem; }
+    .outfit-grid { grid-template-columns: 1fr; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+
+  /* ── GUIDE SECTION ── */
+  #guide { background: var(--cream); }
+
+  .guide-tabs {
+    display: flex;
+    gap: 4px;
+    background: var(--light-gray);
+    padding: 4px;
+    border-radius: var(--radius-pill);
+    margin: 2rem 0 2.5rem;
+    width: fit-content;
+  }
+  .guide-tab {
+    padding: 9px 24px;
+    border-radius: var(--radius-pill);
+    border: none;
+    background: transparent;
+    font-family: var(--font-body);
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--gray);
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .guide-tab.active {
+    background: var(--white);
+    color: var(--charcoal);
+    font-weight: 500;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.08);
+  }
+  .guide-panel { display: none; }
+  .guide-panel.active { display: block; animation: fadeUp 0.3s ease; }
+
+  /* Skin tone guide */
+  .guide-intro-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2.5rem;
+  }
+  .guide-intro-card {
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+  }
+  .guide-intro-card .card-icon {
+    width: 44px; height: 44px;
+    border-radius: var(--radius-sm);
+    display: flex; align-items: center; justify-content: center;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+  }
+  .guide-intro-card h3 { font-weight: 500; font-size: 1rem; margin-bottom: 0.5rem; }
+  .guide-intro-card p { color: var(--gray); font-size: 0.88rem; font-weight: 300; line-height: 1.7; }
+
+  /* Test method cards */
+  .test-methods { display: flex; flex-direction: column; gap: 1rem; }
+  .test-method {
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    display: flex;
+    gap: 1.25rem;
+    align-items: flex-start;
+  }
+  .test-method-num {
+    width: 36px; height: 36px;
+    background: var(--terra-light);
+    color: var(--terra-dark);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-weight: 500; font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .test-method-body h4 { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.35rem; }
+  .test-method-body p { color: var(--gray); font-size: 0.85rem; font-weight: 300; line-height: 1.65; }
+  .test-result-row {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin-top: 0.75rem;
+  }
+  .result-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 12px;
+    border-radius: var(--radius-pill);
+    font-size: 0.75rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+  }
+  .result-pill .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  /* Undertone guide */
+  .undertone-guide-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+    margin-bottom: 2.5rem;
+  }
+  .undertone-card {
+    background: var(--white);
+    border: 1px solid var(--light-gray);
+    border-radius: var(--radius);
+    overflow: hidden;
+  }
+  .undertone-swatch-bar { height: 8px; }
+  .undertone-card-body { padding: 1.25rem; }
+  .undertone-card-body h3 { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.4rem; }
+  .undertone-card-body .ut-desc { color: var(--gray); font-size: 0.82rem; font-weight: 300; line-height: 1.65; margin-bottom: 1rem; }
+  .ut-clues { list-style: none; }
+  .ut-clues li {
+    font-size: 0.8rem;
+    color: var(--charcoal);
+    padding: 4px 0;
+    border-bottom: 1px solid var(--sand);
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-weight: 300;
+  }
+  .ut-clues li:last-child { border-bottom: none; }
+  .ut-clues .clue-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+  /* Test results table */
+  .ut-result-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.85rem;
+    margin-top: 1rem;
+  }
+  .ut-result-table th {
+    text-align: left;
+    font-weight: 500;
+    font-size: 0.75rem;
+    color: var(--gray);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 8px 12px;
+    border-bottom: 1px solid var(--light-gray);
+    background: var(--sand);
+  }
+  .ut-result-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--sand);
+    color: var(--charcoal);
+    font-weight: 300;
+    vertical-align: top;
+  }
+  .ut-result-table tr:last-child td { border-bottom: none; }
+
+  .guide-section-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--terracotta);
+    margin-bottom: 0.75rem;
+    margin-top: 2.5rem;
+  }
+  .guide-section-label:first-child { margin-top: 0; }
+  .guide-h2 {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+  }
+  .guide-desc { color: var(--gray); font-size: 0.9rem; font-weight: 300; line-height: 1.7; margin-bottom: 1.5rem; }
+
+  /* Quick quiz */
+  .quiz-card {
+    background: var(--charcoal);
+    color: var(--white);
+    border-radius: var(--radius);
+    padding: 2rem;
+    margin-top: 2rem;
+  }
+  .quiz-card h3 {
+    font-family: var(--font-display);
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.4rem;
+  }
+  .quiz-card > p { color: rgba(255,255,255,0.6); font-size: 0.85rem; margin-bottom: 1.5rem; font-weight: 300; }
+  .quiz-q { margin-bottom: 1.25rem; }
+  .quiz-q p { font-size: 0.88rem; font-weight: 500; margin-bottom: 0.6rem; color: rgba(255,255,255,0.9); }
+  .quiz-options { display: flex; gap: 6px; flex-wrap: wrap; }
+  .quiz-opt {
+    padding: 6px 14px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: rgba(255,255,255,0.7);
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.15s;
+  }
+  .quiz-opt:hover { background: rgba(255,255,255,0.1); color: white; }
+  .quiz-opt.selected { background: var(--terracotta); border-color: var(--terracotta); color: white; }
+  .quiz-result-box {
+    margin-top: 1.5rem;
+    background: rgba(255,255,255,0.08);
+    border-radius: var(--radius-sm);
+    padding: 1.25rem;
+    display: none;
+  }
+  .quiz-result-box.show { display: block; animation: fadeUp 0.3s ease; }
+  .quiz-result-box h4 { font-weight: 500; font-size: 1rem; margin-bottom: 0.4rem; }
+  .quiz-result-box p { font-size: 0.85rem; color: rgba(255,255,255,0.7); font-weight: 300; }
+  .quiz-calc-btn {
+    width: 100%;
+    padding: 11px;
+    background: var(--terracotta);
+    color: white;
+    border: none;
+    border-radius: var(--radius-pill);
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-top: 1rem;
+    transition: background 0.2s;
+  }
+  .quiz-calc-btn:hover { background: var(--terra-dark); }
+
+  @media (max-width: 768px) {
+    .guide-intro-grid { grid-template-columns: 1fr; }
+    .undertone-guide-grid { grid-template-columns: repeat(2, 1fr); }
+    .guide-tabs { width: 100%; overflow-x: auto; }
+  }
+
+  /* ── LOADING SCREEN ── */
+  #tw-loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: #ffffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 28px;
+    transition: opacity 0.4s ease, visibility 0.4s ease;
+  }
+  #tw-loader.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+  #tw-loader .loader-wordmark {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1d1d1f;
+    letter-spacing: -0.01em;
+  }
+  #tw-loader .loader-wordmark span {
+    color: #573AFC;
+  }
+  #tw-loader .loader-sub {
+    font-family: 'DM Sans', system-ui, sans-serif;
+    font-size: 0.78rem;
+    font-weight: 400;
+    color: #9a9a9a;
+    letter-spacing: 0.04em;
+    margin-top: -20px;
+  }
+
+  /* Ring arc animation */
+  .loader-ring {
+    width: 72px;
+    height: 72px;
+    position: relative;
+  }
+  .loader-ring svg {
+    width: 72px;
+    height: 72px;
+    transform: rotate(-90deg);
+  }
+  .loader-ring .track {
+    fill: none;
+    stroke: #E7E0FB;
+    stroke-width: 3;
+  }
+  .loader-ring .arc {
+    fill: none;
+    stroke: #573AFC;
+    stroke-width: 3;
+    stroke-linecap: round;
+    stroke-dasharray: 163; /* circumference of r=26 circle: 2π×26 ≈ 163 */
+    stroke-dashoffset: 163;
+    animation: tw-arc-draw 1.2s cubic-bezier(0.4, 0, 0.2, 1) forwards,
+               tw-arc-fade  0.3s ease 1.05s forwards;
+  }
+  /* Second inner dot — soft pulse bloom */
+  .loader-ring .bloom {
+    fill: #E7E0FB;
+    cx: 36;
+    cy: 36;
+    r: 0;
+    animation: tw-bloom 1.1s cubic-bezier(0.4, 0, 0.2, 1) 0.1s forwards;
+  }
+
+  @keyframes tw-arc-draw {
+    0%   { stroke-dashoffset: 163; }
+    80%  { stroke-dashoffset: 0; }
+    100% { stroke-dashoffset: 0; }
+  }
+  @keyframes tw-arc-fade {
+    to { opacity: 0; }
+  }
+  @keyframes tw-bloom {
+    0%   { r: 0; opacity: 0.6; }
+    60%  { r: 18px; opacity: 0.25; }
+    100% { r: 26px; opacity: 0; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .loader-ring .arc { animation: none; stroke-dashoffset: 0; }
+    .loader-ring .bloom { animation: none; }
+    #tw-loader { transition: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="tw-loader" role="status" aria-label="Loading ToneWise">
+  <div class="loader-ring">
+    <svg viewBox="0 0 72 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <circle class="track" cx="36" cy="36" r="26"/>
+      <circle class="bloom" cx="36" cy="36" r="0"/>
+      <circle class="arc"   cx="36" cy="36" r="26"/>
+    </svg>
+  </div>
+  <div class="loader-wordmark">Tone<span>Wise</span></div>
+  <div class="loader-sub">Analysing your palette&hellip;</div>
+</div>
+
+<!-- NAV -->
+<nav aria-label="Main navigation">
+  <a href="#" class="nav-logo"><span class="logo-dot"></span> ToneWise</a>
+  <ul class="nav-links" role="list">
+    <li><a href="#how">How it works</a></li>
+    <li><a href="#guide">The guide</a></li>
+    <li><a href="#analyzer">Try it</a></li>
+    <li><a href="#science">The science</a></li>
+  </ul>
+  <a href="#analyzer" class="nav-cta">Get styled</a>
+</nav>
+
+<!-- HERO -->
+<header class="hero" role="banner">
+  <div class="hero-text">
+    <span class="hero-eyebrow">
+      <span class="material-symbols-outlined" style="font-size:14px;" aria-hidden="true">auto_awesome</span>
+      Skin-tone personalised
+    </span>
+    <h1>Wear what makes your skin <em>glow</em></h1>
+    <p class="hero-sub">ToneWise analyses your skin tone and undertone, then maps it to seasonal colour theory — giving you a palette of outfits that genuinely flatter you.</p>
+    <div class="hero-actions">
+      <a href="#analyzer" class="btn-primary">
+        <span class="material-symbols-outlined" style="font-size:18px;" aria-hidden="true">palette</span>
+        Find my palette
+      </a>
+      <a href="#how" class="btn-secondary">
+        See how it works
+        <span class="material-symbols-outlined" style="font-size:18px;" aria-hidden="true">arrow_forward</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-visual" aria-hidden="true">
+    <div class="skin-ring-display">
+      <svg viewBox="0 0 340 340" xmlns="http://www.w3.org/2000/svg">
+        <!-- Outer decorative ring of skin tone swatches -->
+        <defs>
+          <clipPath id="ring-clip">
+            <path d="M170 20 A150 150 0 1 1 169.9 20Z"/>
+          </clipPath>
+        </defs>
+        <!-- Tone segments forming ring -->
+        <!-- 12 segments, 30° each -->
+        <g>
+          <path d="M170,170 L295,93 A140,140 0 0,1 340,170 Z" fill="#F8D7C4" opacity="0.9"/>
+          <path d="M170,170 L340,170 A140,140 0 0,1 295,247 Z" fill="#F2C4A8" opacity="0.9"/>
+          <path d="M170,170 L295,247 A140,140 0 0,1 220,326 Z" fill="#E5A882" opacity="0.9"/>
+          <path d="M170,170 L220,326 A140,140 0 0,1 120,326 Z" fill="#D48B64" opacity="0.9"/>
+          <path d="M170,170 L120,326 A140,140 0 0,1 45,247 Z" fill="#C0714A" opacity="0.9"/>
+          <path d="M170,170 L45,247 A140,140 0 0,1 0,170 Z" fill="#A5573A" opacity="0.9"/>
+          <path d="M170,170 L0,170 A140,140 0 0,1 45,93 Z" fill="#8A3F27" opacity="0.9"/>
+          <path d="M170,170 L45,93 A140,140 0 0,1 120,14 Z" fill="#6E2D1A" opacity="0.9"/>
+          <path d="M170,170 L120,14 A140,140 0 0,1 220,14 Z" fill="#4D1E10" opacity="0.9"/>
+          <path d="M170,170 L220,14 A140,140 0 0,1 295,93 Z" fill="#F0C3A0" opacity="0.9"/>
+          <!-- Gap segments (light gray) -->
+          <path d="M170,170 L295,93 A140,140 0 0,0 220,14 Z" fill="#f5f5f7" opacity="1"/>
+        </g>
+        <!-- Inner white circle -->
+        <circle cx="170" cy="170" r="95" fill="#ffffff"/>
+        <!-- Center content -->
+        <text x="170" y="155" text-anchor="middle" font-family="Playfair Display, serif" font-size="15" font-weight="700" fill="#1d1d1f">Seasonal</text>
+        <text x="170" y="175" text-anchor="middle" font-family="Playfair Display, serif" font-size="15" font-weight="700" fill="#573AFC">Colour</text>
+        <text x="170" y="195" text-anchor="middle" font-family="Playfair Display, serif" font-size="15" font-weight="700" fill="#1d1d1f">Analysis</text>
+        <!-- Small labels around the outside -->
+        <text x="305" y="88" text-anchor="start" font-family="DM Sans, sans-serif" font-size="9" fill="#6b6b6b">Type I-II</text>
+        <text x="305" y="260" text-anchor="start" font-family="DM Sans, sans-serif" font-size="9" fill="#6b6b6b">Type III</text>
+        <text x="110" y="338" text-anchor="middle" font-family="DM Sans, sans-serif" font-size="9" fill="#6b6b6b">Type IV</text>
+        <text x="35" y="260" text-anchor="end" font-family="DM Sans, sans-serif" font-size="9" fill="#6b6b6b">Type V</text>
+        <text x="35" y="88" text-anchor="end" font-family="DM Sans, sans-serif" font-size="9" fill="#6b6b6b">Type VI</text>
+      </svg>
+    </div>
+  </div>
+</header>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-inner">
+    <div class="section-label">Process</div>
+    <h2 class="section-heading">Three steps to your wardrobe palette</h2>
+    <p class="section-sub">Built on the Fitzpatrick scale and seasonal colour theory — the same frameworks professional stylists use.</p>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">01</div>
+        <div class="step-icon"><span class="material-symbols-outlined" aria-hidden="true">upload</span></div>
+        <h3>Upload or select your tone</h3>
+        <p>Upload a selfie or pick your skin tone manually from the Fitzpatrick scale. Choose your undertone — warm, cool, or neutral.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">02</div>
+        <div class="step-icon"><span class="material-symbols-outlined" aria-hidden="true">colorize</span></div>
+        <h3>We map you to a season</h3>
+        <p>Your tone and undertone are matched to one of twelve seasonal palettes — Spring, Summer, Autumn, or Winter — each a unique colour world.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">03</div>
+        <div class="step-icon"><span class="material-symbols-outlined" aria-hidden="true">style</span></div>
+        <h3>Get your outfit palette</h3>
+        <p>Receive a curated colour palette, flattering outfit combinations, and colours to avoid — all tailored to your specific seasonal type.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FITZPATRICK REFERENCE -->
+<section style="background: var(--sand); padding: 3rem 2rem;">
+  <div class="section-inner">
+    <div class="section-label">Reference scale</div>
+    <h2 class="section-heading" style="font-size: 1.6rem;">The Fitzpatrick skin type scale</h2>
+    <p class="section-sub">A six-point classification originally developed for dermatology, now widely used in colour analysis and inclusive fashion tech.</p>
+    <div class="fitz-grid" role="list">
+      <div class="fitz-card" role="listitem">
+        <div class="fitz-swatch" style="background: #FDDCCC;"></div>
+        <div class="fitz-info">
+          <div class="fitz-type">Type I</div>
+          <div class="fitz-label">Very fair, always burns</div>
+        </div>
+      </div>
+      <div class="fitz-card" role="listitem">
+        <div class="fitz-swatch" style="background: #F5C5A3;"></div>
+        <div class="fitz-info">
+          <div class="fitz-type">Type II</div>
+          <div class="fitz-label">Fair, usually burns</div>
+        </div>
+      </div>
+      <div class="fitz-card" role="listitem">
+        <div class="fitz-swatch" style="background: #DEAF8A;"></div>
+        <div class="fitz-info">
+          <div class="fitz-type">Type III</div>
+          <div class="fitz-label">Medium, sometimes burns</div>
+        </div>
+      </div>
+      <div class="fitz-card" role="listitem">
+        <div class="fitz-swatch" style="background: #C08060;"></div>
+        <div class="fitz-info">
+          <div class="fitz-type">Type IV</div>
+          <div class="fitz-label">Olive, rarely burns</div>
+        </div>
+      </div>
+      <div class="fitz-card" role="listitem">
+        <div class="fitz-swatch" style="background: #8B5A3A;"></div>
+        <div class="fitz-info">
+          <div class="fitz-type">Type V</div>
+          <div class="fitz-label">Brown, very rarely burns</div>
+        </div>
+      </div>
+      <div class="fitz-card" role="listitem">
+        <div class="fitz-swatch" style="background: #4A2512;"></div>
+        <div class="fitz-info">
+          <div class="fitz-type">Type VI</div>
+          <div class="fitz-label">Deep brown, never burns</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- GUIDE SECTION -->
+<section id="guide">
+  <div class="section-inner">
+    <div class="section-label">Your personal guide</div>
+    <h2 class="section-heading">Understand your skin tone & undertone</h2>
+    <p class="section-sub">Not sure which tone or undertone you are? This guide walks you through exactly how to find out — no guesswork needed.</p>
+
+    <!-- Tabs -->
+    <div class="guide-tabs" role="tablist" aria-label="Guide sections">
+      <button class="guide-tab active" role="tab" aria-selected="true" aria-controls="tab-tone" id="btn-tone" onclick="switchTab('tone')">Skin Tone</button>
+      <button class="guide-tab" role="tab" aria-selected="false" aria-controls="tab-undertone" id="btn-undertone" onclick="switchTab('undertone')">Undertone</button>
+      <button class="guide-tab" role="tab" aria-selected="false" aria-controls="tab-quiz" id="btn-quiz" onclick="switchTab('quiz')">Quick Quiz</button>
+    </div>
+
+    <!-- TAB: Skin Tone -->
+    <div class="guide-panel active" id="tab-tone" role="tabpanel" aria-labelledby="btn-tone">
+
+      <div class="guide-section-label">What is it?</div>
+      <h3 class="guide-h2">What is skin tone?</h3>
+      <p class="guide-desc">Skin tone (also called skin colour or overtone) is the visible surface colour of your skin — what you can see with your eyes. It is primarily determined by the amount of melanin your skin produces. Unlike undertone, skin tone can change: it deepens with sun exposure, shifts with seasons, and lightens with age or illness.</p>
+
+      <div class="guide-intro-grid">
+        <div class="guide-intro-card">
+          <div class="card-icon" style="background:var(--terra-light);color:var(--terracotta);">
+            <span class="material-symbols-outlined" aria-hidden="true">tonality</span>
+          </div>
+          <h3>Overtone vs undertone</h3>
+          <p>Think of your complexion in two layers. The <strong>overtone</strong> is the outer visible colour — fair, medium, tan, or deep. The <strong>undertone</strong> is the hidden base beneath it — warm, cool, or neutral. Fashion styling primarily relies on <em>undertone</em>, because it doesn't change and dictates which colours will harmonise with your natural features.</p>
+        </div>
+        <div class="guide-intro-card">
+          <div class="card-icon" style="background:var(--sage-light);color:var(--sage);">
+            <span class="material-symbols-outlined" aria-hidden="true">science</span>
+          </div>
+          <h3>Why melanin matters</h3>
+          <p>Melanin is the pigment responsible for skin colour. People with more melanin have deeper skin tones; those with less have fairer tones. There are two types — eumelanin (brown/black) and pheomelanin (red/yellow) — and the ratio between them is what creates the full spectrum of human skin colours you see on the Fitzpatrick scale.</p>
+        </div>
+      </div>
+
+      <div class="guide-section-label">How to find yours</div>
+      <h3 class="guide-h2">How to identify your skin tone</h3>
+      <p class="guide-desc">Use these simple methods in natural daylight — avoid yellow indoor lighting, which skews everything warmer. Remove makeup if possible.</p>
+
+      <div class="test-methods">
+        <div class="test-method">
+          <div class="test-method-num">1</div>
+          <div class="test-method-body">
+            <h4>The bare face look</h4>
+            <p>In natural daylight, look at the overall colour of your skin without makeup. Hold a white sheet of paper next to your face. Compare how your skin looks against pure white — this reveals the depth and warmth of your visible tone clearly. Then compare with the Fitzpatrick swatches above to find your closest match.</p>
+            <div class="test-result-row">
+              <span class="result-pill" style="background:#FFF5F0;border-color:#FDDCCC;color:#8B3E21;">
+                <span class="dot" style="background:#FDDCCC;"></span> Very Fair
+              </span>
+              <span class="result-pill" style="background:#FFF0E8;border-color:#EFAE82;color:#8B3E21;">
+                <span class="dot" style="background:#EFAE82;"></span> Light
+              </span>
+              <span class="result-pill" style="background:#F5EAE0;border-color:#C9906A;color:#6B3A1F;">
+                <span class="dot" style="background:#C9906A;"></span> Medium
+              </span>
+              <span class="result-pill" style="background:#EEE0D5;border-color:#A0623A;color:#5A2A0A;">
+                <span class="dot" style="background:#A0623A;"></span> Tan
+              </span>
+              <span class="result-pill" style="background:#E5D5C8;border-color:#6E3318;color:#3C1508;">
+                <span class="dot" style="background:#6E3318;"></span> Brown
+              </span>
+              <span class="result-pill" style="background:#DED0C5;border-color:#3C1508;color:#1A0A04;">
+                <span class="dot" style="background:#3C1508;"></span> Deep
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-method">
+          <div class="test-method-num">2</div>
+          <div class="test-method-body">
+            <h4>The sun reaction test</h4>
+            <p>How does your skin react when exposed to sunlight for the first time in summer? This correlates directly to your Fitzpatrick type — because melanin is the pigment that protects against UV, and is the same pigment that determines your visible skin depth.</p>
+            <div class="test-result-row">
+              <span class="result-pill" style="background:#FFF0E8;border-color:#F5C5A3;color:#8B3E21;">Always burns, never tans → Type I–II (Fair)</span>
+              <span class="result-pill" style="background:#F5EAE0;border-color:#DEAF8A;color:#6B3A1F;">Burns then tans → Type III (Light-Medium)</span>
+              <span class="result-pill" style="background:#EEE0D5;border-color:#C08060;color:#5A2A0A;">Rarely burns, tans easily → Type IV (Olive-Tan)</span>
+              <span class="result-pill" style="background:#E0D0C0;border-color:#8B5A3A;color:#3C1508;">Almost never burns → Type V–VI (Brown-Deep)</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="test-method">
+          <div class="test-method-num">3</div>
+          <div class="test-method-body">
+            <h4>The photo comparison</h4>
+            <p>Take a selfie in natural light with no makeup. Open the colour picker of any photo editing app and sample the skin colour from your cheek (avoid the forehead, which is often lighter, and the jaw, which is often darker). Note the RGB values. Then use the ToneWise analyser above — upload the photo and the canvas algorithm will sample those pixels automatically and suggest the closest match.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TAB: Undertone -->
+    <div class="guide-panel" id="tab-undertone" role="tabpanel" aria-labelledby="btn-undertone">
+
+      <div class="guide-section-label">What is it?</div>
+      <h3 class="guide-h2">What is undertone?</h3>
+      <p class="guide-desc">Undertone is the underlying hue that sits beneath the surface of your skin. Unlike your skin tone, your undertone never changes — not with sun exposure, not with seasons, not with age. It comes from the mix of pigments (carotene and haemoglobin) beneath your skin's surface. Getting it right is the single most important step in colour analysis, because it determines which colours will make you look vibrant versus washed out.</p>
+
+      <!-- Four undertone cards -->
+      <div class="undertone-guide-grid">
+        <div class="undertone-card">
+          <div class="undertone-swatch-bar" style="background:linear-gradient(to right, #C9991A, #E8A020, #F4C060);"></div>
+          <div class="undertone-card-body">
+            <h3>Warm</h3>
+            <p class="ut-desc">Yellow, golden, or peachy hues beneath the skin. Most common in people with East Asian, South Asian, Latin American, and Mediterranean heritage — but found across all ethnicities.</p>
+            <ul class="ut-clues">
+              <li><span class="clue-dot" style="background:#C9991A;"></span> Veins look green</li>
+              <li><span class="clue-dot" style="background:#C9991A;"></span> Gold jewellery flatters</li>
+              <li><span class="clue-dot" style="background:#C9991A;"></span> Sun gives golden tan</li>
+              <li><span class="clue-dot" style="background:#C9991A;"></span> Off-white looks better than stark white</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="undertone-card">
+          <div class="undertone-swatch-bar" style="background:linear-gradient(to right, #7A9E8A, #5A88A0, #7B88B8);"></div>
+          <div class="undertone-card-body">
+            <h3>Cool</h3>
+            <p class="ut-desc">Pink, red, or blue-violet hues beneath the skin. Common in people of Northern European, East Asian, and many African heritage backgrounds.</p>
+            <ul class="ut-clues">
+              <li><span class="clue-dot" style="background:#7A9E8A;"></span> Veins look blue or purple</li>
+              <li><span class="clue-dot" style="background:#7A9E8A;"></span> Silver jewellery flatters</li>
+              <li><span class="clue-dot" style="background:#7A9E8A;"></span> Skin looks pinkish or rosy</li>
+              <li><span class="clue-dot" style="background:#7A9E8A;"></span> Crisp white looks best on you</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="undertone-card">
+          <div class="undertone-swatch-bar" style="background:linear-gradient(to right, #B0948A, #A89A8C, #9E9894);"></div>
+          <div class="undertone-card-body">
+            <h3>Neutral</h3>
+            <p class="ut-desc">A balance of both warm and cool — neither dominates. Neutral undertones are flexible, and both gold and silver look equally good. The most forgiving undertone for colour mixing.</p>
+            <ul class="ut-clues">
+              <li><span class="clue-dot" style="background:#A89A8C;"></span> Veins look blue-green</li>
+              <li><span class="clue-dot" style="background:#A89A8C;"></span> Both metals look good</li>
+              <li><span class="clue-dot" style="background:#A89A8C;"></span> Skin is neither pink nor yellow</li>
+              <li><span class="clue-dot" style="background:#A89A8C;"></span> Most colours work well</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="undertone-card">
+          <div class="undertone-swatch-bar" style="background:linear-gradient(to right, #7B8B4E, #8B9A50, #9E9A60);"></div>
+          <div class="undertone-card-body">
+            <h3>Olive</h3>
+            <p class="ut-desc">A greenish or grey-green cast beneath the skin. Common in South Asian, Mediterranean, Middle Eastern, and some East Asian complexions. Often tan-toned on the surface but with a distinctly muted, green-grey base.</p>
+            <ul class="ut-clues">
+              <li><span class="clue-dot" style="background:#7B8B4E;"></span> Veins look dark green</li>
+              <li><span class="clue-dot" style="background:#7B8B4E;"></span> Skin has a khaki or grey-green tint</li>
+              <li><span class="clue-dot" style="background:#7B8B4E;"></span> Both warm and earthy colours work</li>
+              <li><span class="clue-dot" style="background:#7B8B4E;"></span> Cool pastels can look muddy</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- Test methods for undertone -->
+      <div class="guide-section-label">How to find yours</div>
+      <h3 class="guide-h2">Five tests to find your undertone</h3>
+      <p class="guide-desc">No single test is definitive. Use 3 or more — and go with whichever result appears the most often.</p>
+
+      <table class="ut-result-table">
+        <thead>
+          <tr>
+            <th>Test</th>
+            <th>Warm result</th>
+            <th>Cool result</th>
+            <th>Neutral / Olive result</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Vein colour</strong><br><span style="font-size:0.78rem;color:var(--gray);">Look at the inside of your wrist in natural light</span></td>
+            <td>Veins look green or olive</td>
+            <td>Veins look blue or purple</td>
+            <td>Blue-green, can't tell</td>
+          </tr>
+          <tr>
+            <td><strong>Jewellery</strong><br><span style="font-size:0.78rem;color:var(--gray);">Hold gold and silver next to your bare face</span></td>
+            <td>Gold makes skin glow</td>
+            <td>Silver makes skin glow</td>
+            <td>Both look equally good</td>
+          </tr>
+          <tr>
+            <td><strong>Sun reaction</strong><br><span style="font-size:0.78rem;color:var(--gray);">What happens when you tan?</span></td>
+            <td>Golden, honey, or bronze tan</td>
+            <td>Skin burns or turns pink first</td>
+            <td>Tans with slight grey cast</td>
+          </tr>
+          <tr>
+            <td><strong>White clothing</strong><br><span style="font-size:0.78rem;color:var(--gray);">Hold pure white and off-white fabric to your face</span></td>
+            <td>Off-white or cream looks more natural</td>
+            <td>Stark white looks crisper and brighter</td>
+            <td>Both look fine</td>
+          </tr>
+          <tr>
+            <td><strong>Eye whites</strong><br><span style="font-size:0.78rem;color:var(--gray);">Look at the whites of your eyes</span></td>
+            <td>Slightly yellow or warm tint</td>
+            <td>Noticeably blue or white</td>
+            <td>Neither — clear white</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="margin-top:1.5rem;background:var(--sand);border:1px solid var(--light-gray);border-radius:var(--radius);padding:1.25rem 1.5rem;">
+        <p style="font-size:0.88rem;color:var(--gray);font-weight:300;line-height:1.7;">
+          <strong style="color:var(--charcoal);font-weight:500;">A note for deeper skin tones:</strong> The vein test can be harder to read on deeper complexions — the overlaying melanin makes it difficult to see vein colour clearly. In that case, lean on the jewellery test and the sun reaction test, which tend to be more reliable across all skin depths.
+        </p>
+      </div>
+    </div>
+
+    <!-- TAB: Quick Quiz -->
+    <div class="guide-panel" id="tab-quiz" role="tabpanel" aria-labelledby="btn-quiz">
+      <p class="guide-desc">Answer these 5 questions to get a suggested undertone. Pick the answer that feels most true — if you're unsure, pick the closest one.</p>
+
+      <div class="quiz-card">
+        <h3>Undertone finder quiz</h3>
+        <p>Answer all five questions, then tap "See my undertone"</p>
+
+        <div class="quiz-q" id="qq1">
+          <p>1. Look at the inside of your wrist. What colour are your veins?</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" data-q="1" data-val="warm" onclick="selectOpt(this)">Greenish</button>
+            <button class="quiz-opt" data-q="1" data-val="cool" onclick="selectOpt(this)">Bluish or purple</button>
+            <button class="quiz-opt" data-q="1" data-val="neutral" onclick="selectOpt(this)">Blue-green, hard to tell</button>
+            <button class="quiz-opt" data-q="1" data-val="olive" onclick="selectOpt(this)">Dark green or grey-green</button>
+          </div>
+        </div>
+
+        <div class="quiz-q" id="qq2">
+          <p>2. Which jewellery makes your skin look more radiant?</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" data-q="2" data-val="warm" onclick="selectOpt(this)">Gold</button>
+            <button class="quiz-opt" data-q="2" data-val="cool" onclick="selectOpt(this)">Silver or platinum</button>
+            <button class="quiz-opt" data-q="2" data-val="neutral" onclick="selectOpt(this)">Both look equally good</button>
+            <button class="quiz-opt" data-q="2" data-val="olive" onclick="selectOpt(this)">Neither feels quite right</button>
+          </div>
+        </div>
+
+        <div class="quiz-q" id="qq3">
+          <p>3. After sun exposure, your skin tends to…</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" data-q="3" data-val="warm" onclick="selectOpt(this)">Turn golden or honeyed</button>
+            <button class="quiz-opt" data-q="3" data-val="cool" onclick="selectOpt(this)">Burn or turn pink first</button>
+            <button class="quiz-opt" data-q="3" data-val="neutral" onclick="selectOpt(this)">Tan moderately, not too pink</button>
+            <button class="quiz-opt" data-q="3" data-val="olive" onclick="selectOpt(this)">Tan but with a grey or olive cast</button>
+          </div>
+        </div>
+
+        <div class="quiz-q" id="qq4">
+          <p>4. Hold pure white and cream fabric to your bare face. Which looks more natural?</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" data-q="4" data-val="warm" onclick="selectOpt(this)">Cream or off-white</button>
+            <button class="quiz-opt" data-q="4" data-val="cool" onclick="selectOpt(this)">Bright or crisp white</button>
+            <button class="quiz-opt" data-q="4" data-val="neutral" onclick="selectOpt(this)">Both look fine on me</button>
+            <button class="quiz-opt" data-q="4" data-val="olive" onclick="selectOpt(this)">Neither feels great; ivory does</button>
+          </div>
+        </div>
+
+        <div class="quiz-q" id="qq5">
+          <p>5. Which set of colours makes your face look most alive when you hold them up?</p>
+          <div class="quiz-options">
+            <button class="quiz-opt" data-q="5" data-val="warm" onclick="selectOpt(this)">Rust, peach, golden yellow, warm coral</button>
+            <button class="quiz-opt" data-q="5" data-val="cool" onclick="selectOpt(this)">Rose pink, lavender, icy blue, raspberry</button>
+            <button class="quiz-opt" data-q="5" data-val="neutral" onclick="selectOpt(this)">Navy, teal, soft red — most things work</button>
+            <button class="quiz-opt" data-q="5" data-val="olive" onclick="selectOpt(this)">Olive green, camel, warm khaki, sage</button>
+          </div>
+        </div>
+
+        <button class="quiz-calc-btn" onclick="calcQuiz()">See my undertone →</button>
+
+        <div class="quiz-result-box" id="quizResult">
+          <h4 id="quizResultTitle"></h4>
+          <p id="quizResultDesc"></p>
+        </div>
+      </div>
+
+      <div style="margin-top:1.5rem;background:var(--white);border:1px solid var(--light-gray);border-radius:var(--radius);padding:1.25rem 1.5rem;">
+        <p style="font-size:0.85rem;color:var(--gray);font-weight:300;line-height:1.7;">
+          <strong style="color:var(--charcoal);font-weight:500;">Quiz tip:</strong> The quiz gives a strong indication, not a definitive answer. Your undertone is most accurately identified in person in natural daylight. If the result feels off — trust your gut. Many people sit on the border between two undertones.
+        </p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ANALYZER -->
+<section id="analyzer">
+  <div class="section-inner">
+    <div class="section-label">Try it now</div>
+    <h2 class="section-heading">Find your colour palette</h2>
+    <p class="section-sub">Upload a selfie or manually select your skin tone to get personalised outfit recommendations.</p>
+
+    <div class="analyzer-layout">
+      <!-- INPUT -->
+      <div class="input-panel">
+        <h3>Your skin tone</h3>
+
+        <!-- Upload zone -->
+        <div class="upload-zone" id="uploadZone" role="button" aria-label="Upload a selfie">
+          <input type="file" id="photoInput" accept="image/*" aria-label="Choose photo">
+          <div class="upload-icon"><span class="material-symbols-outlined" style="font-size:2.5rem;color:var(--light-gray);" aria-hidden="true">add_photo_alternate</span></div>
+          <p><strong>Upload a selfie</strong> or drag it here</p>
+          <p style="margin-top:4px;font-size:0.75rem;">JPG, PNG, WebP — for best results use good lighting</p>
+        </div>
+
+        <!-- Image preview -->
+        <div class="img-preview-wrap" id="imgPreviewWrap">
+          <img id="imgPreview" src="" alt="Your uploaded photo">
+          <button class="img-remove-btn" id="imgRemoveBtn" aria-label="Remove photo">
+            <span class="material-symbols-outlined" style="font-size:14px;" aria-hidden="true">close</span>
+          </button>
+        </div>
+
+        <div class="divider-or">or choose manually</div>
+
+        <div class="tone-picker-section">
+          <h4>Select your skin tone</h4>
+          <div class="tone-swatches" role="radiogroup" aria-label="Skin tone selection" id="toneSwatches">
+            <!-- Swatches generated by JS -->
+          </div>
+
+          <h4>Your undertone</h4>
+          <div class="undertone-row" role="radiogroup" aria-label="Undertone selection">
+            <button class="undertone-btn" data-undertone="warm" aria-pressed="false">
+              <div style="width:10px;height:10px;background:#C9991A;border-radius:50%;margin:0 auto 4px;" aria-hidden="true"></div>
+              Warm
+            </button>
+            <button class="undertone-btn" data-undertone="cool" aria-pressed="false">
+              <div style="width:10px;height:10px;background:#7A9E8A;border-radius:50%;margin:0 auto 4px;" aria-hidden="true"></div>
+              Cool
+            </button>
+            <button class="undertone-btn" data-undertone="neutral" aria-pressed="false">
+              <div style="width:10px;height:10px;background:#888;border-radius:50%;margin:0 auto 4px;" aria-hidden="true"></div>
+              Neutral
+            </button>
+            <button class="undertone-btn" data-undertone="olive" aria-pressed="false">
+              <div style="width:10px;height:10px;background:#7B8B4E;border-radius:50%;margin:0 auto 4px;" aria-hidden="true"></div>
+              Olive
+            </button>
+          </div>
+        </div>
+
+        <button class="analyze-btn" id="analyzeBtn" aria-label="Get outfit suggestions">
+          <span class="material-symbols-outlined" style="font-size:18px;" aria-hidden="true">auto_awesome</span>
+          Get my outfit palette
+        </button>
+      </div>
+
+      <!-- OUTPUT -->
+      <div class="output-panel" id="outputPanel">
+        <div class="empty-state" id="emptyState">
+          <div class="empty-icon"><span class="material-symbols-outlined" style="font-size:3rem;color:var(--light-gray);" aria-hidden="true">palette</span></div>
+          <h3>Your results will appear here</h3>
+          <p>Select your skin tone and undertone, then click "Get my outfit palette" to see your personalised colour guide.</p>
+        </div>
+        <!-- Results injected here -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SCIENCE SECTION -->
+<section id="science">
+  <div class="section-inner">
+    <div class="section-label">The science</div>
+    <h2 class="section-heading">Rooted in colour theory & research</h2>
+    <p class="section-sub">ToneWise draws from seasonal colour analysis, the Fitzpatrick classification, and open-source research to make personalised styling accessible to everyone.</p>
+
+    <div class="science-grid">
+      <div>
+        <div class="science-block">
+          <h3>
+            <span class="material-symbols-outlined" style="font-size:20px;color:var(--terracotta);" aria-hidden="true">science</span>
+            Seasonal colour theory
+          </h3>
+          <p>Seasonal analysis classifies appearance into twelve types across the Spring, Summer, Autumn, and Winter families — each defined by hue temperature (warm/cool), value (light/deep), and chroma (bright/muted).</p>
+          <p>Your undertone is the primary filter: warm undertones (yellow-gold) pair with Autumn and Spring palettes; cool undertones (pink-blue) with Summer and Winter. Neutral undertones give you flexibility across both.</p>
+          <div class="tag-group">
+            <span class="tag highlight">Warm Spring</span>
+            <span class="tag highlight">True Spring</span>
+            <span class="tag">Light Summer</span>
+            <span class="tag">True Summer</span>
+            <span class="tag highlight">Warm Autumn</span>
+            <span class="tag highlight">Deep Autumn</span>
+            <span class="tag">Cool Winter</span>
+            <span class="tag">True Winter</span>
+          </div>
+        </div>
+
+        <div class="science-block" style="margin-top:2rem;">
+          <h3>
+            <span class="material-symbols-outlined" style="font-size:20px;color:var(--sage);" aria-hidden="true">visibility</span>
+            How undertone works
+          </h3>
+          <p>Your undertone — the underlying colour beneath your skin's surface — doesn't change with tanning or seasons. Warm undertones show golden, peach, or yellow hues. Cool undertones reveal pink, red, or blue hues.</p>
+          <p>Universal colours that work for most skin tones include charcoal, navy, jade green, teal, cobalt blue, and warm pink — they sit at the neutral intersection of temperature and value.</p>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Thunder</h4>
+      <ul>
+        <li><a href="https://commercesehoga.github.io/">ThunderStudy — Home</a></li>
+        <li><a href="https://commercesehoga.github.io/dashboard">CBT Mock Platform</a></li>
+        <li><a href="https://thunderstudy.github.io">Free Study Material</a></li>
+        <li><a href="https://commercesehoga.github.io/help">Help / Donate</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>wondermayank</h4>
+      <ul>
+        <li><a href="https://wondermayank.indevs.in">Portfolio</a></li>
+        <li><a href="https://wondermayank.github.io/">wondermayank.github.io</a></li>
+        <li><a href="https://wondermayank.github.io/mail">Mail</a></li>
+        <li><a href="https://wondermayank.github.io/contact">Contact</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <ul>
+        <li><a href="https://wondermayank.github.io/terms">Terms</a></li>
+        <li><a href="https://wondermayank.github.io/privacy">Privacy</a></li>
+        <li><a href="https://wondermayank.github.io/disclaimer">Disclaimer</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>&#169; 2025 Thunder &middot; by wondermayank</p>
+    <p>ToneWise &mdash; Not a substitute for professional styling advice.</p>
+  </div>
+</footer>
+
+<script>
+/* ── DATA ── */
+const SKIN_TONES = [
+  { id:'T1', hex:'#FDDCCC', label:'Very Fair',   fitz:'I',   season_warm:'Light Spring', season_cool:'Light Summer', season_neutral:'True Spring' },
+  { id:'T2', hex:'#F5C5A3', label:'Fair',        fitz:'I-II',season_warm:'Warm Spring',  season_cool:'Cool Summer',  season_neutral:'True Summer' },
+  { id:'T3', hex:'#EFAE82', label:'Light',       fitz:'II',  season_warm:'True Spring',  season_cool:'True Summer',  season_neutral:'Warm Spring' },
+  { id:'T4', hex:'#DEAF8A', label:'Light-Medium',fitz:'III', season_warm:'True Autumn',  season_cool:'Soft Summer',  season_neutral:'True Autumn' },
+  { id:'T5', hex:'#C9906A', label:'Medium',      fitz:'III', season_warm:'Warm Autumn',  season_cool:'Soft Autumn',  season_neutral:'Soft Autumn' },
+  { id:'T6', hex:'#B8784A', label:'Medium-Tan',  fitz:'IV',  season_warm:'Deep Autumn',  season_cool:'Dark Winter',  season_neutral:'Deep Autumn' },
+  { id:'T7', hex:'#A0623A', label:'Tan',         fitz:'IV',  season_warm:'Deep Autumn',  season_cool:'True Winter',  season_neutral:'Deep Autumn' },
+  { id:'T8', hex:'#8B4B2A', label:'Deep Tan',    fitz:'V',   season_warm:'Deep Winter',  season_cool:'True Winter',  season_neutral:'True Winter' },
+  { id:'T9', hex:'#6E3318', label:'Brown',       fitz:'V',   season_warm:'Deep Autumn',  season_cool:'Deep Winter',  season_neutral:'Deep Winter' },
+  { id:'T10',hex:'#52200F', label:'Deep Brown',  fitz:'VI',  season_warm:'Deep Winter',  season_cool:'Deep Winter',  season_neutral:'Deep Winter' },
+  { id:'T11',hex:'#3C1508', label:'Dark Brown',  fitz:'VI',  season_warm:'Deep Autumn',  season_cool:'Deep Winter',  season_neutral:'Deep Winter' },
+  { id:'T12',hex:'#280D04', label:'Very Deep',   fitz:'VI',  season_warm:'Deep Winter',  season_cool:'Deep Winter',  season_neutral:'Deep Winter' },
+];
+
+const PALETTES = {
+  'Light Spring': {
+    season: 'Spring', type: 'Light', badge_bg:'#FFF3E0', badge_color:'#E65100',
+    flattering: ['#FFD54F','#AED581','#80DEEA','#F48FB1','#E8D5B7','#FFFDE7','#B2EBF2','#DCEDC8'],
+    avoid: ['#37474F','#B71C1C','#4A148C','#1A237E'],
+    avoid_names: ['Dark charcoal','Deep burgundy','Deep purple','Dark navy'],
+    outfits: [
+      {name:'Peach & Ivory', desc:'A peach blouse with ivory wide-leg trousers', colors:['#FFCCBC','#FFF9F0']},
+      {name:'Golden & Sage', desc:'A golden-yellow top with sage green trousers', colors:['#FFE082','#A5D6A7']},
+      {name:'Coral & Cream', desc:'Coral sundress with a cream knit cardigan', colors:['#FFAB91','#FFF8E1']},
+      {name:'Sky & White', desc:'Sky blue blouse tucked into white tailored shorts', colors:['#B3E5FC','#FFFFFF']},
+    ],
+    tips: ['Wear pastels and light, warm tones — they bring a glow to fair complexions.','Avoid heavy black — it can wash out your colouring. Try soft charcoal or camel instead.','Golden jewellery warms your look beautifully.','Light, warm neutrals like ivory and latte are your ideal base wardrobe colours.'],
+  },
+  'Warm Spring': {
+    season: 'Spring', type: 'Warm', badge_bg:'#FFF3E0', badge_color:'#E65100',
+    flattering: ['#FFB300','#FF7043','#66BB6A','#26C6DA','#FFA726','#FFEE58','#8BC34A','#FF8A65'],
+    avoid: ['#880E4F','#4A148C','#263238','#37474F'],
+    avoid_names: ['Deep rose','Dark purple','Very dark gray','Slate'],
+    outfits: [
+      {name:'Rust & Ivory', desc:'A rust blouse with ivory wide-leg trousers', colors:['#BF360C','#FFF8E1']},
+      {name:'Warm Gold & Camel', desc:'Golden top with camel tailored trousers', colors:['#F9A825','#C8A06F']},
+      {name:'Coral & Olive', desc:'Coral sundress with an olive utility jacket', colors:['#FF7043','#7D8C4F']},
+      {name:'Teal & Peach', desc:'A teal blouse paired with soft peach wide-leg pants', colors:['#00838F','#FFCCBC']},
+    ],
+    tips: ['Warm, saturated colours — rust, amber, coral — are your power shades.','Peach and coral near the face add natural warmth to your complexion.','Try warm olive greens; they complement golden-warm undertones beautifully.','Skip cool, icy tones — they can dull your natural radiance.'],
+  },
+  'True Spring': {
+    season: 'Spring', type: 'True', badge_bg:'#FFF3E0', badge_color:'#E65100',
+    flattering: ['#FFD740','#FF6D00','#1DE9B6','#76FF03','#FF4081','#FFAB00','#69F0AE','#FFFF00'],
+    avoid: ['#212121','#880E4F','#1A237E','#311B92'],
+    avoid_names: ['Near-black','Deep fuchsia','Dark navy','Deep violet'],
+    outfits: [
+      {name:'Bright Coral & White', desc:'Vivid coral blouse with crisp white trousers', colors:['#FF6E40','#FFFFFF']},
+      {name:'Lime & Warm Beige', desc:'Lime green blouse with warm beige wide-leg pants', colors:['#C6FF00','#D4B896']},
+      {name:'Turquoise & Ivory', desc:'Turquoise wrap dress over ivory basics', colors:['#1DE9B6','#FFFDE7']},
+      {name:'Golden & Warm Brown', desc:'Golden-yellow knit with warm chestnut trousers', colors:['#FFD740','#8D6E63']},
+    ],
+    tips: ['Clear, bright colours in warm tones are your signature — wear them with confidence.','Vivid turquoise and warm greens give you a radiant, fresh look.','Your complexion can handle bright pops of colour that would overwhelm cooler types.','Keep it warm — steer clear of icy blues and muted grays.'],
+  },
+  'Light Summer': {
+    season: 'Summer', type: 'Light', badge_bg:'#E8EAF6', badge_color:'#283593',
+    flattering: ['#B39DDB','#80CBC4','#EF9A9A','#F8BBD0','#B0BEC5','#E8EAF6','#CFD8DC','#DCEDC8'],
+    avoid: ['#E65100','#BF360C','#33691E','#1B5E20'],
+    avoid_names: ['Bright orange','Deep rust','Olive green','Forest green'],
+    outfits: [
+      {name:'Lavender & Dove Gray', desc:'Lavender blouse with dove gray tailored trousers', colors:['#CE93D8','#B0BEC5']},
+      {name:'Powder Blue & White', desc:'Powder blue knit with crisp white wide-leg jeans', colors:['#90CAF9','#FAFAFA']},
+      {name:'Blush & Soft Gray', desc:'Blush pink wrap dress with soft gray heels', colors:['#F8BBD0','#9E9E9E']},
+      {name:'Mint & Ivory', desc:'Mint green blouse with ivory linen trousers', colors:['#C8E6C9','#FFF8E1']},
+    ],
+    tips: ['Soft, muted tones — powder blue, lavender, blush — are your most flattering shades.','Avoid anything too warm or vivid; cool and dusty tones frame your face best.','Silver jewellery complements your cool undertones beautifully.','Crisp white can look harsh — opt for soft white or off-white instead.'],
+  },
+  'Cool Summer': {
+    season: 'Summer', type: 'Cool', badge_bg:'#E8EAF6', badge_color:'#283593',
+    flattering: ['#7986CB','#4DB6AC','#EC407A','#AB47BC','#78909C','#B2DFDB','#F8BBD0','#E1BEE7'],
+    avoid: ['#E65100','#FF6F00','#8BC34A','#33691E'],
+    avoid_names: ['Orange','Deep amber','Lime green','Olive green'],
+    outfits: [
+      {name:'Rose & Slate', desc:'Rose-pink blouse with slate gray trousers', colors:['#F06292','#607D8B']},
+      {name:'Periwinkle & White', desc:'Periwinkle wrap blouse with white tailored trousers', colors:['#7986CB','#FFFFFF']},
+      {name:'Orchid & Dove', desc:'Orchid purple top with dove gray linen wide-leg pants', colors:['#BA68C8','#90A4AE']},
+      {name:'Teal & Soft Navy', desc:'Teal blouse with soft navy straight-leg jeans', colors:['#4DB6AC','#3F51B5']},
+    ],
+    tips: ['Cool, medium-depth colours are where your natural colouring shines.','Rose, raspberry, and orchid near your face bring out your best.','Warm yellows and oranges can clash with your undertone — swap for periwinkle or violet.','Silver and platinum jewellery will always look more harmonious than gold.'],
+  },
+  'Soft Summer': {
+    season: 'Summer', type: 'Soft', badge_bg:'#E8EAF6', badge_color:'#283593',
+    flattering: ['#A1887F','#78909C','#AED581','#F48FB1','#BCAAA4','#B0BEC5','#FFCCBC','#D7CCC8'],
+    avoid: ['#F57F17','#BF360C','#1B5E20','#311B92'],
+    avoid_names: ['Bright gold','Deep rust','Forest green','Deep violet'],
+    outfits: [
+      {name:'Dusty Rose & Warm Gray', desc:'Dusty rose knit with warm gray trousers', colors:['#EF9A9A','#9E9E9E']},
+      {name:'Mauve & Ivory', desc:'Mauve wrap blouse with ivory wide-leg trousers', colors:['#CE93D8','#FFF8E1']},
+      {name:'Soft Teal & Blush', desc:'Soft teal blouse with a blush midi skirt', colors:['#80CBC4','#F8BBD0']},
+      {name:'Warm Taupe & Camel', desc:'Warm taupe top with camel straight-leg trousers', colors:['#BCAAA4','#C8A06F']},
+    ],
+    tips: ['Soft, muted versions of both warm and cool colours work for your blended undertone.','Avoid stark contrasts like black and white — try deep gray with ivory instead.','Dusty rose, mauve, soft teal, and camel are signature Soft Summer shades.','Let your accessories be the statement; keep base colours quietly elegant.'],
+  },
+  'True Summer': {
+    season: 'Summer', type: 'True', badge_bg:'#E8EAF6', badge_color:'#283593',
+    flattering: ['#7E57C2','#26A69A','#EC407A','#42A5F5','#66BB6A','#EF5350','#AB47BC','#29B6F6'],
+    avoid: ['#E65100','#FF8F00','#827717','#BF360C'],
+    avoid_names: ['Burnt orange','Amber gold','Olive','Deep rust'],
+    outfits: [
+      {name:'Royal Blue & White', desc:'Royal blue blouse with crisp white tailored trousers', colors:['#1E88E5','#FFFFFF']},
+      {name:'Raspberry & Soft Gray', desc:'Raspberry pink top with soft gray wide-leg trousers', colors:['#E91E63','#9E9E9E']},
+      {name:'Violet & Navy', desc:'Violet blouse with deep navy straight jeans', colors:['#7B1FA2','#1A237E']},
+      {name:'Emerald & Ivory', desc:'Cool emerald top with ivory linen trousers', colors:['#00897B','#FFF8E1']},
+    ],
+    tips: ['True, saturated cool colours give your complexion clarity and brightness.','Strong blue-reds and true pinks are your most powerful shades.','Avoid any warm, golden hues — they fight your undertone instead of flattering it.','A monochromatic cool-toned outfit creates an effortlessly polished look.'],
+  },
+  'Warm Autumn': {
+    season: 'Autumn', type: 'Warm', badge_bg:'#FBE9E7', badge_color:'#BF360C',
+    flattering: ['#BF360C','#E65100','#827717','#558B2F','#4E342E','#FFA000','#6D4C41','#F57F17'],
+    avoid: ['#E91E63','#9C27B0','#00BCD4','#B0BEC5'],
+    avoid_names: ['Hot pink','Purple','Cyan','Cool gray'],
+    outfits: [
+      {name:'Rust & Camel', desc:'Rust blouse with camel wide-leg trousers', colors:['#BF360C','#C09060']},
+      {name:'Olive & Deep Brown', desc:'Olive green top with deep chocolate trousers', colors:['#827717','#4E342E']},
+      {name:'Burnt Sienna & Cream', desc:'Burnt sienna wrap dress with off-white accessories', colors:['#BF5A00','#FFF8E1']},
+      {name:'Mustard & Forest', desc:'Mustard yellow blouse with forest green straight jeans', colors:['#F9A825','#2E7D32']},
+    ],
+    tips: ['Rich, earthy colours are your birthright — embrace rust, amber, and olive.','Wear gold jewellery; it harmonises with your warm undertone.','Deep, warm neutrals like chocolate, camel, and ivory form the ideal wardrobe base.','Cool or icy tones dull your natural warmth — save pastels for accessories only.'],
+  },
+  'True Autumn': {
+    season: 'Autumn', type: 'True', badge_bg:'#FBE9E7', badge_color:'#BF360C',
+    flattering: ['#E65100','#FF8F00','#33691E','#4E342E','#F57F17','#827717','#5D4037','#A52714'],
+    avoid: ['#E91E63','#0D47A1','#880E4F','#B0BEC5'],
+    avoid_names: ['Fuchsia','Dark navy blue','Deep rose','Cool gray'],
+    outfits: [
+      {name:'Terracotta & Warm Khaki', desc:'Terracotta blouse with warm khaki wide-leg trousers', colors:['#C4613A','#B5A080']},
+      {name:'Deep Olive & Rust', desc:'Deep olive knit with a rust midi skirt', colors:['#5D6B3A','#BF360C']},
+      {name:'Golden & Dark Brown', desc:'Golden-yellow top with dark brown tailored trousers', colors:['#F9A825','#3E2723']},
+      {name:'Warm Tan & Burgundy', desc:'Warm tan blouse with a burgundy blazer', colors:['#A1887F','#6D1A36']},
+    ],
+    tips: ['Earth tones in medium-to-deep values are your most harmonious palette.','A rust or pumpkin orange outfit with gold accessories is your signature statement.','Stay away from cool blues and pinks — they fight your warm-toned features.','Deep forest green and warm olive green work beautifully with your colouring.'],
+  },
+  'Soft Autumn': {
+    season: 'Autumn', type: 'Soft', badge_bg:'#FBE9E7', badge_color:'#BF360C',
+    flattering: ['#A1887F','#7CB342','#8D6E63','#FFB74D','#90A4AE','#A5D6A7','#FFCC80','#BCAAA4'],
+    avoid: ['#1A237E','#880E4F','#4A148C','#00BCD4'],
+    avoid_names: ['Dark navy','Deep rose','Purple','Cyan'],
+    outfits: [
+      {name:'Warm Taupe & Soft Terracotta', desc:'Warm taupe knit with soft terracotta wide-leg trousers', colors:['#BCAAA4','#A0522D']},
+      {name:'Camel & Sage', desc:'Camel blouse with sage green trousers', colors:['#C09060','#8A9A5B']},
+      {name:'Dusty Peach & Warm Brown', desc:'Dusty peach top with warm brown straight jeans', colors:['#FFAB91','#5D4037']},
+      {name:'Warm Olive & Cream', desc:'Warm olive blouse with a cream midi skirt', colors:['#9E9D24','#FFF8E1']},
+    ],
+    tips: ['Muted, warm tones — dusty peach, soft olive, warm camel — are your sweet spot.','Avoid anything too vivid or cool; the blending in your undertone prefers quieter shades.','Layering warm neutrals creates a sophisticated, cohesive look without effort.','Soft, earthy greens and warm terracotta work as your power neutrals.'],
+  },
+  'Deep Autumn': {
+    season: 'Autumn', type: 'Deep', badge_bg:'#FBE9E7', badge_color:'#BF360C',
+    flattering: ['#3E2723','#1B5E20','#BF360C','#E65100','#827717','#4E342E','#212121','#4A148C'],
+    avoid: ['#F8BBD0','#E1BEE7','#B3E5FC','#DCEDC8'],
+    avoid_names: ['Pastel pink','Pastel lavender','Pastel blue','Pastel mint'],
+    outfits: [
+      {name:'Deep Burgundy & Black', desc:'Burgundy blouse with deep black wide-leg trousers', colors:['#4A0E0E','#212121']},
+      {name:'Forest Green & Warm Brown', desc:'Forest green top with warm chocolate trousers', colors:['#1B5E20','#4E342E']},
+      {name:'Rust & Charcoal', desc:'Rust blouse with a charcoal blazer and dark jeans', colors:['#BF360C','#37474F']},
+      {name:'Deep Olive & Near-Black', desc:'Deep olive wrap top with near-black tailored trousers', colors:['#5D6B3A','#212121']},
+    ],
+    tips: ['Deep, rich colours are your strongest choice — embrace your ability to wear them.','High contrast outfits with dark tones and warm accents make a statement.','Pastels wash you out; stay in the deep, saturated end of the colour spectrum.','Deep burgundy, forest green, and warm black form your ideal wardrobe foundation.'],
+  },
+  'True Winter': {
+    season: 'Winter', type: 'True', badge_bg:'#E8EAF6', badge_color:'#0D47A1',
+    flattering: ['#212121','#FFFFFF','#1565C0','#AD1457','#6A1B9A','#E53935','#00838F','#283593'],
+    avoid: ['#FF8F00','#E65100','#F57F17','#827717'],
+    avoid_names: ['Warm amber','Burnt orange','Warm gold','Olive'],
+    outfits: [
+      {name:'Stark Black & White', desc:'Crisp white blouse with jet-black tailored trousers', colors:['#FFFFFF','#212121']},
+      {name:'Cobalt & Black', desc:'Cobalt blue top with black straight jeans', colors:['#1565C0','#212121']},
+      {name:'Ruby Red & Deep Navy', desc:'Ruby red blouse with deep navy wide-leg trousers', colors:['#C62828','#1A237E']},
+      {name:'Emerald & White', desc:'Cool emerald top with crisp white tailored trousers', colors:['#1B5E20','#FFFFFF']},
+    ],
+    tips: ['True, high-contrast, cool colours are your natural territory — own them.','Stark black and white is your signature combination; it creates dramatic elegance.','Avoid anything warm or muted — your colouring needs cool clarity to shine.','Platinum and silver jewellery amplifies your natural cool luminosity.'],
+  },
+  'Cool Winter': {
+    season: 'Winter', type: 'Cool', badge_bg:'#E8EAF6', badge_color:'#0D47A1',
+    flattering: ['#37474F','#ECEFF1','#3949AB','#880E4F','#4527A0','#006064','#B71C1C','#263238'],
+    avoid: ['#FF6F00','#E65100','#FF8F00','#827717'],
+    avoid_names: ['Warm orange','Burnt orange','Amber','Olive'],
+    outfits: [
+      {name:'Ice Blue & Dark Gray', desc:'Ice blue blouse with dark charcoal wide-leg trousers', colors:['#B3E5FC','#37474F']},
+      {name:'Deep Purple & Black', desc:'Deep purple top with jet-black tailored trousers', colors:['#4527A0','#212121']},
+      {name:'Cool Fuchsia & Navy', desc:'Cool fuchsia blouse with deep navy straight jeans', colors:['#AD1457','#1A237E']},
+      {name:'Silver Gray & White', desc:'Silver gray knit with crisp white wide-leg trousers', colors:['#9E9E9E','#FFFFFF']},
+    ],
+    tips: ['Cool depth is your strength — lean into dark, cool tones for maximum impact.','Ice blue and silver bring out a ethereal quality in your complexion.','Warm tones in any shade will fight your undertone; keep it cool.','Black is your friend, but pair it with a cool accent to avoid looking drained.'],
+  },
+  'Deep Winter': {
+    season: 'Winter', type: 'Deep', badge_bg:'#E8EAF6', badge_color:'#0D47A1',
+    flattering: ['#1A237E','#4A148C','#880E4F','#B71C1C','#00695C','#006064','#212121','#0D47A1'],
+    avoid: ['#FFEE58','#FFAB91','#A5D6A7','#B3E5FC'],
+    avoid_names: ['Bright yellow','Peach','Mint green','Pastel blue'],
+    outfits: [
+      {name:'Deep Navy & Charcoal', desc:'Deep navy blouse with charcoal wide-leg trousers', colors:['#1A237E','#37474F']},
+      {name:'Bordeaux & Black', desc:'Bordeaux top with black tailored trousers', colors:['#560027','#212121']},
+      {name:'Deep Teal & Near-Black', desc:'Deep teal blouse with near-black straight jeans', colors:['#004D40','#1C1C1C']},
+      {name:'Plum & Dark Charcoal', desc:'Plum knit with dark charcoal wide-leg trousers', colors:['#4A148C','#263238']},
+    ],
+    tips: ['Intensity is your natural language — deep, cool-to-neutral tones are where you thrive.','Black and deep navy are your most powerful neutrals.','Anything pastel or very light dilutes the natural drama of your colouring.','Dark jewel tones — sapphire, bordeaux, deep emerald — are your statement palette.'],
+  },
+};
+
+/* ── RENDER SWATCHES ── */
+const toneSwatchContainer = document.getElementById('toneSwatches');
+SKIN_TONES.forEach(tone => {
+  const btn = document.createElement('button');
+  btn.className = 'tone-swatch';
+  btn.style.background = tone.hex;
+  btn.setAttribute('aria-label', `${tone.label} (Fitzpatrick ${tone.fitz})`);
+  btn.setAttribute('data-id', tone.id);
+  btn.setAttribute('role', 'radio');
+  btn.setAttribute('aria-checked', 'false');
+  btn.title = `${tone.label} · Fitzpatrick ${tone.fitz}`;
+  btn.addEventListener('click', () => selectTone(tone.id));
+  toneSwatchContainer.appendChild(btn);
+});
+
+/* ── STATE ── */
+let selectedToneId = null;
+let selectedUndertone = null;
+let uploadedPhoto = null;
+
+/* ── TONE SELECTION ── */
+function selectTone(id) {
+  selectedToneId = id;
+  document.querySelectorAll('.tone-swatch').forEach(s => {
+    s.classList.toggle('active', s.dataset.id === id);
+    s.setAttribute('aria-checked', s.dataset.id === id ? 'true' : 'false');
+  });
+}
+
+/* ── UNDERTONE SELECTION ── */
+document.querySelectorAll('.undertone-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    selectedUndertone = btn.dataset.undertone;
+    document.querySelectorAll('.undertone-btn').forEach(b => {
+      b.classList.remove('active');
+      b.setAttribute('aria-pressed', 'false');
+    });
+    btn.classList.add('active');
+    btn.setAttribute('aria-pressed', 'true');
+  });
+});
+
+/* ── PHOTO UPLOAD ── */
+const photoInput = document.getElementById('photoInput');
+const imgPreviewWrap = document.getElementById('imgPreviewWrap');
+const imgPreview = document.getElementById('imgPreview');
+const uploadZone = document.getElementById('uploadZone');
+
+photoInput.addEventListener('change', (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    uploadedPhoto = ev.target.result;
+    imgPreview.src = ev.target.result;
+    imgPreviewWrap.style.display = 'block';
+    uploadZone.style.display = 'none';
+    // Auto-detect skin tone from image (simplified heuristic)
+    autoDetectToneFromImage(ev.target.result);
+  };
+  reader.readAsDataURL(file);
+});
+
+document.getElementById('imgRemoveBtn').addEventListener('click', () => {
+  uploadedPhoto = null;
+  imgPreview.src = '';
+  imgPreviewWrap.style.display = 'none';
+  uploadZone.style.display = 'block';
+  photoInput.value = '';
+});
+
+/* Drag and drop */
+uploadZone.addEventListener('dragover', e => { e.preventDefault(); uploadZone.classList.add('drag-over'); });
+uploadZone.addEventListener('dragleave', () => uploadZone.classList.remove('drag-over'));
+uploadZone.addEventListener('drop', e => {
+  e.preventDefault();
+  uploadZone.classList.remove('drag-over');
+  const file = e.dataTransfer.files[0];
+  if (file && file.type.startsWith('image/')) {
+    const reader = new FileReader();
+    reader.onload = ev => {
+      uploadedPhoto = ev.target.result;
+      imgPreview.src = ev.target.result;
+      imgPreviewWrap.style.display = 'block';
+      uploadZone.style.display = 'none';
+      autoDetectToneFromImage(ev.target.result);
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+/* Simplified skin tone detection from image via canvas */
+function autoDetectToneFromImage(dataUrl) {
+  const img = new Image();
+  img.onload = () => {
+    const canvas = document.createElement('canvas');
+    canvas.width = 50; canvas.height = 50;
+    const ctx = canvas.getContext('2d');
+    ctx.drawImage(img, 0, 0, 50, 50);
+    const data = ctx.getImageData(0, 0, 50, 50).data;
+    let r=0,g=0,b=0,count=0;
+    for(let i=0;i<data.length;i+=4){
+      const pr=data[i], pg=data[i+1], pb=data[i+2];
+      // Filter to skin-likely pixels (rough heuristic)
+      if(pr>60 && pg>40 && pb>20 && pr>pb && Math.abs(pr-pg)<80){
+        r+=pr; g+=pg; b+=pb; count++;
+      }
+    }
+    if(count>50){
+      r=Math.round(r/count); g=Math.round(g/count); b=Math.round(b/count);
+      // Find closest tone
+      let best=null, bestDist=Infinity;
+      SKIN_TONES.forEach(t=>{
+        const th = parseInt(t.hex.slice(1),16);
+        const tr=(th>>16)&255, tg=(th>>8)&255, tb=th&255;
+        const dist=Math.sqrt((r-tr)**2+(g-tg)**2+(b-tb)**2);
+        if(dist<bestDist){bestDist=dist;best=t.id;}
+      });
+      if(best) selectTone(best);
+    }
+  };
+  img.src = dataUrl;
+}
+
+/* ── ANALYZE ── */
+document.getElementById('analyzeBtn').addEventListener('click', analyze);
+
+function analyze() {
+  if(!selectedToneId) { alert('Please select your skin tone first.'); return; }
+  if(!selectedUndertone) { alert('Please select your undertone (Warm, Cool, Neutral, or Olive).'); return; }
+
+  const btn = document.getElementById('analyzeBtn');
+  btn.disabled = true;
+  btn.innerHTML = '<span class="loading-spinner"></span> Analysing...';
+
+  setTimeout(() => {
+    renderResults();
+    btn.disabled = false;
+    btn.innerHTML = '<span class="material-symbols-outlined" style="font-size:18px;">auto_awesome</span> Get my outfit palette';
+    document.getElementById('outputPanel').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, 1200);
+}
+
+function getSeasonForTone(tone, undertone) {
+  if(undertone === 'warm' || undertone === 'olive') return tone.season_warm;
+  if(undertone === 'cool') return tone.season_cool;
+  return tone.season_neutral;
+}
+
+function renderResults() {
+  const tone = SKIN_TONES.find(t => t.id === selectedToneId);
+  const season = getSeasonForTone(tone, selectedUndertone);
+  const palette = PALETTES[season];
+  const panel = document.getElementById('outputPanel');
+
+  const seasonColors = { Spring:'#E65100', Summer:'#283593', Autumn:'#BF360C', Winter:'#0D47A1' };
+  const seasonBgs = { Spring:'#FFF3E0', Summer:'#E8EAF6', Autumn:'#FBE9E7', Winter:'#EDE7F6' };
+
+  panel.innerHTML = `
+    <!-- RESULT: Main card -->
+    <div class="result-card" style="animation-delay:0s;">
+      <div class="result-header">
+        <div class="detected-swatch" style="background:${tone.hex};" aria-label="${tone.label} skin tone swatch"></div>
+        <div class="result-meta">
+          <h3>${tone.label} · Fitzpatrick ${tone.fitz}</h3>
+          <p>Undertone: <strong>${selectedUndertone.charAt(0).toUpperCase()+selectedUndertone.slice(1)}</strong></p>
+        </div>
+        <span class="season-badge" style="background:${palette.badge_bg};color:${palette.badge_color};">
+          <span class="material-symbols-outlined" style="font-size:14px;" aria-hidden="true">eco</span>
+          ${season}
+        </span>
+      </div>
+
+      <!-- Best colours -->
+      <div class="palette-section">
+        <h4>Your best colours</h4>
+        <div class="palette-strip" role="list" aria-label="Your flattering colour palette">
+          ${palette.flattering.map((c,i) => `
+            <div class="palette-chip" style="background:${c};" role="listitem" title="${c}" aria-label="Colour ${c}">
+              <span class="chip-label">${c}</span>
+            </div>
+          `).join('')}
+        </div>
+      </div>
+
+      <!-- Avoid -->
+      <div style="margin-top:1.75rem; padding-top:1.25rem; border-top:1px solid var(--light-gray);">
+        <h4 style="font-size:0.8rem;font-weight:500;color:var(--gray);margin-bottom:0.75rem;text-transform:uppercase;letter-spacing:0.06em;">Colours to avoid near your face</h4>
+        <div class="avoid-strip" role="list">
+          ${palette.avoid.map((c,i) => `
+            <div class="avoid-chip" role="listitem">
+              <div class="avoid-dot" style="background:${c};" aria-hidden="true"></div>
+              ${palette.avoid_names[i]}
+            </div>
+          `).join('')}
+        </div>
+      </div>
+    </div>
+
+    <!-- Outfit suggestions -->
+    <div class="result-card" style="animation-delay:0.1s;">
+      <h3 style="font-weight:500;font-size:1rem;margin-bottom:0.25rem;">Outfit combinations</h3>
+      <p style="color:var(--gray);font-size:0.85rem;font-weight:300;margin-bottom:1rem;">Curated pairings that work with your ${season} palette</p>
+      <div class="outfit-grid" role="list">
+        ${palette.outfits.map(outfit => `
+          <div class="outfit-item" role="listitem">
+            <div class="outfit-colors" aria-hidden="true">
+              ${outfit.colors.map(c => `<div class="outfit-dot" style="background:${c};"></div>`).join('')}
+            </div>
+            <div class="outfit-text">
+              <h5>${outfit.name}</h5>
+              <p>${outfit.desc}</p>
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </div>
+
+    <!-- Styling tips -->
+    <div class="result-card" style="animation-delay:0.2s;">
+      <h3 style="font-weight:500;font-size:1rem;margin-bottom:1rem;display:flex;align-items:center;gap:8px;">
+        <span class="material-symbols-outlined" style="font-size:18px;color:var(--terracotta);" aria-hidden="true">tips_and_updates</span>
+        Styling tips for ${season}
+      </h3>
+      <ul class="tip-list">
+        ${palette.tips.map(tip => `
+          <li>
+            <span class="tip-icon material-symbols-outlined" style="font-size:16px;" aria-hidden="true">check_circle</span>
+            ${tip}
+          </li>
+        `).join('')}
+      </ul>
+    </div>
+  `;
+
+  document.getElementById('emptyState') && document.getElementById('emptyState').remove();
+}
+
+/* ── GUIDE TAB SWITCHING ── */
+function switchTab(tab) {
+  document.querySelectorAll('.guide-tab').forEach(b => {
+    b.classList.remove('active');
+    b.setAttribute('aria-selected', 'false');
+  });
+  document.querySelectorAll('.guide-panel').forEach(p => p.classList.remove('active'));
+  document.getElementById('btn-' + tab).classList.add('active');
+  document.getElementById('btn-' + tab).setAttribute('aria-selected', 'true');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
+
+/* ── QUIZ ── */
+const quizAnswers = {};
+
+function selectOpt(btn) {
+  const q = btn.dataset.q;
+  const val = btn.dataset.val;
+  quizAnswers[q] = val;
+  document.querySelectorAll(`.quiz-opt[data-q="${q}"]`).forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  document.getElementById('quizResult').classList.remove('show');
+}
+
+function calcQuiz() {
+  const answered = Object.keys(quizAnswers).length;
+  if (answered < 5) {
+    alert(`Please answer all 5 questions (you've answered ${answered} so far).`);
+    return;
+  }
+  const counts = { warm: 0, cool: 0, neutral: 0, olive: 0 };
+  Object.values(quizAnswers).forEach(v => counts[v]++);
+  const winner = Object.entries(counts).sort((a, b) => b[1] - a[1])[0][0];
+  const secondScore = Object.entries(counts).sort((a, b) => b[1] - a[1])[1][1];
+  const tie = secondScore === counts[winner] && secondScore > 0;
+
+  const descriptions = {
+    warm: { title: 'Your undertone: Warm', desc: 'Your skin has golden, yellow, or peachy hues beneath the surface. You\'ll look most radiant in rust, amber, coral, camel, warm olive, and peach. Gold jewellery will always flatter you more than silver. In the analyser above, select "Warm" as your undertone.' },
+    cool: { title: 'Your undertone: Cool', desc: 'Your skin has pink, red, or bluish hues beneath the surface. You\'ll shine in raspberry, lavender, icy blue, rose, cobalt, and true emerald. Silver jewellery is your metal. In the analyser above, select "Cool" as your undertone.' },
+    neutral: { title: 'Your undertone: Neutral', desc: 'You\'re beautifully balanced — neither warm nor cool dominates. You have the most flexibility of any undertone: most colour families work for you, and both gold and silver jewellery look equally good. In the analyser above, select "Neutral" as your undertone.' },
+    olive: { title: 'Your undertone: Olive', desc: 'You have a greenish or grey-green cast beneath a warm or tan surface tone. Earthy, muted shades — sage, camel, warm khaki, dusty terracotta — are your signature. Cool pastels and icy tones can look muddy on you. In the analyser above, select "Olive" as your undertone.' },
+  };
+
+  const resultBox = document.getElementById('quizResult');
+  const titleEl = document.getElementById('quizResultTitle');
+  const descEl = document.getElementById('quizResultDesc');
+
+  let title = descriptions[winner].title;
+  let desc = descriptions[winner].desc;
+
+  if (tie) {
+    title += ' (or Neutral)';
+    desc = 'Your answers are split — you may sit between two undertones. ' + desc;
+  }
+
+  titleEl.textContent = title;
+  descEl.textContent = desc;
+  resultBox.classList.add('show');
+  resultBox.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+/* ── LOADING SCREEN DISMISS ── */
+(function() {
+  const loader = document.getElementById('tw-loader');
+  const dismiss = () => loader && loader.classList.add('hidden');
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', dismiss);
+  } else {
+    dismiss();
+  }
+  setTimeout(dismiss, 1500); /* hard cap */
+})();
+</script>
+</body>
+</html>
