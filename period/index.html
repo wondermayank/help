@@ -3200,12 +3200,8 @@ window.handleChat = function(text) {
   showTyping();
 
   var q = normQ(text);
-  var matched = detectIntents(q);
-
-  // Nothing in the local rule-based brain recognized this question — let
-  // Groq actually read and understand it (still locked to women's-health
-  // topics by the system prompt above) instead of just shrugging.
-  if (matched.length === 0 && groqKeyConfigured()) {
+  var intents2 = detectIntents(q);
+if (intents2.length === 0 && groqKeyConfigured()) {
     askGroqAI(text).then(function(aiText) {
       hideTyping();
       addBotMsg(aiText, 'fallback');
