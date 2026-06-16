@@ -1,0 +1,44 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+  <rect width="512" height="512" rx="48" fill="#FAF7F2"/>
+
+  <!-- Leaf -->
+  <path
+    d="M256 120
+       C200 160 180 235 210 290
+       C238 342 300 350 340 308
+       C380 266 374 190 320 145
+       C300 128 280 120 256 120Z"
+    fill="#86C5A3"/>
+
+  <!-- Accent line -->
+  <path
+    d="M256 150
+       C250 210 255 255 290 305"
+    stroke="#FFFFFF"
+    stroke-width="8"
+    fill="none"
+    stroke-linecap="round"/>
+
+  <!-- Brand -->
+  <text
+    x="256"
+    y="390"
+    text-anchor="middle"
+    font-family="Poppins, Arial, sans-serif"
+    font-size="34"
+    font-weight="700"
+    fill="#222">
+    WonderMayank
+  </text>
+
+  <text
+    x="256"
+    y="430"
+    text-anchor="middle"
+    font-family="Poppins, Arial, sans-serif"
+    font-size="18"
+    letter-spacing="4"
+    fill="#777">
+    SKIN CARE
+  </text>
+</svg>
