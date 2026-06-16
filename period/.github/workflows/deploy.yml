@@ -1,22 +1,59 @@
-name: Deploy Luna
+name: Build & Deploy Luna
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
 
-      - name: Inject Groq credentials
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Inject Groq secrets into index.html
+        env:
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          GROQ_MODEL:   ${{ secrets.GROQ_MODEL }}
         run: |
-          sed -i 's/__GROQ_API_KEY__/${{ secrets.GROQ_API_KEY }}/g' index.html
-          sed -i 's/__GROQ_MODEL__/${{ secrets.GROQ_MODEL }}/g' index.html
+          # Default model if secret not set
+          if [ -z "$GROQ_MODEL" ]; then
+            echo "GROQ_MODEL secret is empty, defaulting to llama-3.3-70b-versatile"
+            GROQ_MODEL="llama-3.3-70b-versatile"
+          fi
+          
+          # Fail loudly if no key was provided
+          if [ -z "$GROQ_API_KEY" ]; then
+            echo "::error::GROQ_API_KEY secret is missing. Add it in Settings → Secrets and variables → Actions."
+            exit 1
+          fi
+          
+          # Replace the placeholders. Using a Python heredoc to safely handle special chars
+          python3 - <<EOF
+          import re, os
+          with open("index.html", "r", encoding="utf-8") as f:
+              html = f.read()
+          html = html.replace("__GROQ_API_KEY__", os.environ["GROQ_API_KEY"])
+          html = html.replace("__GROQ_MODEL__",   os.environ["GROQ_MODEL"])
+          with open("index.html", "w", encoding="utf-8") as f:
+              f.write(html)
+          EOF
+          echo "✅ Secrets injected successfully"
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v4
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: '.'
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v3
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: .
+        id: deployment
+        uses: actions/deploy-pages@v4
