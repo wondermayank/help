@@ -1,0 +1,843 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fake Chat Creator — wondermayank</title>
+<meta name="description" content="Create realistic WhatsApp-style fake chat screenshots for fun and pranks. Customize contacts, messages, time, battery, background and more.">
+
+<!-- Favicon inline SVG -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg'
+
+<!-- OG / Twitter -->
+<meta property="og:title" content="Fake Chat Creator — Thunder">
+<meta property="og:description" content="Create realistic WhatsApp-style fake chat screenshots for fun, pranks, or creative projects.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://wondermayank.github.io/fake-chat">
+<meta property="og:image" content="https://wondermayank.github.io/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Fake Chat Creator — Thunder">
+<meta name="twitter:description" content="Create realistic WhatsApp-style fake chat screenshots.">
+<meta name="twitter:image" content="https://wondermayank.github.io/og-image.png">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --primary:#573AFC; --primary-active:#4527E0; --primary-focus:#6B4FFF;
+  --primary-light:#E7E0FB; --primary-mid:#CCC3FB; --primary-strong:#B196FB;
+  --ink:#1d1d1f; --body-c:#3c3c3c; --muted:#6b6b6b; --muted-soft:#9a9a9a;
+  --hairline:#e6e6e6; --hairline-strong:#cccccc;
+  --canvas:#ffffff; --canvas-parchment:#f5f5f7;
+  --surface-card:#fafafa; --surface-soft:#f7f7f7; --surface-strong:#ebebeb;
+  --wa-green:#00a884; --wa-bubble-out:#d9fdd3; --wa-bubble-in:#ffffff;
+  --wa-bg:#efeae2; --wa-header:#202c33; --wa-header-text:#e9edef; --wa-tick:#53bdeb;
+}
+[data-theme="dark"] {
+  --primary:#9A7AFB; --primary-active:#7B5CF0;
+  --primary-light:#2D2550; --primary-mid:#3D3268;
+  --ink:#f5f5f7; --body-c:#d1d1d6; --muted:#8e8e93; --muted-soft:#636366;
+  --hairline:#2c2c2e; --hairline-strong:#3a3a3c;
+  --canvas:#0e0e10; --canvas-parchment:#161618;
+  --surface-card:#1c1c1e; --surface-soft:#1a1a1c; --surface-strong:#2c2c2e;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;background:var(--canvas-parchment);color:var(--ink);min-height:100vh;transition:background .3s,color .3s}
+
+/* ── LOADER ── */
+#loader{position:fixed;inset:0;z-index:9999;background:var(--canvas);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;transition:opacity .5s}
+#loader.hidden{opacity:0;pointer-events:none}
+.loader-wordmark{font-size:22px;font-weight:700;color:var(--primary);letter-spacing:-0.5px;display:flex;align-items:center;gap:8px}
+.loader-wordmark svg{width:28px;height:28px}
+.loader-ring{width:44px;height:44px}
+.loader-ring circle{fill:none;stroke:var(--primary-mid);stroke-width:3}
+.loader-ring .arc{stroke:var(--primary);stroke-width:3;stroke-linecap:round;stroke-dasharray:120;stroke-dashoffset:120;animation:drawArc 1.3s ease forwards;transform-origin:center;transform:rotate(-90deg);transform-box:fill-box}
+@keyframes drawArc{to{stroke-dashoffset:0}}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:200;height:64px;background:var(--canvas);border-bottom:1px solid var(--hairline);display:flex;align-items:center;justify-content:space-between;padding:0 32px;backdrop-filter:blur(20px) saturate(180%);transition:background .3s}
+.nav-brand{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo-wrap{width:32px;height:32px;border-radius:8px;background:var(--primary);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.nav-logo-wrap svg{width:18px;height:18px;fill:#fff}
+.nav-title{font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-0.3px}
+.nav-right{display:flex;align-items:center;gap:10px}
+.nav-badge{font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;background:var(--primary-light);color:var(--primary);padding:4px 10px;border-radius:9999px}
+#theme-toggle{width:40px;height:40px;border-radius:9999px;border:1px solid var(--hairline-strong);background:transparent;cursor:pointer;display:flex;align-items:center;justify-content:center;color:var(--ink);transition:background .2s}
+#theme-toggle:hover{background:var(--surface-strong)}
+#theme-toggle svg{width:18px;height:18px}
+
+/* ── HERO ── */
+.hero{background:var(--canvas);padding:60px 32px 52px;text-align:center;border-bottom:1px solid var(--hairline)}
+.hero-eyebrow{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:14px}
+.hero h1{font-size:clamp(32px,5vw,50px);font-weight:700;line-height:1.08;letter-spacing:-.3px;color:var(--ink);margin-bottom:14px}
+.hero h1 span{color:var(--primary)}
+.hero p{font-size:16px;line-height:1.5;color:var(--muted);max-width:480px;margin:0 auto}
+
+/* ── MAIN GRID ── */
+.main{max-width:1260px;margin:0 auto;padding:40px 24px;display:grid;grid-template-columns:1fr 400px;gap:28px;align-items:start}
+@media(max-width:960px){.main{grid-template-columns:1fr}.preview-col{order:-1}}
+@media(max-width:640px){nav{padding:0 16px}.hero{padding:36px 16px 32px}.main{padding:20px 14px}}
+
+/* ── PREVIEW STICKY ── */
+.preview-col{
+  position:sticky;
+  top:80px; /* nav height + buffer */
+  align-self:start;
+  max-height:calc(100vh - 100px);
+  overflow-y:auto;
+  overflow-x:hidden;
+  scrollbar-width:none;
+}
+.preview-col::-webkit-scrollbar{display:none}
+.preview-wrapper{display:flex;flex-direction:column;align-items:center;gap:14px}
+
+/* ── CARDS ── */
+.card{background:var(--canvas);border:1px solid var(--hairline);border-radius:18px;padding:22px;margin-bottom:18px}
+.card:last-child{margin-bottom:0}
+.card-title{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:16px;display:flex;align-items:center;gap:7px}
+.card-title svg{width:15px;height:15px;fill:var(--primary)}
+
+/* ── FORM ── */
+label{display:block;font-size:12px;font-weight:700;color:var(--body-c);margin-bottom:5px;margin-top:13px;letter-spacing:.2px}
+label:first-of-type{margin-top:0}
+input[type=text],input[type=time],input[type=number],select,textarea{width:100%;padding:9px 13px;font-size:14px;font-family:inherit;border:1px solid var(--hairline-strong);border-radius:8px;background:var(--canvas);color:var(--ink);outline:none;transition:border-color .2s,box-shadow .2s}
+input:focus,select:focus,textarea:focus{border-color:var(--primary);box-shadow:0 0 0 3px rgba(87,58,252,.11)}
+textarea{resize:vertical;min-height:60px}
+select{cursor:pointer;appearance:auto}
+.row-2{display:grid;grid-template-columns:1fr 1fr;gap:11px}
+
+/* ── TOGGLES ── */
+.toggle-row{display:flex;align-items:center;justify-content:space-between;padding:9px 0;border-bottom:1px solid var(--hairline)}
+.toggle-row:last-child{border-bottom:none}
+.toggle-label{font-size:13px;color:var(--body-c)}
+.toggle{position:relative;width:42px;height:24px;background:var(--surface-strong);border-radius:9999px;border:none;cursor:pointer;transition:background .25s;flex-shrink:0}
+.toggle.on{background:var(--primary)}
+.toggle::after{content:'';position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:transform .25s;box-shadow:0 1px 3px rgba(0,0,0,.2)}
+.toggle.on::after{transform:translateX(18px)}
+
+/* ── BUTTONS ── */
+.btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:46px;padding:0 26px;border-radius:9999px;background:var(--primary);color:#fff;font-size:14px;font-weight:600;font-family:inherit;border:none;cursor:pointer;transition:background .2s,transform .1s;text-decoration:none;white-space:nowrap}
+.btn-primary:hover{background:var(--primary-focus)}
+.btn-primary:active{background:var(--primary-active);transform:scale(.96)}
+.btn-secondary{display:inline-flex;align-items:center;justify-content:center;gap:7px;height:42px;padding:0 18px;border-radius:9999px;background:transparent;color:var(--ink);font-size:13px;font-weight:600;font-family:inherit;border:1px solid var(--hairline-strong);cursor:pointer;transition:background .2s,transform .1s}
+.btn-secondary:hover{background:var(--surface-strong)}
+.btn-secondary:active{transform:scale(.96)}
+.btn-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:14px}
+
+/* ── MSG LIST ── */
+.msg-list{display:flex;flex-direction:column;gap:8px}
+.msg-item{background:var(--surface-soft);border:1px solid var(--hairline);border-radius:12px;padding:11px 13px;display:flex;align-items:flex-start;gap:9px}
+.msg-item-controls{display:flex;flex-direction:column;gap:6px;flex:1;min-width:0}
+.msg-meta{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.msg-meta select{width:auto;flex-shrink:0;padding:5px 8px;font-size:12px}
+.msg-meta input[type=time]{width:auto;padding:5px 8px;font-size:12px}
+.msg-text textarea{min-height:44px;font-size:13px;padding:7px 11px}
+.msg-drag{cursor:grab;color:var(--muted-soft);padding-top:2px;flex-shrink:0;display:flex;flex-direction:column;gap:3px;align-items:center}
+.msg-drag span{display:block;width:15px;height:2px;background:var(--muted-soft);border-radius:2px}
+.msg-remove{background:none;border:none;cursor:pointer;color:var(--muted-soft);padding:4px;border-radius:6px;flex-shrink:0;align-self:flex-start;transition:color .2s}
+.msg-remove:hover{color:#dc2626}
+.msg-remove svg{width:15px;height:15px;display:block}
+
+/* ── STYLE CHIPS ── */
+.style-chips{display:flex;gap:8px;flex-wrap:wrap;margin-top:2px}
+.style-chip{padding:6px 14px;border-radius:9999px;font-size:12px;font-weight:600;border:1px solid var(--hairline-strong);background:transparent;color:var(--body-c);cursor:pointer;transition:all .2s;white-space:nowrap}
+.style-chip.active,.style-chip:hover{background:var(--primary);color:#fff;border-color:var(--primary)}
+
+/* ── BG SWATCHES ── */
+.bg-swatches{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.bg-swatch{width:36px;height:36px;border-radius:9px;cursor:pointer;border:2px solid transparent;transition:border-color .2s;flex-shrink:0;overflow:hidden}
+.bg-swatch.active{border-color:var(--primary)}
+.bg-swatch-img{width:100%;height:100%;background-size:cover;background-position:center}
+
+/* ── PHONE FRAME ── */
+.phone-frame{border-radius:44px;background:#111;padding:11px;box-shadow:rgba(0,0,0,.28) 3px 6px 32px;transition:all .3s;width:320px}
+.phone-frame.style-minimal{border-radius:16px;background:#1a1a1a;padding:0}
+.phone-frame.style-classic{border-radius:44px;background:linear-gradient(145deg,#2a2a2a,#111);padding:12px}
+.phone-frame.style-gold{border-radius:44px;background:linear-gradient(145deg,#b8960c,#8a6d00);padding:12px}
+.phone-frame.style-white{border-radius:44px;background:linear-gradient(145deg,#f0f0f0,#d8d8d8);padding:12px}
+
+.phone-screen{border-radius:34px;overflow:hidden;display:flex;flex-direction:column;height:620px;position:relative}
+.phone-frame.style-minimal .phone-screen{border-radius:16px}
+
+/* ── WA UI ── */
+.wa-status-bar{background:var(--wa-header);padding:6px 18px 4px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.wa-time-display{font-size:13px;font-weight:700;color:var(--wa-header-text)}
+.wa-status-icons{display:flex;align-items:center;gap:5px}
+.wa-status-icons svg{width:14px;height:14px;fill:var(--wa-header-text)}
+.battery-icon{display:flex;align-items:center;gap:2px}
+.battery-body{width:21px;height:11px;border:1.5px solid var(--wa-header-text);border-radius:3px;padding:1.5px;position:relative}
+.battery-body::after{content:'';position:absolute;right:-4px;top:50%;transform:translateY(-50%);width:2px;height:5px;background:var(--wa-header-text);border-radius:0 1px 1px 0}
+.battery-fill{height:100%;background:var(--wa-header-text);border-radius:1px;transition:width .3s}
+.signal-bars{display:flex;align-items:flex-end;gap:2px;height:12px}
+.signal-bars span{width:3px;background:var(--wa-header-text);border-radius:1px}
+
+.wa-header{background:var(--wa-header);padding:9px 14px;display:flex;align-items:center;gap:9px;flex-shrink:0}
+.wa-back svg{width:20px;height:20px;fill:var(--wa-header-text)}
+.wa-avatar{width:36px;height:36px;border-radius:50%;background:#3d4954;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:700;color:#fff;flex-shrink:0;overflow:hidden}
+.wa-contact-info{flex:1;min-width:0}
+.wa-contact-name{font-size:15px;font-weight:600;color:var(--wa-header-text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.wa-contact-status{font-size:11px;color:rgba(233,237,239,.7);margin-top:1px}
+.wa-header-icons{display:flex;gap:15px}
+.wa-header-icons svg{width:19px;height:19px;fill:var(--wa-header-text);opacity:.85}
+
+.wa-body{flex:1;overflow-y:auto;padding:8px 10px;display:flex;flex-direction:column;gap:1px;background-color:var(--wa-bg)}
+.wa-body::-webkit-scrollbar{width:3px}
+.wa-body::-webkit-scrollbar-thumb{background:rgba(0,0,0,.15);border-radius:3px}
+
+.wa-date-divider{text-align:center;margin:5px 0}
+.wa-date-divider span{background:rgba(255,255,255,.85);font-size:11px;color:#54656f;padding:3px 10px;border-radius:9999px;display:inline-block}
+
+/* ── BUBBLES ── */
+.wa-msg{display:flex;flex-direction:column;margin-bottom:1px}
+.wa-msg.out{align-items:flex-end}
+.wa-msg.in{align-items:flex-start}
+.wa-bubble{max-width:82%;padding:6px 9px 5px;border-radius:8px;position:relative;word-break:break-word}
+.wa-msg.out .wa-bubble{background:var(--wa-bubble-out);border-top-right-radius:2px}
+.wa-msg.in .wa-bubble{background:var(--wa-bubble-in);border-top-left-radius:2px;box-shadow:0 1px 1px rgba(0,0,0,.07)}
+.wa-bubble-text{font-size:13.5px;color:#111b21;line-height:1.45}
+.wa-bubble-meta{display:flex;align-items:center;justify-content:flex-end;gap:3px;margin-top:2px}
+.wa-bubble-time{font-size:10.5px;color:#667781}
+
+/* ── TICK SVGS — all three states ── */
+.wa-ticks{display:inline-flex;align-items:center;line-height:1}
+/* SENT: single grey tick */
+.wa-ticks.sent svg{width:15px;height:15px;fill:#8696a0}
+/* DELIVERED: double grey tick */
+.wa-ticks.delivered svg{width:18px;height:11px;fill:#8696a0}
+/* READ: double blue tick */
+.wa-ticks.read svg{width:18px;height:11px;fill:var(--wa-tick)}
+
+/* ── WA FOOTER ── */
+.wa-footer{background:var(--wa-header);padding:7px 11px;display:flex;align-items:center;gap:8px;flex-shrink:0}
+.wa-footer-input{flex:1;background:#2a3942;border-radius:9999px;padding:8px 14px;font-size:13px;color:rgba(233,237,239,.6)}
+.wa-footer-mic{width:38px;height:38px;border-radius:50%;background:var(--wa-green);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.wa-footer-mic svg{width:19px;height:19px;fill:#fff}
+.wa-footer-icon svg{width:21px;height:21px;fill:#aebac1}
+
+/* ── TYPING ── */
+#typing-indicator{padding:4px 12px 3px;flex-shrink:0}
+.typing-bubble{background:#fff;border-radius:18px;padding:9px 13px;display:inline-flex;align-items:center;gap:4px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.typing-bubble span{display:block;width:6px;height:6px;border-radius:50%;background:#aaa;animation:bounce 1.2s ease infinite}
+.typing-bubble span:nth-child(2){animation-delay:.2s}
+.typing-bubble span:nth-child(3){animation-delay:.4s}
+@keyframes bounce{0%,80%,100%{transform:scale(.7);opacity:.4}40%{transform:scale(1);opacity:1}}
+
+/* ── DOWNLOAD AREA ── */
+.download-area{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}
+
+/* ── FOOTER ── */
+footer{background:var(--canvas-parchment);border-top:1px solid var(--hairline);padding:44px 32px 26px}
+.footer-grid{max-width:960px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:28px;margin-bottom:28px}
+.footer-col h4{font-size:12px;font-weight:700;letter-spacing:1.2px;text-transform:uppercase;color:var(--ink);margin-bottom:12px}
+.footer-col a{display:block;font-size:13px;color:var(--muted);text-decoration:none;margin-bottom:7px;transition:color .2s}
+.footer-col a:hover{color:var(--primary)}
+.footer-copy{text-align:center;font-size:11px;color:var(--muted-soft);border-top:1px solid var(--hairline);padding-top:18px;max-width:960px;margin:0 auto}
+@media(max-width:640px){.footer-grid{grid-template-columns:1fr;gap:20px}footer{padding:32px 16px 20px}}
+</style>
+</head>
+<body>
+
+<!-- LOADER -->
+<div id="loader">
+  <div class="loader-wordmark">
+<link rel="icon" type="image/svg+xml" href="favicon.svg'
+      <rect width="32" height="32" rx="8" fill="#573AFC"/>
+      <path d="M18 5L8 17h7l-1 10 11-12h-7l1-10z" fill="#fff"/>
+    </svg>
+    Fake Whatsapp
+  </div>
+  <svg class="loader-ring" viewBox="0 0 44 44">
+    <circle cx="22" cy="22" r="18"/>
+    <circle class="arc" cx="22" cy="22" r="18"/>
+  </svg>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a href="https://wondermayank.github.io/" class="nav-brand">
+    <div class="nav-logo-wrap">
+      <svg viewBox="0 0 32 32"><path d="M18 5L8 17h7l-1 10 11-12h-7l1-10z"/></svg>
+    </div>
+    <span class="nav-title">Thunder</span>
+  </a>
+  <div class="nav-right">
+    <span class="nav-badge">Fun Tool</span>
+    <button id="theme-toggle" aria-label="Toggle dark mode">
+      <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.062.524 4.003 1.445 5.698L0 24l6.521-1.429A11.934 11.934 0 0 0 12 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 22c-1.95 0-3.77-.5-5.35-1.37l-.38-.22-3.87.85.86-3.79-.25-.4A9.953 9.953 0 0 1 2 12C2 6.477 6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/></svg>
+    WhatsApp Chat Faker
+  </div>
+  <h1>Create <span>realistic fake</span><br>chat screenshots</h1>
+  <p>Design convincing WhatsApp conversations for fun, pranks, or creative projects. Fully customisable — download in one click.</p>
+</section>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT: EDITOR -->
+  <div class="editor-col">
+
+    <!-- Contact -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/></svg>
+        Contact
+      </div>
+      <label for="contact-name">Contact name</label>
+      <input type="text" id="contact-name" value="Rahul Sharma" placeholder="e.g. Rahul Sharma">
+      <label for="contact-status">Status text</label>
+      <input type="text" id="contact-status" value="online" placeholder="online / last seen today...">
+      <label for="contact-initial">Avatar initial</label>
+      <input type="text" id="contact-initial" value="R" maxlength="2" placeholder="R">
+    </div>
+
+    <!-- Status Bar -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3a4.237 4.237 0 0 0-6 0zm-4-4 2 2a7.074 7.074 0 0 1 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+        Status Bar
+      </div>
+      <div class="row-2">
+        <div>
+          <label for="status-time">Time</label>
+          <input type="time" id="status-time" value="09:41">
+        </div>
+        <div>
+          <label for="battery-level">Battery %</label>
+          <input type="number" id="battery-level" min="1" max="100" value="72">
+        </div>
+      </div>
+      <div style="margin-top:14px">
+        <div class="toggle-row">
+          <span class="toggle-label">Show signal bars</span>
+          <button class="toggle on" data-target="show-signal" aria-label="Toggle signal"></button>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Show WiFi icon</span>
+          <button class="toggle on" data-target="show-wifi" aria-label="Toggle WiFi"></button>
+        </div>
+        <div class="toggle-row">
+          <span class="toggle-label">Show date divider</span>
+          <button class="toggle on" data-target="show-date" aria-label="Toggle date divider"></button>
+        </div>
+      </div>
+      <label for="date-label">Date divider text</label>
+      <input type="text" id="date-label" value="Today">
+    </div>
+
+    <!-- Appearance -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M12 3c-4.97 0-9 4.03-9 9s4.03 9 9 9c.83 0 1.5-.67 1.5-1.5 0-.39-.15-.74-.39-1.01-.23-.26-.38-.61-.38-.99 0-.83.67-1.5 1.5-1.5H16c2.76 0 5-2.24 5-5 0-4.42-4.03-8-9-8zm-5.5 9c-.83 0-1.5-.67-1.5-1.5S5.67 9 6.5 9 8 9.67 8 10.5 7.33 12 6.5 12zm3-4C8.67 8 8 7.33 8 6.5S8.67 5 9.5 5s1.5.67 1.5 1.5S10.33 8 9.5 8zm5 0c-.83 0-1.5-.67-1.5-1.5S13.67 5 14.5 5s1.5.67 1.5 1.5S15.33 8 14.5 8zm3 4c-.83 0-1.5-.67-1.5-1.5S16.67 9 17.5 9s1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/></svg>
+        Appearance
+      </div>
+
+      <label>Phone style</label>
+      <div class="style-chips" id="phone-style-chips">
+        <button class="style-chip active" data-style="classic">Classic</button>
+        <button class="style-chip" data-style="minimal">Minimal</button>
+        <button class="style-chip" data-style="gold">Gold</button>
+        <button class="style-chip" data-style="white">White</button>
+      </div>
+
+      <label style="margin-top:14px">Chat background</label>
+      <div class="bg-swatches" id="bg-swatches">
+        <!-- rendered by JS -->
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2z"/></svg>
+        Messages
+      </div>
+      <div class="msg-list" id="msg-list"></div>
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="addMessage('in')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M20 2H4c-1.1 0-2 .9-2 2v18l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z"/></svg>
+          + Received
+        </button>
+        <button class="btn-primary" onclick="addMessage('out')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M2 21L23 12 2 3v7l15 2-15 2v7z"/></svg>
+          + Sent
+        </button>
+      </div>
+    </div>
+
+    <!-- Settings -->
+    <div class="card">
+      <div class="card-title">
+        <svg viewBox="0 0 24 24"><path d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.57 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z"/></svg>
+        Settings
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">Show typing indicator</span>
+        <button class="toggle" data-target="show-typing" aria-label="Toggle typing"></button>
+      </div>
+      <div class="toggle-row">
+        <span class="toggle-label">Show footer bar</span>
+        <button class="toggle on" data-target="show-footer" aria-label="Toggle footer bar"></button>
+      </div>
+    </div>
+
+    <div class="btn-row">
+      <button class="btn-primary" onclick="downloadScreenshot()">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+        Download PNG
+      </button>
+      <button class="btn-secondary" onclick="clearMessages()">Clear all</button>
+    </div>
+  </div>
+
+  <!-- RIGHT: PREVIEW (sticky) -->
+  <div class="preview-col">
+    <div class="preview-wrapper">
+
+      <div class="phone-frame style-classic" id="phone-frame">
+        <div class="phone-screen" id="phone-screen">
+
+          <!-- Status bar -->
+          <div class="wa-status-bar">
+            <span class="wa-time-display" id="preview-time">9:41</span>
+            <div class="wa-status-icons">
+              <div class="signal-bars" id="preview-signal">
+                <span style="height:4px"></span>
+                <span style="height:7px"></span>
+                <span style="height:10px"></span>
+                <span style="height:13px"></span>
+              </div>
+              <svg id="preview-wifi" viewBox="0 0 24 24"><path d="M1 9l2 2c4.97-4.97 13.03-4.97 18 0l2-2C16.93 2.93 7.08 2.93 1 9zm8 8l3 3 3-3a4.237 4.237 0 0 0-6 0zm-4-4 2 2a7.074 7.074 0 0 1 10 0l2-2C15.14 9.14 8.87 9.14 5 13z"/></svg>
+              <div class="battery-icon">
+                <div class="battery-body">
+                  <div class="battery-fill" id="preview-battery" style="width:72%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- WA Header -->
+          <div class="wa-header">
+            <div class="wa-back"><svg viewBox="0 0 24 24"><path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/></svg></div>
+            <div class="wa-avatar" id="preview-avatar"><span id="preview-initial" style="font-size:15px;font-weight:700;color:#fff">R</span></div>
+            <div class="wa-contact-info">
+              <div class="wa-contact-name" id="preview-name">Rahul Sharma</div>
+              <div class="wa-contact-status" id="preview-status">online</div>
+            </div>
+            <div class="wa-header-icons">
+              <svg viewBox="0 0 24 24"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z"/></svg>
+              <svg viewBox="0 0 24 24"><path d="M12 8c1.1 0 2-.9 2-2s-.9-2-2-2-2 .9-2 2 .9 2 2 2zm0 2c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2zm0 6c-1.1 0-2 .9-2 2s.9 2 2 2 2-.9 2-2-.9-2-2-2z"/></svg>
+            </div>
+          </div>
+
+          <!-- Chat body -->
+          <div class="wa-body" id="wa-body">
+            <div class="wa-date-divider" id="preview-date-divider">
+              <span id="preview-date-text">Today</span>
+            </div>
+          </div>
+
+          <!-- Typing -->
+          <div id="typing-indicator" style="display:none">
+            <div class="typing-bubble">
+              <span></span><span></span><span></span>
+            </div>
+          </div>
+
+          <!-- WA Footer -->
+          <div class="wa-footer" id="wa-footer">
+            <div class="wa-footer-icon"><svg viewBox="0 0 24 24"><path d="M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zm4.24 16L12 15.45 7.77 18l1.12-4.81-3.73-3.23 4.92-.42L12 5l1.92 4.53 4.92.42-3.73 3.23L16.23 18z"/></svg></div>
+            <div class="wa-footer-icon"><svg viewBox="0 0 24 24"><path d="M16.5 6v11.5c0 2.21-1.79 4-4 4s-4-1.79-4-4V5c0-1.38 1.12-2.5 2.5-2.5s2.5 1.12 2.5 2.5v10.5c0 .55-.45 1-1 1s-1-.45-1-1V6H10v9.5c0 1.38 1.12 2.5 2.5 2.5s2.5-1.12 2.5-2.5V5c0-2.21-1.79-4-4-4S7 2.79 7 5v12.5c0 3.04 2.46 5.5 5.5 5.5s5.5-2.46 5.5-5.5V6h-1.5z"/></svg></div>
+            <div class="wa-footer-input">Type a message</div>
+            <div class="wa-footer-mic"><svg viewBox="0 0 24 24"><path d="M12 14c1.66 0 2.99-1.34 2.99-3L15 5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.3-3c0 3-2.54 5.1-5.3 5.1S6.7 14 6.7 11H5c0 3.41 2.72 6.23 6 6.72V21h2v-3.28c3.28-.48 6-3.3 6-6.72h-1.7z"/></svg></div>
+          </div>
+
+        </div><!-- /phone-screen -->
+      </div><!-- /phone-frame -->
+
+      <div class="download-area">
+        <button class="btn-primary" onclick="downloadScreenshot()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M19 9h-4V3H9v6H5l7 7 7-7zM5 18v2h14v-2H5z"/></svg>
+          Download PNG
+        </button>
+        <button class="btn-secondary" onclick="copyToClipboard()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>
+          Copy
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-col">
+      <h4>Thunder</h4>
+      <a href="https://commercesehoga.github.io/">ThunderStudy</a>
+      <a href="https://commercesehoga.github.io/dashboard">CBT Mock Platform</a>
+      <a href="https://thunderstudy.github.io">Free Study Material</a>
+      <a href="https://commercesehoga.github.io/help">Help / Donate</a>
+    </div>
+    <div class="footer-col">
+      <h4>wondermayank</h4>
+      <a href="https://wondermayank.indevs.in">Portfolio</a>
+      <a href="https://wondermayank.github.io/">wondermayank.github.io</a>
+      <a href="https://wondermayank.github.io/mail">Mail</a>
+      <a href="https://wondermayank.github.io/contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="https://wondermayank.github.io/terms">Terms</a>
+      <a href="https://wondermayank.github.io/privacy">Privacy</a>
+      <a href="https://wondermayank.github.io/disclaimer">Disclaimer</a>
+    </div>
+  </div>
+  <div class="footer-copy">© 2025 · by wondermayank</div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script>
+/* ─────────────────────────────────────────────
+   STATE
+───────────────────────────────────────────── */
+const state = {
+  'show-signal': true, 'show-wifi': true, 'show-date': true,
+  'show-typing': false, 'show-footer': true
+};
+let msgId = 0;
+const messages = [];
+
+/* ─────────────────────────────────────────────
+   LOADER
+───────────────────────────────────────────── */
+window.addEventListener('DOMContentLoaded', () => {
+  const loader = document.getElementById('loader');
+  setTimeout(() => {
+    loader.classList.add('hidden');
+    setTimeout(() => loader.remove(), 500);
+  }, 1400);
+  initBgSwatches();
+  initPhoneStyleChips();
+  addMessage('in',  'Hey! How are you doing?',                '09:38');
+  addMessage('out', "I'm good! What's up?",                   '09:39');
+  addMessage('in',  'Nothing much, just wanted to check in',  '09:40');
+  addMessage('out', 'Haha all good bro!',                     '09:41', 'read');
+});
+
+/* ─────────────────────────────────────────────
+   DARK MODE
+───────────────────────────────────────────── */
+const themeToggle = document.getElementById('theme-toggle');
+const iconSun  = document.getElementById('icon-sun');
+const iconMoon = document.getElementById('icon-moon');
+applyTheme(localStorage.getItem('thunder-theme') || 'light');
+
+themeToggle.addEventListener('click', () => {
+  applyTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+});
+function applyTheme(t) {
+  document.documentElement.setAttribute('data-theme', t);
+  localStorage.setItem('thunder-theme', t);
+  iconSun.style.display  = t === 'dark' ? 'none' : 'block';
+  iconMoon.style.display = t === 'dark' ? 'block' : 'none';
+}
+
+/* ─────────────────────────────────────────────
+   TOGGLES
+───────────────────────────────────────────── */
+document.querySelectorAll('.toggle').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const t = btn.dataset.target;
+    state[t] = !state[t];
+    btn.classList.toggle('on', state[t]);
+    updatePreview();
+  });
+});
+
+/* ─────────────────────────────────────────────
+   LIVE INPUTS
+───────────────────────────────────────────── */
+['contact-name','contact-status','contact-initial','status-time','battery-level','date-label'].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener('input', updatePreview);
+});
+
+/* ─────────────────────────────────────────────
+   BACKGROUND SWATCHES
+───────────────────────────────────────────── */
+const BG_OPTIONS = [
+  { id:'default',  label:'Default',   color:'#efeae2', img:'' },
+  { id:'dark',     label:'Dark',      color:'#0b141a', img:'' },
+  { id:'blue',     label:'Blue',      color:'#d4e6f1', img:'' },
+  { id:'green',    label:'Green',     color:'#d5e8d4', img:'' },
+  { id:'pink',     label:'Pink',      color:'#f8d7da', img:'' },
+  { id:'purple',   label:'Purple',    color:'#ede3fb', img:'' },
+  { id:'pattern1', label:'Pattern',   color:'',
+    img:"url(\"data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23573AFC' fill-opacity='0.08'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/svg%3E\") #efeae2" },
+  { id:'pattern2', label:'Leaves',   color:'',
+    img:"url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='10' cy='10' r='4' fill='%2300a884' fill-opacity='.12'/%3E%3Ccircle cx='30' cy='30' r='4' fill='%2300a884' fill-opacity='.12'/%3E%3Ccircle cx='30' cy='10' r='2' fill='%2300a884' fill-opacity='.08'/%3E%3Ccircle cx='10' cy='30' r='2' fill='%2300a884' fill-opacity='.08'/%3E%3C/svg%3E\") #efeae2" },
+];
+
+let activeBg = 'default';
+function initBgSwatches() {
+  const wrap = document.getElementById('bg-swatches');
+  BG_OPTIONS.forEach(bg => {
+    const div = document.createElement('div');
+    div.className = 'bg-swatch' + (bg.id === activeBg ? ' active' : '');
+    div.title = bg.label;
+    div.dataset.id = bg.id;
+    const inner = document.createElement('div');
+    inner.className = 'bg-swatch-img';
+    if (bg.img) {
+      inner.style.background = bg.img;
+      inner.style.backgroundSize = 'cover';
+    } else {
+      inner.style.background = bg.color;
+    }
+    div.appendChild(inner);
+    div.addEventListener('click', () => {
+      activeBg = bg.id;
+      document.querySelectorAll('.bg-swatch').forEach(s => s.classList.remove('active'));
+      div.classList.add('active');
+      applyBg();
+    });
+    wrap.appendChild(div);
+  });
+  applyBg();
+}
+function applyBg() {
+  const bg = BG_OPTIONS.find(b => b.id === activeBg);
+  const body = document.getElementById('wa-body');
+  if (!bg) return;
+  if (bg.img) {
+    body.style.background = bg.img;
+    body.style.backgroundSize = 'auto';
+  } else {
+    body.style.background = bg.color;
+  }
+}
+
+/* ─────────────────────────────────────────────
+   PHONE STYLE CHIPS
+───────────────────────────────────────────── */
+function initPhoneStyleChips() {
+  document.querySelectorAll('#phone-style-chips .style-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+      document.querySelectorAll('#phone-style-chips .style-chip').forEach(c => c.classList.remove('active'));
+      chip.classList.add('active');
+      const frame = document.getElementById('phone-frame');
+      frame.className = 'phone-frame style-' + chip.dataset.style;
+    });
+  });
+}
+
+/* ─────────────────────────────────────────────
+   UPDATE PREVIEW
+───────────────────────────────────────────── */
+function updatePreview() {
+  const name    = document.getElementById('contact-name').value    || 'Contact';
+  const status  = document.getElementById('contact-status').value  || '';
+  const initial = (document.getElementById('contact-initial').value || '?').toUpperCase().slice(0,2);
+
+  document.getElementById('preview-name').textContent    = name;
+  document.getElementById('preview-status').textContent  = status;
+  document.getElementById('preview-initial').textContent = initial;
+
+  const timeVal = document.getElementById('status-time').value;
+  if (timeVal) {
+    const [h, m] = timeVal.split(':');
+    const hour = parseInt(h);
+    document.getElementById('preview-time').textContent =
+      `${hour > 12 ? hour - 12 : hour || 12}:${m}`;
+  }
+
+  const batt = Math.min(100, Math.max(1, parseInt(document.getElementById('battery-level').value) || 72));
+  document.getElementById('preview-battery').style.width = batt + '%';
+
+  document.getElementById('preview-signal').style.display = state['show-signal'] ? '' : 'none';
+  document.getElementById('preview-wifi').style.display   = state['show-wifi']   ? '' : 'none';
+
+  const divider = document.getElementById('preview-date-divider');
+  divider.style.display = state['show-date'] ? '' : 'none';
+  document.getElementById('preview-date-text').textContent = document.getElementById('date-label').value || 'Today';
+
+  document.getElementById('typing-indicator').style.display = state['show-typing'] ? '' : 'none';
+  document.getElementById('wa-footer').style.display        = state['show-footer'] ? '' : 'none';
+}
+
+/* ─────────────────────────────────────────────
+   MESSAGES
+───────────────────────────────────────────── */
+function addMessage(dir, text='', time='', ticks='delivered') {
+  const id = ++msgId;
+  const now = new Date();
+  const dt  = `${now.getHours().toString().padStart(2,'0')}:${now.getMinutes().toString().padStart(2,'0')}`;
+  messages.push({ id, dir, text, time: time || dt, ticks: dir==='out' ? (ticks||'delivered') : 'none' });
+  renderMsgList();
+  renderBubbles();
+}
+function removeMessage(id) {
+  const idx = messages.findIndex(m => m.id === id);
+  if (idx !== -1) messages.splice(idx, 1);
+  renderMsgList();
+  renderBubbles();
+}
+function clearMessages() {
+  messages.length = 0; msgId = 0;
+  renderMsgList(); renderBubbles();
+}
+function renderMsgList() {
+  const list = document.getElementById('msg-list');
+  list.innerHTML = '';
+  messages.forEach(msg => {
+    const item = document.createElement('div');
+    item.className = 'msg-item';
+    item.innerHTML = `
+      <div class="msg-drag" title="Reorder"><span></span><span></span><span></span></div>
+      <div class="msg-item-controls">
+        <div class="msg-meta">
+          <select onchange="updateMsg(${msg.id},'dir',this.value)">
+            <option value="in"  ${msg.dir==='in' ?'selected':''}>Received</option>
+            <option value="out" ${msg.dir==='out'?'selected':''}>Sent</option>
+          </select>
+          ${msg.dir==='out'?`
+          <select onchange="updateMsg(${msg.id},'ticks',this.value)">
+            <option value="sent"      ${msg.ticks==='sent'     ?'selected':''}>&#10003; Sent</option>
+            <option value="delivered" ${msg.ticks==='delivered'?'selected':''}>&#10003;&#10003; Delivered</option>
+            <option value="read"      ${msg.ticks==='read'     ?'selected':''}>&#10003;&#10003; Read</option>
+          </select>`:''}
+          <input type="time" value="${msg.time}" onchange="updateMsg(${msg.id},'time',this.value)">
+        </div>
+        <div class="msg-text">
+          <textarea placeholder="Message text..." oninput="updateMsg(${msg.id},'text',this.value)">${esc(msg.text)}</textarea>
+        </div>
+      </div>
+      <button class="msg-remove" onclick="removeMessage(${msg.id})" aria-label="Remove">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+      </button>`;
+    list.appendChild(item);
+  });
+}
+function updateMsg(id, field, val) {
+  const msg = messages.find(m => m.id === id);
+  if (!msg) return;
+  msg[field] = val;
+  if (field==='dir' && val==='in')  msg.ticks = 'none';
+  if (field==='dir' && val==='out' && msg.ticks==='none') msg.ticks = 'delivered';
+  if (field==='dir') renderMsgList();
+  renderBubbles();
+}
+
+/* ─────────────────────────────────────────────
+   TICK SVGs — accurate WhatsApp paths
+   sent     = single tick
+   delivered = double grey ticks
+   read     = double blue ticks
+───────────────────────────────────────────── */
+function tickSVG(ticks) {
+  if (ticks === 'sent') {
+    /* Single grey checkmark */
+    return `<span class="wa-ticks sent" aria-label="Sent">
+      <svg viewBox="0 0 16 16" xmlns="http://www.w3.org/2000/svg">
+        <path d="M13.5 3.5L6 11 2.5 7.5l-1 1L6 13l8.5-8.5z"/>
+      </svg></span>`;
+  }
+  if (ticks === 'delivered') {
+    /* Double grey ticks */
+    return `<span class="wa-ticks delivered" aria-label="Delivered">
+      <svg viewBox="0 0 20 12" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.5 0.5L8 8 4.5 4.5l-1 1L8 10l8.5-8.5z"/>
+        <path d="M11.5 0.5L4 8 0.5 4.5l-1 1L4 10l8.5-8.5z" opacity="0.5"/>
+      </svg></span>`;
+  }
+  if (ticks === 'read') {
+    /* Double blue ticks */
+    return `<span class="wa-ticks read" aria-label="Read">
+      <svg viewBox="0 0 20 12" xmlns="http://www.w3.org/2000/svg">
+        <path d="M15.5 0.5L8 8 4.5 4.5l-1 1L8 10l8.5-8.5z"/>
+        <path d="M11.5 0.5L4 8 0.5 4.5l-1 1L4 10l8.5-8.5z" opacity="0.7"/>
+      </svg></span>`;
+  }
+  return '';
+}
+
+/* ─────────────────────────────────────────────
+   RENDER BUBBLES
+───────────────────────────────────────────── */
+function renderBubbles() {
+  const body    = document.getElementById('wa-body');
+  const divider = document.getElementById('preview-date-divider');
+  body.innerHTML = '';
+  body.appendChild(divider);
+  applyBg();
+
+  messages.forEach(msg => {
+    const el = document.createElement('div');
+    el.className = `wa-msg ${msg.dir}`;
+
+    const timeStr = (() => {
+      if (!msg.time) return '';
+      const [h, m] = msg.time.split(':');
+      const hour = parseInt(h);
+      return `${hour > 12 ? hour - 12 : hour || 12}:${m}`;
+    })();
+
+    el.innerHTML = `
+      <div class="wa-bubble">
+        <div class="wa-bubble-text">${escHtml(msg.text)||'&nbsp;'}</div>
+        <div class="wa-bubble-meta">
+          <span class="wa-bubble-time">${timeStr}</span>
+          ${msg.dir==='out' ? tickSVG(msg.ticks) : ''}
+        </div>
+      </div>`;
+    body.appendChild(el);
+  });
+  body.scrollTop = body.scrollHeight;
+}
+
+function esc(s)     { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;') }
+function escHtml(s) { return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/\n/g,'<br>') }
+
+/* ─────────────────────────────────────────────
+   DOWNLOAD / COPY
+───────────────────────────────────────────── */
+async function downloadScreenshot() {
+  const target = document.getElementById('phone-screen');
+  try {
+    const canvas = await html2canvas(target, { useCORS:true, allowTaint:true, scale:3, backgroundColor:null, logging:false });
+    const a = document.createElement('a');
+    a.download = `fake-chat-${Date.now()}.png`;
+    a.href = canvas.toDataURL('image/png');
+    a.click();
+  } catch(e) { alert('Screenshot failed. Try again.'); }
+}
+async function copyToClipboard() {
+  const target = document.getElementById('phone-screen');
+  try {
+    const canvas = await html2canvas(target, { useCORS:true, allowTaint:true, scale:3, backgroundColor:null, logging:false });
+    canvas.toBlob(async blob => {
+      await navigator.clipboard.write([new ClipboardItem({'image/png':blob})]);
+      alert('Copied to clipboard!');
+    });
+  } catch(e) { alert('Copy failed — use Download instead.'); }
+}
+
+/* Init */
+updatePreview();
+</script>
+</body>
+</html>
