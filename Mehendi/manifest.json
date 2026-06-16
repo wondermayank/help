@@ -1,0 +1,16 @@
+{
+  "name": "MehndiVault — Wondermayank",
+  "short_name": "MehndiVault",
+  "description": "Beautiful mehndi & henna designs collection curated by Wondermayank.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#F8F6FF",
+  "theme_color": "#7C3AED",
+  "orientation": "portrait-primary",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ],
+  "categories": ["lifestyle", "entertainment"],
+  "lang": "en"
+}
