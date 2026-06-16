@@ -1,0 +1,1729 @@
+
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SkinCare Ritual — Personalised Skincare Routines by Thunder</title>
+<meta name="description" content="Get your personalised skincare routine in seconds. SkinCare Ritual analyses your skin type and concerns to build honest, science-backed morning and night routines — powered by AI.">
+<meta property="og:title" content="SkinCare Ritual — Personalised Skincare Routines">
+<meta property="og:description" content="Honest skincare guidance for every skin type. Morning & night routines, ingredient science, and product picks — all personalised for you.">
+<meta property="og:url" content="https://wondermayank.github.io/help/skincare">
+<meta property="og:type" content="website">
+<meta property="og:image" content="og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="SkinCare Ritual — Personalised Skincare Routines">
+<meta name="twitter:description" content="Honest skincare guidance for every skin type. Build your routine in seconds.">
+<meta name="twitter:image" content="og-image.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "SkinCare Ritual",
+  "url": "https://wondermayank.github.io/help/skincare",
+  "description": "Personalised skincare routines and honest product guidance powered by AI.",
+  "applicationCategory": "HealthApplication",
+  "creator": { "@type": "Organization", "name": "Thunder", "url": "https://wondermayank.github.io" },
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "INR" }
+}
+</script>
+
+<style>
+/* ── TOKENS: OPTION B — LIGHT BLUE + WHITE ── */
+:root {
+  --c-primary: #6699FB;
+  --c-primary-active: #4477E8;
+  --c-primary-focus: #89B4FF;
+  --c-primary-10: rgba(102,153,251,0.10);
+  --c-primary-16: rgba(102,153,251,0.16);
+  --c-ink: #1d1d1f;
+  --c-body: #3c3c3c;
+  --c-body-strong: #1a1a1a;
+  --c-muted: #6b6b6b;
+  --c-muted-soft: #9a9a9a;
+  --c-hairline: #e6e6e6;
+  --c-hairline-strong: #cccccc;
+  --c-canvas: #ffffff;
+  --c-canvas-parchment: #F5F5FF;
+  --c-surface-soft: #f7f7f7;
+  --c-surface-card: #fafafa;
+  --c-surface-pearl: #FAFAFF;
+  --c-surface-strong: #ebebeb;
+  --c-surface-dark: #0c1629;
+  --c-on-dark: #ffffff;
+  --c-on-dark-soft: #B7D8FB;
+  --c-blue-lightest: #F5F5FF;
+  --c-blue-light: #B7D8FB;
+  --c-blue-mid: #AECBF0;
+  --c-success: #22c55e;
+  --c-warning: #f59e0b;
+  --c-error: #dc2626;
+
+  /* Shadows */
+  --shadow-product: rgba(0,0,0,0.22) 3px 5px 30px;
+  --shadow-glow: 0 0 40px rgba(102,153,251,0.25);
+
+  /* Radius */
+  --r-sm: 8px;
+  --r-md: 11px;
+  --r-lg: 18px;
+  --r-pill: 9999px;
+  --r-full: 9999px;
+}
+
+[data-theme="dark"] {
+  --c-primary: #89B4FF;
+  --c-primary-active: #6699FB;
+  --c-primary-10: rgba(137,180,255,0.12);
+  --c-primary-16: rgba(137,180,255,0.18);
+  --c-ink: #f5f5f7;
+  --c-body: #d1d1d6;
+  --c-body-strong: #ffffff;
+  --c-muted: #8e8e93;
+  --c-muted-soft: #636366;
+  --c-hairline: #2c2c2e;
+  --c-hairline-strong: #3a3a3c;
+  --c-canvas: #0e0e10;
+  --c-canvas-parchment: #161618;
+  --c-surface-soft: #1a1a1c;
+  --c-surface-card: #1c1c1e;
+  --c-surface-pearl: #1e1e20;
+  --c-surface-strong: #2c2c2e;
+  --c-surface-dark: #000000;
+  --c-on-dark: #ffffff;
+  --c-on-dark-soft: #ebebf5;
+  --c-blue-lightest: #161630;
+  --c-blue-light: #1a2a4a;
+  --c-blue-mid: #1e2e50;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 400;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--c-body);
+  background: var(--c-canvas);
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ── LOADING SCREEN ── */
+#loading-screen {
+  position: fixed; inset: 0;
+  background: var(--c-surface-dark, #0c1629);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  z-index: 9999;
+  transition: opacity 0.5s ease;
+}
+#loading-screen.fade-out { opacity: 0; pointer-events: none; }
+
+.loader-ring {
+  width: 64px; height: 64px;
+  position: relative;
+}
+.loader-ring svg { transform-origin: center; }
+.loader-ring circle.track {
+  stroke: rgba(183,216,251,0.15);
+  stroke-width: 3;
+  fill: none;
+}
+.loader-ring circle.fill-arc {
+  stroke: #6699FB;
+  stroke-width: 3;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 160;
+  stroke-dashoffset: 160;
+  animation: arcDraw 1.4s cubic-bezier(0.4,0,0.2,1) forwards,
+             arcPulse 2s 1.4s ease-in-out infinite;
+  transform-origin: center;
+  transform: rotate(-90deg);
+}
+@keyframes arcDraw {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes arcPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+.loader-label {
+  margin-top: 20px;
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--c-blue-light, #B7D8FB);
+  animation: fadeInUp 0.6s 0.4s both;
+}
+.loader-sub {
+  margin-top: 8px;
+  font-size: 12px;
+  color: rgba(183,216,251,0.5);
+  animation: fadeInUp 0.6s 0.7s both;
+}
+@keyframes fadeInUp {
+  from { opacity:0; transform: translateY(8px); }
+  to   { opacity:1; transform: translateY(0); }
+}
+
+/* ── NAV ── */
+nav {
+  position: sticky; top: 0; z-index: 100;
+  height: 64px;
+  background: var(--c-canvas);
+  border-bottom: 1px solid var(--c-hairline);
+  backdrop-filter: blur(20px) saturate(180%);
+  display: flex; align-items: center;
+  padding: 0 24px;
+  transition: background 0.3s;
+}
+.nav-inner {
+  max-width: 1100px; width: 100%;
+  margin: 0 auto;
+  display: flex; align-items: center; gap: 16px;
+}
+.nav-logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; color: var(--c-ink);
+}
+.nav-logo-icon {
+  width: 32px; height: 32px;
+  background: linear-gradient(135deg, #6699FB, #89B4FF);
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.nav-logo-icon svg { color: #fff; }
+.nav-brand { font-size: 16px; font-weight: 700; color: var(--c-ink); }
+.nav-brand span { color: var(--c-primary); }
+.nav-spacer { flex: 1; }
+.nav-links { display: flex; gap: 24px; }
+.nav-links a {
+  font-size: 14px; font-weight: 500; letter-spacing: 0.2px;
+  color: var(--c-muted); text-decoration: none;
+  transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--c-primary); }
+.theme-toggle {
+  width: 44px; height: 44px; border-radius: var(--r-full);
+  border: 1px solid var(--c-hairline);
+  background: transparent; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--c-ink); transition: all 0.2s;
+}
+.theme-toggle:hover { background: var(--c-primary-10); border-color: var(--c-primary); color: var(--c-primary); }
+
+/* ── HERO ── */
+.hero {
+  background: var(--c-surface-dark);
+  padding: 80px 24px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 70% 60% at 50% 0%, rgba(102,153,251,0.18) 0%, transparent 70%),
+              radial-gradient(ellipse 50% 40% at 80% 100%, rgba(137,180,255,0.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-size: 13px; font-weight: 700; letter-spacing: 2px;
+  text-transform: uppercase; color: var(--c-primary);
+  margin-bottom: 20px;
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.hero-eyebrow-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--c-primary);
+  animation: blink 2s ease-in-out infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+.hero h1 {
+  font-size: 56px; font-weight: 700;
+  line-height: 1.07; letter-spacing: -0.28px;
+  color: var(--c-on-dark);
+  margin-bottom: 20px;
+  position: relative;
+}
+.hero h1 em {
+  font-style: normal;
+  background: linear-gradient(90deg, #B7D8FB, #89B4FF, #6699FB);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.hero-lead {
+  font-size: 22px; font-weight: 400; line-height: 1.4;
+  color: var(--c-on-dark-soft);
+  max-width: 560px; margin: 0 auto 36px;
+}
+.hero-cta {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: 15px; font-weight: 600;
+  padding: 14px 28px; border-radius: var(--r-pill);
+  border: none; cursor: pointer;
+  text-decoration: none;
+  transition: all 0.2s;
+  box-shadow: var(--shadow-glow);
+}
+.hero-cta:hover { background: var(--c-primary-active); transform: scale(1.02); }
+.hero-cta:active { transform: scale(0.95); background: var(--c-primary-active); }
+.hero-trust {
+  margin-top: 32px;
+  display: flex; gap: 24px; justify-content: center; flex-wrap: wrap;
+}
+.trust-pill {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(183,216,251,0.08);
+  border: 1px solid rgba(183,216,251,0.15);
+  border-radius: var(--r-pill);
+  padding: 6px 14px;
+  font-size: 13px; color: var(--c-on-dark-soft);
+}
+.trust-pill svg { color: var(--c-primary); flex-shrink: 0; }
+
+/* ── SECTION SHARED ── */
+.section { padding: 80px 24px; }
+.section-inner { max-width: 1100px; margin: 0 auto; }
+.section-eyebrow {
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--c-primary);
+  margin-bottom: 12px;
+}
+.section-title {
+  font-size: 40px; font-weight: 700; line-height: 1.1;
+  letter-spacing: -0.2px; color: var(--c-ink);
+  margin-bottom: 16px;
+}
+.section-lead {
+  font-size: 18px; font-weight: 300; color: var(--c-muted);
+  max-width: 560px; line-height: 1.55;
+}
+
+/* ── QUIZ SECTION ── */
+.quiz-section {
+  background: var(--c-canvas-parchment);
+  padding: 80px 24px;
+}
+.quiz-card {
+  background: var(--c-canvas);
+  border: 1px solid var(--c-hairline);
+  border-radius: var(--r-lg);
+  padding: 48px;
+  max-width: 720px; margin: 0 auto;
+}
+.quiz-step { display: none; }
+.quiz-step.active { display: block; }
+
+.quiz-step-label {
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--c-primary);
+  margin-bottom: 8px;
+}
+.quiz-question {
+  font-size: 24px; font-weight: 700; color: var(--c-ink);
+  margin-bottom: 8px; line-height: 1.25;
+}
+.quiz-hint {
+  font-size: 15px; font-weight: 300; color: var(--c-muted);
+  margin-bottom: 28px;
+}
+
+.option-grid { display: grid; gap: 12px; }
+.option-grid.cols2 { grid-template-columns: 1fr 1fr; }
+.option-grid.cols3 { grid-template-columns: 1fr 1fr 1fr; }
+
+.option-btn {
+  padding: 16px 20px;
+  border: 1.5px solid var(--c-hairline);
+  border-radius: var(--r-lg);
+  background: var(--c-canvas);
+  color: var(--c-body);
+  font-size: 15px; font-weight: 400;
+  cursor: pointer; text-align: left;
+  transition: all 0.18s;
+  display: flex; align-items: flex-start; gap: 12px;
+}
+.option-btn:hover {
+  border-color: var(--c-primary);
+  background: var(--c-primary-10);
+  color: var(--c-ink);
+}
+.option-btn.selected {
+  border-color: var(--c-primary);
+  background: var(--c-primary-16);
+  color: var(--c-ink);
+  font-weight: 600;
+}
+.option-btn svg { flex-shrink: 0; margin-top: 2px; color: var(--c-primary); }
+.option-label { font-size: 15px; font-weight: 600; display: block; margin-bottom: 2px; }
+.option-desc { font-size: 13px; color: var(--c-muted); }
+
+.concern-chips { display: flex; flex-wrap: wrap; gap: 10px; }
+.concern-chip {
+  padding: 10px 18px;
+  border: 1.5px solid var(--c-hairline);
+  border-radius: var(--r-pill);
+  background: var(--c-canvas);
+  color: var(--c-body);
+  font-size: 14px; font-weight: 600;
+  cursor: pointer; transition: all 0.18s;
+}
+.concern-chip:hover { border-color: var(--c-primary); background: var(--c-primary-10); }
+.concern-chip.selected { border-color: var(--c-primary); background: var(--c-primary-16); color: var(--c-ink); }
+
+.quiz-nav {
+  display: flex; justify-content: space-between; align-items: center;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid var(--c-hairline);
+}
+.btn-back {
+  padding: 12px 22px; border-radius: var(--r-pill);
+  border: 1px solid var(--c-hairline-strong);
+  background: transparent; color: var(--c-body);
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  transition: all 0.18s;
+}
+.btn-back:hover { background: var(--c-surface-soft); }
+.btn-next, .btn-generate {
+  padding: 14px 28px; border-radius: var(--r-pill);
+  border: none; background: var(--c-primary); color: #fff;
+  font-size: 15px; font-weight: 600; cursor: pointer;
+  display: flex; align-items: center; gap: 8px;
+  transition: all 0.2s;
+}
+.btn-next:hover, .btn-generate:hover { background: var(--c-primary-active); transform: scale(1.02); }
+.btn-next:active, .btn-generate:active { transform: scale(0.95); }
+.btn-next:disabled, .btn-generate:disabled {
+  opacity: 0.4; cursor: not-allowed; transform: none;
+}
+
+.progress-bar {
+  height: 3px; background: var(--c-hairline);
+  border-radius: 2px; margin-bottom: 32px; overflow: hidden;
+}
+.progress-fill {
+  height: 100%; background: var(--c-primary);
+  border-radius: 2px; transition: width 0.4s ease;
+}
+
+/* ── RESULT SECTION ── */
+#result-section {
+  display: none;
+  background: var(--c-canvas);
+  padding: 80px 24px;
+}
+#result-section.visible { display: block; }
+
+.result-header {
+  text-align: center; margin-bottom: 48px;
+}
+.result-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: var(--c-primary-10);
+  border: 1px solid var(--c-primary-16);
+  border-radius: var(--r-pill);
+  padding: 8px 18px;
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 1px; text-transform: uppercase;
+  color: var(--c-primary); margin-bottom: 16px;
+}
+.result-name {
+  font-size: 40px; font-weight: 700; color: var(--c-ink);
+  letter-spacing: -0.2px; margin-bottom: 8px;
+}
+.result-summary {
+  font-size: 18px; font-weight: 300; color: var(--c-muted);
+  max-width: 600px; margin: 0 auto;
+}
+
+.routine-tabs {
+  display: flex; gap: 4px;
+  background: var(--c-surface-soft);
+  border-radius: var(--r-pill);
+  padding: 4px;
+  max-width: 300px; margin: 0 auto 40px;
+}
+.routine-tab {
+  flex: 1; padding: 10px 16px; border-radius: var(--r-pill);
+  border: none; background: transparent;
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  color: var(--c-muted); transition: all 0.2s;
+  display: flex; align-items: center; justify-content: center; gap: 6px;
+}
+.routine-tab.active {
+  background: var(--c-canvas); color: var(--c-ink);
+  box-shadow: 0 1px 4px rgba(0,0,0,0.1);
+}
+
+.routine-content { display: none; }
+.routine-content.active { display: block; }
+
+.routine-steps { display: flex; flex-direction: column; gap: 0; }
+.routine-step {
+  display: flex; gap: 20px; padding: 24px 0;
+  border-bottom: 1px solid var(--c-hairline);
+  position: relative;
+}
+.routine-step:last-child { border-bottom: none; }
+
+.step-number {
+  width: 40px; height: 40px; border-radius: var(--r-full);
+  background: var(--c-primary-10); border: 1.5px solid var(--c-primary-16);
+  color: var(--c-primary); font-size: 15px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.step-body { flex: 1; }
+.step-label {
+  font-size: 13px; font-weight: 700; letter-spacing: 1px;
+  text-transform: uppercase; color: var(--c-primary); margin-bottom: 4px;
+}
+.step-name {
+  font-size: 18px; font-weight: 700; color: var(--c-ink);
+  margin-bottom: 6px;
+}
+.step-desc { font-size: 15px; color: var(--c-body); line-height: 1.55; margin-bottom: 12px; }
+.step-ingredients {
+  display: flex; flex-wrap: wrap; gap: 6px;
+}
+.ingredient-tag {
+  padding: 4px 12px; border-radius: var(--r-pill);
+  background: var(--c-blue-lightest); border: 1px solid var(--c-blue-light);
+  font-size: 12px; font-weight: 600; color: var(--c-primary);
+}
+
+/* AI Chat Box */
+.ai-chat-box {
+  background: var(--c-canvas-parchment);
+  border: 1px solid var(--c-hairline);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  margin-top: 48px;
+}
+.ai-chat-header {
+  background: var(--c-surface-dark);
+  padding: 16px 24px;
+  display: flex; align-items: center; gap: 12px;
+}
+.ai-avatar {
+  width: 36px; height: 36px; border-radius: var(--r-full);
+  background: linear-gradient(135deg, #6699FB, #89B4FF);
+  display: flex; align-items: center; justify-content: center;
+  flex-shrink: 0;
+}
+.ai-chat-name { font-size: 14px; font-weight: 700; color: #fff; }
+.ai-chat-status { font-size: 12px; color: rgba(183,216,251,0.6); }
+.ai-chat-body {
+  padding: 24px;
+  max-height: 400px; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 16px;
+}
+.chat-msg {
+  display: flex; gap: 12px; animation: msgIn 0.3s ease;
+}
+@keyframes msgIn { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform:none; } }
+.chat-msg.user { flex-direction: row-reverse; }
+.chat-bubble {
+  max-width: 80%; padding: 12px 16px; border-radius: var(--r-lg);
+  font-size: 15px; line-height: 1.55;
+}
+.chat-msg.ai .chat-bubble {
+  background: var(--c-canvas); border: 1px solid var(--c-hairline);
+  color: var(--c-body); border-bottom-left-radius: 4px;
+}
+.chat-msg.user .chat-bubble {
+  background: var(--c-primary); color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.chat-bubble.typing::after {
+  content: ''; display: inline-block; width: 3px; height: 14px;
+  background: var(--c-primary); margin-left: 4px; vertical-align: middle;
+  animation: cursor 0.8s steps(1) infinite;
+}
+@keyframes cursor { 0%,100%{opacity:1} 50%{opacity:0} }
+
+.ai-chat-input {
+  padding: 16px 24px;
+  border-top: 1px solid var(--c-hairline);
+  display: flex; gap: 12px;
+}
+.ai-chat-input input {
+  flex: 1; padding: 12px 16px; border-radius: var(--r-pill);
+  border: 1.5px solid var(--c-hairline);
+  background: var(--c-canvas); color: var(--c-ink);
+  font-size: 15px; font-family: inherit;
+  transition: border-color 0.2s;
+  outline: none;
+}
+.ai-chat-input input:focus { border-color: var(--c-primary); }
+.ai-chat-input button {
+  padding: 12px 20px; border-radius: var(--r-pill);
+  border: none; background: var(--c-primary); color: #fff;
+  font-size: 14px; font-weight: 600; cursor: pointer;
+  display: flex; align-items: center; gap: 6px;
+  transition: all 0.2s;
+}
+.ai-chat-input button:hover { background: var(--c-primary-active); }
+.ai-chat-input button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+/* ── INGREDIENTS DATABASE ── */
+.ingredients-section {
+  background: var(--c-canvas-parchment);
+  padding: 80px 24px;
+}
+.ingredients-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 20px; margin-top: 40px;
+}
+.ingredient-card {
+  background: var(--c-canvas);
+  border: 1px solid var(--c-hairline);
+  border-radius: var(--r-lg);
+  padding: 24px;
+  transition: all 0.2s;
+}
+.ingredient-card:hover { border-color: var(--c-primary); transform: translateY(-2px); }
+.ingredient-card-top {
+  display: flex; align-items: flex-start; justify-content: space-between;
+  margin-bottom: 12px;
+}
+.ingredient-icon {
+  width: 44px; height: 44px; border-radius: var(--r-md);
+  background: var(--c-primary-10);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--c-primary);
+}
+.ingredient-badges { display: flex; gap: 6px; flex-wrap: wrap; }
+.badge {
+  padding: 3px 10px; border-radius: var(--r-pill);
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+}
+.badge-green { background: rgba(34,197,94,0.1); color: #22c55e; }
+.badge-blue  { background: var(--c-primary-10); color: var(--c-primary); }
+.badge-warn  { background: rgba(245,158,11,0.1); color: #f59e0b; }
+.ingredient-name {
+  font-size: 18px; font-weight: 700; color: var(--c-ink); margin-bottom: 6px;
+}
+.ingredient-also {
+  font-size: 12px; color: var(--c-muted); margin-bottom: 10px; font-style: italic;
+}
+.ingredient-desc {
+  font-size: 14px; color: var(--c-body); line-height: 1.55; margin-bottom: 14px;
+}
+.ingredient-best-for {
+  font-size: 12px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase;
+  color: var(--c-muted); margin-bottom: 8px;
+}
+.skin-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.skin-tag {
+  padding: 3px 10px; border-radius: var(--r-pill);
+  background: var(--c-blue-lightest); border: 1px solid var(--c-blue-light);
+  font-size: 12px; font-weight: 600; color: var(--c-primary);
+}
+
+.search-bar {
+  display: flex; gap: 12px; margin-top: 28px; margin-bottom: 0;
+}
+.search-bar input {
+  flex: 1; padding: 13px 18px; border-radius: var(--r-pill);
+  border: 1.5px solid var(--c-hairline);
+  background: var(--c-canvas); color: var(--c-ink);
+  font-size: 15px; font-family: inherit;
+  transition: border-color 0.2s; outline: none;
+}
+.search-bar input:focus { border-color: var(--c-primary); }
+.search-bar input::placeholder { color: var(--c-muted-soft); }
+
+/* ── FAQ ── */
+.faq-section { background: var(--c-canvas); padding: 80px 24px; }
+.faq-list { max-width: 720px; margin: 40px auto 0; display: flex; flex-direction: column; gap: 0; }
+.faq-item {
+  border-bottom: 1px solid var(--c-hairline); overflow: hidden;
+}
+.faq-q {
+  width: 100%; padding: 20px 0; border: none; background: transparent;
+  display: flex; justify-content: space-between; align-items: center;
+  font-size: 17px; font-weight: 600; color: var(--c-ink); cursor: pointer; text-align: left;
+  font-family: inherit; gap: 16px;
+}
+.faq-q svg { flex-shrink: 0; color: var(--c-primary); transition: transform 0.2s; }
+.faq-item.open .faq-q svg { transform: rotate(45deg); }
+.faq-a {
+  font-size: 15px; color: var(--c-body); line-height: 1.65;
+  max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.2s;
+}
+.faq-item.open .faq-a { max-height: 400px; padding-bottom: 20px; }
+
+/* ── CTA BAND ── */
+.cta-band {
+  background: var(--c-surface-dark);
+  padding: 80px 24px; text-align: center;
+}
+.cta-band h2 {
+  font-size: 40px; font-weight: 700; color: var(--c-on-dark);
+  letter-spacing: -0.2px; margin-bottom: 16px;
+}
+.cta-band p { font-size: 18px; color: var(--c-on-dark-soft); max-width: 460px; margin: 0 auto 32px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--c-canvas-parchment);
+  padding: 48px 24px 24px;
+  border-top: 1px solid var(--c-hairline);
+}
+.footer-inner {
+  max-width: 1100px; margin: 0 auto;
+  display: grid; grid-template-columns: repeat(3,1fr); gap: 32px;
+  margin-bottom: 32px;
+}
+.footer-col h4 {
+  font-size: 13px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+  color: var(--c-ink); margin-bottom: 14px;
+}
+.footer-col a {
+  display: block; font-size: 14px; color: var(--c-muted); text-decoration: none;
+  margin-bottom: 8px; transition: color 0.2s;
+}
+.footer-col a:hover { color: var(--c-primary); }
+.footer-copy {
+  max-width: 1100px; margin: 0 auto;
+  padding-top: 24px; border-top: 1px solid var(--c-hairline);
+  font-size: 12px; color: var(--c-muted-soft); text-align: center;
+}
+
+/* ── GENERATING STATE ── */
+.generating-overlay {
+  display: none; flex-direction: column;
+  align-items: center; justify-content: center;
+  padding: 64px 24px; text-align: center;
+}
+.generating-overlay.visible { display: flex; }
+.gen-ring {
+  width: 56px; height: 56px; margin-bottom: 20px;
+  border: 3px solid var(--c-primary-16);
+  border-top-color: var(--c-primary);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.gen-label { font-size: 17px; font-weight: 600; color: var(--c-ink); margin-bottom: 8px; }
+.gen-sub { font-size: 14px; color: var(--c-muted); }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 768px) {
+  .hero h1 { font-size: 34px; }
+  .hero-lead { font-size: 18px; }
+  .section-title { font-size: 32px; }
+  .quiz-card { padding: 28px 20px; }
+  .option-grid.cols2, .option-grid.cols3 { grid-template-columns: 1fr; }
+  .footer-inner { grid-template-columns: 1fr; gap: 24px; }
+  .nav-links { display: none; }
+  .result-name { font-size: 28px; }
+}
+@media (max-width: 419px) {
+  .hero h1 { font-size: 28px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.001ms !important; transition-duration: 0.001ms !important; }
+}
+</style>
+</head>
+<body>
+
+<!-- LOADING SCREEN -->
+<div id="loading-screen" aria-hidden="true">
+  <div class="loader-ring">
+    <svg viewBox="0 0 64 64" width="64" height="64">
+      <circle class="track" cx="32" cy="32" r="26"/>
+      <circle class="fill-arc" cx="32" cy="32" r="26"/>
+    </svg>
+  </div>
+  <div class="loader-label">SkinCare Ritual</div>
+  <div class="loader-sub">by wondermayank</div>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="https://commercesehoga.github.io/">
+      <div class="nav-logo-icon">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+      </div>
+      <span class="nav-brand">Skincare<span> Wondermayank</span></span>
+    </a>
+    <div class="nav-spacer"></div>
+    <nav class="nav-links">
+      <a href="#quiz">Get My Routine</a>
+      <a href="#ingredients">Ingredients</a>
+      <a href="#faq">FAQ</a>
+    </nav>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
+      <svg id="icon-sun" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      <svg id="icon-moon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-eyebrow">
+    <div class="hero-eyebrow-dot"></div>
+    AI-Powered Skincare
+  </div>
+  <h1>Your skin deserves<br><em>a real ritual</em></h1>
+  <p class="hero-lead">Answer 4 quick questions. Get a personalised morning and night routine — with honest ingredient science, no fads.</p>
+  <a href="#quiz" class="hero-cta">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    Build My Ritual
+  </a>
+  <div class="hero-trust">
+    <div class="trust-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      No account needed
+    </div>
+    <div class="trust-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Science-backed
+    </div>
+    <div class="trust-pill">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+      Honest guidance
+    </div>
+  </div>
+</section>
+
+<!-- QUIZ SECTION -->
+<section class="quiz-section" id="quiz">
+  <div class="quiz-card">
+    <div class="progress-bar">
+      <div class="progress-fill" id="progress-fill" style="width:25%"></div>
+    </div>
+
+    <!-- Step 1: Skin Type -->
+    <div class="quiz-step active" id="step-1">
+      <div class="quiz-step-label">Step 1 of 4</div>
+      <div class="quiz-question">What is your skin type?</div>
+      <div class="quiz-hint">Pick the one that feels most like you — especially in the afternoon.</div>
+      <div class="option-grid cols2" id="skin-type-grid">
+        <button class="option-btn" data-value="oily" onclick="selectOption(this,'skin-type-grid')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2a10 10 0 0 1 10 10c0 5.52-4.48 10-10 10S2 17.52 2 12a10 10 0 0 1 10-10z"/><path d="M12 8v4l3 3"/></svg>
+          <div>
+            <span class="option-label">Oily</span>
+            <span class="option-desc">Shiny T-zone or all over, visible pores, prone to breakouts</span>
+          </div>
+        </button>
+        <button class="option-btn" data-value="dry" onclick="selectOption(this,'skin-type-grid')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M2 12h20"/><circle cx="12" cy="12" r="4"/></svg>
+          <div>
+            <span class="option-label">Dry</span>
+            <span class="option-desc">Tight, flaky, or rough patches — especially after cleansing</span>
+          </div>
+        </button>
+        <button class="option-btn" data-value="combination" onclick="selectOption(this,'skin-type-grid')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="2" x2="12" y2="22"/></svg>
+          <div>
+            <span class="option-label">Combination</span>
+            <span class="option-desc">Oily T-zone, normal or dry cheeks — a bit of both</span>
+          </div>
+        </button>
+        <button class="option-btn" data-value="sensitive" onclick="selectOption(this,'skin-type-grid')">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+          <div>
+            <span class="option-label">Sensitive</span>
+            <span class="option-desc">Reacts easily — redness, stinging, or itchiness from products</span>
+          </div>
+        </button>
+        <button class="option-btn" data-value="normal" onclick="selectOption(this,'skin-type-grid')" style="grid-column: span 2;">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
+          <div>
+            <span class="option-label">Normal</span>
+            <span class="option-desc">Balanced — not too oily, not too dry, minimal breakouts</span>
+          </div>
+        </button>
+      </div>
+      <div class="quiz-nav">
+        <div></div>
+        <button class="btn-next" id="next-1" disabled onclick="goStep(2)">
+          Continue
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 2: Concerns -->
+    <div class="quiz-step" id="step-2">
+      <div class="quiz-step-label">Step 2 of 4</div>
+      <div class="quiz-question">What are your main skin concerns?</div>
+      <div class="quiz-hint">Pick all that apply — your routine will target each one.</div>
+      <div class="concern-chips" id="concerns-grid">
+        <button class="concern-chip" data-value="acne" onclick="toggleConcern(this)">Acne &amp; Breakouts</button>
+        <button class="concern-chip" data-value="hyperpigmentation" onclick="toggleConcern(this)">Dark Spots</button>
+        <button class="concern-chip" data-value="dullness" onclick="toggleConcern(this)">Dullness</button>
+        <button class="concern-chip" data-value="fine-lines" onclick="toggleConcern(this)">Fine Lines</button>
+        <button class="concern-chip" data-value="large-pores" onclick="toggleConcern(this)">Large Pores</button>
+        <button class="concern-chip" data-value="redness" onclick="toggleConcern(this)">Redness</button>
+        <button class="concern-chip" data-value="dehydration" onclick="toggleConcern(this)">Dehydration</button>
+        <button class="concern-chip" data-value="dark-circles" onclick="toggleConcern(this)">Dark Circles</button>
+        <button class="concern-chip" data-value="uneven-texture" onclick="toggleConcern(this)">Uneven Texture</button>
+        <button class="concern-chip" data-value="barrier-damage" onclick="toggleConcern(this)">Barrier Damage</button>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn-back" onclick="goStep(1)">Back</button>
+        <button class="btn-next" id="next-2" disabled onclick="goStep(3)">
+          Continue
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 3: Lifestyle -->
+    <div class="quiz-step" id="step-3">
+      <div class="quiz-step-label">Step 3 of 4</div>
+      <div class="quiz-question">How would you describe your lifestyle?</div>
+      <div class="quiz-hint">This helps us choose the right actives and SPF level for you.</div>
+      <div class="option-grid cols3" id="lifestyle-grid">
+        <button class="option-btn" data-value="outdoorsy" onclick="selectOption(this,'lifestyle-grid')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+          <div>
+            <span class="option-label">Outdoorsy</span>
+            <span class="option-desc">Lots of sun & fresh air</span>
+          </div>
+        </button>
+        <button class="option-btn" data-value="mostly-indoors" onclick="selectOption(this,'lifestyle-grid')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/></svg>
+          <div>
+            <span class="option-label">Mostly Indoors</span>
+            <span class="option-desc">Desk life, AC all day</span>
+          </div>
+        </button>
+        <button class="option-btn" data-value="mixed" onclick="selectOption(this,'lifestyle-grid')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2v20M2 12h20"/></svg>
+          <div>
+            <span class="option-label">Mixed</span>
+            <span class="option-desc">A bit of both</span>
+          </div>
+        </button>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn-back" onclick="goStep(2)">Back</button>
+        <button class="btn-next" id="next-3" disabled onclick="goStep(4)">
+          Continue
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Step 4: Routine preference -->
+    <div class="quiz-step" id="step-4">
+      <div class="quiz-step-label">Step 4 of 4</div>
+      <div class="quiz-question">How much time do you have for skincare each day?</div>
+      <div class="quiz-hint">We will build a routine that fits your life — not the other way around.</div>
+      <div class="option-grid cols3" id="time-grid">
+        <button class="option-btn" data-value="minimal" onclick="selectOption(this,'time-grid')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          <div>
+            <span class="option-label">Under 5 min</span>
+            <span class="option-desc">Keep it quick — 3-step max</span>
+          </div>
+        </button>
+        <button class="option-btn" data-value="moderate" onclick="selectOption(this,'time-grid')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
+          <div>
+            <span class="option-label">5–10 min</span>
+            <span class="option-desc">A balanced ritual, morning + night</span>
+          </div>
+        </button>
+        <button class="option-btn" data-value="dedicated" onclick="selectOption(this,'time-grid')">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 10 15"/></svg>
+          <div>
+            <span class="option-label">10+ min</span>
+            <span class="option-desc">I want the full treatment</span>
+          </div>
+        </button>
+      </div>
+      <div class="quiz-nav">
+        <button class="btn-back" onclick="goStep(3)">Back</button>
+        <button class="btn-generate" id="btn-generate" disabled onclick="generateRoutine()">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          Build My Ritual
+        </button>
+      </div>
+    </div>
+
+    <!-- Generating state -->
+    <div class="generating-overlay" id="generating-overlay">
+      <div class="gen-ring"></div>
+      <div class="gen-label">Crafting your ritual...</div>
+      <div class="gen-sub">Analysing skin type, concerns, and the latest ingredient science</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESULT SECTION -->
+<section id="result-section">
+  <div class="section-inner">
+    <div class="result-header">
+      <div class="result-badge">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        Your Personalised Ritual
+      </div>
+      <div class="result-name" id="result-title">Your Skincare Ritual</div>
+      <div class="result-summary" id="result-summary">Loading your personalised routine...</div>
+    </div>
+
+    <div class="routine-tabs">
+      <button class="routine-tab active" onclick="switchTab('morning')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        Morning
+      </button>
+      <button class="routine-tab" onclick="switchTab('night')">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+        Night
+      </button>
+    </div>
+
+    <div id="tab-morning" class="routine-content active">
+      <div class="routine-steps" id="morning-steps"></div>
+    </div>
+    <div id="tab-night" class="routine-content">
+      <div class="routine-steps" id="night-steps"></div>
+    </div>
+
+    <!-- AI Chat -->
+    <div class="ai-chat-box">
+      <div class="ai-chat-header">
+        <div class="ai-avatar">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div>
+          <div class="ai-chat-name">Ritual AI</div>
+          <div class="ai-chat-status">Ask anything about your routine or ingredients</div>
+        </div>
+      </div>
+      <div class="ai-chat-body" id="chat-body">
+        <div class="chat-msg ai">
+          <div class="ai-avatar" style="width:32px;height:32px;flex-shrink:0">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+          </div>
+          <div class="chat-bubble">Hi! I'm your Ritual AI. Your routine is ready above. Ask me about any ingredient, product order, or skincare concern — I'll give you honest, science-backed answers.</div>
+        </div>
+      </div>
+      <div class="ai-chat-input">
+        <input type="text" id="chat-input" placeholder="Ask about niacinamide, retinol, SPF order..." onkeydown="if(event.key==='Enter')sendChat()">
+        <button onclick="sendChat()" id="chat-send-btn">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          Ask
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INGREDIENTS DATABASE -->
+<section class="ingredients-section" id="ingredients">
+  <div class="section-inner">
+    <div class="section-eyebrow">Ingredient Science</div>
+    <div class="section-title">Know what you're putting on your face</div>
+    <p class="section-lead">A curated database of the most-used skincare actives — what they do, who they're for, and when to use them.</p>
+    <div class="search-bar">
+      <input type="text" id="ingredient-search" placeholder="Search ingredients — niacinamide, retinol, ceramide..." oninput="filterIngredients()" aria-label="Search ingredients">
+    </div>
+    <div class="ingredients-grid" id="ingredients-grid"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="section-inner">
+    <div style="text-align:center">
+      <div class="section-eyebrow">Common Questions</div>
+      <div class="section-title">Skincare, demystified</div>
+    </div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Should I moisturise if my skin is oily?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">Yes — always. Skipping moisturiser when you have oily skin triggers your skin to produce even more oil to compensate. The key is choosing the right texture: opt for a lightweight, oil-free gel moisturiser with ingredients like niacinamide or hyaluronic acid rather than heavy creams. Proper hydration actually helps regulate sebum production over time.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Can I use retinol and niacinamide together?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">Yes — and they actually work well together. An older concern about niacinamide converting retinol into niacin (causing flushing) has been thoroughly debunked at concentrations found in skincare products. Niacinamide can actually help soothe the irritation that sometimes comes with starting retinol. Apply retinol first, wait for it to absorb, then apply niacinamide.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Do I really need SPF every single day?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">Yes — even indoors. UVA rays that cause premature ageing and hyperpigmentation penetrate glass windows. Consistent daily SPF is the single most impactful thing you can do for your skin long-term, more effective than any serum. Use at least SPF 30, broad-spectrum, as the final step of your morning routine. This is non-negotiable regardless of skin type.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          What order should I apply my skincare?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">The golden rule: thinnest to thickest texture. Morning: cleanser → toner/essence → serum → eye cream → moisturiser → SPF. Night: oil cleanser → water cleanser → exfoliant (2-3x weekly) → treatment serum → moisturiser. Wait 30-60 seconds between steps for better absorption. Never apply SPF before moisturiser — it goes last in the morning, always.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          How long until I see results from a new routine?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">Patience is the most important skincare ingredient. Hydration improvements are visible in days. Barrier repair takes 2-4 weeks. Acne reduction with salicylic acid or niacinamide takes 4-8 weeks. Hyperpigmentation fading and retinol anti-aging benefits take 12+ weeks. Introduce one new product at a time and keep a routine consistent for at least 28 days (one full skin cell turnover cycle) before judging results.</div>
+      </div>
+      <div class="faq-item">
+        <button class="faq-q" onclick="toggleFaq(this)">
+          Is the 10-step Korean skincare routine necessary?
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </button>
+        <div class="faq-a">No — more steps do not mean better results. The K-beauty philosophy is about skin health and layering light hydration rather than using every step daily. A well-chosen 3-5 step routine beats an inconsistent 10-step one every time. The most important steps are: cleanser, moisturiser, and SPF (morning). Everything else is optional and depends on your specific concerns. Consistency beats complexity.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BAND -->
+<section class="cta-band">
+  <h2>Ready to start your ritual?</h2>
+  <p>A personalised routine takes 4 minutes to build. Your skin will thank you in 4 weeks.</p>
+  <a href="#quiz" class="hero-cta">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+    Start the Quiz
+  </a>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-col">
+      <h4>Thunder</h4>
+      <a href="https://commercesehoga.github.io/">ThunderStudy</a>
+      <a href="https://commercesehoga.github.io/dashboard">CBT Mock Platform</a>
+      <a href="https://thunderstudy.github.io">Free Study Material</a>
+      <a href="https://commercesehoga.github.io/help">Help / Donate</a>
+    </div>
+    <div class="footer-col">
+      <h4>wondermayank</h4>
+      <a href="https://wondermayank.indevs.in">Portfolio</a>
+      <a href="https://wondermayank.github.io/">wondermayank.github.io</a>
+      <a href="https://wondermayank.github.io/mail">Mail</a>
+      <a href="https://wondermayank.github.io/contact">Contact</a>
+    </div>
+    <div class="footer-col">
+      <h4>Legal</h4>
+      <a href="https://wondermayank.github.io/terms">Terms</a>
+      <a href="https://wondermayank.github.io/privacy">Privacy</a>
+      <a href="https://wondermayank.github.io/disclaimer">Disclaimer</a>
+    </div>
+  </div>
+  <div class="footer-copy">
+    &copy; 2025 Thunder &middot; by wondermayank
+  </div>
+</footer>
+
+<script>
+// ── CONFIG: Read GROQ credentials from meta tags injected by GitHub Actions / Cloudflare Worker
+// In production: these are injected at build time from Repository Secrets
+// GROQ_API_KEY → set as GitHub Actions secret, inject via sed or environment substitution
+// GROQ_MODEL   → e.g. "llama-3.3-70b-versatile" or "mixtral-8x7b-32768"
+
+const GROQ_ENDPOINT = 'https://api.groq.com/openai/v1/chat/completions';
+
+// Reads key from meta tag (injected by CI) OR falls back gracefully
+function getGroqKey() {
+  const meta = document.querySelector('meta[name="groq-key"]');
+  return (meta && meta.content && meta.content !== '__GROQ_API_KEY__') ? meta.content : null;
+}
+function getGroqModel() {
+  const meta = document.querySelector('meta[name="groq-model"]');
+  return (meta && meta.content && meta.content !== '__GROQ_MODEL__') ? meta.content : 'llama-3.3-70b-versatile';
+}
+
+// ── STATE ──
+const state = {
+  skinType: null,
+  concerns: [],
+  lifestyle: null,
+  time: null,
+  routineData: null
+};
+
+// ── LOADING SCREEN ──
+window.addEventListener('DOMContentLoaded', () => {
+  const ls = document.getElementById('loading-screen');
+  setTimeout(() => { ls.classList.add('fade-out'); setTimeout(() => ls.remove(), 500); }, 1200);
+  renderIngredients();
+});
+
+// ── THEME TOGGLE ──
+const saved = localStorage.getItem('theme') || 'light';
+document.documentElement.setAttribute('data-theme', saved);
+updateThemeIcon(saved);
+
+document.getElementById('theme-toggle').addEventListener('click', () => {
+  const cur = document.documentElement.getAttribute('data-theme');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('theme', next);
+  updateThemeIcon(next);
+});
+function updateThemeIcon(theme) {
+  document.getElementById('icon-sun').style.display = theme === 'dark' ? 'none' : '';
+  document.getElementById('icon-moon').style.display = theme === 'dark' ? '' : 'none';
+}
+
+// ── QUIZ LOGIC ──
+function selectOption(btn, gridId) {
+  document.querySelectorAll(`#${gridId} .option-btn`).forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  const step = btn.closest('.quiz-step');
+  const nextBtn = step.querySelector('[id^="next-"], .btn-generate');
+  if (nextBtn) nextBtn.disabled = false;
+}
+
+function toggleConcern(chip) {
+  chip.classList.toggle('selected');
+  state.concerns = [...document.querySelectorAll('#concerns-grid .concern-chip.selected')].map(c => c.dataset.value);
+  document.getElementById('next-2').disabled = state.concerns.length === 0;
+}
+
+function goStep(n) {
+  // Collect current state
+  const s1 = document.querySelector('#skin-type-grid .option-btn.selected');
+  if (s1) state.skinType = s1.dataset.value;
+  const s3 = document.querySelector('#lifestyle-grid .option-btn.selected');
+  if (s3) state.lifestyle = s3.dataset.value;
+  const s4 = document.querySelector('#time-grid .option-btn.selected');
+  if (s4) state.time = s4.dataset.value;
+
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+  const target = document.getElementById(`step-${n}`);
+  if (target) target.classList.add('active');
+  const fills = {1:25, 2:50, 3:75, 4:100};
+  document.getElementById('progress-fill').style.width = (fills[n] || 25) + '%';
+  document.querySelector('.quiz-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ── GENERATE ROUTINE VIA GROQ ──
+async function generateRoutine() {
+  const s4 = document.querySelector('#time-grid .option-btn.selected');
+  if (s4) state.time = s4.dataset.value;
+
+  // Hide all steps, show generating
+  document.querySelectorAll('.quiz-step').forEach(s => s.classList.remove('active'));
+  document.getElementById('progress-fill').style.width = '100%';
+  const overlay = document.getElementById('generating-overlay');
+  overlay.classList.add('visible');
+
+  const prompt = buildPrompt();
+
+  let routineJSON = null;
+
+  const apiKey = getGroqKey();
+  if (apiKey) {
+    try {
+      const res = await fetch(GROQ_ENDPOINT, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${apiKey}`
+        },
+        body: JSON.stringify({
+          model: getGroqModel(),
+          messages: [
+            { role: 'system', content: 'You are a dermatology-informed skincare advisor. You give honest, science-backed routines. Respond ONLY with valid JSON, no markdown, no explanation.' },
+            { role: 'user', content: prompt }
+          ],
+          temperature: 0.7,
+          max_tokens: 1800
+        })
+      });
+      const data = await res.json();
+      const text = data.choices?.[0]?.message?.content || '';
+      const clean = text.replace(/```json|```/g, '').trim();
+      routineJSON = JSON.parse(clean);
+    } catch(e) {
+      console.warn('Groq API error, using local fallback:', e);
+    }
+  }
+
+  // Local fallback
+  if (!routineJSON) {
+    routineJSON = buildLocalRoutine(state.skinType, state.concerns, state.lifestyle, state.time);
+  }
+
+  state.routineData = routineJSON;
+  overlay.classList.remove('visible');
+  renderResult(routineJSON);
+}
+
+function buildPrompt() {
+  return `Build a personalised skincare routine as JSON.
+
+User profile:
+- Skin type: ${state.skinType}
+- Concerns: ${state.concerns.join(', ') || 'none specific'}
+- Lifestyle: ${state.lifestyle}
+- Time commitment: ${state.time}
+
+Return ONLY this JSON structure:
+{
+  "title": "2-4 word ritual name e.g. Clear + Calm Ritual",
+  "summary": "2-sentence honest summary of the skin profile and approach",
+  "morning": [
+    {
+      "step": 1,
+      "label": "step category e.g. Cleanse",
+      "name": "specific product type e.g. Gentle Foaming Cleanser",
+      "description": "2 sentences: what it does and why for this skin type",
+      "ingredients": ["key ingredient 1", "key ingredient 2", "key ingredient 3"]
+    }
+  ],
+  "night": [ same structure as morning ]
+}
+
+Rules:
+- Morning: 3 steps if minimal time, 5 steps if moderate, 7 steps if dedicated
+- Night: always add 1-2 more steps than morning (repair focus)
+- Always end morning with SPF step
+- Night routine for sensitive skin: avoid strong actives; for oily: include BHA
+- Ingredients must be real actives, not brand names
+- Be honest: if an ingredient has limited evidence, say so in description
+- No filler words`;
+}
+
+// ── LOCAL FALLBACK DATABASE ──
+function buildLocalRoutine(skinType, concerns, lifestyle, time) {
+  const isSensitive = skinType === 'sensitive';
+  const isOily = skinType === 'oily';
+  const isDry = skinType === 'dry';
+  const isCombination = skinType === 'combination';
+  const isMinimal = time === 'minimal';
+  const isDedicated = time === 'dedicated';
+  const hasAcne = concerns.includes('acne');
+  const hasFineLines = concerns.includes('fine-lines');
+  const hasDullness = concerns.includes('dullness');
+  const hasPigmentation = concerns.includes('hyperpigmentation');
+  const isOutdoor = lifestyle === 'outdoorsy';
+
+  const names = {
+    oily: 'Clear + Balanced Ritual',
+    dry: 'Rich Hydration Ritual',
+    combination: 'Balance & Glow Ritual',
+    sensitive: 'Calm & Repair Ritual',
+    normal: 'Glow Maintenance Ritual'
+  };
+
+  const morningBase = [
+    {
+      step: 1, label: 'Cleanse',
+      name: isOily ? 'Gentle Foaming Gel Cleanser' : isSensitive ? 'Milky Low-pH Cleanser' : 'Cream or Gel Cleanser',
+      description: isOily
+        ? 'A foaming cleanser removes overnight sebum without stripping the acid mantle. Look for one with pH 4.5–5.5 to preserve barrier function.'
+        : isSensitive
+        ? 'A fragrance-free milky cleanser cleanses without activating irritant pathways. Gentle enough to use twice daily without over-cleansing.'
+        : 'Removes overnight buildup while preserving the lipid layer. Apply to dry skin and emulsify with a little water before rinsing.',
+      ingredients: isOily ? ['Zinc PCA', 'Salicylic Acid 0.5%', 'Tea Tree Extract'] : isSensitive ? ['Glycerin', 'Panthenol', 'Ceramides'] : ['Glycerin', 'Amino Acids', 'Allantoin']
+    },
+    {
+      step: 2, label: 'Tone / Prep',
+      name: isOily ? 'Niacinamide Balancing Toner' : isDry ? 'Hyaluronic Acid Essence' : 'Hydrating pH-Balancing Toner',
+      description: isOily
+        ? 'Niacinamide at 5% visibly minimises pore size, regulates sebum, and reduces post-acne marks — a workhorse for oily skin. Apply with clean hands, not cotton.'
+        : isDry
+        ? 'A layered essence loaded with hyaluronic acid of multiple molecular weights — high MW for surface film, low MW for deeper hydration. Pat, do not rub.'
+        : 'Restores the skin\'s pH after cleansing and provides a hydration base so serums absorb more evenly.',
+      ingredients: isOily ? ['Niacinamide 5%', 'Zinc PCA', 'Panthenol'] : isDry ? ['Hyaluronic Acid', 'Beta-Glucan', 'Glycerin'] : ['Glycerin', 'Aloe Vera', 'Centella Asiatica']
+    }
+  ];
+
+  const serumStep = {
+    step: 3, label: 'Treat',
+    name: hasPigmentation || hasDullness ? 'Vitamin C Brightening Serum (L-Ascorbic Acid 10-15%)' : hasAcne ? 'Niacinamide + Zinc Serum' : hasFineLines ? 'Peptide Complex Serum' : 'Antioxidant Serum',
+    description: hasPigmentation
+      ? 'L-Ascorbic Acid is the gold standard for brightening — it inhibits tyrosinase, reducing melanin production. Must be stored in a dark, cool place and applied to dry skin quickly after the toner step.'
+      : hasAcne
+      ? 'Niacinamide works on acne through multiple pathways: reduces inflammation, minimises pore appearance, and regulates sebum production. Evidence for concentrations above 10% is not clearly better than 5%.'
+      : hasFineLines
+      ? 'Signalling peptides instruct skin cells to upregulate collagen synthesis. Results are gradual — expect 12 weeks for visible change. Lower irritation risk than retinol, making them a good daytime active.'
+      : 'A well-formulated vitamin C or resveratrol serum neutralises free radical damage from UV and pollution before it can degrade collagen.',
+    ingredients: hasPigmentation ? ['L-Ascorbic Acid 10-15%', 'Ferulic Acid', 'Vitamin E'] : hasAcne ? ['Niacinamide 5-10%', 'Zinc PCA', 'Centella Asiatica'] : ['Argireline', 'Matrixyl 3000', 'Copper Peptides']
+  };
+
+  const moistureStep = {
+    step: isMinimal ? 3 : 4, label: 'Moisturise',
+    name: isOily ? 'Oil-Free Gel Moisturiser' : isDry ? 'Rich Ceramide Moisturiser' : isSensitive ? 'Barrier-Repair Cream' : 'Gel-Cream Moisturiser',
+    description: isOily
+      ? 'A water-gel moisturiser delivers hydration without occlusion, preventing that heavy feeling. Ingredients like niacinamide and hyaluronic acid hydrate without contributing to congestion.'
+      : isDry
+      ? 'Ceramides are the glue of your skin barrier — restoring them directly addresses chronic dryness. Apply to slightly damp skin to trap in moisture. Can be layered over a hyaluronic acid serum for maximum effect.'
+      : isSensitive
+      ? 'Focuses on restoring barrier lipids (ceramides, fatty acids, cholesterol in a 3:1:1 ratio) rather than adding actives. A compromised barrier is why sensitive skin reacts to so many things.'
+      : 'Lightweight enough for the T-zone, moisturising enough for drier areas. Look for gel-cream hybrids with hyaluronic acid and niacinamide.',
+    ingredients: isOily ? ['Hyaluronic Acid', 'Niacinamide', 'Aloe Vera'] : isDry ? ['Ceramides NP/AP/EOP', 'Shea Butter', 'Cholesterol'] : ['Ceramides', 'Panthenol', 'Beta-Glucan']
+  };
+
+  const spfStep = {
+    step: isMinimal ? 4 : 5, label: 'Protect',
+    name: isOutdoor ? 'SPF 50+ PA++++ Broad-Spectrum Sunscreen' : 'SPF 30-50 Daily Sunscreen',
+    description: isOutdoor
+      ? 'If you spend significant time outdoors, SPF 50+ with high PA rating is non-negotiable. Chemical sunscreens (avobenzone + octocrylene) blend invisibly; mineral (zinc oxide) suits sensitive skin. Reapply every 2 hours of sun exposure.'
+      : 'The most evidence-backed anti-ageing product in existence. UVA penetrates glass and causes photoageing daily regardless of cloudiness. Apply as the final step — after moisturiser, never under it.',
+    ingredients: isOutdoor ? ['Zinc Oxide', 'Tinosorb S', 'Avobenzone', 'Vitamin E'] : ['Zinc Oxide', 'Avobenzone', 'Octocrylene']
+  };
+
+  const morning = isMinimal
+    ? [morningBase[0], moistureStep, spfStep]
+    : isDedicated
+    ? [...morningBase, serumStep, { step: 4, label: 'Eye Care', name: 'Peptide Eye Cream', description: 'The skin around the eye is 4x thinner than the rest of the face and shows ageing first. A peptide or caffeine eye cream addresses dark circles and fine lines without the irritation risk of retinol in this zone.', ingredients: ['Caffeine', 'Vitamin K', 'Argireline'] }, { ...moistureStep, step: 5 }, { ...spfStep, step: 6 }]
+    : [...morningBase, serumStep, { ...moistureStep, step: 4 }, { ...spfStep, step: 5 }];
+
+  // Night routine
+  const cleanseOil = {
+    step: 1, label: 'Remove',
+    name: 'Cleansing Oil or Balm',
+    description: 'The first step of double cleansing dissolves SPF, makeup, and sebum oxidation products (the main cause of blackheads). Oil cleansing does not make oily skin worse — it lifts excess oil without stripping.',
+    ingredients: ['Caprylic/Capric Triglyceride', 'Squalane', 'Jojoba Oil']
+  };
+
+  const nightSerum = {
+    step: 3, label: 'Treat',
+    name: hasFineLines && !isSensitive ? 'Retinol 0.025-0.1% (start low)' : hasAcne ? 'BHA (Salicylic Acid 1-2%) Treatment' : 'Niacinamide + Peptide Serum',
+    description: hasFineLines && !isSensitive
+      ? 'Retinol is the most evidence-backed anti-ageing active. Start at 0.025% twice a week, build over 3 months. The "purging" period (weeks 2-6) is normal — persevere. Always use SPF the next morning.'
+      : hasAcne
+      ? 'BHA (salicylic acid) is oil-soluble, allowing it to penetrate pores and dissolve the sebum + dead cell mixture that causes blackheads and inflammatory acne. Use 2-3× weekly, not daily.'
+      : 'Night serums focused on peptides and niacinamide work with the skin\'s natural repair cycle to support collagen and improve barrier function. Lower risk than actives like retinol.',
+    ingredients: hasFineLines ? ['Retinol', 'Bakuchiol', 'Peptides'] : hasAcne ? ['Salicylic Acid 2%', 'Tea Tree', 'Zinc PCA'] : ['Niacinamide', 'Argireline', 'Hyaluronic Acid']
+  };
+
+  const nightMoisturiser = {
+    step: 4, label: 'Seal',
+    name: isDry ? 'Rich Night Cream or Sleeping Mask' : isSensitive ? 'Barrier Repair Night Cream' : 'Gel-Cream Night Moisturiser',
+    description: isDry
+      ? 'Night is when you layer your richest formulas — TEWL (water loss) is higher at night and body temperature rises, so humectants and occlusives work hard while you sleep. Apply to slightly damp skin.'
+      : isSensitive
+      ? 'Focus the night routine on repair, not actives. A ceramide-forward night cream rebuilds the barrier while you sleep, reducing the reactivity you notice throughout the day.'
+      : 'A lighter night moisturiser hydrates without excessive occlusion, allowing the actives in your treatment serum to remain active rather than being sealed under a heavy cream.',
+    ingredients: isDry ? ['Ceramides', 'Peptides', 'Squalane', 'Shea Butter'] : isSensitive ? ['Ceramide NP', 'Cholesterol', 'Fatty Acids', 'Panthenol'] : ['Niacinamide', 'Hyaluronic Acid', 'Centella Asiatica']
+  };
+
+  const night = isMinimal
+    ? [{ ...morningBase[0], step: 1, label: 'Cleanse' }, nightSerum, nightMoisturiser]
+    : [cleanseOil, { ...morningBase[0], step: 2, label: 'Cleanse' }, nightSerum, nightMoisturiser];
+
+  if (isDedicated) {
+    night.splice(2, 0, {
+      step: 2.5, label: 'Exfoliate (2-3× weekly)',
+      name: isOily ? 'BHA Liquid Exfoliant (Salicylic Acid 2%)' : 'AHA Toner (Glycolic or Lactic Acid)',
+      description: isOily
+        ? 'BHA exfoliates inside the pore, dissolving the sebum + dead cell plug. 2-3× weekly is enough — more frequent use compromises the barrier without additional benefit.'
+        : 'AHAs work on the surface, loosening the bonds between dead skin cells to reveal brighter skin underneath. Lactic acid is gentler and hydrating; glycolic acid penetrates deeper for more visible results.',
+      ingredients: isOily ? ['Salicylic Acid 2%', 'Green Tea Extract'] : ['Lactic Acid 5-10%', 'Glycolic Acid', 'Aloe Vera']
+    });
+    night.forEach((s, i) => s.step = i + 1);
+  }
+
+  return {
+    title: names[skinType] || 'Personalised Skin Ritual',
+    summary: `Your ${skinType} skin profile calls for a ${isMinimal ? 'streamlined, efficient' : isDedicated ? 'comprehensive, layered' : 'balanced'} approach. ${isSensitive ? 'The priority is barrier repair and gentle actives — not aggressive treatments.' : isOily ? 'The focus is oil regulation without stripping, with targeted actives for congestion.' : isDry ? 'Deep hydration and barrier lipid restoration are the foundation of everything else.' : 'Balancing hydration in dry zones and oil control in the T-zone, with targeted actives for your concerns.'}`,
+    morning: morning.map((s,i) => ({ ...s, step: i+1 })),
+    night: night.map((s,i) => ({ ...s, step: i+1 }))
+  };
+}
+
+// ── RENDER RESULT ──
+function renderResult(data) {
+  document.getElementById('result-title').textContent = data.title || 'Your Ritual';
+  document.getElementById('result-summary').textContent = data.summary || '';
+  renderSteps('morning-steps', data.morning || []);
+  renderSteps('night-steps', data.night || []);
+  const rs = document.getElementById('result-section');
+  rs.classList.add('visible');
+  rs.scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+function renderSteps(containerId, steps) {
+  const container = document.getElementById(containerId);
+  container.innerHTML = steps.map(s => `
+    <div class="routine-step">
+      <div class="step-number">${s.step}</div>
+      <div class="step-body">
+        <div class="step-label">${escHtml(s.label || '')}</div>
+        <div class="step-name">${escHtml(s.name || '')}</div>
+        <div class="step-desc">${escHtml(s.description || '')}</div>
+        <div class="step-ingredients">
+          ${(s.ingredients || []).map(i => `<span class="ingredient-tag">${escHtml(i)}</span>`).join('')}
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function switchTab(tab) {
+  document.querySelectorAll('.routine-tab').forEach((t,i) => t.classList.toggle('active', (i===0) === (tab==='morning')));
+  document.querySelectorAll('.routine-content').forEach(c => c.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+}
+
+// ── AI CHAT ──
+const chatHistory = [];
+
+async function sendChat() {
+  const input = document.getElementById('chat-input');
+  const msg = input.value.trim();
+  if (!msg) return;
+  input.value = '';
+
+  appendChat('user', msg);
+  chatHistory.push({ role: 'user', content: msg });
+
+  const btn = document.getElementById('chat-send-btn');
+  btn.disabled = true;
+
+  const typing = appendChat('ai', '', true);
+
+  const apiKey = getGroqKey();
+  let reply = '';
+
+  const systemMsg = `You are Ritual AI — a friendly, honest skincare advisor with a background in dermatology science. The user has ${state.skinType || 'unknown'} skin, concerns: ${state.concerns.join(', ') || 'none stated'}, lifestyle: ${state.lifestyle || 'unknown'}. Give concise, science-backed answers. Avoid hype. If evidence is weak, say so. Max 3 sentences per answer.`;
+
+  if (apiKey) {
+    try {
+      const res = await fetch(GROQ_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${apiKey}` },
+        body: JSON.stringify({
+          model: getGroqModel(),
+          messages: [
+            { role: 'system', content: systemMsg },
+            ...chatHistory.slice(-8)
+          ],
+          temperature: 0.7,
+          max_tokens: 300
+        })
+      });
+      const data = await res.json();
+      reply = data.choices?.[0]?.message?.content || '';
+    } catch(e) {
+      reply = '';
+    }
+  }
+
+  if (!reply) {
+    reply = getLocalReply(msg);
+  }
+
+  chatHistory.push({ role: 'assistant', content: reply });
+  typing.classList.remove('typing');
+  typing.textContent = reply;
+  btn.disabled = false;
+  const body = document.getElementById('chat-body');
+  body.scrollTop = body.scrollHeight;
+}
+
+function appendChat(role, text, typing = false) {
+  const body = document.getElementById('chat-body');
+  const msg = document.createElement('div');
+  msg.className = `chat-msg ${role}`;
+  const bubble = document.createElement('div');
+  bubble.className = `chat-bubble${typing ? ' typing' : ''}`;
+  bubble.textContent = text;
+  if (role === 'ai') {
+    const av = document.createElement('div');
+    av.className = 'ai-avatar'; av.style.cssText = 'width:32px;height:32px;flex-shrink:0';
+    av.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>';
+    msg.appendChild(av);
+  }
+  msg.appendChild(bubble);
+  body.appendChild(msg);
+  body.scrollTop = body.scrollHeight;
+  return bubble;
+}
+
+function getLocalReply(msg) {
+  const m = msg.toLowerCase();
+  if (m.includes('retinol')) return 'Retinol (vitamin A) is the gold standard anti-ageing active with decades of clinical evidence. Start low (0.025%) 2x per week, build over months. Always pair with SPF next morning — it increases photosensitivity.';
+  if (m.includes('niacinamide')) return 'Niacinamide (vitamin B3) is one of the most versatile, well-tolerated actives. At 5% it visibly minimises pores and regulates sebum; at 10% it addresses hyperpigmentation. It pairs well with almost everything.';
+  if (m.includes('vitamin c') || m.includes('ascorbic')) return 'L-Ascorbic Acid is the most bioavailable form of vitamin C for skin. It brightens, protects against UV-induced damage, and stimulates collagen. Unstable — store in cool, dark place. Use pH below 3.5 for best activity.';
+  if (m.includes('spf') || m.includes('sunscreen')) return 'SPF is the single most evidence-backed anti-ageing step. Apply after moisturiser (never under it), use SPF 30+ daily, and reapply every 2 hours of direct sun. Mineral SPF (zinc oxide) suits sensitive skin; chemical SPF blends invisibly.';
+  if (m.includes('hyaluronic') || m.includes('ha')) return 'Hyaluronic acid holds up to 1000x its weight in water — it\'s a hydration magnet, not a moisturiser. Apply to damp skin; in low-humidity environments it can pull water from deeper skin layers instead, causing dehydration. Seal with a moisturiser on top.';
+  if (m.includes('ceramide')) return 'Ceramides are the lipids that hold your skin barrier together. If you have dry or sensitive skin, they\'re often depleted. Ceramide-containing moisturisers directly restore barrier function — look for NP, AP, and EOP ceramides together with cholesterol and fatty acids.';
+  if (m.includes('order') || m.includes('layer')) return 'Thin to thick: cleanser → toner → serum → eye cream → moisturiser → SPF (morning only). Wait 30-60 seconds between steps. SPF always last in the morning. Never apply moisturiser over SPF — it dilutes the UV filter coverage.';
+  if (m.includes('acne') || m.includes('breakout')) return 'For acne, BHA (salicylic acid 2%) penetrates pores to dissolve the sebum-dead cell mixture. Niacinamide reduces inflammation. Avoid comedogenic ingredients (coconut oil, lanolin). If acne is cystic or hormonal, a dermatologist and prescription options (adapalene, tretinoin) are more effective than OTC.';
+  return 'Great question! For the most accurate advice tailored to your specific concern, I\'d recommend consulting a dermatologist. In general, stick to evidence-backed actives, introduce one new product at a time, and give each product at least 4-6 weeks before judging results.';
+}
+
+// ── INGREDIENTS DATABASE ──
+const INGREDIENTS_DB = [
+  {
+    name: 'Niacinamide', also: 'Vitamin B3, Nicotinamide',
+    icon: 'N', badges: ['badge-green', 'badge-green'],
+    badgeLabels: ['Well Tolerated', 'Multi-benefit'],
+    desc: 'A versatile water-soluble vitamin that regulates sebum, minimises pore appearance, reduces post-acne marks, and strengthens the skin barrier. One of the best-researched, most universally applicable actives.',
+    bestFor: ['Oily', 'Combination', 'Sensitive', 'All Types'],
+    icon_type: 'N'
+  },
+  {
+    name: 'Hyaluronic Acid', also: 'HA, Sodium Hyaluronate',
+    icon: 'H', badges: ['badge-green', 'badge-blue'],
+    badgeLabels: ['Hydrating', 'All Skin Types'],
+    desc: 'A humectant naturally found in skin that attracts and holds up to 1000x its weight in water. Clinical studies show 30%+ increase in skin hydration after one week. Apply on damp skin and seal with moisturiser.',
+    bestFor: ['All Skin Types', 'Dehydrated', 'Dry', 'Mature'],
+    icon_type: 'H'
+  },
+  {
+    name: 'Retinol', also: 'Vitamin A, Tretinoin (Rx)',
+    icon: 'R', badges: ['badge-warn', 'badge-blue'],
+    badgeLabels: ['Build Slowly', 'Anti-Ageing'],
+    desc: 'The most clinically studied anti-ageing active. Increases cell turnover, stimulates collagen, and reduces hyperpigmentation. Start at 0.025%, build over months. Causes purging period weeks 2-6 — normal and temporary.',
+    bestFor: ['Normal', 'Oily', 'Combination', 'Ageing Skin'],
+    icon_type: 'R'
+  },
+  {
+    name: 'Vitamin C (L-AA)', also: 'L-Ascorbic Acid, Ascorbyl Glucoside',
+    icon: 'C', badges: ['badge-blue', 'badge-green'],
+    badgeLabels: ['Brightening', 'Antioxidant'],
+    desc: 'Inhibits tyrosinase to reduce melanin production, boosts collagen synthesis, and neutralises free radical damage from UV and pollution. L-Ascorbic Acid is most effective but unstable — store in cool, dark conditions.',
+    bestFor: ['Dull Skin', 'Hyperpigmentation', 'Normal', 'Combination'],
+    icon_type: 'C'
+  },
+  {
+    name: 'Ceramides', also: 'Ceramide NP, AP, EOP',
+    icon: 'Ce', badges: ['badge-green', 'badge-green'],
+    badgeLabels: ['Barrier Repair', 'Well Tolerated'],
+    desc: 'Lipids that make up ~50% of the skin barrier. Depleted by harsh cleansers, dry weather, and ageing. Topical ceramides (best with cholesterol + fatty acids in 3:1:1 ratio) directly restore the skin\'s protective function.',
+    bestFor: ['Dry', 'Sensitive', 'Damaged Barrier', 'All Types'],
+    icon_type: 'Ce'
+  },
+  {
+    name: 'Salicylic Acid', also: 'BHA, Beta-Hydroxy Acid',
+    icon: 'S', badges: ['badge-blue', 'badge-warn'],
+    badgeLabels: ['Pore Clearing', 'Patch Test'],
+    desc: 'An oil-soluble exfoliant that penetrates inside pores to dissolve the sebum + dead cell mixture causing blackheads and acne. Suitable for oily and acne-prone skin. Use 2-3x weekly; daily use can compromise the barrier.',
+    bestFor: ['Oily', 'Acne-Prone', 'Congested', 'Combination'],
+    icon_type: 'S'
+  },
+  {
+    name: 'AHA (Glycolic / Lactic)', also: 'Alpha-Hydroxy Acids',
+    icon: 'A', badges: ['badge-blue', 'badge-warn'],
+    badgeLabels: ['Exfoliating', 'Evening Only'],
+    desc: 'Water-soluble exfoliants that loosen bonds between dead skin cells. Glycolic acid (smallest molecule) penetrates deepest; lactic acid is gentler with added hydrating properties. Increases photosensitivity — SPF essential.',
+    bestFor: ['Dull Skin', 'Uneven Texture', 'Dry', 'Normal'],
+    icon_type: 'A'
+  },
+  {
+    name: 'Centella Asiatica', also: 'Cica, Gotu Kola, TECA',
+    icon: 'Ca', badges: ['badge-green', 'badge-green'],
+    badgeLabels: ['Soothing', 'Barrier Support'],
+    desc: 'A plant extract with strong anti-inflammatory properties and documented wound-healing effects. Particularly effective for redness, post-acne marks, and post-procedure recovery. Very well tolerated by sensitive skin.',
+    bestFor: ['Sensitive', 'Redness', 'Acne-Prone', 'Compromised Barrier'],
+    icon_type: 'Ca'
+  },
+  {
+    name: 'Azelaic Acid', also: 'Dicarboxylic Acid',
+    icon: 'Az', badges: ['badge-blue', 'badge-green'],
+    badgeLabels: ['Brightening', 'Anti-Acne'],
+    desc: 'Naturally found in wheat and barley, azelaic acid addresses acne, rosacea, and hyperpigmentation through different mechanisms. Gentler than strong actives, safe in pregnancy, and unique in addressing both breakouts and pigmentation simultaneously.',
+    bestFor: ['Sensitive', 'Rosacea', 'Acne-Prone', 'Hyperpigmentation'],
+    icon_type: 'Az'
+  },
+  {
+    name: 'Peptides', also: 'Matrixyl, Argireline, Copper Peptides',
+    icon: 'P', badges: ['badge-blue', 'badge-blue'],
+    badgeLabels: ['Anti-Ageing', 'Collagen Support'],
+    desc: 'Short amino acid chains that act as signalling molecules instructing skin cells to produce more collagen and elastin. Lower irritation profile than retinol making them suitable for daytime use. Results are gradual — allow 12 weeks.',
+    bestFor: ['Mature Skin', 'Fine Lines', 'Sensitive', 'Normal'],
+    icon_type: 'P'
+  },
+  {
+    name: 'Zinc Oxide', also: 'Physical/Mineral UV Filter',
+    icon: 'Z', badges: ['badge-green', 'badge-blue'],
+    badgeLabels: ['SPF', 'Sensitive-Safe'],
+    desc: 'A physical UV filter that sits on top of skin and reflects both UVA and UVB. Works immediately upon application (unlike chemical filters that need 20 minutes). Ideal for sensitive, acne-prone, and rosacea-affected skin.',
+    bestFor: ['Sensitive', 'Acne-Prone', 'All Types', 'Children'],
+    icon_type: 'Z'
+  },
+  {
+    name: 'Beta-Glucan', also: 'Oat Beta-Glucan',
+    icon: 'B', badges: ['badge-green', 'badge-green'],
+    badgeLabels: ['Soothing', 'Deeply Hydrating'],
+    desc: 'A polysaccharide derived from oats or yeast that activates skin\'s own repair mechanisms. Comparable to hyaluronic acid in hydrating ability, with additional anti-inflammatory and wound-healing properties. Excellent for sensitive or barrier-damaged skin.',
+    bestFor: ['Sensitive', 'Dry', 'Barrier-Damaged', 'Post-Treatment'],
+    icon_type: 'B'
+  }
+];
+
+function renderIngredients(filter = '') {
+  const grid = document.getElementById('ingredients-grid');
+  const filtered = INGREDIENTS_DB.filter(ing =>
+    !filter ||
+    ing.name.toLowerCase().includes(filter) ||
+    (ing.also || '').toLowerCase().includes(filter) ||
+    ing.desc.toLowerCase().includes(filter) ||
+    ing.bestFor.some(t => t.toLowerCase().includes(filter))
+  );
+  grid.innerHTML = filtered.map(ing => `
+    <div class="ingredient-card">
+      <div class="ingredient-card-top">
+        <div class="ingredient-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/></svg>
+        </div>
+        <div class="ingredient-badges">
+          ${ing.badges.map((b,i) => `<span class="badge ${b}">${escHtml(ing.badgeLabels[i])}</span>`).join('')}
+        </div>
+      </div>
+      <div class="ingredient-name">${escHtml(ing.name)}</div>
+      ${ing.also ? `<div class="ingredient-also">${escHtml(ing.also)}</div>` : ''}
+      <div class="ingredient-desc">${escHtml(ing.desc)}</div>
+      <div class="ingredient-best-for">Best for</div>
+      <div class="skin-tags">
+        ${ing.bestFor.map(t => `<span class="skin-tag">${escHtml(t)}</span>`).join('')}
+      </div>
+    </div>
+  `).join('');
+  if (!filtered.length) {
+    grid.innerHTML = '<div style="color:var(--c-muted);font-size:15px;padding:24px 0;grid-column:1/-1">No ingredients found matching that search.</div>';
+  }
+}
+
+function filterIngredients() {
+  const q = document.getElementById('ingredient-search').value.toLowerCase().trim();
+  renderIngredients(q);
+}
+
+// ── FAQ ──
+function toggleFaq(btn) {
+  const item = btn.closest('.faq-item');
+  const isOpen = item.classList.contains('open');
+  document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+  if (!isOpen) item.classList.add('open');
+}
+
+// ── UTILS ──
+function escHtml(str) {
+  return String(str || '').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+</script>
+
+</body>
+</html>
