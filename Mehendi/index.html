@@ -1,792 +1,1600 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mehndi Designs Gallery — Wondermayank</title>
-<meta name="description" content="Beautiful mehndi & henna designs collection. Hand, Bridal, Feet, Hijab and more — curated by Wondermayank.">
+<title>MehndiVault — Beautiful Mehndi & Henna Designs by Wondermayank</title>
+<meta name="description" content="Discover thousands of beautiful mehndi and henna designs. Hand-curated Bridal, Hand, Feet, and Hijab patterns — your ultimate mehndi inspiration gallery by Wondermayank.">
+<meta name="theme-color" content="#573AFC">
+<link rel="icon" type="image/svg+xml" href="/favicon.svg">
+<link rel="manifest" href="manifest.json">
+
+<!-- SEO / AEO -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="MehndiVault — Beautiful Mehndi & Henna Designs">
+<meta property="og:description" content="Hand-curated mehndi and henna design gallery. Browse Bridal, Hand, Feet, and Hijab patterns — all free to explore.">
+<meta property="og:image" content="/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MehndiVault by Wondermayank">
+<meta name="twitter:description" content="Beautiful curated mehndi & henna designs. Bridal, Hand, Feet, Hijab and more.">
+<meta name="twitter:image" content="/og-image.png">
+
+<!-- PWA iOS -->
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="MehndiVault">
+
+<!-- JSON-LD Structured Data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebSite",
+  "name": "MehndiVault",
+  "url": "https://wondermayank.github.io/mehndi-vault",
+  "description": "Hand-curated mehndi and henna design gallery featuring Bridal, Hand, Feet, and Hijab styles.",
+  "author": {
+    "@type": "Person",
+    "name": "Wondermayank",
+    "url": "https://wondermayank.github.io"
+  }
+}
+</script>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+
 <style>
-  :root {
-    --p1: #7C3AED;
-    --p2: #A78BFA;
-    --p3: #C4B5FD;
-    --b1: #60A5FA;
-    --b2: #B9D9DC;
-    --bg: #F8F6FF;
-    --surface: rgba(255,255,255,0.72);
-    --surface-solid: #ffffff;
-    --text: #1e1b4b;
-    --muted: #6b7280;
-    --border: rgba(124,58,237,0.12);
-    --shadow: 0 4px 24px rgba(124,58,237,0.08);
-    --shadow-lg: 0 12px 48px rgba(124,58,237,0.14);
-    --radius: 18px;
-    --radius-sm: 10px;
-  }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* ═══════════════════════════════════════════════════
+   THUNDER DESIGN TOKENS — LIGHT
+════════════════════════════════════════════════════ */
+:root {
+  --primary:          #573AFC;
+  --primary-active:   #4527E0;
+  --primary-focus:    #6B4FFF;
+  --ink:              #1d1d1f;
+  --body:             #3c3c3c;
+  --body-strong:      #1a1a1a;
+  --muted:            #6b6b6b;
+  --muted-soft:       #9a9a9a;
+  --hairline:         #e6e6e6;
+  --hairline-strong:  #cccccc;
+  --canvas:           #ffffff;
+  --canvas-parchment: #f5f5f7;
+  --surface-soft:     #f7f7f7;
+  --surface-card:     #fafafa;
+  --surface-pearl:    #fafafc;
+  --surface-strong:   #ebebeb;
+  --surface-dark:     #1a2129;
+  --surface-tile-1:   #272729;
+  --on-primary:       #ffffff;
+  --on-dark:          #ffffff;
+  --on-dark-soft:     #bbbbbb;
+  --success:          #22c55e;
+  --warning:          #f59e0b;
+  --error:            #dc2626;
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  /* Palette A tints (light purple family) */
+  --pal-lightest: #E7E0FB;
+  --pal-light:    #CCC3FB;
+  --pal-mid:      #BCAEFB;
+  --pal-strong:   #B196FB;
+}
 
-  /* ─── BACKGROUND ─────────────────────────────── */
-  .bg-orbs {
-    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
-  }
-  .orb {
-    position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.18;
-  }
-  .orb1 { width: 480px; height: 480px; background: var(--p1); top: -120px; left: -100px; }
-  .orb2 { width: 360px; height: 360px; background: var(--b1); top: 20%; right: -80px; }
-  .orb3 { width: 300px; height: 300px; background: var(--p2); bottom: 10%; left: 20%; }
-  .orb4 { width: 200px; height: 200px; background: var(--b2); bottom: -60px; right: 15%; }
+[data-theme="dark"] {
+  --ink:              #f5f5f7;
+  --body:             #d1d1d6;
+  --body-strong:      #ffffff;
+  --muted:            #8e8e93;
+  --muted-soft:       #636366;
+  --hairline:         #2c2c2e;
+  --hairline-strong:  #3a3a3c;
+  --canvas:           #0e0e10;
+  --canvas-parchment: #161618;
+  --surface-soft:     #1a1a1c;
+  --surface-card:     #1c1c1e;
+  --surface-pearl:    #1e1e20;
+  --surface-strong:   #2c2c2e;
+  --surface-dark:     #000000;
+  --surface-tile-1:   #111113;
+  --on-dark:          #ffffff;
+  --on-dark-soft:     #ebebf5;
+  --primary:          #9A7AFB;
 
-  /* ─── HEADER ─────────────────────────────────── */
-  header {
-    position: relative; z-index: 10;
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-  }
-  .header-inner {
-    max-width: 1400px; margin: 0 auto;
-    display: flex; align-items: center; justify-content: space-between;
-    height: 70px; gap: 20px;
-  }
-  .logo {
-    display: flex; align-items: center; gap: 12px; text-decoration: none;
-  }
-  .logo-icon {
-    width: 42px; height: 42px;
-    background: linear-gradient(135deg, var(--p1), var(--b1));
-    border-radius: 12px;
-    display: flex; align-items: center; justify-content: center;
-    flex-shrink: 0;
-  }
-  .logo-text h1 {
-    font-family: 'Syne', sans-serif;
-    font-size: 1.15rem; font-weight: 800;
-    background: linear-gradient(135deg, var(--p1), var(--b1));
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text;
-    line-height: 1.1;
-  }
-  .logo-text span {
-    font-size: 0.7rem; color: var(--muted); font-weight: 400; display: block;
-  }
-  .header-search {
-    flex: 1; max-width: 420px;
-    position: relative;
-  }
-  .header-search input {
-    width: 100%;
-    padding: 10px 44px 10px 18px;
-    border: 1.5px solid var(--border);
-    border-radius: 50px;
-    background: rgba(255,255,255,0.9);
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.88rem; color: var(--text);
-    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-  }
-  .header-search input:focus {
-    border-color: var(--p2); box-shadow: 0 0 0 3px rgba(167,139,250,0.15);
-  }
-  .header-search input::placeholder { color: var(--muted); }
-  .search-icon {
-    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
-    color: var(--muted); pointer-events: none;
-  }
-  .header-count {
-    background: linear-gradient(135deg, var(--p1), var(--b1));
-    color: white; padding: 6px 16px; border-radius: 50px;
-    font-size: 0.78rem; font-weight: 600; white-space: nowrap;
-    flex-shrink: 0;
-  }
+  /* Palette A tints (dark) */
+  --pal-lightest: #221d40;
+  --pal-light:    #2d2650;
+  --pal-mid:      #352e5e;
+  --pal-strong:   #3d3670;
+}
 
-  /* ─── HERO ───────────────────────────────────── */
-  .hero {
-    position: relative; z-index: 2;
-    text-align: center; padding: 52px 24px 36px;
-  }
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 8px;
-    background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.2);
-    color: var(--p1); border-radius: 50px; padding: 6px 16px;
-    font-size: 0.8rem; font-weight: 600; margin-bottom: 18px;
-  }
-  .hero h2 {
-    font-family: 'Syne', sans-serif;
-    font-size: clamp(2rem, 5vw, 3.2rem);
-    font-weight: 800; line-height: 1.15;
-    background: linear-gradient(135deg, var(--p1) 0%, var(--b1) 100%);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    background-clip: text; margin-bottom: 14px;
-  }
-  .hero p {
-    color: var(--muted); font-size: 1rem; max-width: 480px; margin: 0 auto;
-    line-height: 1.7;
-  }
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  /* ─── CATEGORY TABS ──────────────────────────── */
-  .tabs-wrap {
-    position: sticky; top: 0; z-index: 9;
-    background: rgba(248,246,255,0.92);
-    backdrop-filter: blur(16px);
-    border-bottom: 1px solid var(--border);
-    padding: 0 24px;
-  }
-  .tabs {
-    max-width: 1400px; margin: 0 auto;
-    display: flex; align-items: center; gap: 6px;
-    overflow-x: auto; padding: 12px 0;
-    scrollbar-width: none;
-  }
-  .tabs::-webkit-scrollbar { display: none; }
-  .tab-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 8px 20px; border-radius: 50px;
-    border: 1.5px solid var(--border);
-    background: var(--surface-solid);
-    color: var(--muted); cursor: pointer;
-    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
-    white-space: nowrap; transition: all 0.2s; flex-shrink: 0;
-    box-shadow: var(--shadow);
-  }
-  .tab-btn:hover { border-color: var(--p2); color: var(--p1); }
-  .tab-btn.active {
-    background: linear-gradient(135deg, var(--p1), var(--b1));
-    border-color: transparent; color: white;
-    box-shadow: 0 4px 16px rgba(124,58,237,0.35);
-  }
-  .tab-count {
-    background: rgba(255,255,255,0.25);
-    border-radius: 50px; padding: 1px 8px;
-    font-size: 0.72rem; font-weight: 600;
-  }
-  .tab-btn:not(.active) .tab-count {
-    background: rgba(124,58,237,0.1); color: var(--p1);
-  }
+body {
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background: var(--canvas);
+  color: var(--ink);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.3s, color 0.3s;
+}
 
-  /* ─── GALLERY AREA ───────────────────────────── */
-  .gallery-area {
-    position: relative; z-index: 2;
-    max-width: 1400px; margin: 0 auto;
-    padding: 28px 20px 60px;
-  }
+/* ─── LOADING SPLASH ─────────────────────────────── */
+#splash {
+  position: fixed; inset: 0; z-index: 9999;
+  background: var(--canvas);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center; gap: 20px;
+  transition: opacity 0.4s ease;
+}
+#splash.fade-out { opacity: 0; pointer-events: none; }
+.splash-logo {
+  display: flex; align-items: center; gap: 12px;
+}
+.splash-logo img {
+  width: 40px; height: 40px;
+}
+.splash-logo-text {
+  font-size: 20px; font-weight: 700; color: var(--ink);
+  letter-spacing: -0.3px;
+}
+.splash-arc {
+  width: 44px; height: 44px;
+}
+.splash-arc circle {
+  fill: none;
+  stroke: var(--pal-lightest);
+  stroke-width: 3;
+}
+.splash-arc .arc-stroke {
+  fill: none;
+  stroke: var(--primary);
+  stroke-width: 3;
+  stroke-linecap: round;
+  stroke-dasharray: 88;
+  stroke-dashoffset: 88;
+  animation: arc-draw 1.1s cubic-bezier(0.4,0,0.2,1) forwards,
+             arc-spin 1.1s linear infinite;
+  transform-origin: center;
+}
+@keyframes arc-draw {
+  to { stroke-dashoffset: 22; }
+}
+@keyframes arc-spin {
+  to { transform: rotate(360deg); }
+}
 
-  /* Pinterest masonry via CSS columns */
-  .masonry {
-    column-count: 5;
-    column-gap: 14px;
-  }
-  @media (max-width: 1200px) { .masonry { column-count: 4; } }
-  @media (max-width: 900px)  { .masonry { column-count: 3; } }
-  @media (max-width: 580px)  { .masonry { column-count: 2; } }
-  @media (max-width: 360px)  { .masonry { column-count: 1; } }
+/* ─── NAV ────────────────────────────────────────── */
+header {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--canvas);
+  border-bottom: 1px solid var(--hairline);
+  padding: 0 20px;
+  transition: background 0.3s, backdrop-filter 0.3s;
+}
+header.scrolled {
+  background: color-mix(in srgb, var(--canvas) 80%, transparent);
+  backdrop-filter: blur(20px) saturate(180%);
+}
+.header-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  height: 64px; gap: 14px;
+}
+.logo {
+  display: flex; align-items: center; gap: 10px;
+  text-decoration: none; flex-shrink: 0;
+}
+.logo img {
+  width: 32px; height: 32px;
+}
+.logo-name {
+  font-size: 17px; font-weight: 700; color: var(--ink);
+  letter-spacing: -0.2px; line-height: 1;
+}
+.logo-sub {
+  font-size: 12px; color: var(--muted); font-weight: 400;
+  display: block; margin-top: 1px;
+}
 
-  .card {
-    break-inside: avoid;
-    margin-bottom: 14px;
-    border-radius: var(--radius-sm);
-    overflow: hidden;
-    background: var(--surface-solid);
-    box-shadow: var(--shadow);
-    cursor: pointer;
-    transition: transform 0.22s ease, box-shadow 0.22s ease;
-    position: relative;
-  }
-  .card:hover {
-    transform: translateY(-4px) scale(1.012);
-    box-shadow: var(--shadow-lg);
-  }
-  .card img {
-    width: 100%; display: block;
-    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
-    background: linear-gradient(135deg, var(--p3) 0%, var(--b2) 100%);
-    transition: opacity 0.3s;
-  }
-  .card img.loading { opacity: 0; min-height: 120px; }
-  .card img.loaded { opacity: 1; }
-  .card-footer {
-    padding: 8px 10px;
-    display: flex; align-items: center; justify-content: space-between;
-    gap: 4px;
-  }
-  .card-cat {
-    font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
-    letter-spacing: 0.04em; color: var(--p1);
-  }
-  .card-date {
-    font-size: 0.68rem; color: var(--muted);
-  }
-  .card-overlay {
-    position: absolute; inset: 0;
-    background: linear-gradient(180deg, transparent 40%, rgba(124,58,237,0.55) 100%);
-    opacity: 0; transition: opacity 0.2s;
-    display: flex; align-items: flex-end; justify-content: center;
-    padding-bottom: 14px; border-radius: var(--radius-sm);
-  }
-  .card:hover .card-overlay { opacity: 1; }
-  .card-overlay-btn {
-    background: rgba(255,255,255,0.9);
-    border: none; border-radius: 50px; padding: 7px 20px;
-    font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
-    font-weight: 600; color: var(--p1); cursor: pointer;
-    display: flex; align-items: center; gap: 6px;
-  }
+.header-search { flex: 1; max-width: 380px; position: relative; }
+.header-search input {
+  width: 100%; padding: 11px 20px 11px 42px;
+  border: 1px solid var(--hairline); border-radius: 9999px;
+  background: var(--canvas-parchment);
+  font-family: 'Inter', sans-serif; font-size: 14px;
+  color: var(--ink); outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+  height: 44px;
+}
+.header-search input:focus {
+  border: 2px solid var(--primary);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 12%, transparent);
+}
+.header-search input::placeholder { color: var(--muted-soft); }
+.search-icon {
+  position: absolute; left: 14px; top: 50%; transform: translateY(-50%);
+  color: var(--muted-soft); pointer-events: none;
+}
 
-  /* broken image placeholder */
-  .card-placeholder {
-    width: 100%; background: linear-gradient(135deg, #f3f0ff, #e0f2fe);
-    display: flex; flex-direction: column;
-    align-items: center; justify-content: center;
-    gap: 8px; color: var(--muted); font-size: 0.75rem;
-    padding: 32px 12px;
-    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
-  }
+.search-toggle-btn { display: none; }
 
-  /* ─── EMPTY / LOADING ────────────────────────── */
-  .state-box {
-    text-align: center; padding: 80px 24px;
-    color: var(--muted); grid-column: 1/-1;
-  }
-  .state-box svg { opacity: 0.35; margin-bottom: 14px; }
-  .state-box p { font-size: 1rem; }
+.header-actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+.header-count {
+  background: var(--pal-lightest); color: var(--primary);
+  padding: 5px 14px; border-radius: 9999px;
+  font-size: 12px; font-weight: 600; white-space: nowrap;
+  letter-spacing: 0.3px;
+}
 
-  .skeleton-grid {
-    column-count: 5; column-gap: 14px;
-  }
-  @media (max-width: 1200px) { .skeleton-grid { column-count: 4; } }
-  @media (max-width: 900px)  { .skeleton-grid { column-count: 3; } }
-  @media (max-width: 580px)  { .skeleton-grid { column-count: 2; } }
-  .skel-card {
-    break-inside: avoid; margin-bottom: 14px;
-    border-radius: var(--radius-sm);
-    background: linear-gradient(90deg, #ede9fe 0%, #ddd6fe 50%, #ede9fe 100%);
-    background-size: 200% 100%;
-    animation: shimmer 1.4s infinite linear;
-  }
-  @keyframes shimmer { to { background-position: -200% 0; } }
+.icon-btn {
+  width: 36px; height: 36px; border-radius: 9999px;
+  border: 1px solid var(--hairline-strong); background: var(--canvas);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--muted); transition: all 0.2s; flex-shrink: 0;
+}
+.icon-btn:hover { border-color: var(--primary); color: var(--primary); }
+.icon-btn.active-fav { border-color: var(--primary); color: var(--primary); background: var(--pal-lightest); }
 
-  /* ─── LIGHTBOX ───────────────────────────────── */
-  .lightbox {
-    display: none; position: fixed; inset: 0; z-index: 1000;
-    background: rgba(30,27,75,0.82);
-    backdrop-filter: blur(12px);
-    align-items: center; justify-content: center;
-    padding: 20px;
-  }
-  .lightbox.open { display: flex; }
-  .lb-content {
-    position: relative;
-    background: var(--surface-solid);
-    border-radius: 22px;
-    max-width: 680px; width: 100%;
-    box-shadow: 0 24px 80px rgba(30,27,75,0.4);
-    overflow: hidden;
-    animation: lbIn 0.25s ease;
-  }
-  @keyframes lbIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-  .lb-img-wrap {
-    background: #f3f0ff;
-    display: flex; align-items: center; justify-content: center;
-    min-height: 300px;
-    max-height: 70vh; overflow: hidden;
-  }
-  .lb-img-wrap img {
-    width: 100%; max-height: 70vh; object-fit: contain; display: block;
-  }
-  .lb-info {
-    padding: 18px 22px;
-    display: flex; align-items: center; justify-content: space-between;
-    border-top: 1px solid var(--border);
-  }
-  .lb-meta { display: flex; flex-direction: column; gap: 3px; }
-  .lb-cat {
-    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
-    letter-spacing: 0.06em; color: var(--p1);
-  }
-  .lb-date { font-size: 0.8rem; color: var(--muted); }
-  .lb-actions { display: flex; gap: 10px; }
-  .lb-btn {
-    display: inline-flex; align-items: center; gap: 6px;
-    padding: 8px 18px; border-radius: 50px;
-    font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600;
-    cursor: pointer; border: none; transition: all 0.18s;
-  }
-  .lb-btn-primary {
-    background: linear-gradient(135deg, var(--p1), var(--b1));
-    color: white; box-shadow: 0 4px 14px rgba(124,58,237,0.3);
-  }
-  .lb-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.4); }
-  .lb-btn-ghost {
-    background: rgba(124,58,237,0.08); color: var(--p1);
-    border: 1.5px solid rgba(124,58,237,0.2);
-  }
-  .lb-btn-ghost:hover { background: rgba(124,58,237,0.15); }
-  .lb-close {
-    position: absolute; top: 14px; right: 14px;
-    width: 34px; height: 34px; border-radius: 50%;
-    background: rgba(255,255,255,0.9); border: 1px solid var(--border);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    color: var(--muted); transition: color 0.15s, background 0.15s;
-    backdrop-filter: blur(8px);
-  }
-  .lb-close:hover { color: var(--p1); background: white; }
-  .lb-nav {
-    position: absolute; top: 50%; transform: translateY(-50%);
-    width: 38px; height: 38px; border-radius: 50%;
-    background: rgba(255,255,255,0.9); border: 1px solid var(--border);
-    cursor: pointer; display: flex; align-items: center; justify-content: center;
-    color: var(--p1); transition: all 0.15s;
-    backdrop-filter: blur(8px);
-  }
-  .lb-nav:hover { background: white; box-shadow: 0 4px 14px rgba(124,58,237,0.2); }
-  .lb-prev { left: -50px; }
-  .lb-next { right: -50px; }
-  @media (max-width: 700px) {
-    .lb-prev { left: 8px; } .lb-next { right: 8px; }
-  }
+/* Mobile search bar */
+.mobile-search-bar {
+  display: none; padding: 10px 20px 12px;
+  background: var(--canvas); border-bottom: 1px solid var(--hairline);
+}
+.mobile-search-bar.open { display: block; }
+.mobile-search-bar input {
+  width: 100%; padding: 10px 16px;
+  border: 1px solid var(--hairline-strong); border-radius: 9999px;
+  background: var(--canvas-parchment);
+  font-family: 'Inter', sans-serif; font-size: 15px; color: var(--ink);
+  outline: none; height: 44px;
+}
+.mobile-search-bar input:focus { border: 2px solid var(--primary); }
 
-  /* ─── LOAD MORE ──────────────────────────────── */
-  .load-more-wrap { text-align: center; padding: 20px 0 40px; }
-  .load-more-btn {
-    display: inline-flex; align-items: center; gap: 8px;
-    padding: 12px 36px; border-radius: 50px;
-    background: linear-gradient(135deg, var(--p1), var(--b1));
-    color: white; font-family: 'DM Sans', sans-serif;
-    font-size: 0.9rem; font-weight: 600; cursor: pointer;
-    border: none; box-shadow: 0 6px 20px rgba(124,58,237,0.3);
-    transition: all 0.2s;
-  }
-  .load-more-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(124,58,237,0.4); }
-  .load-more-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+/* ─── HERO (light canvas band) ───────────────────── */
+.hero {
+  background: var(--canvas);
+  padding: 56px 24px 40px;
+  text-align: center;
+  position: relative; overflow: hidden;
+}
+.hero-eyebrow {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--pal-lightest); color: var(--primary);
+  border-radius: 9999px; padding: 5px 14px;
+  font-size: 11px; font-weight: 700;
+  letter-spacing: 1.5px; text-transform: uppercase;
+  margin-bottom: 20px;
+}
+.hero h2 {
+  font-size: clamp(32px, 5vw, 56px); font-weight: 700; line-height: 1.07;
+  letter-spacing: -0.28px; color: var(--ink);
+  margin-bottom: 14px;
+}
+.hero h2 span { color: var(--primary); }
+.hero p {
+  font-size: 17px; font-weight: 400; color: var(--muted);
+  max-width: 480px; margin: 0 auto; line-height: 1.5; letter-spacing: -0.1px;
+}
+.hero-actions { margin-top: 24px; display: flex; gap: 12px; align-items: center; justify-content: center; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--primary); color: var(--on-primary);
+  border: none; border-radius: 9999px;
+  padding: 14px 28px; height: 48px;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: background 0.2s, transform 0.15s;
+  text-decoration: none;
+}
+.btn-primary:active { background: var(--primary-active); transform: scale(0.95); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: var(--canvas); color: var(--ink);
+  border: 1px solid var(--hairline-strong); border-radius: 9999px;
+  padding: 14px 28px; height: 48px;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: border-color 0.2s, transform 0.15s;
+}
+.btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
+.btn-secondary:active { transform: scale(0.95); }
 
-  /* ─── FOOTER ─────────────────────────────────── */
-  footer {
-    position: relative; z-index: 2;
-    text-align: center;
-    border-top: 1px solid var(--border);
-    padding: 28px 24px;
-    color: var(--muted); font-size: 0.82rem;
-  }
-  footer a { color: var(--p1); text-decoration: none; font-weight: 600; }
-  footer a:hover { text-decoration: underline; }
+/* ─── STATS BAR (parchment strip) ───────────────── */
+.stats-section {
+  background: var(--canvas-parchment);
+  border-top: 1px solid var(--hairline);
+  border-bottom: 1px solid var(--hairline);
+  padding: 14px 24px;
+}
+.stats-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; gap: 8px; flex-wrap: wrap; align-items: center;
+  justify-content: center;
+}
+.stat-chip {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: var(--canvas); border: 1px solid var(--hairline);
+  border-radius: 9999px; padding: 5px 13px;
+  font-size: 13px; font-weight: 400; color: var(--body);
+  transition: background 0.3s;
+}
+.stat-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; background: var(--primary); }
+.stat-chip strong { font-weight: 600; color: var(--ink); }
 
-  /* ─── SCROLLBAR ───────────────────────────────── */
-  ::-webkit-scrollbar { width: 6px; }
-  ::-webkit-scrollbar-track { background: transparent; }
-  ::-webkit-scrollbar-thumb { background: var(--p3); border-radius: 3px; }
+/* ─── CATEGORY TABS ─────────────────────────────── */
+.tabs-wrap {
+  position: sticky; top: 64px; z-index: 50;
+  background: color-mix(in srgb, var(--canvas) 94%, transparent);
+  backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--hairline);
+  padding: 0 20px;
+  transition: background 0.3s;
+}
+.tabs-inner {
+  max-width: 1400px; margin: 0 auto;
+  display: flex; align-items: center; gap: 10px; padding: 10px 0;
+}
+.tabs {
+  display: flex; align-items: center; gap: 6px;
+  overflow-x: auto; flex: 1; scrollbar-width: none; padding-bottom: 2px;
+}
+.tabs::-webkit-scrollbar { display: none; }
+.tab-btn {
+  display: inline-flex; align-items: center; gap: 7px;
+  padding: 7px 16px; border-radius: 9999px;
+  border: 1px solid var(--hairline-strong); background: var(--canvas);
+  color: var(--muted); cursor: pointer;
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400;
+  white-space: nowrap; transition: all 0.2s; flex-shrink: 0;
+  letter-spacing: 0.1px;
+}
+.tab-btn:hover { border-color: var(--primary); color: var(--primary); }
+.tab-btn.active {
+  background: var(--ink); border-color: var(--ink); color: var(--on-dark);
+}
+.tab-count {
+  background: var(--canvas-parchment); border-radius: 9999px;
+  padding: 1px 7px; font-size: 11px; font-weight: 600; color: var(--muted);
+}
+.tab-btn.active .tab-count { background: rgba(255,255,255,0.18); color: rgba(255,255,255,0.8); }
 
-  /* ─── TOAST ──────────────────────────────────── */
-  .toast {
-    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
-    background: var(--p1); color: white; padding: 10px 24px;
-    border-radius: 50px; font-size: 0.85rem; font-weight: 500;
-    box-shadow: 0 8px 28px rgba(124,58,237,0.4); z-index: 2000;
-    transition: transform 0.3s ease;
-    pointer-events: none;
-  }
-  .toast.show { transform: translateX(-50%) translateY(0); }
+/* Sort dropdown */
+.sort-wrap { position: relative; flex-shrink: 0; }
+.sort-btn {
+  display: inline-flex; align-items: center; gap: 6px;
+  padding: 7px 14px; border-radius: 9999px;
+  border: 1px solid var(--hairline-strong); background: var(--canvas);
+  color: var(--muted); cursor: pointer;
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 400;
+  white-space: nowrap; transition: all 0.2s;
+}
+.sort-btn:hover { border-color: var(--primary); color: var(--primary); }
+.sort-dropdown {
+  position: absolute; top: calc(100% + 8px); right: 0;
+  background: var(--canvas); border: 1px solid var(--hairline);
+  border-radius: 18px; overflow: hidden;
+  min-width: 150px; display: none; z-index: 200;
+  box-shadow: rgba(0,0,0,0.12) 0px 4px 16px;
+}
+.sort-dropdown.open { display: block; animation: dropIn 0.15s ease; }
+@keyframes dropIn { from { opacity:0; transform:translateY(-6px); } to { opacity:1; transform:translateY(0); } }
+.sort-option {
+  padding: 10px 16px; font-size: 14px; cursor: pointer;
+  color: var(--body); transition: background 0.15s;
+  display: flex; align-items: center; gap: 8px;
+}
+.sort-option:hover { background: var(--canvas-parchment); }
+.sort-option.active { color: var(--primary); font-weight: 600; }
 
-  /* ─── STATS BAR ──────────────────────────────── */
-  .stats-bar {
-    display: flex; align-items: center; gap: 10px;
-    flex-wrap: wrap; justify-content: center;
-    padding: 8px 24px 16px;
-    position: relative; z-index: 2;
-  }
-  .stat-chip {
-    display: inline-flex; align-items: center; gap: 6px;
-    background: var(--surface-solid);
-    border: 1px solid var(--border);
-    border-radius: 50px; padding: 5px 14px;
-    font-size: 0.78rem; font-weight: 500;
-    box-shadow: var(--shadow);
-  }
-  .stat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+/* ─── GALLERY (light canvas) ─────────────────────── */
+.gallery-area {
+  background: var(--canvas);
+  max-width: 1400px; margin: 0 auto;
+  padding: 24px 18px 60px;
+}
+.results-bar {
+  display: flex; align-items: center; justify-content: space-between;
+  margin-bottom: 18px; flex-wrap: wrap; gap: 8px;
+}
+.results-count { font-size: 13px; color: var(--muted); font-weight: 400; }
+.results-count strong { color: var(--ink); font-weight: 600; }
+
+/* Masonry */
+.masonry { column-count: 5; column-gap: 14px; }
+@media (max-width: 1200px) { .masonry { column-count: 4; } }
+@media (max-width: 900px)  { .masonry { column-count: 3; } }
+@media (max-width: 580px)  { .masonry { column-count: 2; } }
+@media (max-width: 360px)  { .masonry { column-count: 1; } }
+
+/* card-course style from design system */
+.card {
+  break-inside: avoid; margin-bottom: 14px;
+  border-radius: 18px; overflow: hidden;
+  background: var(--canvas); border: 1px solid var(--hairline);
+  cursor: pointer; transition: transform 0.2s ease, border-color 0.2s;
+  position: relative;
+}
+.card:hover { transform: translateY(-3px); border-color: var(--hairline-strong); }
+.card img {
+  width: 100%; display: block;
+  border-radius: 11px 11px 0 0;
+  background: var(--pal-lightest);
+  transition: opacity 0.3s;
+}
+.card img.loading { opacity: 0; min-height: 120px; }
+.card img.loaded { opacity: 1; }
+
+.card-footer {
+  padding: 8px 12px 10px;
+  display: flex; align-items: center; justify-content: space-between; gap: 4px;
+}
+.card-cat {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.2px; color: var(--primary);
+}
+.card-date { font-size: 12px; color: var(--muted-soft); }
+
+.card-overlay {
+  position: absolute; inset: 0;
+  background: rgba(29,29,31,0.55);
+  opacity: 0; transition: opacity 0.2s;
+  display: flex; align-items: flex-end; justify-content: space-between;
+  padding: 0 12px 12px; border-radius: 18px;
+}
+.card:hover .card-overlay { opacity: 1; }
+.card-overlay-btn {
+  background: var(--canvas); border: none; border-radius: 9999px;
+  padding: 7px 16px; font-family: 'Inter', sans-serif; font-size: 13px;
+  font-weight: 600; color: var(--primary); cursor: pointer;
+  display: flex; align-items: center; gap: 5px;
+}
+.card-fav-btn {
+  width: 32px; height: 32px; border-radius: 9999px;
+  background: var(--canvas); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--muted); transition: all 0.18s; flex-shrink: 0;
+}
+.card-fav-btn.faved { color: var(--primary); }
+.card-fav-btn:hover { transform: scale(1.12); }
+
+.card-placeholder {
+  width: 100%; background: var(--pal-lightest);
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  gap: 8px; color: var(--muted-soft); font-size: 12px;
+  padding: 28px 12px;
+  border-radius: 11px 11px 0 0;
+}
+
+/* ─── SKELETON ───────────────────────────────────── */
+.skeleton-grid { column-count: 5; column-gap: 14px; }
+@media (max-width: 1200px) { .skeleton-grid { column-count: 4; } }
+@media (max-width: 900px)  { .skeleton-grid { column-count: 3; } }
+@media (max-width: 580px)  { .skeleton-grid { column-count: 2; } }
+.skel-card {
+  break-inside: avoid; margin-bottom: 14px; border-radius: 18px;
+  background: linear-gradient(90deg, var(--pal-lightest) 0%, var(--pal-light) 50%, var(--pal-lightest) 100%);
+  background-size: 200% 100%; animation: shimmer 1.4s infinite linear;
+}
+[data-theme="dark"] .skel-card {
+  background: linear-gradient(90deg, #1a1a1c 0%, #222226 50%, #1a1a1c 100%);
+  background-size: 200% 100%;
+}
+@keyframes shimmer { to { background-position: -200% 0; } }
+
+/* ─── EMPTY STATE ────────────────────────────────── */
+.state-box { text-align: center; padding: 80px 24px; color: var(--muted); }
+.state-box svg { opacity: 0.35; margin: 0 auto 14px; display: block; }
+.state-box p { font-size: 17px; margin-bottom: 18px; }
+
+/* ─── INFINITE SCROLL SENTINEL ───────────────────── */
+#scrollSentinel { height: 60px; }
+.load-spinner {
+  text-align: center; padding: 20px;
+  display: none; color: var(--muted); font-size: 14px;
+}
+.load-spinner.visible { display: block; }
+.spinner-dots { display: inline-flex; gap: 6px; margin-right: 8px; }
+.spinner-dots span {
+  width: 6px; height: 6px; border-radius: 50%; background: var(--pal-mid);
+  animation: dot-bounce 1.2s infinite ease-in-out;
+}
+.spinner-dots span:nth-child(2) { animation-delay: 0.2s; }
+.spinner-dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes dot-bounce { 0%,80%,100% { transform:scale(0.7); opacity:0.5; } 40% { transform:scale(1); opacity:1; } }
+
+/* ─── LIGHTBOX ───────────────────────────────────── */
+.lightbox {
+  display: none; position: fixed; inset: 0; z-index: 1000;
+  background: rgba(14,14,16,0.88); backdrop-filter: blur(14px);
+  align-items: center; justify-content: center; padding: 16px;
+}
+.lightbox.open { display: flex; }
+.lb-content {
+  position: relative; background: var(--canvas);
+  border-radius: 22px; max-width: 700px; width: 100%;
+  border: 1px solid var(--hairline);
+  overflow: hidden; animation: lbIn 0.22s ease;
+  box-shadow: rgba(0,0,0,0.4) 0px 24px 80px;
+}
+@keyframes lbIn { from { transform:scale(0.92); opacity:0; } to { transform:scale(1); opacity:1; } }
+.lb-img-wrap {
+  background: var(--canvas-parchment);
+  display: flex; align-items: center; justify-content: center;
+  min-height: 280px; max-height: 68vh; overflow: hidden;
+  position: relative;
+}
+.lb-img-wrap img {
+  width: 100%; max-height: 68vh; object-fit: contain; display: block;
+  transition: opacity 0.2s;
+}
+.lb-img-wrap img.lb-loading { opacity: 0; }
+.lb-img-wrap img.lb-loaded { opacity: 1; }
+.lb-spinner {
+  position: absolute; inset: 0; display: flex; align-items: center;
+  justify-content: center; pointer-events: none;
+}
+.lb-spinner-ring {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 3px solid var(--hairline);
+  border-top-color: var(--primary);
+  animation: spin 0.7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.lb-spinner.hidden { display: none; }
+
+.lb-info {
+  padding: 16px 20px;
+  display: flex; align-items: center; justify-content: space-between;
+  border-top: 1px solid var(--hairline); gap: 12px;
+}
+.lb-meta { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.lb-counter { font-size: 11px; color: var(--muted-soft); }
+.lb-cat {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--primary);
+}
+.lb-date { font-size: 13px; color: var(--muted); }
+.lb-actions { display: flex; gap: 8px; flex-shrink: 0; flex-wrap: wrap; justify-content: flex-end; }
+.lb-btn {
+  display: inline-flex; align-items: center; gap: 5px;
+  padding: 8px 16px; border-radius: 9999px;
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+  cursor: pointer; border: none; transition: all 0.18s;
+  text-decoration: none; height: 36px;
+}
+.lb-btn-primary {
+  background: var(--primary); color: var(--on-primary);
+}
+.lb-btn-primary:hover { background: var(--primary-active); }
+.lb-btn-primary:active { transform: scale(0.95); }
+.lb-btn-ghost {
+  background: var(--canvas); color: var(--ink);
+  border: 1px solid var(--hairline-strong);
+}
+.lb-btn-ghost:hover { border-color: var(--primary); color: var(--primary); }
+.lb-btn-fav {
+  background: var(--canvas); color: var(--muted);
+  border: 1px solid var(--hairline-strong);
+}
+.lb-btn-fav.faved { background: var(--pal-lightest); color: var(--primary); border-color: var(--primary); }
+
+.lb-close {
+  position: absolute; top: 12px; right: 12px;
+  width: 32px; height: 32px; border-radius: 9999px;
+  background: var(--canvas); border: 1px solid var(--hairline);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--muted); transition: all 0.15s; z-index: 10;
+}
+.lb-close:hover { color: var(--primary); border-color: var(--primary); }
+.lb-nav {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  width: 36px; height: 36px; border-radius: 9999px;
+  background: var(--canvas); border: 1px solid var(--hairline);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  color: var(--primary); transition: all 0.15s; z-index: 10;
+}
+.lb-nav:hover { border-color: var(--primary); box-shadow: 0 2px 12px rgba(87,58,252,0.2); }
+.lb-prev { left: -48px; }
+.lb-next { right: -48px; }
+@media (max-width: 700px) { .lb-prev { left: 8px; } .lb-next { right: 8px; } }
+
+/* ─── FAQ SECTION (parchment) ────────────────────── */
+.faq-section {
+  background: var(--canvas-parchment);
+  border-top: 1px solid var(--hairline);
+  padding: 80px 24px;
+}
+.faq-inner {
+  max-width: 760px; margin: 0 auto;
+}
+.faq-eyebrow {
+  font-size: 11px; font-weight: 700; text-transform: uppercase;
+  letter-spacing: 1.5px; color: var(--primary); margin-bottom: 10px;
+}
+.faq-heading {
+  font-size: 32px; font-weight: 700; color: var(--ink);
+  letter-spacing: 0; line-height: 1.15; margin-bottom: 36px;
+}
+.faq-item { border-bottom: 1px solid var(--hairline); padding: 18px 0; }
+.faq-question {
+  font-size: 17px; font-weight: 600; color: var(--body-strong);
+  line-height: 1.4; margin-bottom: 8px;
+}
+.faq-answer {
+  font-size: 16px; font-weight: 300; color: var(--muted); line-height: 1.55;
+}
+
+/* ─── FOOTER (standard 3-column Thunder footer) ── */
+.site-footer {
+  background: var(--canvas-parchment);
+  border-top: 1px solid var(--hairline);
+  padding: 64px 24px 40px;
+}
+.footer-inner {
+  max-width: 1400px; margin: 0 auto;
+}
+.footer-grid {
+  display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: 40px; margin-bottom: 48px;
+}
+.footer-col-title {
+  font-size: 13px; font-weight: 700; letter-spacing: 1.5px;
+  text-transform: uppercase; color: var(--ink); margin-bottom: 16px;
+}
+.footer-col a {
+  display: block; font-size: 14px; font-weight: 400;
+  color: var(--muted); text-decoration: none; margin-bottom: 10px;
+  transition: color 0.15s;
+}
+.footer-col a:hover { color: var(--primary); }
+.footer-copy {
+  border-top: 1px solid var(--hairline); padding-top: 24px;
+  font-size: 12px; color: var(--muted-soft); text-align: center;
+}
+
+/* ─── SCROLLBAR ──────────────────────────────────── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--pal-light); border-radius: 3px; }
+
+/* ─── TOAST ──────────────────────────────────────── */
+.toast {
+  position: fixed; bottom: 90px; left: 50%; transform: translateX(-50%) translateY(80px);
+  background: var(--surface-dark); color: var(--on-dark);
+  padding: 10px 22px; border-radius: 9999px;
+  font-size: 14px; font-weight: 400;
+  box-shadow: rgba(0,0,0,0.3) 0px 8px 28px; z-index: 3000;
+  transition: transform 0.3s ease; pointer-events: none;
+}
+.toast.show { transform: translateX(-50%) translateY(0); }
+
+/* ─── BACK TO TOP ────────────────────────────────── */
+.back-top {
+  position: fixed; bottom: 24px; right: 24px; z-index: 500;
+  width: 44px; height: 44px; border-radius: 9999px;
+  background: var(--primary); color: var(--on-primary);
+  border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.3s, transform 0.3s, background 0.2s;
+  pointer-events: none;
+}
+.back-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+.back-top:hover { background: var(--primary-active); }
+.back-top:active { transform: scale(0.95); }
+
+/* ─── PWA INSTALL BANNER ─────────────────────────── */
+.install-banner {
+  position: fixed; bottom: 76px; left: 50%; transform: translateX(-50%);
+  background: var(--canvas); border: 1px solid var(--hairline);
+  border-radius: 18px; padding: 14px 18px;
+  display: flex; align-items: center; gap: 12px;
+  box-shadow: rgba(0,0,0,0.12) 0px 12px 48px; z-index: 500;
+  animation: slideUp 0.4s ease; max-width: 360px; width: calc(100% - 32px);
+}
+.install-banner.hidden { display: none; }
+@keyframes slideUp { from { opacity:0; transform:translateX(-50%) translateY(20px); } to { opacity:1; transform:translateX(-50%) translateY(0); } }
+.install-banner-text { flex: 1; }
+.install-banner-text p { font-size: 14px; font-weight: 600; color: var(--ink); }
+.install-banner-text span { font-size: 12px; color: var(--muted); }
+.install-banner-actions { display: flex; gap: 8px; }
+.install-banner-actions button {
+  border: none; border-radius: 9999px; padding: 7px 16px;
+  font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600; cursor: pointer;
+}
+.btn-install { background: var(--primary); color: var(--on-primary); }
+.btn-dismiss { background: var(--surface-strong); color: var(--muted); }
+
+/* ─── RESPONSIVE ─────────────────────────────────── */
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .header-search { display: none; }
+  .search-toggle-btn { display: flex; }
+  .header-count { display: none; }
+  .lb-actions .lb-btn span { display: none; }
+  .hero { padding: 40px 16px 28px; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 419px) {
+  .hero h2 { font-size: 28px; }
+}
 </style>
 </head>
 <body>
 
-<!-- Background orbs -->
-<div class="bg-orbs">
-  <div class="orb orb1"></div>
-  <div class="orb orb2"></div>
-  <div class="orb orb3"></div>
-  <div class="orb orb4"></div>
+<!-- LOADING SPLASH -->
+<div id="splash">
+  <div class="splash-logo">
+    <img src="/favicon.svg" alt="MehndiVault" width="40" height="40">
+    <span class="splash-logo-text">MehndiVault</span>
+  </div>
+  <svg class="splash-arc" viewBox="0 0 44 44" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="22" cy="22" r="18"/>
+    <circle class="arc-stroke" cx="22" cy="22" r="18"/>
+  </svg>
 </div>
 
-<!-- Header -->
-<header>
+<!-- HEADER -->
+<header id="siteHeader">
   <div class="header-inner">
     <a href="#" class="logo">
-      <div class="logo-icon">
-        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
-          <path d="M12 2C8 2 5 5.5 5 9c0 3 2 5 4 7l3 3 3-3c2-2 4-4 4-7 0-3.5-3-7-7-7z" fill="white" opacity="0.9"/>
-          <circle cx="12" cy="9" r="3" fill="none" stroke="white" stroke-width="1.5"/>
-        </svg>
-      </div>
-      <div class="logo-text">
-        <h1>MehndiVault</h1>
-        <span>by Wondermayank</span>
+      <img src="/favicon.svg" alt="MehndiVault">
+      <div>
+        <span class="logo-name">MehndiVault</span>
+        <span class="logo-sub">by Wondermayank</span>
       </div>
     </a>
 
     <div class="header-search">
-      <input type="text" id="searchInput" placeholder="Search designs..." autocomplete="off">
-      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <svg class="search-icon" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
       </svg>
+      <input type="text" id="searchInput" placeholder="Search designs, styles…" autocomplete="off">
     </div>
 
-    <div class="header-count" id="headerCount">Loading...</div>
+    <div class="header-actions">
+      <button class="search-toggle-btn icon-btn" id="mobileSearchToggle" title="Search" aria-label="Toggle search">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+        </svg>
+      </button>
+
+      <button class="icon-btn" id="favsToggleBtn" title="Saved designs" aria-label="Toggle favourites">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+        </svg>
+      </button>
+
+      <button class="icon-btn" id="themeToggle" title="Toggle dark mode" aria-label="Toggle theme">
+        <svg id="themeIconSun" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="5"/>
+          <line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/>
+          <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+          <line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/>
+          <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+        </svg>
+        <svg id="themeIconMoon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
+        </svg>
+      </button>
+
+      <div class="header-count" id="headerCount">Loading…</div>
+    </div>
   </div>
 </header>
 
-<!-- Hero -->
+<!-- Mobile search bar -->
+<div class="mobile-search-bar" id="mobileSearchBar">
+  <input type="text" id="mobileSearchInput" placeholder="Search designs…" autocomplete="off">
+</div>
+
+<!-- HERO -->
 <section class="hero">
-  <div class="hero-badge">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+  <div class="hero-eyebrow">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+    </svg>
     Curated Designs Collection
   </div>
-  <h2>Discover Beautiful<br>Mehndi Designs</h2>
-  <p>Hand-curated henna patterns across Bridal, Hand, Feet, Hijab styles and more — your ultimate mehndi inspiration gallery.</p>
-</section>
-
-<!-- Stats bar -->
-<div class="stats-bar" id="statsBar"></div>
-
-<!-- Category Tabs -->
-<div class="tabs-wrap">
-  <div class="tabs" id="tabsContainer"></div>
-</div>
-
-<!-- Gallery -->
-<div class="gallery-area">
-  <div class="masonry" id="masonryGrid">
-    <!-- Skeleton loaders -->
-    <div class="skeleton-grid" id="skeletonGrid"></div>
-  </div>
-  <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
-    <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-      Load More Designs
+  <h2>Discover Beautiful<br><span>Mehndi Designs</span></h2>
+  <p>Hand-curated henna patterns across Bridal, Hand, Feet, Hijab styles — your ultimate mehndi inspiration gallery.</p>
+  <div class="hero-actions">
+    <button class="btn-primary" onclick="openRandom()">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/>
+        <polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/>
+      </svg>
+      Surprise Me
+    </button>
+    <button class="btn-secondary" onclick="setCategory('bridal')">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      Bridal Collection
     </button>
   </div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-section">
+  <div class="stats-inner" id="statsBar"></div>
 </div>
 
-<!-- Footer -->
-<footer>
-  <p>Made with <svg style="display:inline;vertical-align:-2px" width="14" height="14" viewBox="0 0 24 24" fill="#EC4899"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> by <a href="https://wondermayank.github.io" target="_blank">Wondermayank</a> &nbsp;·&nbsp; Source: <a href="https://github.com/BehindMask/Mehndi-Design-Book" target="_blank">BehindMask/Mehndi-Design-Book</a></p>
+<!-- CATEGORY TABS -->
+<div class="tabs-wrap">
+  <div class="tabs-inner">
+    <div class="tabs" id="tabsContainer"></div>
+    <div class="sort-wrap">
+      <button class="sort-btn" id="sortBtn" onclick="toggleSortDropdown()">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/>
+          <line x1="8" y1="18" x2="21" y2="18"/>
+        </svg>
+        <span id="sortLabel">Newest</span>
+      </button>
+      <div class="sort-dropdown" id="sortDropdown">
+        <div class="sort-option active" data-sort="newest" onclick="setSort('newest','Newest')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h13M3 8h9m-9 4h9m5-4v12m0 0l-4-4m4 4l4-4"/></svg> Newest
+        </div>
+        <div class="sort-option" data-sort="oldest" onclick="setSort('oldest','Oldest')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 4h13M3 8h9m-9 4h6m7 0l4-4m-4 4l4 4m-4-4V8"/></svg> Oldest
+        </div>
+        <div class="sort-option" data-sort="random" onclick="setSort('random','Random')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="16 3 21 3 21 8"/><line x1="4" y1="20" x2="21" y2="3"/><polyline points="21 16 21 21 16 21"/><line x1="15" y1="15" x2="21" y2="21"/></svg> Random
+        </div>
+        <div class="sort-option" data-sort="saved" onclick="setSort('saved','Saved')">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> Saved
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GALLERY -->
+<main>
+  <div class="gallery-area">
+    <div class="results-bar" id="resultsBar" style="display:none">
+      <span class="results-count" id="resultsCount"></span>
+    </div>
+    <div class="masonry" id="masonryGrid">
+      <div class="skeleton-grid" id="skeletonGrid"></div>
+    </div>
+    <div id="scrollSentinel"></div>
+    <div class="load-spinner" id="loadSpinner">
+      <span class="spinner-dots"><span></span><span></span><span></span></span>
+      Loading more designs…
+    </div>
+  </div>
+</main>
+
+<!-- FAQ SECTION (AEO / GEO) -->
+<section class="faq-section" aria-label="Frequently asked questions">
+  <div class="faq-inner">
+    <p class="faq-eyebrow">FAQ</p>
+    <h2 class="faq-heading">About MehndiVault</h2>
+    <div class="faq-item">
+      <p class="faq-question">What is MehndiVault?</p>
+      <p class="faq-answer">MehndiVault is a hand-curated gallery of mehndi and henna designs, featuring thousands of patterns across Bridal, Hand, Feet, and Hijab styles. Created by Wondermayank, it is a free resource for mehndi inspiration.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-question">What types of mehndi designs are available?</p>
+      <p class="faq-answer">The collection includes Bridal mehndi designs, Hand patterns (Arabic, Indian, Indo-Arabic), Feet mehndi designs, Hijab mehndi, and Hijab Fashion patterns — spanning traditional and contemporary styles.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-question">Can I download or save mehndi designs?</p>
+      <p class="faq-answer">Yes. You can save designs to your personal favourites collection by tapping the heart icon on any design card. From the lightbox view, you can also download the design image directly to your device.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-question">Where does the design collection come from?</p>
+      <p class="faq-answer">The image data is sourced from the open-source BehindMask/Mehndi-Design-Book repository on GitHub, curated and presented by Wondermayank through this gallery interface.</p>
+    </div>
+    <div class="faq-item">
+      <p class="faq-question">Does MehndiVault work offline?</p>
+      <p class="faq-answer">MehndiVault supports installation as a Progressive Web App (PWA). Once installed on your device, the app shell and previously loaded designs are accessible even when offline.</p>
+    </div>
+  </div>
+</section>
+
+<!-- STANDARD THUNDER FOOTER -->
+<footer class="site-footer">
+  <div class="footer-inner">
+    <nav class="footer-grid" aria-label="Footer navigation">
+      <div class="footer-col">
+        <p class="footer-col-title">Thunder</p>
+        <a href="https://commercesehoga.github.io/">ThunderStudy</a>
+        <a href="https://commercesehoga.github.io/dashboard">CBT Mock Platform</a>
+        <a href="https://thunderstudy.github.io">Free Study Material</a>
+        <a href="https://commercesehoga.github.io/help">Help / Donate</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Wondermayank</p>
+        <a href="https://wondermayank.indevs.in">Portfolio</a>
+        <a href="https://wondermayank.github.io/">wondermayank.github.io</a>
+        <a href="https://wondermayank.github.io/mail">Mail</a>
+        <a href="https://wondermayank.github.io/contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <p class="footer-col-title">Legal</p>
+        <a href="https://wondermayank.github.io/terms">Terms</a>
+        <a href="https://wondermayank.github.io/privacy">Privacy</a>
+        <a href="https://wondermayank.github.io/disclaimer">Disclaimer</a>
+        <a href="https://github.com/BehindMask/Mehndi-Design-Book" target="_blank" rel="noopener">Design Source</a>
+      </div>
+    </nav>
+    <div class="footer-copy">
+      &copy; 2025 Thunder &middot; by wondermayank &middot; Design data via BehindMask/Mehndi-Design-Book
+    </div>
+  </div>
 </footer>
 
-<!-- Lightbox -->
+<!-- LIGHTBOX -->
 <div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
   <div class="lb-content">
     <button class="lb-close" onclick="closeLb()">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
     </button>
     <button class="lb-nav lb-prev" onclick="lbNav(-1)">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M15 18l-6-6 6-6"/>
+      </svg>
     </button>
     <button class="lb-nav lb-next" onclick="lbNav(1)">
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M9 18l6-6-6-6"/>
+      </svg>
     </button>
     <div class="lb-img-wrap">
-      <img id="lbImg" src="" alt="Mehndi Design">
+      <img id="lbImg" src="" alt="Mehndi Design" class="lb-loading">
+      <div class="lb-spinner" id="lbSpinner">
+        <div class="lb-spinner-ring"></div>
+      </div>
     </div>
     <div class="lb-info">
       <div class="lb-meta">
+        <span class="lb-counter" id="lbCounter"></span>
         <span class="lb-cat" id="lbCat"></span>
         <span class="lb-date" id="lbDate"></span>
       </div>
       <div class="lb-actions">
-        <button class="lb-btn lb-btn-ghost" onclick="copyLink()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
-          Copy Link
+        <button class="lb-btn lb-btn-fav" id="lbFavBtn" onclick="toggleLbFav()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/>
+          </svg>
+          <span>Save</span>
         </button>
-        <a id="lbDownload" href="#" target="_blank" class="lb-btn lb-btn-primary">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-          Open Full
+        <button class="lb-btn lb-btn-ghost" onclick="shareDesign()">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/>
+          </svg>
+          <span>Share</span>
+        </button>
+        <a id="lbDownload" href="#" download class="lb-btn lb-btn-primary" onclick="return downloadImage(event)">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+            <polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/>
+          </svg>
+          <span>Download</span>
         </a>
       </div>
     </div>
   </div>
 </div>
 
-<!-- Toast -->
+<!-- TOAST -->
 <div class="toast" id="toast"></div>
 
-<!-- Database file -->
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" onclick="scrollToTop()" title="Back to top" aria-label="Back to top">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+    <path d="M18 15l-6-6-6 6"/>
+  </svg>
+</button>
+
+<!-- PWA INSTALL BANNER -->
+<div class="install-banner hidden" id="installBanner">
+  <img src="/favicon.svg" alt="" width="36" height="36" style="border-radius:9px;flex-shrink:0">
+  <div class="install-banner-text">
+    <p>Install MehndiVault</p>
+    <span>Access offline, anytime</span>
+  </div>
+  <div class="install-banner-actions">
+    <button class="btn-install" id="installBtn">Install</button>
+    <button class="btn-dismiss" onclick="dismissInstall()">
+      <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M18 6 6 18M6 6l12 12"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+<!-- DB + SW -->
 <script src="mehndi-db.js"></script>
 
 <script>
-// ─── STATE ──────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════
+//  SPLASH
+// ════════════════════════════════════════════════════
+(function() {
+  const splash = document.getElementById('splash');
+  function hideSplash() {
+    splash.classList.add('fade-out');
+    setTimeout(() => splash.remove(), 420);
+  }
+  if (document.readyState === 'complete' || document.readyState === 'interactive') {
+    setTimeout(hideSplash, 300);
+  } else {
+    document.addEventListener('DOMContentLoaded', () => setTimeout(hideSplash, 300));
+  }
+  setTimeout(hideSplash, 1500); // max 1.5s guarantee
+})();
+
+// ════════════════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════════════════
 let activeCategory = 'all';
-let searchQuery = '';
-let currentFiltered = [];
+let searchQuery    = '';
+let currentSort    = 'newest';
+let currentFiltered= [];
 let displayedCount = 0;
-const PAGE_SIZE = 60;
-let lbIndex = 0;
+const PAGE_SIZE    = 40;
+let lbIndex        = 0;
+let favorites      = loadFavorites();
+let showFavsOnly   = false;
 
-// Category metadata
 const CAT_META = {
-  all:          { label: 'All Designs', color: '#7C3AED' },
-  hand:         { label: 'Hand',         color: '#7C3AED' },
-  bridal:       { label: 'Bridal',       color: '#EC4899' },
-  feet:         { label: 'Feet',         color: '#60A5FA' },
-  hijab:        { label: 'Hijab',        color: '#A78BFA' },
-  hijab_fashion:{ label: 'Hijab Fashion',color: '#C4B5FD' },
+  all:          { label: 'All Designs',   color: '#573AFC' },
+  hand:         { label: 'Hand',          color: '#573AFC' },
+  bridal:       { label: 'Bridal',        color: '#4527E0' },
+  feet:         { label: 'Feet',          color: '#6B4FFF' },
+  hijab:        { label: 'Hijab',         color: '#BCAEFB' },
+  hijab_fashion:{ label: 'Hijab Fashion', color: '#9A7AFB' },
 };
-
-// Tab SVG icons
 const CAT_ICONS = {
-  all: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>`,
-  hand: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>`,
-  bridal: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
-  feet: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5c0 1.1-.51 2.23-1 3h6c1 0 2 .99 2 2v1c0 1-.99 2-2 2H8c-1 0-2 1-2 2s1 2 2 2h8c1 0 2 .99 2 2v1c0 1-.99 2-2 2H8c-2 0-4-1.5-4-3z"/></svg>`,
-  hijab: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M12 11C8.13 11 5 14.13 5 18h14c0-3.87-3.13-7-7-7z"/></svg>`,
-  hijab_fashion: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
+  all: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>`,
+  hand: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>`,
+  bridal: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
+  feet: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5c0 1.1-.51 2.23-1 3h6c1 0 2 .99 2 2v1c0 1-.99 2-2 2H8c-1 0-2 1-2 2s1 2 2 2h8c1 0 2 .99 2 2v1c0 1-.99 2-2 2H8c-2 0-4-1.5-4-3z"/></svg>`,
+  hijab: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M12 11C8.13 11 5 14.13 5 18h14c0-3.87-3.13-7-7-7z"/></svg>`,
+  hijab_fashion: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
 };
 
-// ─── INIT ────────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════
+//  FAVOURITES
+// ════════════════════════════════════════════════════
+function loadFavorites() {
+  try { return new Set(JSON.parse(localStorage.getItem('mv_favs') || '[]')); }
+  catch { return new Set(); }
+}
+function saveFavorites() { localStorage.setItem('mv_favs', JSON.stringify([...favorites])); }
+function toggleFav(id) {
+  if (favorites.has(id)) { favorites.delete(id); return false; }
+  else { favorites.add(id); return true; }
+}
+function isFaved(id) { return favorites.has(id); }
+
+// ════════════════════════════════════════════════════
+//  THEME
+// ════════════════════════════════════════════════════
+(function initTheme() {
+  const saved = localStorage.getItem('mv_theme');
+  const theme = saved || 'light';
+  document.documentElement.setAttribute('data-theme', theme);
+  if (theme === 'dark') {
+    document.getElementById('themeIconSun').style.display = 'none';
+    document.getElementById('themeIconMoon').style.display = '';
+  }
+})();
+
+document.getElementById('themeToggle').addEventListener('click', () => {
+  const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+  const next = isDark ? 'light' : 'dark';
+  document.documentElement.setAttribute('data-theme', next);
+  localStorage.setItem('mv_theme', next);
+  document.getElementById('themeIconSun').style.display = isDark ? '' : 'none';
+  document.getElementById('themeIconMoon').style.display = isDark ? 'none' : '';
+});
+
+// ════════════════════════════════════════════════════
+//  SCROLL HEADER
+// ════════════════════════════════════════════════════
+window.addEventListener('scroll', () => {
+  document.getElementById('siteHeader').classList.toggle('scrolled', window.scrollY > 10);
+}, { passive: true });
+
+// ════════════════════════════════════════════════════
+//  MOBILE SEARCH
+// ════════════════════════════════════════════════════
+document.getElementById('mobileSearchToggle').addEventListener('click', () => {
+  const bar = document.getElementById('mobileSearchBar');
+  bar.classList.toggle('open');
+  if (bar.classList.contains('open')) document.getElementById('mobileSearchInput').focus();
+});
+let searchDebounce;
+function onSearch(q) {
+  searchQuery = q.trim().toLowerCase();
+  clearTimeout(searchDebounce);
+  searchDebounce = setTimeout(applyFilter, 250);
+}
+document.getElementById('searchInput').addEventListener('input', e => onSearch(e.target.value));
+document.getElementById('mobileSearchInput').addEventListener('input', e => {
+  document.getElementById('searchInput').value = e.target.value;
+  onSearch(e.target.value);
+});
+
+// ════════════════════════════════════════════════════
+//  SORT
+// ════════════════════════════════════════════════════
+function toggleSortDropdown() { document.getElementById('sortDropdown').classList.toggle('open'); }
+document.addEventListener('click', e => {
+  if (!e.target.closest('.sort-wrap')) document.getElementById('sortDropdown').classList.remove('open');
+});
+function setSort(val, label) {
+  currentSort = val;
+  document.getElementById('sortLabel').textContent = label;
+  document.querySelectorAll('.sort-option').forEach(o => o.classList.toggle('active', o.dataset.sort === val));
+  document.getElementById('sortDropdown').classList.remove('open');
+  applyFilter();
+}
+function sortItems(arr) {
+  const copy = [...arr];
+  if (currentSort === 'newest') copy.sort((a,b) => new Date(b.timestamp||0) - new Date(a.timestamp||0));
+  else if (currentSort === 'oldest') copy.sort((a,b) => new Date(a.timestamp||0) - new Date(b.timestamp||0));
+  else if (currentSort === 'random') { for (let i=copy.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[copy[i],copy[j]]=[copy[j],copy[i]];} }
+  else if (currentSort === 'saved') copy.sort((a,b) => (isFaved(b.id)?1:0)-(isFaved(a.id)?1:0));
+  return copy;
+}
+
+// ════════════════════════════════════════════════════
+//  INIT
+// ════════════════════════════════════════════════════
 window.addEventListener('load', () => {
   if (!window.MEHNDI_DB) {
     document.getElementById('masonryGrid').innerHTML =
-      `<div class="state-box"><p>⚠️ Could not load mehndi-db.js — make sure it's in the same folder as index.html.</p></div>`;
+      `<div class="state-box"><p>mehndi-db.js not found — place it in the same folder.</p></div>`;
     return;
   }
   buildSkeletons();
   buildTabs();
   buildStatsBar();
   applyFilter();
-  document.getElementById('searchInput').addEventListener('input', e => {
-    searchQuery = e.target.value.trim().toLowerCase();
-    applyFilter();
-  });
+  initInfiniteScroll();
+  initBackTop();
+  initPWA();
+  initSwipe();
+  // Deep-link: open design from URL param ?id= (http/https only)
+  if (!IS_FILE_PROTOCOL) {
+    const urlId = new URLSearchParams(window.location.search).get('id');
+    if (urlId) {
+      const idx = currentFiltered.findIndex(d => d.id === urlId);
+      if (idx !== -1) {
+        // Open lightbox directly — renderLb() reads currentFiltered[idx] from
+        // memory; no bulk card rendering needed (that caused the OOM crash).
+        setTimeout(() => {
+          lbIndex = idx;
+          renderLb();
+          document.getElementById('lightbox').classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }, 150);
+      }
+    }
+  }
 });
 
-// ─── SKELETONS ───────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════
+//  SKELETON
+// ════════════════════════════════════════════════════
 function buildSkeletons() {
-  const heights = [180, 240, 160, 280, 200, 220, 160, 300, 180, 260, 190, 230, 170, 200, 250];
-  let html = '';
-  for (let i = 0; i < 15; i++) {
-    html += `<div class="skel-card" style="height:${heights[i % heights.length]}px"></div>`;
-  }
-  document.getElementById('skeletonGrid').innerHTML = html;
+  const heights = [180,240,160,280,200,220,160,300,180,260,190,230,170,200,250];
+  document.getElementById('skeletonGrid').innerHTML =
+    heights.map(h=>`<div class="skel-card" style="height:${h}px"></div>`).join('');
 }
 
-// ─── TABS ─────────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════
+//  TABS
+// ════════════════════════════════════════════════════
 function buildTabs() {
   const counts = getCategoryCounts();
-  const container = document.getElementById('tabsContainer');
-
-  const categories = ['all', ...Object.keys(window.MEHNDI_CATEGORIES || {}).filter(k => counts[k] > 0)];
-
-  container.innerHTML = categories.map(cat => {
-    const meta = CAT_META[cat] || { label: cat, color: '#7C3AED' };
-    const icon = CAT_ICONS[cat] || CAT_ICONS['all'];
-    const count = cat === 'all' ? window.MEHNDI_DB.length : (counts[cat] || 0);
-    return `
-      <button class="tab-btn ${cat === activeCategory ? 'active' : ''}"
-              onclick="setCategory('${cat}')" data-cat="${cat}">
-        ${icon}
-        ${meta.label}
-        <span class="tab-count">${count}</span>
-      </button>`;
+  const categories = ['all', ...Object.keys(CAT_META).filter(k => k!=='all' && counts[k] > 0)];
+  document.getElementById('tabsContainer').innerHTML = categories.map(cat => {
+    const meta = CAT_META[cat] || { label: cat };
+    const count = cat==='all' ? window.MEHNDI_DB.length : (counts[cat]||0);
+    return `<button class="tab-btn ${cat===activeCategory?'active':''}" onclick="setCategory('${cat}')" data-cat="${cat}">
+      ${CAT_ICONS[cat]||CAT_ICONS['all']}
+      ${meta.label}
+      <span class="tab-count">${count}</span>
+    </button>`;
   }).join('');
 }
-
 function getCategoryCounts() {
-  const counts = {};
-  (window.MEHNDI_DB || []).forEach(d => {
-    counts[d.category] = (counts[d.category] || 0) + 1;
-  });
-  return counts;
+  const c={};
+  (window.MEHNDI_DB||[]).forEach(d=>{ c[d.category]=(c[d.category]||0)+1; });
+  return c;
 }
-
-// ─── STATS BAR ───────────────────────────────────────────────────────
-function buildStatsBar() {
-  const counts = getCategoryCounts();
-  const bar = document.getElementById('statsBar');
-  const chips = Object.entries(counts).map(([cat, n]) => {
-    const meta = CAT_META[cat] || { label: cat, color: '#7C3AED' };
-    return `<span class="stat-chip"><span class="stat-dot" style="background:${meta.color}"></span>${meta.label}: <strong>${n}</strong></span>`;
-  });
-  bar.innerHTML = chips.join('');
-  document.getElementById('headerCount').textContent = `${window.MEHNDI_DB.length} Designs`;
-}
-
-// ─── FILTER ──────────────────────────────────────────────────────────
 function setCategory(cat) {
   activeCategory = cat;
-  document.querySelectorAll('.tab-btn').forEach(b => {
-    b.classList.toggle('active', b.dataset.cat === cat);
-  });
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.cat===cat));
   applyFilter();
 }
 
-function applyFilter() {
-  const db = window.MEHNDI_DB || [];
-  currentFiltered = db.filter(item => {
-    const catOk = activeCategory === 'all' || item.category === activeCategory;
-    const meta = CAT_META[item.category] || { label: item.category };
-    const searchOk = !searchQuery ||
-      meta.label.toLowerCase().includes(searchQuery) ||
-      item.category.toLowerCase().includes(searchQuery) ||
-      (item.timestamp || '').toLowerCase().includes(searchQuery);
-    return catOk && searchOk && item.medium;
-  });
-
-  displayedCount = 0;
-  // remove skeleton
-  const sk = document.getElementById('skeletonGrid');
-  if (sk) sk.remove();
-
-  const grid = document.getElementById('masonryGrid');
-  grid.innerHTML = '';
-  renderBatch();
+// ════════════════════════════════════════════════════
+//  STATS BAR
+// ════════════════════════════════════════════════════
+function buildStatsBar() {
+  const counts = getCategoryCounts();
+  const bar = document.getElementById('statsBar');
+  bar.innerHTML = Object.entries(counts).map(([cat,n]) => {
+    const m = CAT_META[cat]||{label:cat};
+    return `<span class="stat-chip"><span class="stat-dot"></span>${m.label}: <strong>${n}</strong></span>`;
+  }).join('');
+  document.getElementById('headerCount').textContent = `${window.MEHNDI_DB.length} Designs`;
 }
 
-// ─── RENDER ──────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════
+//  FILTER + SORT
+// ════════════════════════════════════════════════════
+function applyFilter() {
+  const db = window.MEHNDI_DB||[];
+  let filtered = db.filter(item => {
+    if (!item.medium) return false;
+    const catOk = activeCategory==='all' || item.category===activeCategory;
+    const favOk = !showFavsOnly || isFaved(item.id);
+    const searchOk = !searchQuery || (() => {
+      const m = CAT_META[item.category]||{label:item.category};
+      return m.label.toLowerCase().includes(searchQuery) ||
+             item.category.toLowerCase().includes(searchQuery) ||
+             (item.id||'').toLowerCase().includes(searchQuery) ||
+             (item.timestamp||'').toLowerCase().includes(searchQuery);
+    })();
+    return catOk && favOk && searchOk;
+  });
+  currentFiltered = sortItems(filtered);
+  displayedCount = 0;
+  const sk = document.getElementById('skeletonGrid');
+  if (sk) sk.remove();
+  document.getElementById('masonryGrid').innerHTML = '';
+  updateResultsBar();
+  renderBatch();
+}
+function updateResultsBar() {
+  const bar = document.getElementById('resultsBar');
+  const countEl = document.getElementById('resultsCount');
+  const total = window.MEHNDI_DB ? window.MEHNDI_DB.length : 0;
+  if (searchQuery || activeCategory!=='all' || showFavsOnly) {
+    bar.style.display='flex';
+    countEl.innerHTML = `Showing <strong>${currentFiltered.length}</strong> of <strong>${total}</strong> designs`;
+  } else {
+    bar.style.display='none';
+  }
+}
+
+document.getElementById('favsToggleBtn').addEventListener('click', () => {
+  showFavsOnly = !showFavsOnly;
+  document.getElementById('favsToggleBtn').classList.toggle('active-fav', showFavsOnly);
+  applyFilter();
+});
+
+// ════════════════════════════════════════════════════
+//  RENDER BATCH
+// ════════════════════════════════════════════════════
 function renderBatch() {
   const grid = document.getElementById('masonryGrid');
   const batch = currentFiltered.slice(displayedCount, displayedCount + PAGE_SIZE);
-
-  if (displayedCount === 0 && batch.length === 0) {
-    grid.innerHTML = `
-      <div class="state-box">
-        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" color="#c4b5fd">
-          <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
-        </svg>
-        <p>No designs found. Try a different search or category.</p>
-      </div>`;
-    document.getElementById('loadMoreWrap').style.display = 'none';
+  if (displayedCount===0 && batch.length===0) {
+    const favsMsg = showFavsOnly
+      ? `<button class="btn-secondary" onclick="showFavsOnly=false;document.getElementById('favsToggleBtn').classList.remove('active-fav');applyFilter()">Browse all designs</button>`
+      : '';
+    grid.innerHTML = `<div class="state-box">
+      <svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2">
+        <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+      </svg>
+      <p>${showFavsOnly ? 'No saved designs yet. Heart some designs to save them!' : 'No designs found. Try a different search or category.'}</p>
+      ${favsMsg}
+    </div>`;
+    document.getElementById('loadSpinner').classList.remove('visible');
     return;
   }
-
-  batch.forEach((item, batchIdx) => {
-    const globalIdx = displayedCount + batchIdx;
-    const card = createCard(item, globalIdx);
-    grid.appendChild(card);
-  });
-
+  const frag = document.createDocumentFragment();
+  batch.forEach((item, i) => frag.appendChild(createCard(item, displayedCount + i)));
+  grid.appendChild(frag);
   displayedCount += batch.length;
-
-  const loadMoreWrap = document.getElementById('loadMoreWrap');
-  if (displayedCount < currentFiltered.length) {
-    loadMoreWrap.style.display = 'block';
-    document.getElementById('loadMoreBtn').disabled = false;
-    document.getElementById('loadMoreBtn').innerHTML = `
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
-      Load More (${currentFiltered.length - displayedCount} remaining)`;
-  } else {
-    loadMoreWrap.style.display = 'none';
-  }
+  document.getElementById('loadSpinner').classList.toggle('visible', displayedCount < currentFiltered.length);
 }
 
-function loadMore() {
-  document.getElementById('loadMoreBtn').disabled = true;
-  renderBatch();
-}
-
-// ─── CARD ─────────────────────────────────────────────────────────────
+// ════════════════════════════════════════════════════
+//  CARD
+// ════════════════════════════════════════════════════
 function createCard(item, idx) {
   const div = document.createElement('div');
   div.className = 'card';
-  div.onclick = () => openLightbox(idx);
-
-  const meta = CAT_META[item.category] || { label: item.category, color: '#7C3AED' };
-
+  const meta = CAT_META[item.category]||{label:item.category,color:'#573AFC'};
+  const faved = isFaved(item.id);
   div.innerHTML = `
-    <img class="loading" src="${item.medium}" alt="${meta.label} mehndi design"
+    <img class="loading" src="${item.medium}" alt="${meta.label} mehndi design" loading="lazy"
          onload="this.classList.remove('loading');this.classList.add('loaded')"
          onerror="this.parentElement.querySelector('.card-placeholder').style.display='flex';this.style.display='none'">
     <div class="card-placeholder" style="display:none">
-      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="1.5">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
         <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
       </svg>
       <span>Image unavailable</span>
     </div>
     <div class="card-overlay">
-      <button class="card-overlay-btn">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
-        View
+      <button class="card-overlay-btn" onclick="event.stopPropagation();openLightbox(${idx})">
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        VIEW
+      </button>
+      <button class="card-fav-btn ${faved?'faved':''}" data-id="${item.id}" onclick="event.stopPropagation();toggleCardFav(this,'${item.id}')" aria-label="Save design">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="${faved?'var(--primary)':'none'}" stroke="${faved?'var(--primary)':'currentColor'}" stroke-width="2"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
       </button>
     </div>
     <div class="card-footer">
-      <span class="card-cat" style="color:${meta.color}">${meta.label}</span>
-      <span class="card-date">${item.timestamp || ''}</span>
+      <span class="card-cat">${meta.label}</span>
+      <span class="card-date">${item.timestamp||''}</span>
     </div>`;
-
+  div.addEventListener('click', () => openLightbox(idx));
   return div;
 }
 
-// ─── LIGHTBOX ─────────────────────────────────────────────────────────
-function openLightbox(idx) {
-  lbIndex = idx;
-  renderLb();
-  document.getElementById('lightbox').classList.add('open');
-  document.body.style.overflow = 'hidden';
-}
-
-function renderLb() {
-  const item = currentFiltered[lbIndex];
-  if (!item) return;
-  const meta = CAT_META[item.category] || { label: item.category };
-  document.getElementById('lbImg').src = item.large || item.medium;
-  document.getElementById('lbCat').textContent = meta.label + ' Mehndi';
-  document.getElementById('lbDate').textContent = item.timestamp || 'Vintage design';
-  document.getElementById('lbDownload').href = item.large || item.medium;
-}
-
-function closeLb() {
-  document.getElementById('lightbox').classList.remove('open');
-  document.body.style.overflow = '';
-}
-
-function closeLightbox(e) {
-  if (e.target === document.getElementById('lightbox')) closeLb();
-}
-
-function lbNav(dir) {
-  lbIndex = Math.max(0, Math.min(currentFiltered.length - 1, lbIndex + dir));
-  renderLb();
-  // Load more if near end
-  if (lbIndex >= displayedCount - 5 && displayedCount < currentFiltered.length) {
-    renderBatch();
+function toggleCardFav(btn, id) {
+  const added = toggleFav(id);
+  saveFavorites();
+  const svg = btn.querySelector('svg');
+  if (added) {
+    btn.classList.add('faved');
+    svg.setAttribute('fill','var(--primary)'); svg.setAttribute('stroke','var(--primary)');
+    showToast('Saved to favourites');
+  } else {
+    btn.classList.remove('faved');
+    svg.setAttribute('fill','none'); svg.setAttribute('stroke','currentColor');
+    showToast('Removed from favourites');
   }
 }
 
-// ─── COPY ─────────────────────────────────────────────────────────────
-function copyLink() {
+// ════════════════════════════════════════════════════
+//  INFINITE SCROLL
+// ════════════════════════════════════════════════════
+function initInfiniteScroll() {
+  const observer = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && displayedCount < currentFiltered.length) renderBatch();
+  }, { rootMargin: '200px' });
+  observer.observe(document.getElementById('scrollSentinel'));
+}
+
+// ════════════════════════════════════════════════════
+//  URL STATE — deep-link support (safe on file://)
+// ════════════════════════════════════════════════════
+const IS_FILE_PROTOCOL = window.location.protocol === 'file:';
+
+function getShareURL(item) {
+  const base = window.location.origin + window.location.pathname;
+  return `${base}?id=${encodeURIComponent(item.id)}`;
+}
+function pushDesignURL(item) {
+  if (!item || IS_FILE_PROTOCOL) return;
+  try { history.pushState({ designId: item.id }, '', getShareURL(item)); } catch(e) {}
+}
+function clearDesignURL() {
+  if (IS_FILE_PROTOCOL) return;
+  try {
+    const clean = window.location.origin + window.location.pathname;
+    history.replaceState({}, '', clean);
+  } catch(e) {}
+}
+// On browser back/forward (only relevant on http/https)
+if (!IS_FILE_PROTOCOL) {
+  window.addEventListener('popstate', (e) => {
+    if (e.state && e.state.designId) {
+      const idx = currentFiltered.findIndex(d => d.id === e.state.designId);
+      if (idx !== -1) { lbIndex = idx; renderLb(); document.getElementById('lightbox').classList.add('open'); document.body.style.overflow = 'hidden'; return; }
+    }
+    document.getElementById('lightbox').classList.remove('open');
+    document.body.style.overflow = '';
+  });
+}
+
+// ════════════════════════════════════════════════════
+//  LIGHTBOX
+// ════════════════════════════════════════════════════
+function openLightbox(idx) {
+  lbIndex = idx; renderLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  pushDesignURL(currentFiltered[lbIndex]);
+}
+function renderLb() {
   const item = currentFiltered[lbIndex];
   if (!item) return;
-  navigator.clipboard.writeText(item.large || item.medium).then(() => showToast('Link copied!'));
+  const meta = CAT_META[item.category]||{label:item.category};
+  const img = document.getElementById('lbImg');
+  const spinner = document.getElementById('lbSpinner');
+  img.classList.add('lb-loading'); img.classList.remove('lb-loaded');
+  spinner.classList.remove('hidden');
+  img.onload = () => { img.classList.remove('lb-loading'); img.classList.add('lb-loaded'); spinner.classList.add('hidden'); };
+  img.onerror = () => spinner.classList.add('hidden');
+  img.src = item.large||item.medium;
+  document.getElementById('lbCounter').textContent = `${lbIndex+1} / ${currentFiltered.length}`;
+  document.getElementById('lbCat').textContent  = meta.label+' Mehndi';
+  document.getElementById('lbDate').textContent = item.timestamp||'Vintage design';
+  document.getElementById('lbDownload').href     = item.large||item.medium;
+  document.getElementById('lbDownload').setAttribute('download', `mehndi_${item.id||'design'}.jpg`);
+  const favBtn = document.getElementById('lbFavBtn');
+  const faved = isFaved(item.id);
+  favBtn.classList.toggle('faved', faved);
+  favBtn.querySelector('span').textContent = faved?'Saved':'Save';
+  [lbIndex-1, lbIndex+1].forEach(i => { const nb=currentFiltered[i]; if(nb){const img2=new Image();img2.src=nb.large||nb.medium;} });
+}
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+  clearDesignURL();
+}
+function closeLightbox(e) { if (e.target===document.getElementById('lightbox')) closeLb(); }
+function lbNav(dir) {
+  lbIndex = Math.max(0, Math.min(currentFiltered.length-1, lbIndex+dir));
+  renderLb();
+  pushDesignURL(currentFiltered[lbIndex]);
+  if (lbIndex >= displayedCount-5 && displayedCount < currentFiltered.length) renderBatch();
+}
+function toggleLbFav() {
+  const item = currentFiltered[lbIndex];
+  if (!item) return;
+  const added = toggleFav(item.id);
+  saveFavorites();
+  const favBtn = document.getElementById('lbFavBtn');
+  favBtn.classList.toggle('faved', added);
+  favBtn.querySelector('span').textContent = added?'Saved':'Save';
+  const cardFavBtn = document.querySelector(`.card-fav-btn[data-id="${item.id}"]`);
+  if (cardFavBtn) {
+    cardFavBtn.classList.toggle('faved', added);
+    const svg=cardFavBtn.querySelector('svg');
+    svg.setAttribute('fill', added?'var(--primary)':'none');
+    svg.setAttribute('stroke', added?'var(--primary)':'currentColor');
+  }
+  showToast(added?'Saved to favourites':'Removed from favourites');
 }
 
+// ════════════════════════════════════════════════════
+//  SHARE
+// ════════════════════════════════════════════════════
+async function shareDesign() {
+  const item = currentFiltered[lbIndex];
+  if (!item) return;
+
+  // On file:// there is no real shareable URL — copy the design ID instead
+  if (IS_FILE_PROTOCOL) {
+    copyToClipboard(item.id);
+    showToast('Design ID copied — upload to a server for full sharing');
+    return;
+  }
+
+  const shareUrl = getShareURL(item);
+  const shareData = {
+    title: 'Mehndi Design — MehndiVault',
+    text: 'Check out this beautiful mehndi design on MehndiVault!',
+    url: shareUrl,
+  };
+  if (navigator.share && navigator.canShare && navigator.canShare(shareData)) {
+    try { await navigator.share(shareData); }
+    catch(e) { if (e.name!=='AbortError') copyToClipboard(shareUrl); }
+  } else {
+    copyToClipboard(shareUrl);
+    showToast('Link copied!');
+  }
+}
+function copyToClipboard(text) {
+  navigator.clipboard.writeText(text)
+    .then(() => {})
+    .catch(() => {
+      // Fallback for browsers that block clipboard on file://
+      try {
+        const ta = document.createElement('textarea');
+        ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = '0';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+      } catch(e) {}
+    });
+}
+
+// ════════════════════════════════════════════════════
+//  DOWNLOAD
+// ════════════════════════════════════════════════════
+function downloadImage(e) {
+  const item = currentFiltered[lbIndex];
+  if (!item) return true;
+  const url = item.large||item.medium;
+  fetch(url).then(r=>r.blob()).then(blob=>{
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `mehndi_${item.id||'design'}.jpg`;
+    a.click(); URL.revokeObjectURL(a.href);
+  }).catch(()=>window.open(url,'_blank'));
+  e.preventDefault(); return false;
+}
+
+// ════════════════════════════════════════════════════
+//  RANDOM
+// ════════════════════════════════════════════════════
+function openRandom() {
+  const db = window.MEHNDI_DB||[];
+  if (!db.length) return;
+  if (activeCategory!=='all') setCategory('all');
+  openLightbox(Math.floor(Math.random()*currentFiltered.length));
+}
+
+// ════════════════════════════════════════════════════
+//  BACK TO TOP
+// ════════════════════════════════════════════════════
+function initBackTop() {
+  const btn = document.getElementById('backTop');
+  window.addEventListener('scroll', ()=>{ btn.classList.toggle('visible', window.scrollY > 600); }, { passive:true });
+}
+function scrollToTop() { window.scrollTo({top:0, behavior:'smooth'}); }
+
+// ════════════════════════════════════════════════════
+//  PWA INSTALL
+// ════════════════════════════════════════════════════
+let deferredPrompt;
+function initPWA() {
+  if (localStorage.getItem('mv_pwa_dismissed')) return;
+  window.addEventListener('beforeinstallprompt', e=>{
+    e.preventDefault(); deferredPrompt = e;
+    setTimeout(()=>document.getElementById('installBanner').classList.remove('hidden'), 3000);
+  });
+  document.getElementById('installBtn').addEventListener('click', async ()=>{
+    if (!deferredPrompt) return;
+    deferredPrompt.prompt();
+    const { outcome } = await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    document.getElementById('installBanner').classList.add('hidden');
+  });
+  if ('serviceWorker' in navigator) navigator.serviceWorker.register('sw.js').catch(()=>{});
+}
+function dismissInstall() {
+  document.getElementById('installBanner').classList.add('hidden');
+  localStorage.setItem('mv_pwa_dismissed','1');
+}
+
+// ════════════════════════════════════════════════════
+//  SWIPE
+// ════════════════════════════════════════════════════
+function initSwipe() {
+  let startX=0, startY=0;
+  const lb = document.getElementById('lightbox');
+  lb.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; startY=e.touches[0].clientY; },{passive:true});
+  lb.addEventListener('touchend', e=>{
+    const dx=e.changedTouches[0].clientX-startX;
+    const dy=Math.abs(e.changedTouches[0].clientY-startY);
+    if (Math.abs(dx)>50 && dy<80) lbNav(dx<0?1:-1);
+  },{passive:true});
+}
+
+// ════════════════════════════════════════════════════
+//  KEYBOARD
+// ════════════════════════════════════════════════════
+document.addEventListener('keydown', e=>{
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key==='Escape') closeLb();
+  if (e.key==='ArrowLeft') lbNav(-1);
+  if (e.key==='ArrowRight') lbNav(1);
+  if (e.key==='f'||e.key==='F') toggleLbFav();
+});
+
+// ════════════════════════════════════════════════════
+//  TOAST
+// ════════════════════════════════════════════════════
+let toastTimer;
 function showToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  setTimeout(() => t.classList.remove('show'), 2400);
+  t.textContent = msg; t.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(()=>t.classList.remove('show'), 2200);
 }
-
-// ─── KEYBOARD ─────────────────────────────────────────────────────────
-document.addEventListener('keydown', e => {
-  if (!document.getElementById('lightbox').classList.contains('open')) return;
-  if (e.key === 'Escape') closeLb();
-  if (e.key === 'ArrowLeft') lbNav(-1);
-  if (e.key === 'ArrowRight') lbNav(1);
-});
 </script>
 </body>
 </html>
