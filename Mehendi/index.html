@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mehndi Designs Gallery — Wondermayank</title>
+<meta name="description" content="Beautiful mehndi & henna designs collection. Hand, Bridal, Feet, Hijab and more — curated by Wondermayank.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --p1: #7C3AED;
+    --p2: #A78BFA;
+    --p3: #C4B5FD;
+    --b1: #60A5FA;
+    --b2: #B9D9DC;
+    --bg: #F8F6FF;
+    --surface: rgba(255,255,255,0.72);
+    --surface-solid: #ffffff;
+    --text: #1e1b4b;
+    --muted: #6b7280;
+    --border: rgba(124,58,237,0.12);
+    --shadow: 0 4px 24px rgba(124,58,237,0.08);
+    --shadow-lg: 0 12px 48px rgba(124,58,237,0.14);
+    --radius: 18px;
+    --radius-sm: 10px;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ─── BACKGROUND ─────────────────────────────── */
+  .bg-orbs {
+    position: fixed; inset: 0; z-index: 0; pointer-events: none; overflow: hidden;
+  }
+  .orb {
+    position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.18;
+  }
+  .orb1 { width: 480px; height: 480px; background: var(--p1); top: -120px; left: -100px; }
+  .orb2 { width: 360px; height: 360px; background: var(--b1); top: 20%; right: -80px; }
+  .orb3 { width: 300px; height: 300px; background: var(--p2); bottom: 10%; left: 20%; }
+  .orb4 { width: 200px; height: 200px; background: var(--b2); bottom: -60px; right: 15%; }
+
+  /* ─── HEADER ─────────────────────────────────── */
+  header {
+    position: relative; z-index: 10;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .header-inner {
+    max-width: 1400px; margin: 0 auto;
+    display: flex; align-items: center; justify-content: space-between;
+    height: 70px; gap: 20px;
+  }
+  .logo {
+    display: flex; align-items: center; gap: 12px; text-decoration: none;
+  }
+  .logo-icon {
+    width: 42px; height: 42px;
+    background: linear-gradient(135deg, var(--p1), var(--b1));
+    border-radius: 12px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .logo-text h1 {
+    font-family: 'Syne', sans-serif;
+    font-size: 1.15rem; font-weight: 800;
+    background: linear-gradient(135deg, var(--p1), var(--b1));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1.1;
+  }
+  .logo-text span {
+    font-size: 0.7rem; color: var(--muted); font-weight: 400; display: block;
+  }
+  .header-search {
+    flex: 1; max-width: 420px;
+    position: relative;
+  }
+  .header-search input {
+    width: 100%;
+    padding: 10px 44px 10px 18px;
+    border: 1.5px solid var(--border);
+    border-radius: 50px;
+    background: rgba(255,255,255,0.9);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; color: var(--text);
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  .header-search input:focus {
+    border-color: var(--p2); box-shadow: 0 0 0 3px rgba(167,139,250,0.15);
+  }
+  .header-search input::placeholder { color: var(--muted); }
+  .search-icon {
+    position: absolute; right: 14px; top: 50%; transform: translateY(-50%);
+    color: var(--muted); pointer-events: none;
+  }
+  .header-count {
+    background: linear-gradient(135deg, var(--p1), var(--b1));
+    color: white; padding: 6px 16px; border-radius: 50px;
+    font-size: 0.78rem; font-weight: 600; white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  /* ─── HERO ───────────────────────────────────── */
+  .hero {
+    position: relative; z-index: 2;
+    text-align: center; padding: 52px 24px 36px;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(124,58,237,0.08); border: 1px solid rgba(124,58,237,0.2);
+    color: var(--p1); border-radius: 50px; padding: 6px 16px;
+    font-size: 0.8rem; font-weight: 600; margin-bottom: 18px;
+  }
+  .hero h2 {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    font-weight: 800; line-height: 1.15;
+    background: linear-gradient(135deg, var(--p1) 0%, var(--b1) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 14px;
+  }
+  .hero p {
+    color: var(--muted); font-size: 1rem; max-width: 480px; margin: 0 auto;
+    line-height: 1.7;
+  }
+
+  /* ─── CATEGORY TABS ──────────────────────────── */
+  .tabs-wrap {
+    position: sticky; top: 0; z-index: 9;
+    background: rgba(248,246,255,0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 24px;
+  }
+  .tabs {
+    max-width: 1400px; margin: 0 auto;
+    display: flex; align-items: center; gap: 6px;
+    overflow-x: auto; padding: 12px 0;
+    scrollbar-width: none;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 8px 20px; border-radius: 50px;
+    border: 1.5px solid var(--border);
+    background: var(--surface-solid);
+    color: var(--muted); cursor: pointer;
+    font-family: 'DM Sans', sans-serif; font-size: 0.85rem; font-weight: 500;
+    white-space: nowrap; transition: all 0.2s; flex-shrink: 0;
+    box-shadow: var(--shadow);
+  }
+  .tab-btn:hover { border-color: var(--p2); color: var(--p1); }
+  .tab-btn.active {
+    background: linear-gradient(135deg, var(--p1), var(--b1));
+    border-color: transparent; color: white;
+    box-shadow: 0 4px 16px rgba(124,58,237,0.35);
+  }
+  .tab-count {
+    background: rgba(255,255,255,0.25);
+    border-radius: 50px; padding: 1px 8px;
+    font-size: 0.72rem; font-weight: 600;
+  }
+  .tab-btn:not(.active) .tab-count {
+    background: rgba(124,58,237,0.1); color: var(--p1);
+  }
+
+  /* ─── GALLERY AREA ───────────────────────────── */
+  .gallery-area {
+    position: relative; z-index: 2;
+    max-width: 1400px; margin: 0 auto;
+    padding: 28px 20px 60px;
+  }
+
+  /* Pinterest masonry via CSS columns */
+  .masonry {
+    column-count: 5;
+    column-gap: 14px;
+  }
+  @media (max-width: 1200px) { .masonry { column-count: 4; } }
+  @media (max-width: 900px)  { .masonry { column-count: 3; } }
+  @media (max-width: 580px)  { .masonry { column-count: 2; } }
+  @media (max-width: 360px)  { .masonry { column-count: 1; } }
+
+  .card {
+    break-inside: avoid;
+    margin-bottom: 14px;
+    border-radius: var(--radius-sm);
+    overflow: hidden;
+    background: var(--surface-solid);
+    box-shadow: var(--shadow);
+    cursor: pointer;
+    transition: transform 0.22s ease, box-shadow 0.22s ease;
+    position: relative;
+  }
+  .card:hover {
+    transform: translateY(-4px) scale(1.012);
+    box-shadow: var(--shadow-lg);
+  }
+  .card img {
+    width: 100%; display: block;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+    background: linear-gradient(135deg, var(--p3) 0%, var(--b2) 100%);
+    transition: opacity 0.3s;
+  }
+  .card img.loading { opacity: 0; min-height: 120px; }
+  .card img.loaded { opacity: 1; }
+  .card-footer {
+    padding: 8px 10px;
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 4px;
+  }
+  .card-cat {
+    font-size: 0.7rem; font-weight: 600; text-transform: uppercase;
+    letter-spacing: 0.04em; color: var(--p1);
+  }
+  .card-date {
+    font-size: 0.68rem; color: var(--muted);
+  }
+  .card-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(180deg, transparent 40%, rgba(124,58,237,0.55) 100%);
+    opacity: 0; transition: opacity 0.2s;
+    display: flex; align-items: flex-end; justify-content: center;
+    padding-bottom: 14px; border-radius: var(--radius-sm);
+  }
+  .card:hover .card-overlay { opacity: 1; }
+  .card-overlay-btn {
+    background: rgba(255,255,255,0.9);
+    border: none; border-radius: 50px; padding: 7px 20px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+    font-weight: 600; color: var(--p1); cursor: pointer;
+    display: flex; align-items: center; gap: 6px;
+  }
+
+  /* broken image placeholder */
+  .card-placeholder {
+    width: 100%; background: linear-gradient(135deg, #f3f0ff, #e0f2fe);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 8px; color: var(--muted); font-size: 0.75rem;
+    padding: 32px 12px;
+    border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+  }
+
+  /* ─── EMPTY / LOADING ────────────────────────── */
+  .state-box {
+    text-align: center; padding: 80px 24px;
+    color: var(--muted); grid-column: 1/-1;
+  }
+  .state-box svg { opacity: 0.35; margin-bottom: 14px; }
+  .state-box p { font-size: 1rem; }
+
+  .skeleton-grid {
+    column-count: 5; column-gap: 14px;
+  }
+  @media (max-width: 1200px) { .skeleton-grid { column-count: 4; } }
+  @media (max-width: 900px)  { .skeleton-grid { column-count: 3; } }
+  @media (max-width: 580px)  { .skeleton-grid { column-count: 2; } }
+  .skel-card {
+    break-inside: avoid; margin-bottom: 14px;
+    border-radius: var(--radius-sm);
+    background: linear-gradient(90deg, #ede9fe 0%, #ddd6fe 50%, #ede9fe 100%);
+    background-size: 200% 100%;
+    animation: shimmer 1.4s infinite linear;
+  }
+  @keyframes shimmer { to { background-position: -200% 0; } }
+
+  /* ─── LIGHTBOX ───────────────────────────────── */
+  .lightbox {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(30,27,75,0.82);
+    backdrop-filter: blur(12px);
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .lightbox.open { display: flex; }
+  .lb-content {
+    position: relative;
+    background: var(--surface-solid);
+    border-radius: 22px;
+    max-width: 680px; width: 100%;
+    box-shadow: 0 24px 80px rgba(30,27,75,0.4);
+    overflow: hidden;
+    animation: lbIn 0.25s ease;
+  }
+  @keyframes lbIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+  .lb-img-wrap {
+    background: #f3f0ff;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 300px;
+    max-height: 70vh; overflow: hidden;
+  }
+  .lb-img-wrap img {
+    width: 100%; max-height: 70vh; object-fit: contain; display: block;
+  }
+  .lb-info {
+    padding: 18px 22px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+  .lb-meta { display: flex; flex-direction: column; gap: 3px; }
+  .lb-cat {
+    font-size: 0.75rem; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--p1);
+  }
+  .lb-date { font-size: 0.8rem; color: var(--muted); }
+  .lb-actions { display: flex; gap: 10px; }
+  .lb-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    padding: 8px 18px; border-radius: 50px;
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; border: none; transition: all 0.18s;
+  }
+  .lb-btn-primary {
+    background: linear-gradient(135deg, var(--p1), var(--b1));
+    color: white; box-shadow: 0 4px 14px rgba(124,58,237,0.3);
+  }
+  .lb-btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.4); }
+  .lb-btn-ghost {
+    background: rgba(124,58,237,0.08); color: var(--p1);
+    border: 1.5px solid rgba(124,58,237,0.2);
+  }
+  .lb-btn-ghost:hover { background: rgba(124,58,237,0.15); }
+  .lb-close {
+    position: absolute; top: 14px; right: 14px;
+    width: 34px; height: 34px; border-radius: 50%;
+    background: rgba(255,255,255,0.9); border: 1px solid var(--border);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--muted); transition: color 0.15s, background 0.15s;
+    backdrop-filter: blur(8px);
+  }
+  .lb-close:hover { color: var(--p1); background: white; }
+  .lb-nav {
+    position: absolute; top: 50%; transform: translateY(-50%);
+    width: 38px; height: 38px; border-radius: 50%;
+    background: rgba(255,255,255,0.9); border: 1px solid var(--border);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    color: var(--p1); transition: all 0.15s;
+    backdrop-filter: blur(8px);
+  }
+  .lb-nav:hover { background: white; box-shadow: 0 4px 14px rgba(124,58,237,0.2); }
+  .lb-prev { left: -50px; }
+  .lb-next { right: -50px; }
+  @media (max-width: 700px) {
+    .lb-prev { left: 8px; } .lb-next { right: 8px; }
+  }
+
+  /* ─── LOAD MORE ──────────────────────────────── */
+  .load-more-wrap { text-align: center; padding: 20px 0 40px; }
+  .load-more-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 12px 36px; border-radius: 50px;
+    background: linear-gradient(135deg, var(--p1), var(--b1));
+    color: white; font-family: 'DM Sans', sans-serif;
+    font-size: 0.9rem; font-weight: 600; cursor: pointer;
+    border: none; box-shadow: 0 6px 20px rgba(124,58,237,0.3);
+    transition: all 0.2s;
+  }
+  .load-more-btn:hover { transform: translateY(-2px); box-shadow: 0 10px 28px rgba(124,58,237,0.4); }
+  .load-more-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+  /* ─── FOOTER ─────────────────────────────────── */
+  footer {
+    position: relative; z-index: 2;
+    text-align: center;
+    border-top: 1px solid var(--border);
+    padding: 28px 24px;
+    color: var(--muted); font-size: 0.82rem;
+  }
+  footer a { color: var(--p1); text-decoration: none; font-weight: 600; }
+  footer a:hover { text-decoration: underline; }
+
+  /* ─── SCROLLBAR ───────────────────────────────── */
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: var(--p3); border-radius: 3px; }
+
+  /* ─── TOAST ──────────────────────────────────── */
+  .toast {
+    position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%) translateY(80px);
+    background: var(--p1); color: white; padding: 10px 24px;
+    border-radius: 50px; font-size: 0.85rem; font-weight: 500;
+    box-shadow: 0 8px 28px rgba(124,58,237,0.4); z-index: 2000;
+    transition: transform 0.3s ease;
+    pointer-events: none;
+  }
+  .toast.show { transform: translateX(-50%) translateY(0); }
+
+  /* ─── STATS BAR ──────────────────────────────── */
+  .stats-bar {
+    display: flex; align-items: center; gap: 10px;
+    flex-wrap: wrap; justify-content: center;
+    padding: 8px 24px 16px;
+    position: relative; z-index: 2;
+  }
+  .stat-chip {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--surface-solid);
+    border: 1px solid var(--border);
+    border-radius: 50px; padding: 5px 14px;
+    font-size: 0.78rem; font-weight: 500;
+    box-shadow: var(--shadow);
+  }
+  .stat-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+</style>
+</head>
+<body>
+
+<!-- Background orbs -->
+<div class="bg-orbs">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+  <div class="orb orb4"></div>
+</div>
+
+<!-- Header -->
+<header>
+  <div class="header-inner">
+    <a href="#" class="logo">
+      <div class="logo-icon">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2C8 2 5 5.5 5 9c0 3 2 5 4 7l3 3 3-3c2-2 4-4 4-7 0-3.5-3-7-7-7z" fill="white" opacity="0.9"/>
+          <circle cx="12" cy="9" r="3" fill="none" stroke="white" stroke-width="1.5"/>
+        </svg>
+      </div>
+      <div class="logo-text">
+        <h1>MehndiVault</h1>
+        <span>by Wondermayank</span>
+      </div>
+    </a>
+
+    <div class="header-search">
+      <input type="text" id="searchInput" placeholder="Search designs..." autocomplete="off">
+      <svg class="search-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/>
+      </svg>
+    </div>
+
+    <div class="header-count" id="headerCount">Loading...</div>
+  </div>
+</header>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+    Curated Designs Collection
+  </div>
+  <h2>Discover Beautiful<br>Mehndi Designs</h2>
+  <p>Hand-curated henna patterns across Bridal, Hand, Feet, Hijab styles and more — your ultimate mehndi inspiration gallery.</p>
+</section>
+
+<!-- Stats bar -->
+<div class="stats-bar" id="statsBar"></div>
+
+<!-- Category Tabs -->
+<div class="tabs-wrap">
+  <div class="tabs" id="tabsContainer"></div>
+</div>
+
+<!-- Gallery -->
+<div class="gallery-area">
+  <div class="masonry" id="masonryGrid">
+    <!-- Skeleton loaders -->
+    <div class="skeleton-grid" id="skeletonGrid"></div>
+  </div>
+  <div class="load-more-wrap" id="loadMoreWrap" style="display:none">
+    <button class="load-more-btn" id="loadMoreBtn" onclick="loadMore()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Load More Designs
+    </button>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer>
+  <p>Made with <svg style="display:inline;vertical-align:-2px" width="14" height="14" viewBox="0 0 24 24" fill="#EC4899"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg> by <a href="https://wondermayank.github.io" target="_blank">Wondermayank</a> &nbsp;·&nbsp; Source: <a href="https://github.com/BehindMask/Mehndi-Design-Book" target="_blank">BehindMask/Mehndi-Design-Book</a></p>
+</footer>
+
+<!-- Lightbox -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <div class="lb-content">
+    <button class="lb-close" onclick="closeLb()">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <button class="lb-nav lb-prev" onclick="lbNav(-1)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+    </button>
+    <button class="lb-nav lb-next" onclick="lbNav(1)">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+    </button>
+    <div class="lb-img-wrap">
+      <img id="lbImg" src="" alt="Mehndi Design">
+    </div>
+    <div class="lb-info">
+      <div class="lb-meta">
+        <span class="lb-cat" id="lbCat"></span>
+        <span class="lb-date" id="lbDate"></span>
+      </div>
+      <div class="lb-actions">
+        <button class="lb-btn lb-btn-ghost" onclick="copyLink()">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+          Copy Link
+        </button>
+        <a id="lbDownload" href="#" target="_blank" class="lb-btn lb-btn-primary">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7,10 12,15 17,10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          Open Full
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- Database file -->
+<script src="mehndi-db.js"></script>
+
+<script>
+// ─── STATE ──────────────────────────────────────────────────────────
+let activeCategory = 'all';
+let searchQuery = '';
+let currentFiltered = [];
+let displayedCount = 0;
+const PAGE_SIZE = 60;
+let lbIndex = 0;
+
+// Category metadata
+const CAT_META = {
+  all:          { label: 'All Designs', color: '#7C3AED' },
+  hand:         { label: 'Hand',         color: '#7C3AED' },
+  bridal:       { label: 'Bridal',       color: '#EC4899' },
+  feet:         { label: 'Feet',         color: '#60A5FA' },
+  hijab:        { label: 'Hijab',        color: '#A78BFA' },
+  hijab_fashion:{ label: 'Hijab Fashion',color: '#C4B5FD' },
+};
+
+// Tab SVG icons
+const CAT_ICONS = {
+  all: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>`,
+  hand: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>`,
+  bridal: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
+  feet: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5c0 1.1-.51 2.23-1 3h6c1 0 2 .99 2 2v1c0 1-.99 2-2 2H8c-1 0-2 1-2 2s1 2 2 2h8c1 0 2 .99 2 2v1c0 1-.99 2-2 2H8c-2 0-4-1.5-4-3z"/></svg>`,
+  hijab: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M12 11C8.13 11 5 14.13 5 18h14c0-3.87-3.13-7-7-7z"/></svg>`,
+  hijab_fashion: `<svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
+};
+
+// ─── INIT ────────────────────────────────────────────────────────────
+window.addEventListener('load', () => {
+  if (!window.MEHNDI_DB) {
+    document.getElementById('masonryGrid').innerHTML =
+      `<div class="state-box"><p>⚠️ Could not load mehndi-db.js — make sure it's in the same folder as index.html.</p></div>`;
+    return;
+  }
+  buildSkeletons();
+  buildTabs();
+  buildStatsBar();
+  applyFilter();
+  document.getElementById('searchInput').addEventListener('input', e => {
+    searchQuery = e.target.value.trim().toLowerCase();
+    applyFilter();
+  });
+});
+
+// ─── SKELETONS ───────────────────────────────────────────────────────
+function buildSkeletons() {
+  const heights = [180, 240, 160, 280, 200, 220, 160, 300, 180, 260, 190, 230, 170, 200, 250];
+  let html = '';
+  for (let i = 0; i < 15; i++) {
+    html += `<div class="skel-card" style="height:${heights[i % heights.length]}px"></div>`;
+  }
+  document.getElementById('skeletonGrid').innerHTML = html;
+}
+
+// ─── TABS ─────────────────────────────────────────────────────────────
+function buildTabs() {
+  const counts = getCategoryCounts();
+  const container = document.getElementById('tabsContainer');
+
+  const categories = ['all', ...Object.keys(window.MEHNDI_CATEGORIES || {}).filter(k => counts[k] > 0)];
+
+  container.innerHTML = categories.map(cat => {
+    const meta = CAT_META[cat] || { label: cat, color: '#7C3AED' };
+    const icon = CAT_ICONS[cat] || CAT_ICONS['all'];
+    const count = cat === 'all' ? window.MEHNDI_DB.length : (counts[cat] || 0);
+    return `
+      <button class="tab-btn ${cat === activeCategory ? 'active' : ''}"
+              onclick="setCategory('${cat}')" data-cat="${cat}">
+        ${icon}
+        ${meta.label}
+        <span class="tab-count">${count}</span>
+      </button>`;
+  }).join('');
+}
+
+function getCategoryCounts() {
+  const counts = {};
+  (window.MEHNDI_DB || []).forEach(d => {
+    counts[d.category] = (counts[d.category] || 0) + 1;
+  });
+  return counts;
+}
+
+// ─── STATS BAR ───────────────────────────────────────────────────────
+function buildStatsBar() {
+  const counts = getCategoryCounts();
+  const bar = document.getElementById('statsBar');
+  const chips = Object.entries(counts).map(([cat, n]) => {
+    const meta = CAT_META[cat] || { label: cat, color: '#7C3AED' };
+    return `<span class="stat-chip"><span class="stat-dot" style="background:${meta.color}"></span>${meta.label}: <strong>${n}</strong></span>`;
+  });
+  bar.innerHTML = chips.join('');
+  document.getElementById('headerCount').textContent = `${window.MEHNDI_DB.length} Designs`;
+}
+
+// ─── FILTER ──────────────────────────────────────────────────────────
+function setCategory(cat) {
+  activeCategory = cat;
+  document.querySelectorAll('.tab-btn').forEach(b => {
+    b.classList.toggle('active', b.dataset.cat === cat);
+  });
+  applyFilter();
+}
+
+function applyFilter() {
+  const db = window.MEHNDI_DB || [];
+  currentFiltered = db.filter(item => {
+    const catOk = activeCategory === 'all' || item.category === activeCategory;
+    const meta = CAT_META[item.category] || { label: item.category };
+    const searchOk = !searchQuery ||
+      meta.label.toLowerCase().includes(searchQuery) ||
+      item.category.toLowerCase().includes(searchQuery) ||
+      (item.timestamp || '').toLowerCase().includes(searchQuery);
+    return catOk && searchOk && item.medium;
+  });
+
+  displayedCount = 0;
+  // remove skeleton
+  const sk = document.getElementById('skeletonGrid');
+  if (sk) sk.remove();
+
+  const grid = document.getElementById('masonryGrid');
+  grid.innerHTML = '';
+  renderBatch();
+}
+
+// ─── RENDER ──────────────────────────────────────────────────────────
+function renderBatch() {
+  const grid = document.getElementById('masonryGrid');
+  const batch = currentFiltered.slice(displayedCount, displayedCount + PAGE_SIZE);
+
+  if (displayedCount === 0 && batch.length === 0) {
+    grid.innerHTML = `
+      <div class="state-box">
+        <svg width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" color="#c4b5fd">
+          <path d="m21.44 11.05-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/>
+        </svg>
+        <p>No designs found. Try a different search or category.</p>
+      </div>`;
+    document.getElementById('loadMoreWrap').style.display = 'none';
+    return;
+  }
+
+  batch.forEach((item, batchIdx) => {
+    const globalIdx = displayedCount + batchIdx;
+    const card = createCard(item, globalIdx);
+    grid.appendChild(card);
+  });
+
+  displayedCount += batch.length;
+
+  const loadMoreWrap = document.getElementById('loadMoreWrap');
+  if (displayedCount < currentFiltered.length) {
+    loadMoreWrap.style.display = 'block';
+    document.getElementById('loadMoreBtn').disabled = false;
+    document.getElementById('loadMoreBtn').innerHTML = `
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
+      Load More (${currentFiltered.length - displayedCount} remaining)`;
+  } else {
+    loadMoreWrap.style.display = 'none';
+  }
+}
+
+function loadMore() {
+  document.getElementById('loadMoreBtn').disabled = true;
+  renderBatch();
+}
+
+// ─── CARD ─────────────────────────────────────────────────────────────
+function createCard(item, idx) {
+  const div = document.createElement('div');
+  div.className = 'card';
+  div.onclick = () => openLightbox(idx);
+
+  const meta = CAT_META[item.category] || { label: item.category, color: '#7C3AED' };
+
+  div.innerHTML = `
+    <img class="loading" src="${item.medium}" alt="${meta.label} mehndi design"
+         onload="this.classList.remove('loading');this.classList.add('loaded')"
+         onerror="this.parentElement.querySelector('.card-placeholder').style.display='flex';this.style.display='none'">
+    <div class="card-placeholder" style="display:none">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c4b5fd" stroke-width="1.5">
+        <rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="m21 15-5-5L5 21"/>
+      </svg>
+      <span>Image unavailable</span>
+    </div>
+    <div class="card-overlay">
+      <button class="card-overlay-btn">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+        View
+      </button>
+    </div>
+    <div class="card-footer">
+      <span class="card-cat" style="color:${meta.color}">${meta.label}</span>
+      <span class="card-date">${item.timestamp || ''}</span>
+    </div>`;
+
+  return div;
+}
+
+// ─── LIGHTBOX ─────────────────────────────────────────────────────────
+function openLightbox(idx) {
+  lbIndex = idx;
+  renderLb();
+  document.getElementById('lightbox').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function renderLb() {
+  const item = currentFiltered[lbIndex];
+  if (!item) return;
+  const meta = CAT_META[item.category] || { label: item.category };
+  document.getElementById('lbImg').src = item.large || item.medium;
+  document.getElementById('lbCat').textContent = meta.label + ' Mehndi';
+  document.getElementById('lbDate').textContent = item.timestamp || 'Vintage design';
+  document.getElementById('lbDownload').href = item.large || item.medium;
+}
+
+function closeLb() {
+  document.getElementById('lightbox').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+function closeLightbox(e) {
+  if (e.target === document.getElementById('lightbox')) closeLb();
+}
+
+function lbNav(dir) {
+  lbIndex = Math.max(0, Math.min(currentFiltered.length - 1, lbIndex + dir));
+  renderLb();
+  // Load more if near end
+  if (lbIndex >= displayedCount - 5 && displayedCount < currentFiltered.length) {
+    renderBatch();
+  }
+}
+
+// ─── COPY ─────────────────────────────────────────────────────────────
+function copyLink() {
+  const item = currentFiltered[lbIndex];
+  if (!item) return;
+  navigator.clipboard.writeText(item.large || item.medium).then(() => showToast('Link copied!'));
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+
+// ─── KEYBOARD ─────────────────────────────────────────────────────────
+document.addEventListener('keydown', e => {
+  if (!document.getElementById('lightbox').classList.contains('open')) return;
+  if (e.key === 'Escape') closeLb();
+  if (e.key === 'ArrowLeft') lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+</script>
+</body>
+</html>
