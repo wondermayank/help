@@ -1,4 +1,5 @@
 
+
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -28,15 +29,17 @@ html{scroll-behavior:smooth;}
 body{font-family:'Inter',system-ui,sans-serif;background:var(--page-bg);color:var(--ink);min-height:100vh;overflow-x:hidden;transition:background .3s,color .3s;}
 
 /* ── LOADING ── */
-#loading{position:fixed;inset:0;background:var(--surface-d);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s;}
+#loading{position:fixed;inset:0;background:#0f172a;display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .6s ease;}
 #loading.hidden{opacity:0;pointer-events:none;}
-.ld-logo{width:72px;height:72px;background:linear-gradient(135deg,var(--rose),#f472b6);border-radius:20px;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 0 40px rgba(225,29,72,.4);}
-.ld-title{color:#fff;font-size:24px;font-weight:800;letter-spacing:-.5px;}
-.ld-sub{color:#94a3b8;font-size:13px;margin-top:4px;}
-.ld-dots{display:flex;gap:8px;margin-top:24px;}
-.ld-dot{width:8px;height:8px;border-radius:50%;background:var(--rose);animation:ldPulse 1.4s ease-in-out infinite;}
-.ld-dot:nth-child(2){animation-delay:.2s;}.ld-dot:nth-child(3){animation-delay:.4s;}
-@keyframes ldPulse{0%,80%,100%{transform:scale(0.6);opacity:.4;}40%{transform:scale(1);opacity:1;}}
+.ld-arc-wrap{position:relative;width:80px;height:80px;margin-bottom:28px;}
+.ld-arc-svg{width:80px;height:80px;transform:rotate(-90deg);}
+.ld-arc-bg{fill:none;stroke:rgba(225,29,72,.15);stroke-width:3;}
+.ld-arc-fill{fill:none;stroke:var(--rose);stroke-width:3;stroke-linecap:round;stroke-dasharray:188;stroke-dashoffset:188;animation:arcDraw 1.4s cubic-bezier(.4,0,.2,1) infinite;}
+@keyframes arcDraw{0%{stroke-dashoffset:188;opacity:.4;}50%{stroke-dashoffset:47;opacity:1;}100%{stroke-dashoffset:188;opacity:.4;}}
+.ld-icon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
+.ld-icon svg{width:28px;height:28px;stroke:var(--rose);}
+.ld-title{color:#f8fafc;font-size:22px;font-weight:700;letter-spacing:-.3px;}
+.ld-sub{color:#64748b;font-size:13px;font-weight:400;margin-top:5px;letter-spacing:.3px;}
 
 /* ── PIN SCREENS ── */
 .pin-logo{width:56px;height:56px;background:var(--rose);border-radius:16px;display:flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 8px 24px rgba(225,29,72,.35);}
@@ -903,10 +906,19 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
 
 <!-- ── LOADING ── -->
 <div id="loading">
-  <div class="ld-logo"><svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div>
+  <div class="ld-arc-wrap">
+    <svg class="ld-arc-svg" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg">
+      <circle class="ld-arc-bg" cx="30" cy="30" r="26"/>
+      <circle class="ld-arc-fill" cx="30" cy="30" r="26"/>
+    </svg>
+    <div class="ld-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 2a7 7 0 0 0 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7 7 7 0 0 0 7-7z"/>
+      </svg>
+    </div>
+  </div>
   <div class="ld-title">Luna</div>
   <div class="ld-sub">Your private period companion</div>
-  <div class="ld-dots"><div class="ld-dot"></div><div class="ld-dot"></div><div class="ld-dot"></div></div>
 </div>
 
 <!-- ── ONBOARDING ── -->
@@ -939,7 +951,7 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
       <button class="dp-btn" id="dpSpotBtn" onclick="toggleDaySpot()">🟡 Spotting</button>
       <button class="dp-btn" id="dpSexBtn" onclick="toggleDaySex()">💙 Sex</button>
     </div>
-    <textarea class="dp-textarea" id="dayNoteText" placeholder="Add a note for this day..."></textarea>
+    <div id="dayRecordSummary" style="display:none;margin:0 0 12px;padding:10px 12px;border-radius:12px;background:var(--parchment);border:1px solid var(--hairline);font-size:12px;color:var(--body);line-height:1.55;"></div><textarea class="dp-textarea" id="dayNoteText" placeholder="Add a note for this day..."></textarea>
     <button class="dp-save" onclick="saveDayNote()">Save</button>
     <button class="dp-close" onclick="closeDayPopup()">Close</button>
   </div>
@@ -1734,13 +1746,15 @@ input[type=range].red-range::-webkit-slider-thumb{-webkit-appearance:none;width:
 <!-- ── LUNA CHATBOT v2 ── -->
 <button id="chatFab" onclick="toggleChat()" title="Chat with Luna">
   <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-  <div class="fab-badge">🌙</div>
+  <div class="fab-badge">
+    <svg width="10" height="10" viewBox="0 0 24 24" fill="white" stroke="none"><path d="M12 2a7 7 0 0 0 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7 7 7 0 0 0 7-7z"/></svg>
+  </div>
 </button>
 
 <div id="chatBox">
   <div class="chat-header">
     <div class="chat-avatar">
-      🌙
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="var(--rose)" stroke="none"><path d="M12 2a7 7 0 0 0 7 7 7 7 0 0 1-7 7 7 7 0 0 1-7-7 7 7 0 0 0 7-7z"/></svg>
       <div class="chat-avatar-online"></div>
     </div>
     <div class="chat-header-info">
@@ -1920,7 +1934,7 @@ function buildAIPredictions(){var el=document.getElementById('aiPredContent');if
 
 // ── CALENDAR ──
 var calViewYear,calViewMonth,currentDayKey='',currentDayPeriod=false,currentDaySpot=false,currentDaySex=false;
-function initCalendar(){var n=new Date();calViewYear=n.getFullYear();calViewMonth=n.getMonth();rebuildCalendar();}
+function initCalendar(){saveSexLogs(getSexLogs());var n=new Date();calViewYear=n.getFullYear();calViewMonth=n.getMonth();rebuildCalendar();}
 function changeMonth(d){calViewMonth+=d;if(calViewMonth>11){calViewMonth=0;calViewYear++;}if(calViewMonth<0){calViewMonth=11;calViewYear--;}rebuildCalendar();}
 function getPeriodDays(){var days=new Set();
   // Active period (with 2-day min, 7-day max rules)
@@ -1933,10 +1947,60 @@ function getPeriodDays(){var days=new Set();
 function getPredDays(){var days=new Set();if(S.history.length<3)return days;var lens=S.history.slice(-6).map(function(h){return h.cycleLen||S.cycleLen;});var avg=Math.round(lens.reduce(function(a,b){return a+b;},0)/lens.length);var avgDur=Math.round(S.history.slice(-3).reduce(function(a,h){return a+h.duration;},0)/Math.min(3,S.history.length));var last=new Date(S.history[S.history.length-1].start);for(var i=1;i<=3;i++){var ps=new Date(last.getTime()+avg*i*86400000);for(var j=0;j<avgDur;j++){var pd=new Date(ps.getTime()+j*86400000);days.add(fmtKey(pd));}}return days;}
 function getFODays(){var fertile=new Set(),ovul=new Set();var ns=getNextPeriodDate();var ov=new Date(ns.getTime()-14*86400000);for(var i=-5;i<=1;i++){var fd=new Date(ov.getTime()+i*86400000);fertile.add(fmtKey(fd));}ovul.add(fmtKey(ov));return{fertile:fertile,ovul:ovul};}
 function fmtKey(d){return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
-function getSexSet(){return new Set((S.sexLog||[]).map(function(s){return s.date;}));}
+function normalizeDateKey(v){
+  if(!v)return'';
+  if(v instanceof Date&&!isNaN(v.getTime()))return fmtKey(v);
+  var s=String(v).split('T')[0].trim();
+  var m=s.match(/^(\d{4})-(\d{1,2})-(\d{1,2})$/);
+  if(m)return parseInt(m[1],10)+'-'+parseInt(m[2],10)+'-'+parseInt(m[3],10);
+  m=s.match(/^(\d{1,2})[\/\-](\d{1,2})[\/\-](\d{2,4})$/);
+  if(m){var y=parseInt(m[3],10);if(y<100)y+=2000;return y+'-'+parseInt(m[2],10)+'-'+parseInt(m[1],10);}
+  var d=new Date(s);return isNaN(d.getTime())?s:fmtKey(d);
+}
+function isoDateInputValue(v){var k=normalizeDateKey(v);if(!k)return'';var p=k.split('-');return p[0]+'-'+String(p[1]).padStart(2,'0')+'-'+String(p[2]).padStart(2,'0');}
+function normalizeSexEntry(entry){
+  var e=Object.assign({},entry||{});e.date=normalizeDateKey(e.date||e.start);if(!e.date)return null;
+  if(e.p&&!e.protect)e.protect=e.p==='Protected'?'yes':(e.p==='Unprotected'?'no':String(e.p).toLowerCase());
+  if(e.protect==='Protected')e.protect='yes';if(e.protect==='Unprotected')e.protect='no';
+  if(!e.type)e.type='Not specified';
+  if(!e.phase){var cd=cycleDayFor(e.date)||0;e.cycleDay=e.cycleDay||cd;e.phase=getCyclePhaseForDay(cd);}
+  e.p=e.protect==='yes'?'Protected':(e.protect==='no'?'Unprotected':'Not logged');
+  return e;
+}
+function getSexLogs(){
+  var raw=[];
+  try{raw=raw.concat(JSON.parse(localStorage.getItem('luna_sexual')||'[]'));}catch(e){}
+  raw=raw.concat(S.sexLog||[]);
+  Object.keys(S.dayLogs||{}).forEach(function(k){if(S.dayLogs[k]&&S.dayLogs[k].sex)raw.push({date:k,protect:S.dayLogs[k].sexProtect||'not logged',type:S.dayLogs[k].sexType||'Calendar'});});
+  var byKey={};
+  raw.forEach(function(item){var e=normalizeSexEntry(item);if(!e)return;var key=e.date+'|'+(e.type||'')+'|'+(e.protect||'');byKey[key]=Object.assign(e,byKey[key]||{});});
+  return Object.keys(byKey).map(function(k){return byKey[k];}).sort(function(a,b){return keyToDate(a.date)-keyToDate(b.date);});
+}
+function saveSexLogs(logs){
+  logs=(logs||[]).map(normalizeSexEntry).filter(Boolean);
+  localStorage.setItem('luna_sexual',JSON.stringify(logs));
+  S.sexLog=logs.map(function(l){return{date:l.date,protect:l.protect,type:l.type,cycleDay:l.cycleDay,phase:l.phase};});
+  if(!S.dayLogs)S.dayLogs={};
+  logs.forEach(function(l){if(!S.dayLogs[l.date])S.dayLogs[l.date]={};S.dayLogs[l.date].sex=true;S.dayLogs[l.date].sexProtect=l.protect;S.dayLogs[l.date].sexType=l.type;S.dayLogs[l.date].cycleDay=cycleDayFor(l.date);});
+  save();
+}
+function addSexLog(entry,skipDuplicate){var logs=getSexLogs();var e=normalizeSexEntry(entry);if(!e)return logs;if(skipDuplicate&&logs.some(function(l){return l.date===e.date;}))return logs;logs.push(e);saveSexLogs(logs);return logs;}
+function removeSexLogsByDate(date){var k=normalizeDateKey(date);var logs=getSexLogs().filter(function(l){return l.date!==k;});if(S.dayLogs&&S.dayLogs[k]){delete S.dayLogs[k].sex;delete S.dayLogs[k].sexProtect;delete S.dayLogs[k].sexType;}saveSexLogs(logs);return logs;}
+function getSexSet(){return new Set(getSexLogs().map(function(s){return s.date;}));}
+function buildDayRecordSummary(key){
+  var k=normalizeDateKey(key),parts=[];
+  var sex=getSexLogs().filter(function(l){return l.date===k;});
+  if(sex.length)parts.push('Sex records: '+sex.map(function(l){return (l.p||'Logged')+(l.type&&l.type!=='Not specified'?' - '+l.type:'');}).join(', '));
+  var dl=(S.dayLogs&&S.dayLogs[k])||{};
+  if(dl.mood)parts.push('Mood: '+(['','Terrible','Bad','Okay','Good','Great'][dl.mood]||dl.mood));
+  if(dl.flow)parts.push('Flow: '+dl.flow+'/5');
+  if(dl.symptoms&&dl.symptoms.length)parts.push('Symptoms: '+dl.symptoms.length+' logged');
+  if((S.spotting||[]).some(function(s){return normalizeDateKey(s.date)===k;}))parts.push('Spotting logged');
+  return parts;
+}
 function rebuildCalendar(){var grid=document.getElementById('calGrid');if(!grid)return;var mn=['January','February','March','April','May','June','July','August','September','October','November','December'];document.getElementById('calMonth').textContent=mn[calViewMonth]+' '+calViewYear;grid.innerHTML='';['S','M','T','W','T','F','S'].forEach(function(h){var el=document.createElement('div');el.className='cal-head';el.textContent=h;grid.appendChild(el);});var firstDay=new Date(calViewYear,calViewMonth,1).getDay();var dim=new Date(calViewYear,calViewMonth+1,0).getDate();var today=new Date();today.setHours(0,0,0,0);var pd=getPeriodDays(),pred=getPredDays(),fo=getFODays();var spotSet=new Set((S.spotting||[]).map(function(s){return s.date;}));var sexSet=getSexSet();for(var i=0;i<firstDay;i++){var e=document.createElement('div');e.className='cal-day empty';grid.appendChild(e);}for(var d=1;d<=dim;d++){var el=document.createElement('div');el.className='cal-day';el.textContent=d;var key=calViewYear+'-'+(calViewMonth+1)+'-'+d;var isPeriod=pd.has(key),isSex=sexSet.has(key);// Priority order: ovulation > fertile > period > spotting > predicted
-if(fo.ovul.has(key)){el.classList.add('ovulation');}else if(fo.fertile.has(key)&&!isPeriod){el.classList.add('fertile');}else if(isPeriod&&isSex){el.classList.add('sex-period');}else if(isPeriod){el.classList.add('period');}else if(isSex){el.classList.add('sex-only');}else if(spotSet.has(key)){el.classList.add('spotting');}else if(pred.has(key)){el.classList.add('predicted');}var td=new Date(calViewYear,calViewMonth,d);if(td.getTime()===today.getTime())el.classList.add('today');if(S.dayNotes&&S.dayNotes[key])el.classList.add('has-note');el.style.position='relative';el.onclick=(function(k,dn){return function(){openDayPopup(k,dn);};})(key,d);grid.appendChild(el);}}
-function openDayPopup(key,day){currentDayKey=key;var mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];var parts=key.split('-');document.getElementById('dayPopupTitle').textContent='Log for '+parts[2]+' '+mn[parseInt(parts[1])-1]+' '+parts[0];var note=S.dayNotes&&S.dayNotes[key]?S.dayNotes[key]:'';document.getElementById('dayNoteText').value=note;var pd=getPeriodDays(),spotSet=new Set((S.spotting||[]).map(function(s){return s.date;})),sexSet=getSexSet();currentDayPeriod=pd.has(key);currentDaySpot=spotSet.has(key);currentDaySex=sexSet.has(key);document.getElementById('dpPeriodBtn').classList.toggle('active',currentDayPeriod);document.getElementById('dpSpotBtn').classList.toggle('active',currentDaySpot);document.getElementById('dpSexBtn').classList.toggle('active',currentDaySex);document.getElementById('dayPopup').classList.add('show');}
+if(fo.ovul.has(key)){el.classList.add('ovulation');}else if(fo.fertile.has(key)&&!isPeriod){el.classList.add('fertile');}else if(isPeriod&&isSex){el.classList.add('sex-period');}else if(isPeriod){el.classList.add('period');}else if(isSex){el.classList.add('sex-only');}else if(spotSet.has(key)){el.classList.add('spotting');}else if(pred.has(key)){el.classList.add('predicted');}var td=new Date(calViewYear,calViewMonth,d);if(td.getTime()===today.getTime())el.classList.add('today');if((S.dayNotes&&S.dayNotes[key])||(S.dayLogs&&S.dayLogs[key]&&Object.keys(S.dayLogs[key]).length)||isSex||spotSet.has(key))el.classList.add('has-note');el.style.position='relative';el.onclick=(function(k,dn){return function(){openDayPopup(k,dn);};})(key,d);grid.appendChild(el);}}
+function openDayPopup(key,day){currentDayKey=normalizeDateKey(key);var mn=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];var parts=currentDayKey.split('-');document.getElementById('dayPopupTitle').textContent='Log for '+parts[2]+' '+mn[parseInt(parts[1])-1]+' '+parts[0];var note=S.dayNotes&&S.dayNotes[currentDayKey]?S.dayNotes[currentDayKey]:'';document.getElementById('dayNoteText').value=note;var pd=getPeriodDays(),spotSet=new Set((S.spotting||[]).map(function(s){return normalizeDateKey(s.date);})),sexSet=getSexSet();currentDayPeriod=pd.has(currentDayKey);currentDaySpot=spotSet.has(currentDayKey);currentDaySex=sexSet.has(currentDayKey);document.getElementById('dpPeriodBtn').classList.toggle('active',currentDayPeriod);document.getElementById('dpSpotBtn').classList.toggle('active',currentDaySpot);document.getElementById('dpSexBtn').classList.toggle('active',currentDaySex);var sum=document.getElementById('dayRecordSummary');if(sum){var rows=buildDayRecordSummary(currentDayKey);sum.style.display=rows.length?'block':'none';sum.innerHTML=rows.map(function(r){return '<div>'+escapeHtml(r)+'</div>';}).join('');}document.getElementById('dayPopup').classList.add('show');}
 function closeDayPopup(){document.getElementById('dayPopup').classList.remove('show');}
 function toggleDayPeriod(){currentDayPeriod=!currentDayPeriod;document.getElementById('dpPeriodBtn').classList.toggle('active',currentDayPeriod);}
 function toggleDaySpot(){currentDaySpot=!currentDaySpot;document.getElementById('dpSpotBtn').classList.toggle('active',currentDaySpot);}
@@ -1948,7 +2012,7 @@ function saveDayNote(){
   // Handle spotting
   if(currentDaySpot){if(!S.spotting)S.spotting=[];var ex=S.spotting.findIndex(function(s){return s.date===currentDayKey;});if(ex===-1)S.spotting.push({date:currentDayKey,intensity:'Light'});}else{if(S.spotting)S.spotting=S.spotting.filter(function(s){return s.date!==currentDayKey;});}
   // Handle sex log
-  if(currentDaySex){if(!S.sexLog)S.sexLog=[];var exS=S.sexLog.findIndex(function(s){return s.date===currentDayKey;});if(exS===-1)S.sexLog.push({date:currentDayKey});}else{if(S.sexLog)S.sexLog=S.sexLog.filter(function(s){return s.date!==currentDayKey;});}
+  if(currentDaySex){addSexLog({date:currentDayKey,type:'Calendar',protect:'not logged'},true);}else{removeSexLogsByDate(currentDayKey);}
   // Handle manual period day marking — also auto-update fertile/ovulation
   if(currentDayPeriod){
     if(!S.manualPeriodDays)S.manualPeriodDays=[];
@@ -2281,16 +2345,16 @@ function renderPrivateSection(){
   else if(currentPrivTab===3)renderBackup(c);
 }
 function renderSexualLog(c){
-  var logs=JSON.parse(localStorage.getItem('luna_sexual')||'[]');
-  var html='<div style="font-size:12px;color:var(--muted);margin-bottom:14px;">🔒 Private log. Protected by your PIN. Never shared or synced.</div>';
+  var logs=getSexLogs();
+  var html='<div style="font-size:12px;color:var(--muted);margin-bottom:14px;">🔒 Private log. Protected by your PIN. Stored locally and shown on the calendar automatically.</div>';
   html+='<div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap;"><input type="date" id="sexDate" style="flex:1;min-width:120px;border:1.5px solid var(--hairline-s);border-radius:10px;padding:9px;font-family:Inter,sans-serif;font-size:13px;color:var(--ink);background:var(--canvas);outline:none;"/><select id="sexProtection" style="flex:1;min-width:120px;border:1.5px solid var(--hairline-s);border-radius:10px;padding:9px;font-family:Inter,sans-serif;font-size:12px;color:var(--ink);background:var(--canvas);outline:none;"><option>Protected</option><option>Unprotected</option></select><button onclick="saveSexLog()" style="height:40px;padding:0 16px;border:none;cursor:pointer;background:#7c3aed;color:#fff;font-family:Inter,sans-serif;font-size:13px;font-weight:700;border-radius:10px;">Add</button></div>';
   html+='<div style="display:flex;flex-direction:column;gap:7px;max-height:300px;overflow-y:auto;">';
   if(logs.length===0)html+='<div style="font-size:12px;color:var(--muted);padding:12px 0;">No entries yet.</div>';
-  logs.slice(-10).reverse().forEach(function(l,i){html+='<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:11px;background:var(--parchment);border:1px solid var(--hairline);"><span style="font-size:12px;font-weight:600;flex:1;">'+l.date+'</span><span style="font-size:11px;padding:3px 10px;border-radius:9999px;background:'+(l.p==='Protected'?'#F0FDF4':'#FEF2F2')+';color:'+(l.p==='Protected'?'#16a34a':'#DC2626')+';font-weight:700;">'+l.p+'</span><button onclick="delSexLog('+i+')" style="background:none;border:none;cursor:pointer;color:var(--muted-soft);font-size:16px;">×</button></div>';});
+  logs.slice(-10).reverse().forEach(function(l,i){var prot=l.p||'Not logged';html+='<div style="display:flex;align-items:center;gap:8px;padding:10px 12px;border-radius:11px;background:var(--parchment);border:1px solid var(--hairline);"><span style="font-size:12px;font-weight:600;flex:1;">'+l.date+'</span><span style="font-size:11px;padding:3px 10px;border-radius:9999px;background:'+(prot==='Protected'?'#F0FDF4':(prot==='Unprotected'?'#FEF2F2':'var(--hairline)'))+';color:'+(prot==='Protected'?'#16a34a':(prot==='Unprotected'?'#DC2626':'var(--muted)'))+';font-weight:700;">'+prot+'</span><button onclick="delSexLog('+i+')" style="background:none;border:none;cursor:pointer;color:var(--muted-soft);font-size:16px;">×</button></div>';});
   html+='</div>';c.innerHTML=html;
   var di=document.getElementById('sexDate');if(di)di.value=new Date().toISOString().split('T')[0];}
-function saveSexLog(){var date=document.getElementById('sexDate').value,prot=document.getElementById('sexProtection').value;if(!date){toast('Select a date.');return;}var logs=JSON.parse(localStorage.getItem('luna_sexual')||'[]');logs.push({date:date,p:prot});localStorage.setItem('luna_sexual',JSON.stringify(logs));renderPrivateSection();toast('Logged!',true);}
-function delSexLog(i){var logs=JSON.parse(localStorage.getItem('luna_sexual')||'[]');logs.splice(logs.length-1-i,1);localStorage.setItem('luna_sexual',JSON.stringify(logs));renderPrivateSection();}
+function saveSexLog(){var date=document.getElementById('sexDate').value,prot=document.getElementById('sexProtection').value;if(!date){toast('Select a date.');return;}addSexLog({date:date,protect:prot,type:'Private'});rebuildCalendar();if(currentSection==='sex')initSexPage();renderPrivateSection();toast('Logged and added to calendar!',true);}
+function delSexLog(i){var logs=getSexLogs();logs.splice(logs.length-1-i,1);saveSexLogs(logs);rebuildCalendar();if(currentSection==='sex')initSexPage();renderPrivateSection();}
 
 function renderSpottingFullLog(c){
   var spots=S.spotting||[];
@@ -2805,6 +2869,85 @@ var voiceActive = false;
 var lastIntent = null;
 var chatTopic = null;
 var chatBotName = localStorage.getItem('luna_bot_name') || 'Luna';
+var LUNA_MEMORY_KEY = 'luna_chat_memory_v1';
+var lunaMemory = loadLunaMemory();
+
+function loadLunaMemory() {
+  try { return JSON.parse(localStorage.getItem(LUNA_MEMORY_KEY) || '{}') || {}; }
+  catch(e) { return {}; }
+}
+
+function saveLunaMemory() {
+  localStorage.setItem(LUNA_MEMORY_KEY, JSON.stringify(lunaMemory));
+}
+
+function rememberFact(key, value) {
+  if (!key || value === undefined || value === null || value === '') return;
+  lunaMemory[key] = { value: value, updated: new Date().toISOString() };
+  saveLunaMemory();
+}
+
+function memoryValue(key, fallback) {
+  return lunaMemory[key] ? lunaMemory[key].value : fallback;
+}
+
+function buildMemorySummary() {
+  var parts = [];
+  Object.keys(lunaMemory || {}).forEach(function(key) {
+    var item = lunaMemory[key];
+    if (item && item.value !== undefined && item.value !== '') parts.push(key + ': ' + item.value);
+  });
+  return parts.length ? parts.join('\n') : 'No extra chat memory saved yet.';
+}
+
+function updateChatMemoryFromUser(rawText) {
+  var txt = String(rawText || '').trim();
+  var q = txt.toLowerCase();
+  var m;
+
+  m = txt.match(/(?:my name is|call me)\s+([a-zA-Z][a-zA-Z\s]{1,30})/i);
+  if (m) { S.name = m[1].trim().split(/\s+/)[0]; save(); rememberFact('preferred_name', S.name); }
+
+  m = txt.match(/(?:my cycle(?: length)? is|cycle length is|i have a)\s+(\d{2})\s*(?:day|days)?\s*(?:cycle)?/i);
+  if (m) { S.cycleLen = Math.max(18, Math.min(45, parseInt(m[1],10))); save(); rememberFact('cycle_length_days', S.cycleLen); }
+
+  m = txt.match(/(?:my period lasts|period length is|bleeding lasts|period duration is)\s+(\d{1,2})\s*(?:day|days)?/i);
+  if (m) { S.periodLen = Math.max(1, Math.min(12, parseInt(m[1],10))); save(); rememberFact('period_length_days', S.periodLen); }
+
+  m = txt.match(/(?:my last period was|last period started|period started on)\s+([a-zA-Z]+\s+\d{1,2}(?:,?\s*\d{4})?|\d{4}-\d{1,2}-\d{1,2}|\d{1,2}[\/\-]\d{1,2}[\/\-]\d{2,4})/i);
+  if (m) {
+    var d = new Date(m[1]);
+    if (!isNaN(d.getTime())) {
+      var iso = d.toISOString().split('T')[0];
+      S.lastStart = iso;
+      if (!S.history) S.history = [];
+      if (!S.history.some(function(h){ return h.start === iso; })) {
+        S.history.push({ start: iso, duration: S.periodLen || 5, cycleLen: S.cycleLen || 28 });
+      }
+      save();
+      rememberFact('last_period_start', iso);
+    }
+  }
+
+  m = txt.match(/(?:remember that|remember this|note that)\s+(.{3,120})/i);
+  if (m) rememberFact('personal_note', m[1].trim());
+
+  if (/\b(api|groq|ai key)\b.*\b(on|use|enable|touch)\b/.test(q)) rememberFact('api_preference', 'Use API when configured, but answer cycle-date questions from local data first.');
+}
+
+function buildLocalProfileSnapshot() {
+  var np = getChatNextPeriod ? getChatNextPeriod() : null;
+  var sexEntry = getLastSexDate ? getLastSexDate() : null;
+  var sexDate = sexEntry && (sexEntry.date || sexEntry.start || sexEntry);
+  return [
+    'Saved name: ' + (S.name || memoryValue('preferred_name', 'unknown')),
+    'Cycle length: ' + (S.cycleLen || memoryValue('cycle_length_days', 28)) + ' days',
+    'Period length: ' + (S.periodLen || memoryValue('period_length_days', 5)) + ' days',
+    'Last period start: ' + (S.lastStart || memoryValue('last_period_start', 'unknown')),
+    'Next period date: ' + (np ? chatFmtDate(np) : 'unknown'),
+    'Last logged sex/intimacy: ' + (sexDate ? chatFmtDate(sexDate) : 'none')
+  ].join('\n');
+}
 
 // ── CONTEXT-AWARE QUICK REPLIES ──
 var intentQuickReplies = {
@@ -2819,7 +2962,7 @@ var intentQuickReplies = {
 };
 
 // ── NLP & SPELL CORRECTION ──
-var chatVocab = ['period','pregnant','fertile','phase','water','mood','sleep','pain','symptom','sex','spotting','supplement','bmi','streak','journal','history','pms','late','average','summary','help','remind','name','call','export','longest','worst','regular','compare'];
+var chatVocab = ['period','pregnant','fertile','phase','water','mood','sleep','pain','symptom','sex','sexual','consent','contraception','condom','emergency','sti','spotting','supplement','bmi','streak','journal','history','pms','late','average','summary','help','remind','name','call','export','remember','memory','api','longest','worst','regular','compare'];
 
 function levenshtein(a, b) {
   if (a.length === 0) return b.length;
@@ -2861,7 +3004,7 @@ var synonymMap = {
   'sleep': ['slept','sleeping','sleep quality','insomnia','rest','tired','fatigue'],
   'pain': ['cramp','ache','hurt','discomfort','pain level','painful'],
   'symptom': ['symptom','cramp','headache','bloat','nausea','breast tender','backache','acne'],
-  'sex': ['intercourse','intimate','made love','sexual','intimacy'],
+  'sex': ['intercourse','intimate','made love','sexual','intimacy','what is sex','meaning of sex','consent','condom','contraception','protection','sti'],
   'spotting': ['spot','light bleed','implantation'],
   'supplement': ['vitamin','iron','magnesium','omega','zinc','folate','pill'],
   'bmi': ['weight','height','body mass','underweight','overweight'],
@@ -3129,7 +3272,7 @@ function updateChatChar(el) {
 }
 
 // ══════════════════════════════════════════
-// GROQ AI — smart fallback, women's-health topics only
+// GROQ AI v2 — multi-turn · context-aware · retry
 // ══════════════════════════════════════════
 // GROQ_API_KEY / GROQ_MODEL stay as placeholders in this source file.
 // A GitHub Actions workflow swaps them for the real values (stored in the
@@ -3139,25 +3282,81 @@ var GROQ_API_KEY = "__GROQ_API_KEY__";
 var GROQ_MODEL = "__GROQ_MODEL__";
 var GROQ_ENDPOINT = "https://api.groq.com/openai/v1/chat/completions";
 
-var GROQ_SYSTEM_PROMPT =
-  "You are Luna, the supportive AI assistant inside a women's period-tracking app. " +
-  "You ONLY answer questions about menstrual periods and cycles, PMS/PMDD, ovulation and fertility, " +
-  "sex and intimacy, contraception, pregnancy, and closely related symptoms (cramps, mood, hormones, " +
-  "discharge, breast tenderness, libido, body changes, etc). " +
-  "If the user asks about anything else at all \u2014 general knowledge, coding, news, schoolwork, " +
-  "entertainment, finance, or any topic unrelated to women's reproductive or sexual health \u2014 politely " +
-  "decline in one short sentence and steer the conversation back to period, cycle, intimacy, or " +
-  "pregnancy topics. Do not answer the off-topic question even partially. " +
-  "Keep every on-topic answer short (2-4 sentences), warm, and non-judgemental. You are not a licensed " +
-  "doctor: for diagnosis, medication, or anything urgent, gently suggest seeing a gynecologist or " +
-  "healthcare provider instead of guessing.";
+// How many recent chat turns to send as context (each turn = 1 user + 1 bot)
+var GROQ_HISTORY_TURNS = 6;
+
+function buildGroqSystemPrompt() {
+  // Inject live user data so AI can personalise answers
+  var phase  = (typeof getChatPhase === 'function') ? getChatPhase() : 'unknown';
+  var cycDay = (typeof getChatCycleDay === 'function') ? getChatCycleDay() : '?';
+  var nextP  = (typeof getNextPeriodDate === 'function') ? getNextPeriodDate() : null;
+  var daysToP = nextP ? Math.max(0, Math.round((nextP - new Date()) / 86400000)) : null;
+  var avgLen = (typeof getAvgCycle === 'function') ? getAvgCycle() : (S.cycleLen || 28);
+  var onPeriod = S.periodActive ? 'yes' : 'no';
+  var userName = S.name || 'the user';
+  var waterAmt = S.water || 0;
+  var waterGoal = S.waterGoal || 8;
+  var waterUnit = S.waterUnit || 'glasses';
+
+  var ctx = [
+    'User name: ' + userName,
+    'Current cycle phase: ' + phase,
+    'Current cycle day: ' + cycDay,
+    'Currently on period: ' + onPeriod,
+    'Days until next period: ' + (daysToP !== null ? daysToP : 'unknown'),
+    'Average cycle length: ' + avgLen + ' days',
+    'Water today: ' + waterAmt + '/' + waterGoal + ' ' + waterUnit,
+    'Local profile snapshot:\n' + buildLocalProfileSnapshot(),
+    'Saved chat memory:\n' + buildMemorySummary()
+  ].join('\n');
+
+  return (
+    "You are Luna, the supportive AI assistant inside a women's period-tracking app. " +
+    "You ONLY answer questions about menstrual periods and cycles, PMS/PMDD, ovulation and fertility, " +
+    "sex and intimacy, contraception, pregnancy, and closely related symptoms (cramps, mood, hormones, " +
+    "discharge, breast tenderness, libido, body changes, etc). " +
+    "If the user asks about anything else — general knowledge, coding, news, schoolwork, " +
+    "entertainment, finance, or any topic unrelated to women's reproductive or sexual health — politely " +
+    "decline in one short sentence and steer the conversation back to period, cycle, intimacy, or " +
+    "pregnancy topics. Do not answer the off-topic question even partially. " +
+    "Keep every on-topic answer short (2-4 sentences), warm, and non-judgemental. You are not a licensed " +
+    "doctor: for diagnosis, medication, or anything urgent, gently suggest seeing a gynecologist or " +
+    "healthcare provider instead of guessing. " +
+    "Use local saved data for questions like next period date, cycle day, last period, and saved preferences. " +
+    "If API knowledge and local saved data conflict, trust the local saved data for the user. " +
+    "You may personalise your answer using the following live data and memory about the user:\n" + ctx
+  );
+}
 
 function groqKeyConfigured() {
   return !!GROQ_API_KEY && GROQ_API_KEY.indexOf('__GROQ') !== 0 && GROQ_API_KEY.length > 10;
 }
 
-function askGroqAI(question) {
+// Build the messages array for the API: system + up to GROQ_HISTORY_TURNS past turns + new question
+function buildGroqMessages(question) {
+  var messages = [{ role: 'system', content: buildGroqSystemPrompt() }];
+
+  // Add recent conversation history for multi-turn context
+  var history = chatHistory.slice(-GROQ_HISTORY_TURNS * 2);
+  history.forEach(function(m) {
+    if (m.role === 'user') {
+      messages.push({ role: 'user', content: m.text });
+    } else if (m.role === 'bot' && !m.isCard) {
+      // Strip HTML tags from bot messages before sending
+      var plain = m.text.replace(/<[^>]*>/g, '').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&').trim();
+      if (plain) messages.push({ role: 'assistant', content: plain });
+    }
+  });
+
+  // Add the new user question
+  messages.push({ role: 'user', content: question });
+  return messages;
+}
+
+function askGroqAI(question, retryCount) {
+  retryCount = retryCount || 0;
   var model = (GROQ_MODEL && GROQ_MODEL.indexOf('__GROQ') !== 0) ? GROQ_MODEL : 'llama-3.3-70b-versatile';
+
   return fetch(GROQ_ENDPOINT, {
     method: 'POST',
     headers: {
@@ -3166,20 +3365,29 @@ function askGroqAI(question) {
     },
     body: JSON.stringify({
       model: model,
-      temperature: 0.4,
-      max_tokens: 300,
-      messages: [
-        { role: 'system', content: GROQ_SYSTEM_PROMPT },
-        { role: 'user', content: question }
-      ]
+      temperature: 0.45,
+      max_tokens: 320,
+      messages: buildGroqMessages(question)
     })
   }).then(function(res) {
-    if (!res.ok) throw new Error('Groq request failed: ' + res.status);
+    // Rate-limited — retry once after 2s
+    if (res.status === 429 && retryCount < 1) {
+      return new Promise(function(resolve) {
+        setTimeout(function() { resolve(askGroqAI(question, retryCount + 1)); }, 2000);
+      });
+    }
+    if (!res.ok) throw new Error('groq_' + res.status);
     return res.json();
   }).then(function(data) {
     var msg = data && data.choices && data.choices[0] && data.choices[0].message;
     var txt = msg && msg.content ? msg.content.trim() : '';
-    return txt || "I'm not totally sure how to answer that \u2014 could you rephrase your question? \ud83d\udc97";
+    return txt || "I'm not quite sure how to answer that — could you rephrase? I'm here to help with anything cycle-related.";
+  }).catch(function(err) {
+    var code = err.message || '';
+    if (code.indexOf('groq_401') !== -1) return "My AI connection isn't configured yet. Ask me a cycle question and I'll do my best with built-in knowledge!";
+    if (code.indexOf('groq_429') !== -1) return "I'm a little busy right now — please try again in a moment!";
+    if (code.indexOf('groq_5') !== -1) return "The AI service is having a brief hiccup. Try again shortly, or ask me something and I'll use built-in knowledge.";
+    return "I couldn't connect to AI right now. I'll answer using built-in knowledge instead!";
   });
 }
 
@@ -3201,16 +3409,31 @@ window.handleChat = function(text) {
 
   var q = normQ(text);
   var intents2 = detectIntents(q);
-if (intents2.length === 0 && groqKeyConfigured()) {
+  var primaryIntent = intents2.length ? intents2[0].intent : 'fallback';
+  var apiEducationIntents = ['sex_education','contraception','emergency'];
+  var shouldUseApiFirst = groqKeyConfigured() && (intents2.length === 0 || apiEducationIntents.indexOf(primaryIntent) !== -1);
+  if (shouldUseApiFirst) {
     askGroqAI(text).then(function(aiText) {
       hideTyping();
-      addBotMsg(aiText, 'fallback');
-      buildQuickBtns('fallback');
+      if (/couldn\'t connect|connection isn\'t configured|service is having|busy right now/i.test(aiText)) {
+        var localResults = lunaAnswerMulti(text);
+        localResults.forEach(function(result) {
+          if (result && result.card) addBotMsg(result.card, result.intent, true);
+          else addBotMsg((result && result.text) ? result.text : result, result && result.intent);
+        });
+        if (localResults.length > 0) buildQuickBtns(localResults[localResults.length-1].intent);
+      } else {
+        addBotMsg(aiText, primaryIntent);
+        buildQuickBtns(primaryIntent);
+      }
     }).catch(function() {
       hideTyping();
-      var fb = lunaAnswerSingle('fallback', q, text);
-      addBotMsg(fb.text, fb.intent);
-      buildQuickBtns('fallback');
+      var localResults = lunaAnswerMulti(text);
+      localResults.forEach(function(result) {
+        if (result && result.card) addBotMsg(result.card, result.intent, true);
+        else addBotMsg((result && result.text) ? result.text : result, result && result.intent);
+      });
+      if (localResults.length > 0) buildQuickBtns(localResults[localResults.length-1].intent);
     });
     return;
   }
@@ -3322,14 +3545,8 @@ function getChatNextPeriod() {
 }
 
 function getLastSexDate() {
-  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
-  if (logs.length > 0) return logs[logs.length - 1];
-  if (S.sexLog && S.sexLog.length > 0) return S.sexLog[S.sexLog.length - 1];
-  var sexDays = Object.keys(S.dayLogs || {}).filter(function(k) {
-    return S.dayLogs[k].sex;
-  }).sort();
-  if (sexDays.length > 0) return { date: sexDays[sexDays.length - 1] };
-  return null;
+  var logs = getSexLogs();
+  return logs.length ? logs[logs.length - 1] : null;
 }
 
 function getAvgCycle() {
@@ -3364,6 +3581,25 @@ function getOvulationDate() {
 
 function r(text, intent) { return { text: text, intent: intent || 'fallback' }; }
 function card(html, intent) { return { card: html, intent: intent || 'fallback' }; }
+function localEducationAnswer(q, rawQ) {
+  if (/what is sex|what does sex mean|meaning of sex|define sex|sex education|sexual health/.test(q)) {
+    return lunaAnswerSingle('sex_education', q, rawQ || q);
+  }
+  if (/what is period|what does period mean|meaning of period|define period|menstruation meaning/.test(q)) {
+    return r('A period is menstrual bleeding that happens when the uterus sheds its lining. It is a normal part of the menstrual cycle and usually lasts a few days, though every body is different. Track flow, pain, and unusual changes so Luna can help you notice patterns.', 'period');
+  }
+  if (/what is ovulation|ovulation meaning|define ovulation/.test(q)) {
+    return r('Ovulation is when an ovary releases an egg, usually about 14 days before the next period in many cycles. Pregnancy is more likely around this fertile window, so use protection if you are avoiding pregnancy.', 'fertile');
+  }
+  if (/what is pms|pms meaning|define pms/.test(q)) {
+    return r('PMS means premenstrual syndrome: mood, body, or energy changes that can happen before a period. Common signs include cramps, bloating, breast tenderness, acne, sadness, irritability, and sleep changes.', 'phase');
+  }
+  if (/what is consent|consent meaning/.test(q)) {
+    return r('Consent means every person freely, clearly, and actively agrees to what is happening. It can be changed or stopped at any time, and pressure, fear, intoxication, or silence are not consent.', 'sex');
+  }
+  if (/period date|next period|when.*period/.test(q)) return lunaAnswerSingle('next_period', q, rawQ || q);
+  return null;
+}
 
 // Quick Actions Support
 window.quickActionAddWater = function() {
@@ -3388,9 +3624,14 @@ window.quickActionLogPeriodStart = function() {
 
 // ── NLP CONFIDENCE SCORING & MULTI-INTENT ENGINE ──
 function detectIntents(q) {
-  var scores = { greeting:0, name:0, wellbeing:0, summary:0, next_period:0, last_period:0, period_active:0, cycle_day:0, phase:0, sex:0, pregnancy:0, fertile:0, ovulation:0, stats:0, days_left:0, water:0, mood:0, symptoms:0, pain:0, sleep:0, energy:0, bmi:0, period_duration:0, streak:0, journal:0, spotting:0, pms:0, safe_sex:0, late_period:0, product:0, supplement:0, phase_guide:0, history:0, thank_you:0, help:0, analytics:0, reminder:0, calendar:0 };
+  var scores = { greeting:0, name:0, wellbeing:0, summary:0, next_period:0, last_period:0, period_active:0, cycle_day:0, phase:0, sex:0, sex_education:0, contraception:0, emergency:0, memory:0, api_touch:0, pregnancy:0, fertile:0, ovulation:0, stats:0, days_left:0, water:0, mood:0, symptoms:0, pain:0, sleep:0, energy:0, bmi:0, period_duration:0, streak:0, journal:0, spotting:0, pms:0, safe_sex:0, late_period:0, product:0, supplement:0, phase_guide:0, history:0, thank_you:0, help:0, analytics:0, reminder:0, calendar:0 };
   
   if (/^(hi|hello|hey|hii|helo|namaste|hola|sup|heya|howdy)\b/.test(q)) scores.greeting += 10;
+  if (/what is sex|what does sex mean|meaning of sex|define sex|sex education|sexual health/.test(q)) scores.sex_education += 20;
+  if (/condom|contraception|birth control|protection|prevent pregnancy|sti|std/.test(q)) scores.contraception += 12;
+  if (/emergency pill|morning after|plan b|unprotected sex|condom broke/.test(q)) scores.emergency += 15;
+  if (/remember|memory|what do you know about me|what did i tell you|saved about me/.test(q)) scores.memory += 12;
+  if (/api|groq|ai touch|ai answer|use ai|online answer/.test(q)) scores.api_touch += 12;
   if (/my name|who am i|what.*my name|call me|name is/.test(q)) scores.name += 10;
   if (/call yourself|name yourself|your name is/.test(q)) scores.name += 15;
   if (/how are you|how r u|you ok|you good/.test(q)) scores.wellbeing += 10;
@@ -3419,7 +3660,7 @@ function detectIntents(q) {
   if (/journal|diary|entries|wrote|writing/.test(q)) scores.journal += 10;
   if (/spotting|spot\b|light.*bleed|bleed.*light/.test(q)) scores.spotting += 10;
   if (/\bpms\b|premenstrual|pmt/.test(q)) scores.pms += 10;
-  if (/safe.*sex|sex.*safe|unprotected|safe day|is it safe/.test(q)) scores.safe_sex += 10;
+  if (/safe.*sex|sex.*safe|unprotected|safe day|is it safe|can i.*sex|can we.*sex|sex today|have sex today|should i.*sex/.test(q)) scores.safe_sex += 15;
   if (/late|overdue|missed period|period.*late|late.*period/.test(q)) scores.late_period += 10;
   if (/product|pad|tampon|cup|disc|what.*using|using.*what/.test(q)) scores.product += 10;
   if (/supplement|vitamin|iron|magnesium|omega|zinc|folate/.test(q)) scores.supplement += 10;
@@ -3447,9 +3688,14 @@ function lunaAnswerMulti(rawQ) {
   var results = [];
   var answered = {};
   
-  if (intents.length === 0) intents.push({intent:'fallback'});
+  if (intents.length === 0) {
+    var edu = localEducationAnswer(q, rawQ);
+    if (edu) return [edu];
+    intents.push({intent:'fallback'});
+  }
   
   var topIntents = intents.slice(0, 2);
+  if (['sex_education','contraception','emergency','memory','api_touch'].indexOf(topIntents[0].intent) !== -1) topIntents = topIntents.slice(0, 1);
   chatTopic = topIntents[0].intent;
 
   topIntents.forEach(function(item) {
@@ -3496,6 +3742,21 @@ function lunaAnswerSingle(intent, q, rawQ) {
       return r('Your name is ' + (S.name || 'not set yet') + ' 😊. I\'m ' + chatBotName + '!', 'fallback');
 
     case 'wellbeing': return r('I\'m always here and ready to help you! 🌙 How are YOU feeling today?', 'health');
+
+    case 'memory':
+      return r('I save helpful details locally on this device only. ' + buildMemorySummary().replace(/\n/g, ' | '), 'fallback');
+
+    case 'api_touch':
+      return r(groqKeyConfigured() ? 'API touch is enabled. I will still use your local Luna data first for personal answers like period dates, then use AI for extra wording when needed.' : 'API touch is ready in the code, but no API key is configured yet. I will answer from local saved Luna data and built-in health knowledge.', 'fallback');
+
+    case 'sex_education':
+      return r('Sex usually means consensual sexual activity between people, which can include vaginal, oral, or anal sex and other intimate touch. It should always involve clear consent, comfort, protection when needed, and respect for boundaries. If pregnancy or STI prevention matters, use contraception such as condoms and speak with a healthcare professional for personal advice.', 'sex');
+
+    case 'contraception':
+      return r('Condoms help reduce pregnancy risk and also protect against many STIs when used correctly every time. Birth-control pills, IUDs, implants, injections, and emergency contraception are other options, but the best choice depends on your body and timing. For personal medical choice, talk with a gynecologist or trusted clinician.', 'sex');
+
+    case 'emergency':
+      return r('If sex was unprotected or a condom broke, emergency contraception works best as soon as possible and may help up to a few days depending on the type. A pregnancy test is usually more reliable after a missed period or about 2-3 weeks after sex. Please contact a pharmacist, clinic, or gynecologist quickly for the safest option.', 'sex');
     
     case 'analytics':
       if (/longest/.test(q)) {
@@ -3676,8 +3937,11 @@ function lunaAnswerSingle(intent, q, rawQ) {
       return r('PMS occurs in the Luteal phase (1–2 weeks before your period). You\'re currently in the ' + getChatPhase() + ' phase.', 'phase');
 
     case 'safe_sex':
-      if (isFertileToday()) return r('⚠️ You are in your fertile window right now! This is NOT a safe time for unprotected sex if avoiding pregnancy.', 'sex');
-      return r('✅ You\'re not in your fertile window today. However, always use protection to prevent STIs.', 'sex');
+      var cdSafe = getChatCycleDay();
+      var phaseSafe = getChatPhase();
+      if (S.periodActive) return r('Yes, you can have sex today if you feel comfortable and there is clear consent. You are on your period, so pregnancy risk is usually lower, but use a condom because STIs can still spread and it can be messy.', 'sex');
+      if (isFertileToday()) return r('Yes, but today is inside your fertile window, so avoid unprotected sex if you do not want pregnancy. Use a condom or reliable birth control, and consider emergency contraception quickly if unprotected sex already happened.', 'sex');
+      return r('Yes, you can have sex today if you feel ready and both people consent. You are not in your fertile window right now (' + phaseSafe + ', cycle day ' + cdSafe + '), so pregnancy risk is lower, but use protection to prevent STIs and reduce pregnancy risk.', 'sex');
 
     case 'late_period':
       var np7 = getChatNextPeriod();
@@ -3705,7 +3969,9 @@ function lunaAnswerSingle(intent, q, rawQ) {
       return card(html11, 'fallback');
 
     default:
-      return r('I\'m not sure about that. Try asking "my summary" or "help" for a quick overview!', 'fallback');
+      var eduFallback = localEducationAnswer(q, rawQ);
+      if (eduFallback) return eduFallback;
+      return r('I can answer from your local Luna data for period dates, cycle phase, sex safety, symptoms, water, mood, and saved memory. Try asking "what is my next period date?", "what is sex?", or "what do you remember about me?"', 'fallback');
   }
 }
 
@@ -3771,15 +4037,8 @@ function logSexEntry() {
     phase: getCyclePhaseForDay(cycleDayFor(date) || 0)
   };
 
-  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
-  logs.push(entry);
-  localStorage.setItem('luna_sexual', JSON.stringify(logs));
-
-  // also mark on calendar
-  if (!S.dayLogs) S.dayLogs = {};
-  if (!S.dayLogs[date]) S.dayLogs[date] = {};
-  S.dayLogs[date].sex = true;
-  save();
+  addSexLog(entry);
+  rebuildCalendar();
 
   // reset form
   sexEntry = { date:'', type:'', protect:'', mood:'', pain:0, partner:'', note:'' };
@@ -3808,7 +4067,7 @@ function getCyclePhaseForDay(day) {
 function buildSexHistory() {
   var el = document.getElementById('sexHistoryList');
   if (!el) return;
-  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]').slice().reverse();
+  var logs = getSexLogs().slice().reverse();
   if (logs.length === 0) {
     el.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:10px 0;text-align:center;">No entries yet. Log your first one above!</div>';
     return;
@@ -3841,9 +4100,10 @@ function buildSexHistory() {
 
 function deleteSexEntry(idx) {
   if (!confirm('Delete this entry?')) return;
-  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
+  var logs = getSexLogs();
   logs.splice(idx, 1);
-  localStorage.setItem('luna_sexual', JSON.stringify(logs));
+  saveSexLogs(logs);
+  rebuildCalendar();
   buildSexHistory();
   buildSexStats();
   buildSexCycleOverlap();
@@ -3853,7 +4113,7 @@ function deleteSexEntry(idx) {
 function buildSexStats() {
   var el = document.getElementById('sexStatGrid');
   if (!el) return;
-  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
+  var logs = getSexLogs();
   var total = logs.length;
 
   // last 30 days count
@@ -3920,8 +4180,8 @@ function buildSexSafety() {
   }
 
   // Last unprotected near fertile?
-  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
-  var unprotLogs = logs.filter(function(l){ return l.protect === 'no'; });
+  var logs = getSexLogs();
+  var unprotLogs = logs.filter(function(l){ return l.protect === 'no' || l.p === 'Unprotected'; });
   if (unprotLogs.length > 0) {
     var lastUnprot = unprotLogs[unprotLogs.length - 1];
     var daysAgoUnprot = Math.round((new Date() - new Date(lastUnprot.date)) / 86400000);
@@ -3938,7 +4198,7 @@ function buildSexSafety() {
 function buildSexCycleOverlap() {
   var el = document.getElementById('sexCycleOverlap');
   if (!el) return;
-  var logs = JSON.parse(localStorage.getItem('luna_sexual') || '[]');
+  var logs = getSexLogs();
   if (logs.length === 0) {
     el.innerHTML = '<div style="font-size:12px;color:var(--muted);padding:8px 0;">Log entries to see which cycle phase you are most intimate in.</div>';
     return;
