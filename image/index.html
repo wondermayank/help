@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Forge — 50+ Free Image Tools by Thunder</title>
+<meta name="description" content="Image Forge by Thunder: resize, compress, convert, filter and run AI utilities on your images. 50+ free image tools including PNG to JPG, PNG to SVG, WebP converter and more.">
+<link rel="icon" type="image/svg+xml" href="https://wondermayank.github.io/favicon.svg">
+<meta property="og:title" content="Image Forge — 50+ Free Image Tools">
+<meta property="og:description" content="Resize, compress, convert and filter images for free. PNG to JPG, WebP, SVG and 50+ tools.">
+<meta property="og:url" content="https://wondermayank.github.io/help/image">
+<meta property="og:type" content="website">
+<meta property="og:image" content="https://wondermayank.github.io/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Image Forge — 50+ Free Image Tools">
+<meta name="twitter:description" content="Resize, compress, convert and filter images for free.">
+<meta name="twitter:image" content="https://wondermayank.github.io/og-image.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"WebApplication","name":"Image Forge","url":"https://wondermayank.github.io/help/image","description":"50+ free online image tools: resize, compress, convert, filter and AI utilities.","applicationCategory":"MultimediaApplication","operatingSystem":"Web","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"},"creator":{"@type":"Organization","name":"Thunder","url":"https://commercesehoga.github.io/"}}
+</script>
+<style>
+:root{
+  --primary:#573AFC;--primary-active:#4527E0;--primary-focus:#6B4FFF;
+  --primary-light:#E7E0FB;--primary-mid:#BCAEFB;--primary-strong:#B196FB;
+  --ink:#1d1d1f;--body:#3c3c3c;--muted:#6b6b6b;--muted-soft:#9a9a9a;
+  --hairline:#e6e6e6;--hairline-strong:#cccccc;
+  --canvas:#ffffff;--canvas-parchment:#f5f5f7;
+  --surface-card:#fafafa;--surface-soft:#f7f7f7;--surface-strong:#ebebeb;
+  --surface-dark:#1a2129;--surface-tile-1:#272729;--surface-tile-2:#2a2a2c;
+  --on-primary:#ffffff;--on-dark:#ffffff;--on-dark-soft:#bbbbbb;
+  --success:#22c55e;--warning:#f59e0b;--error:#dc2626;
+  --gov:#1a6b3c;--gov-light:#e6f4ec;--gov-mid:#5cb85c;
+}
+[data-theme="dark"]{
+  --ink:#f5f5f7;--body:#d1d1d6;--muted:#8e8e93;--muted-soft:#636366;
+  --hairline:#2c2c2e;--hairline-strong:#3a3a3c;
+  --canvas:#0e0e10;--canvas-parchment:#161618;
+  --surface-card:#1c1c1e;--surface-soft:#1a1a1c;--surface-strong:#2c2c2e;
+  --primary:#9A7AFB;--primary-light:#2D2460;--primary-mid:#4A3AA0;
+  --on-dark-soft:#ebebf5;
+  --gov-light:#0d2b1a;--gov:#5cb85c;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',system-ui,-apple-system,sans-serif;font-size:17px;font-weight:400;line-height:1.5;color:var(--ink);background:var(--canvas);-webkit-font-smoothing:antialiased;transition:background .25s,color .25s}
+
+/* Loader */
+#loader{position:fixed;inset:0;background:var(--primary-light);display:flex;flex-direction:column;align-items:center;justify-content:center;z-index:9999;transition:opacity .5s ease}
+#loader .arc-track{fill:none;stroke:var(--primary-mid);stroke-width:3;opacity:.35}
+#loader .arc-spin{fill:none;stroke:var(--primary);stroke-width:3;stroke-linecap:round;stroke-dasharray:160;stroke-dashoffset:160;animation:arcDraw 1.4s ease-in-out infinite}
+@keyframes arcDraw{0%{stroke-dashoffset:160;opacity:1}60%{stroke-dashoffset:0;opacity:1}100%{stroke-dashoffset:-160;opacity:0}}
+#loader p{margin-top:18px;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary)}
+#loader.hidden{opacity:0;pointer-events:none}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:100;background:color-mix(in srgb,var(--canvas) 80%,transparent);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--hairline);height:64px;display:flex;align-items:center;padding:0 24px}
+.nav-inner{max-width:1200px;width:100%;margin:auto;display:flex;align-items:center;justify-content:space-between}
+.nav-logo{display:flex;align-items:center;gap:10px;text-decoration:none}
+.nav-logo img{width:28px;height:28px}
+.nav-logo span{font-size:17px;font-weight:700;color:var(--ink);letter-spacing:-.1px}
+.nav-logo span em{font-style:normal;color:var(--primary)}
+.nav-right{display:flex;align-items:center;gap:8px}
+.nav-links-desktop{display:flex;gap:4px}
+.nav-link{font-size:14px;font-weight:600;letter-spacing:.2px;color:var(--muted);text-decoration:none;padding:6px 12px;border-radius:9999px;transition:color .2s,background .2s}
+.nav-link:hover{color:var(--ink);background:var(--surface-strong)}
+.theme-btn{width:44px;height:44px;border-radius:9999px;border:1px solid var(--hairline-strong);background:var(--canvas);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .2s,transform .15s;color:var(--ink)}
+.theme-btn:hover{background:var(--surface-strong)}
+.theme-btn:active{transform:scale(.95)}
+
+/* Hero */
+.hero{background:var(--surface-tile-1);padding:96px 24px 80px;text-align:center;position:relative;overflow:hidden}
+.hero::before{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 70% 60% at 50% 0%,#573AFC22 0%,transparent 70%);pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(87,58,252,.15);border:1px solid rgba(87,58,252,.3);color:var(--primary);border-radius:9999px;padding:6px 16px;font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:24px}
+[data-theme="dark"] .hero-badge{background:rgba(154,122,251,.15);border-color:rgba(154,122,251,.3)}
+.hero h1{font-size:clamp(34px,7vw,56px);font-weight:700;line-height:1.07;letter-spacing:-.28px;color:var(--on-dark);margin-bottom:20px}
+.hero h1 span{color:var(--primary)}
+.hero p{font-size:20px;font-weight:300;line-height:1.5;color:var(--on-dark-soft);max-width:560px;margin:0 auto 36px}
+.hero-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:8px;background:var(--primary);color:var(--on-primary);border:none;border-radius:9999px;padding:14px 28px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s}
+.btn-primary:hover{background:var(--primary-active)}
+.btn-primary:active{transform:scale(.95);background:var(--primary-active)}
+.btn-secondary-dark{display:inline-flex;align-items:center;gap:8px;background:transparent;color:var(--on-dark);border:1px solid var(--on-dark);border-radius:9999px;padding:14px 28px;font-size:15px;font-weight:600;cursor:pointer;text-decoration:none;transition:background .2s,transform .15s}
+.btn-secondary-dark:hover{background:rgba(255,255,255,.1)}
+.btn-secondary-dark:active{transform:scale(.95)}
+.hero-stats{display:flex;gap:40px;justify-content:center;flex-wrap:wrap;margin-top:52px;padding-top:40px;border-top:1px solid rgba(255,255,255,.1)}
+.stat-item{text-align:center}
+.stat-num{font-size:32px;font-weight:700;color:var(--on-dark);line-height:1}
+.stat-num span{color:var(--primary)}
+.stat-label{font-size:13px;color:var(--on-dark-soft);margin-top:4px}
+
+/* Paste */
+.paste-section{background:var(--canvas-parchment);padding:64px 24px}
+.paste-inner{max-width:800px;margin:auto}
+.section-label{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-bottom:12px}
+.section-title{font-size:32px;font-weight:700;line-height:1.15;color:var(--ink);margin-bottom:8px}
+.section-sub{font-size:17px;color:var(--muted);margin-bottom:32px}
+.paste-zone{border:2px dashed var(--primary-mid);border-radius:18px;background:var(--canvas);min-height:200px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;cursor:pointer;transition:border-color .2s,background .2s;padding:40px 24px;text-align:center;position:relative}
+.paste-zone:hover,.paste-zone.drag-over{border-color:var(--primary);background:var(--primary-light)}
+[data-theme="dark"] .paste-zone:hover,[data-theme="dark"] .paste-zone.drag-over{background:rgba(154,122,251,.08)}
+.paste-zone svg{color:var(--primary);opacity:.7}
+.paste-zone h3{font-size:18px;font-weight:700;color:var(--ink)}
+.paste-zone p{font-size:14px;color:var(--muted)}
+.paste-zone kbd{background:var(--surface-strong);border:1px solid var(--hairline-strong);border-radius:6px;padding:2px 8px;font-size:13px;font-weight:600;font-family:inherit;color:var(--body)}
+#paste-preview{display:none;width:100%}
+#paste-preview img{max-width:100%;max-height:320px;border-radius:12px;object-fit:contain;margin:0 auto;display:block;box-shadow:rgba(0,0,0,.22) 3px 5px 30px}
+.paste-actions{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin-top:20px}
+.chip-btn{display:inline-flex;align-items:center;gap:6px;background:var(--canvas);border:1px solid var(--hairline-strong);border-radius:9999px;padding:9px 18px;font-size:14px;font-weight:600;color:var(--body);cursor:pointer;transition:background .2s,transform .15s,border-color .2s;text-decoration:none}
+.chip-btn:hover{background:var(--surface-strong);border-color:var(--primary);color:var(--primary)}
+.chip-btn:active{transform:scale(.95)}
+.chip-btn.primary-chip{background:var(--primary);color:var(--on-primary);border-color:transparent}
+.chip-btn.primary-chip:hover{background:var(--primary-active);color:var(--on-primary)}
+
+/* Tools */
+.tools-section{background:var(--canvas);padding:80px 24px}
+.tools-inner{max-width:1200px;margin:auto}
+.tools-header{text-align:center;margin-bottom:48px}
+.search-bar-wrap{max-width:440px;margin:24px auto 0;position:relative}
+.search-bar-wrap svg{position:absolute;left:16px;top:50%;transform:translateY(-50%);color:var(--muted-soft);pointer-events:none}
+#tool-search{width:100%;padding:13px 16px 13px 44px;border:1px solid var(--hairline-strong);border-radius:9999px;background:var(--canvas);color:var(--ink);font-family:inherit;font-size:15px;outline:none;transition:border-color .2s,box-shadow .2s}
+#tool-search:focus{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 20%,transparent)}
+.category-tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:36px}
+.cat-tab{padding:8px 18px;border-radius:9999px;border:1px solid var(--hairline-strong);background:var(--canvas);font-size:13px;font-weight:700;letter-spacing:.3px;color:var(--muted);cursor:pointer;transition:all .2s}
+.cat-tab:hover{border-color:var(--primary);color:var(--primary)}
+.cat-tab.active{background:var(--primary);color:var(--on-primary);border-color:transparent}
+.tools-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:16px}
+.tool-card{background:var(--surface-card);border:1px solid var(--hairline);border-radius:18px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s,box-shadow .2s;cursor:pointer}
+.tool-card:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:0 8px 24px color-mix(in srgb,var(--primary) 12%,transparent)}
+.tool-card:active{transform:translateY(0) scale(.98)}
+.tool-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--primary-light);color:var(--primary);flex-shrink:0}
+[data-theme="dark"] .tool-icon{background:rgba(154,122,251,.15)}
+.tool-name{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+.tool-desc{font-size:13px;color:var(--muted);line-height:1.4;flex:1}
+.tool-cta{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);display:flex;align-items:center;gap:4px;margin-top:4px}
+.tool-badge{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:var(--primary-light);color:var(--primary);border-radius:9999px;padding:3px 8px;align-self:flex-start}
+[data-theme="dark"] .tool-badge{background:rgba(154,122,251,.2)}
+.tool-card.hidden{display:none}
+
+/* ── Government Exams Section ── */
+.gov-section{background:var(--canvas-parchment);padding:80px 24px}
+.gov-inner{max-width:1200px;margin:auto}
+.gov-label{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gov);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.gov-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;margin-top:36px}
+.gov-card{background:var(--canvas);border:1px solid var(--hairline);border-radius:18px;padding:22px 20px 18px;display:flex;flex-direction:column;gap:10px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s,box-shadow .2s}
+.gov-card:hover{border-color:var(--gov);transform:translateY(-2px);box-shadow:0 8px 24px rgba(26,107,60,.1)}
+.gov-card:active{transform:scale(.98)}
+.gov-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;background:var(--gov-light);color:var(--gov);flex-shrink:0}
+.gov-badge{font-size:11px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;background:var(--gov-light);color:var(--gov);border-radius:9999px;padding:3px 10px;align-self:flex-start}
+.gov-name{font-size:15px;font-weight:700;color:var(--ink);line-height:1.3}
+.gov-desc{font-size:13px;color:var(--muted);line-height:1.4;flex:1}
+.gov-cta{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--gov);display:flex;align-items:center;gap:4px;margin-top:4px}
+.gov-exams-row{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}
+.gov-exam-chip{font-size:12px;font-weight:600;background:var(--gov-light);color:var(--gov);border-radius:9999px;padding:4px 12px;border:1px solid rgba(26,107,60,.15)}
+
+/* Convert Smart Finder */
+.convert-section{background:var(--canvas);padding:80px 24px}
+.convert-inner{max-width:1000px;margin:auto}
+.convert-finder{background:var(--surface-card);border:1px solid var(--hairline);border-radius:18px;padding:36px 32px;margin-top:36px}
+.finder-row{display:grid;grid-template-columns:1fr auto 1fr;align-items:end;gap:16px;margin-bottom:28px}
+.finder-select-wrap{display:flex;flex-direction:column;gap:8px}
+.finder-select-wrap label{font-size:13px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;color:var(--muted)}
+.finder-select{width:100%;padding:13px 16px;border:1px solid var(--hairline-strong);border-radius:9999px;background:var(--canvas);color:var(--ink);font-family:inherit;font-size:15px;font-weight:600;outline:none;cursor:pointer;transition:border-color .2s,box-shadow .2s;appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%236b6b6b' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center}
+.finder-select:focus{border-color:var(--primary);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 20%,transparent)}
+.finder-arrow{width:48px;height:48px;border-radius:9999px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0;cursor:pointer;transition:background .2s,transform .2s;border:none}
+.finder-arrow:hover{background:var(--primary);color:#fff;transform:scale(1.08)}
+.finder-results{min-height:80px}
+.finder-results-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+.finder-card{background:var(--canvas);border:1px solid var(--hairline);border-radius:14px;padding:16px 18px;display:flex;align-items:center;gap:12px;text-decoration:none;color:inherit;transition:border-color .2s,transform .2s}
+.finder-card:hover{border-color:var(--primary);transform:translateY(-2px)}
+.finder-card:active{transform:scale(.97)}
+.finder-card-icon{width:36px;height:36px;border-radius:8px;background:var(--primary-light);display:flex;align-items:center;justify-content:center;color:var(--primary);flex-shrink:0}
+[data-theme="dark"] .finder-card-icon{background:rgba(154,122,251,.15)}
+.finder-card-label{font-size:14px;font-weight:600;color:var(--ink)}
+.finder-card-sub{font-size:12px;color:var(--muted);margin-top:2px}
+.finder-empty{text-align:center;padding:32px 0;color:var(--muted-soft)}
+.finder-empty svg{display:block;margin:0 auto 10px;color:var(--muted-soft)}
+.finder-prompt{text-align:center;padding:24px 0;color:var(--muted)}
+
+/* AI */
+.ai-section{background:var(--surface-tile-1);padding:80px 24px}
+.ai-inner{max-width:1200px;margin:auto}
+.ai-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:36px}
+.ai-card{background:var(--surface-tile-2);border:1px solid rgba(255,255,255,.08);border-radius:18px;padding:28px 24px;text-decoration:none;transition:border-color .2s,transform .2s}
+.ai-card:hover{border-color:var(--primary);transform:translateY(-2px)}
+.ai-badge{display:inline-block;background:rgba(87,58,252,.25);color:var(--primary);font-size:11px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;border-radius:9999px;padding:4px 10px;margin-bottom:14px}
+[data-theme="dark"] .ai-badge{background:rgba(154,122,251,.25)}
+.ai-card h3{font-size:18px;font-weight:700;color:var(--on-dark);margin-bottom:8px}
+.ai-card p{font-size:14px;color:var(--on-dark-soft);line-height:1.5}
+.ai-cta{font-size:13px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:var(--primary);margin-top:18px;display:flex;align-items:center;gap:4px}
+
+/* FAQ */
+.faq-section{background:var(--canvas-parchment);padding:80px 24px}
+.faq-inner{max-width:800px;margin:auto}
+.faq-item{border-bottom:1px solid var(--hairline)}
+.faq-q{width:100%;background:none;border:none;text-align:left;padding:20px 0;font-family:inherit;font-size:17px;font-weight:700;color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:16px;transition:color .2s}
+.faq-q:hover{color:var(--primary)}
+.faq-q svg{flex-shrink:0;transition:transform .3s;color:var(--muted)}
+.faq-q[aria-expanded="true"] svg{transform:rotate(180deg);color:var(--primary)}
+.faq-a{font-size:15px;color:var(--muted);line-height:1.6;max-height:0;overflow:hidden;transition:max-height .35s ease,padding .35s ease}
+.faq-a.open{max-height:400px;padding-bottom:20px}
+
+/* Footer */
+footer{background:var(--canvas-parchment);border-top:1px solid var(--hairline);padding:56px 24px 32px}
+.footer-inner{max-width:1200px;margin:auto}
+.footer-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:40px;margin-bottom:40px}
+.footer-col h4{font-size:14px;font-weight:700;letter-spacing:.4px;color:var(--ink);margin-bottom:16px}
+.footer-col a{display:block;font-size:14px;color:var(--muted);text-decoration:none;margin-bottom:10px;transition:color .2s}
+.footer-col a:hover{color:var(--primary)}
+.footer-copy{text-align:center;font-size:12px;color:var(--muted-soft);border-top:1px solid var(--hairline);padding-top:24px}
+
+.text-center{text-align:center}
+.no-results{text-align:center;padding:48px 0;color:var(--muted);display:none}
+.no-results svg{margin:0 auto 12px;display:block;color:var(--muted-soft)}
+
+@media(max-width:640px){
+  .hero{padding:72px 16px 56px}
+  .hero h1{font-size:34px}
+  .hero p{font-size:17px}
+  .hero-stats{gap:24px}
+  .footer-grid{grid-template-columns:1fr;gap:28px}
+  .tools-grid{grid-template-columns:1fr 1fr;gap:12px}
+  .gov-grid{grid-template-columns:1fr}
+  .ai-grid{grid-template-columns:1fr}
+  .finder-row{grid-template-columns:1fr;gap:12px}
+  .finder-arrow{display:none}
+  .convert-finder{padding:24px 16px}
+}
+@media(max-width:419px){
+  .nav-links-desktop{display:none}
+  .hero h1{font-size:28px}
+  .tools-grid{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<div id="loader">
+  <svg width="72" height="72" viewBox="0 0 72 72">
+    <circle class="arc-track" cx="36" cy="36" r="28"/>
+    <circle class="arc-spin"  cx="36" cy="36" r="28" transform="rotate(-90 36 36)"/>
+  </svg>
+  <p>Image Forge</p>
+</div>
+
+<nav>
+  <div class="nav-inner">
+    <a class="nav-logo" href="https://commercesehoga.github.io/">
+      <img src="https://wondermayank.github.io/favicon.svg" alt="Thunder" onerror="this.style.display='none'">
+      <span>Image <em>Forge</em></span>
+    </a>
+    <div class="nav-right">
+      <div class="nav-links-desktop">
+        <a class="nav-link" href="#tools">Tools</a>
+        <a class="nav-link" href="#gov">Govt Exams</a>
+        <a class="nav-link" href="#convert">Convert</a>
+        <a class="nav-link" href="#ai-tools">AI</a>
+        <a class="nav-link" href="#paste">Paste</a>
+      </div>
+      <button class="theme-btn" id="theme-toggle" aria-label="Toggle dark mode">
+        <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        <svg id="moon-icon" style="display:none" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">
+    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+    50+ Free Image Tools
+  </div>
+  <h1>Image <span>Forge</span></h1>
+  <p>Resize, filter, compress and run AI utilities on your images — all in one place, free forever.</p>
+  <div class="hero-actions">
+    <a href="#tools" class="btn-primary">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      Explore Tools
+    </a>
+    <a href="#paste" class="btn-secondary-dark">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+      Paste &amp; Download
+    </a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-item"><div class="stat-num">50<span>+</span></div><div class="stat-label">Image Tools</div></div>
+    <div class="stat-item"><div class="stat-num">100<span>%</span></div><div class="stat-label">Free &amp; Online</div></div>
+    <div class="stat-item"><div class="stat-num">0</div><div class="stat-label">Upload Limits</div></div>
+    <div class="stat-item"><div class="stat-num">AI</div><div class="stat-label">Powered Utilities</div></div>
+  </div>
+</section>
+
+<!-- Paste to Download -->
+<section class="paste-section" id="paste">
+  <div class="paste-inner">
+    <div class="section-label">Quick Action</div>
+    <h2 class="section-title">Paste Image, Download Instantly</h2>
+    <p class="section-sub">Copy any image anywhere, then paste it here. No upload button needed.</p>
+    <div class="paste-zone" id="paste-zone" tabindex="0" role="button" aria-label="Paste image here">
+      <div id="paste-placeholder" style="display:flex;flex-direction:column;align-items:center;gap:12px">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+        <h3>Paste your image here</h3>
+        <p>Press <kbd>Ctrl+V</kbd> / <kbd>Cmd+V</kbd> — or drag &amp; drop a file</p>
+        <p style="font-size:12px">Supports PNG, JPG, WebP, GIF, BMP, SVG</p>
+      </div>
+      <div id="paste-preview"><img id="pasted-img" src="" alt="Pasted image preview"></div>
+    </div>
+    <div class="paste-actions" id="paste-actions" style="display:none">
+      <button class="chip-btn primary-chip" id="dl-png" aria-label="Download as PNG">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download PNG
+      </button>
+      <button class="chip-btn" id="dl-jpg" aria-label="Download as JPG">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download JPG
+      </button>
+      <button class="chip-btn" id="dl-webp" aria-label="Download as WebP">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Download WebP
+      </button>
+      <button class="chip-btn" id="clear-paste" aria-label="Clear image">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        Clear
+      </button>
+    </div>
+  </div>
+</section>
+
+<!-- All Tools -->
+<section class="tools-section" id="tools">
+  <div class="tools-inner">
+    <div class="tools-header">
+      <div class="section-label">All Tools</div>
+      <h2 class="section-title">50+ Image Utilities</h2>
+      <p style="color:var(--muted);font-size:17px">Everything you need for images — one click away.</p>
+      <div class="search-bar-wrap">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input type="text" id="tool-search" placeholder="Search tools..." autocomplete="off" aria-label="Search tools">
+      </div>
+    </div>
+    <div class="category-tabs" id="cat-tabs">
+      <button class="cat-tab active" data-cat="all">All</button>
+      <button class="cat-tab" data-cat="resize">Resize &amp; Crop</button>
+      <button class="cat-tab" data-cat="convert">Convert</button>
+      <button class="cat-tab" data-cat="compress">Compress</button>
+      <button class="cat-tab" data-cat="filter">Filter &amp; Edit</button>
+      <button class="cat-tab" data-cat="ai">AI Tools</button>
+      <button class="cat-tab" data-cat="misc">Misc</button>
+    </div>
+    <div class="tools-grid" id="tools-grid"></div>
+    <p class="no-results" id="no-results">
+      <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      No tools match your search.
+    </p>
+  </div>
+</section>
+
+<!-- Government Exams -->
+<section class="gov-section" id="gov">
+  <div class="gov-inner">
+    <div class="gov-label">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+      Government Exam Tools
+    </div>
+    <h2 class="section-title">Specially for Govt Job Aspirants</h2>
+    <p style="color:var(--muted);font-size:17px;margin-top:8px">Resize, compress and format images to exact specifications required by SSC, UPSC, Banking, Railway and state exam portals.</p>
+    <div class="gov-exams-row">
+      <span class="gov-exam-chip">SSC CGL / CHSL</span>
+      <span class="gov-exam-chip">UPSC</span>
+      <span class="gov-exam-chip">IBPS / SBI PO</span>
+      <span class="gov-exam-chip">Railway RRB</span>
+      <span class="gov-exam-chip">State PSC</span>
+      <span class="gov-exam-chip">CUET</span>
+      <span class="gov-exam-chip">NDA / CDS</span>
+      <span class="gov-exam-chip">CTET / STET</span>
+      <span class="gov-exam-chip">Police Bharti</span>
+    </div>
+    <div class="gov-grid" id="gov-grid"></div>
+  </div>
+</section>
+
+<!-- Convert Smart Finder -->
+<section class="convert-section" id="convert">
+  <div class="convert-inner">
+    <div class="section-label">Convert in One Click</div>
+    <h2 class="section-title">Smart Format Finder</h2>
+    <p style="color:var(--muted);font-size:17px;margin-top:8px">Select your source format and target format — we show you the exact tool.</p>
+
+    <div class="convert-finder">
+      <div class="finder-row">
+        <div class="finder-select-wrap">
+          <label for="from-fmt">I have this format</label>
+          <select id="from-fmt" class="finder-select" aria-label="Source format">
+            <option value="">Select format...</option>
+          </select>
+        </div>
+        <button class="finder-arrow" id="swap-btn" title="Swap formats" aria-label="Swap formats">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+        </button>
+        <div class="finder-select-wrap">
+          <label for="to-fmt">I want this format</label>
+          <select id="to-fmt" class="finder-select" aria-label="Target format">
+            <option value="">Select format...</option>
+          </select>
+        </div>
+      </div>
+      <div class="finder-results" id="finder-results">
+        <div class="finder-prompt">
+          <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+          <p style="margin-top:8px;font-size:15px;color:var(--muted)">Select both formats above to find the right tool</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AI Tools -->
+<section class="ai-section" id="ai-tools">
+  <div class="ai-inner">
+    <div class="section-label" style="color:var(--primary)">AI Powered</div>
+    <h2 class="section-title" style="color:var(--on-dark)">Intelligent Image Utilities</h2>
+    <p style="color:var(--on-dark-soft);font-size:17px;margin-top:8px">Machine learning tools that go beyond basic editing.</p>
+    <div class="ai-grid" id="ai-grid"></div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" id="faq">
+  <div class="faq-inner">
+    <div class="section-label text-center">FAQ</div>
+    <h2 class="section-title text-center" style="margin-bottom:40px">Frequently Asked Questions</h2>
+    <div id="faq-list"></div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-grid">
+      <div class="footer-col">
+        <h4>Thunder</h4>
+        <a href="https://commercesehoga.github.io/">ThunderStudy</a>
+        <a href="https://commercesehoga.github.io/dashboard">CBT Mock Platform</a>
+        <a href="https://thunderstudy.github.io">Free Study Material</a>
+        <a href="https://commercesehoga.github.io/help">Help / Donate</a>
+      </div>
+      <div class="footer-col">
+        <h4>wondermayank</h4>
+        <a href="https://wondermayank.indevs.in">Portfolio</a>
+        <a href="https://wondermayank.github.io/">wondermayank.github.io</a>
+        <a href="https://wondermayank.github.io/mail">Mail</a>
+        <a href="https://wondermayank.github.io/contact">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="https://wondermayank.github.io/terms">Terms</a>
+        <a href="https://wondermayank.github.io/privacy">Privacy</a>
+        <a href="https://wondermayank.github.io/disclaimer">Disclaimer</a>
+      </div>
+    </div>
+    <p class="footer-copy">© 2025 Thunder · by wondermayank</p>
+  </div>
+</footer>
+
+<script>
+/* ── Theme ── */
+(function(){
+  const saved = localStorage.getItem('theme')||'light';
+  document.documentElement.setAttribute('data-theme',saved);
+  if(saved==='dark'){
+    document.getElementById('sun-icon').style.display='none';
+    document.getElementById('moon-icon').style.display='block';
+  }
+})();
+document.getElementById('theme-toggle').addEventListener('click',()=>{
+  const html=document.documentElement;
+  const isDark=html.getAttribute('data-theme')==='dark';
+  html.setAttribute('data-theme',isDark?'light':'dark');
+  localStorage.setItem('theme',isDark?'light':'dark');
+  document.getElementById('sun-icon').style.display=isDark?'block':'none';
+  document.getElementById('moon-icon').style.display=isDark?'none':'block';
+});
+
+/* ── Loader ── */
+document.addEventListener('DOMContentLoaded',()=>{
+  const l=document.getElementById('loader');
+  setTimeout(()=>{l.classList.add('hidden');setTimeout(()=>l.remove(),500);},900);
+});
+
+/* ── Tool slug helper ── */
+const BASE='https://wondermayank.github.io/image/';
+function slug(name){ return name.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
+function toolURL(name){ return BASE+slug(name); }
+
+/* ── Tools Data ── */
+const tools=[
+  {name:'Image Resizer',desc:'Resize to exact px or %',cat:'resize',badge:null},
+  {name:'Crop Image',desc:'Crop to any aspect ratio',cat:'resize',badge:null},
+  {name:'Bulk Resize',desc:'Resize 100+ images at once',cat:'resize',badge:'Bulk'},
+  {name:'Aspect Ratio Crop',desc:'16:9, 4:3, 1:1 crops',cat:'resize',badge:null},
+  {name:'Canvas Size',desc:'Expand canvas with padding',cat:'resize',badge:null},
+  {name:'Thumbnail Maker',desc:'Generate thumbnails quickly',cat:'resize',badge:null},
+  {name:'Profile Picture Crop',desc:'Perfect circle crop for avatars',cat:'resize',badge:null},
+  {name:'Social Media Resize',desc:'Preset sizes for IG, YT, FB',cat:'resize',badge:'Popular'},
+  {name:'PNG to JPG',desc:'Convert PNG to JPEG',cat:'convert',badge:'Popular'},
+  {name:'JPG to PNG',desc:'Keep transparency, add alpha',cat:'convert',badge:'Popular'},
+  {name:'PNG to WebP',desc:'Modern format, 30% smaller',cat:'convert',badge:null},
+  {name:'WebP to PNG',desc:'Convert WebP back to PNG',cat:'convert',badge:null},
+  {name:'JPG to WebP',desc:'Smaller files for the web',cat:'convert',badge:null},
+  {name:'PNG to SVG',desc:'Trace raster to vector',cat:'convert',badge:'AI'},
+  {name:'SVG to PNG',desc:'Render vector to raster',cat:'convert',badge:null},
+  {name:'HEIC to JPG',desc:'iPhone HEIC to universal JPG',cat:'convert',badge:'Popular'},
+  {name:'BMP to PNG',desc:'Legacy BMP to PNG',cat:'convert',badge:null},
+  {name:'GIF to MP4',desc:'Animated GIF to video',cat:'convert',badge:null},
+  {name:'PDF to Image',desc:'Extract pages as PNG/JPG',cat:'convert',badge:null},
+  {name:'Image to PDF',desc:'Pack images into a PDF',cat:'convert',badge:null},
+  {name:'ICO Maker',desc:'Create .ico from any image',cat:'convert',badge:null},
+  {name:'Base64 to Image',desc:'Decode base64 image strings',cat:'convert',badge:null},
+  {name:'Image to Base64',desc:'Encode image to base64',cat:'convert',badge:null},
+  {name:'JPG to PDF',desc:'Convert JPG photos to PDF',cat:'convert',badge:null},
+  {name:'AVIF to JPG',desc:'AVIF to universal JPG',cat:'convert',badge:null},
+  {name:'JPG to AVIF',desc:'Next-gen AVIF format',cat:'convert',badge:null},
+  {name:'TIFF to JPG',desc:'TIFF to compressed JPG',cat:'convert',badge:null},
+  {name:'PNG to TIFF',desc:'Lossless TIFF conversion',cat:'convert',badge:null},
+  {name:'Image Compressor',desc:'Reduce file size, keep quality',cat:'compress',badge:'Popular'},
+  {name:'Lossless Compress',desc:'Zero quality loss compression',cat:'compress',badge:null},
+  {name:'Bulk Compressor',desc:'Compress 50+ images at once',cat:'compress',badge:'Bulk'},
+  {name:'JPEG Optimizer',desc:'Fine-tune JPEG quality slider',cat:'compress',badge:null},
+  {name:'PNG Optimizer',desc:'Crush PNG without quality loss',cat:'compress',badge:null},
+  {name:'WebP Optimizer',desc:'Smallest WebP file sizes',cat:'compress',badge:null},
+  {name:'Image Filters',desc:'Vintage, B&W, vivid & 20+ more',cat:'filter',badge:null},
+  {name:'Brightness Contrast',desc:'Adjust levels precisely',cat:'filter',badge:null},
+  {name:'Saturation Tuner',desc:'Pop colors or desaturate',cat:'filter',badge:null},
+  {name:'Blur Image',desc:'Gaussian, radial or tilt-shift',cat:'filter',badge:null},
+  {name:'Sharpen Image',desc:'Unsharp mask & clarity',cat:'filter',badge:null},
+  {name:'Add Watermark',desc:'Text or image watermark overlay',cat:'filter',badge:null},
+  {name:'Add Text to Image',desc:'Custom font, color & position',cat:'filter',badge:null},
+  {name:'Border Frame',desc:'Add styled borders to photos',cat:'filter',badge:null},
+  {name:'Rotate Flip',desc:'Rotate 90/180/270, flip H/V',cat:'filter',badge:null},
+  {name:'Color Picker',desc:'Pick HEX/RGB from any image',cat:'filter',badge:null},
+  {name:'Mosaic Pixelate',desc:'Censor or artistic pixelation',cat:'filter',badge:null},
+  {name:'Vignette Effect',desc:'Darkened edges for depth',cat:'filter',badge:null},
+  {name:'Noise Reduction',desc:'Smooth grainy photos',cat:'filter',badge:null},
+  {name:'Background Remover',desc:'AI-powered BG removal',cat:'ai',badge:'AI'},
+  {name:'Image Upscaler',desc:'4× upscale with AI sharpness',cat:'ai',badge:'AI'},
+  {name:'Object Eraser',desc:'Remove objects with AI fill',cat:'ai',badge:'AI'},
+  {name:'Face Enhancer',desc:'Restore & sharpen faces',cat:'ai',badge:'AI'},
+  {name:'Auto Color Fix',desc:'AI corrects white balance & tone',cat:'ai',badge:'AI'},
+  {name:'Image Colorizer',desc:'Add color to B&W photos',cat:'ai',badge:'AI'},
+  {name:'Sketch to Image',desc:'Turn sketches into renders',cat:'ai',badge:'AI'},
+  {name:'Image Describe',desc:'AI caption generator',cat:'ai',badge:'AI'},
+  {name:'Image Metadata',desc:'View & strip EXIF data',cat:'misc',badge:null},
+  {name:'Color Palette',desc:'Extract palette from image',cat:'misc',badge:null},
+  {name:'Collage Maker',desc:'Combine images in grids',cat:'misc',badge:null},
+  {name:'Meme Generator',desc:'Add top/bottom caption text',cat:'misc',badge:null},
+  {name:'Image Diff',desc:'Compare two images side-by-side',cat:'misc',badge:null},
+  {name:'Dominant Color',desc:'Find main colors in image',cat:'misc',badge:null},
+];
+
+const catIcons={
+  resize:`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>`,
+  convert:`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`,
+  compress:`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="4 14 10 14 10 20"/><polyline points="20 10 14 10 14 4"/><line x1="10" y1="14" x2="21" y2="3"/><line x1="3" y1="21" x2="14" y2="10"/></svg>`,
+  filter:`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M16.24 7.76a6 6 0 0 1 0 8.49M4.93 4.93a10 10 0 0 0 0 14.14M7.76 7.76a6 6 0 0 0 0 8.49"/></svg>`,
+  ai:`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>`,
+  misc:`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>`,
+};
+const chevR=`<svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="9 18 15 12 9 6"/></svg>`;
+
+function buildTools(){
+  document.getElementById('tools-grid').innerHTML=tools.map(t=>`
+    <a href="${toolURL(t.name)}" class="tool-card" data-cat="${t.cat}" data-name="${t.name.toLowerCase()}">
+      <div style="display:flex;align-items:center;gap:10px">
+        <div class="tool-icon">${catIcons[t.cat]}</div>
+        ${t.badge?`<span class="tool-badge">${t.badge}</span>`:''}
+      </div>
+      <div class="tool-name">${t.name}</div>
+      <div class="tool-desc">${t.desc}</div>
+      <div class="tool-cta">USE TOOL ${chevR}</div>
+    </a>`).join('');
+}
+
+/* ── Filter ── */
+function filterTools(){
+  const q=document.getElementById('tool-search').value.toLowerCase();
+  const activeCat=document.querySelector('.cat-tab.active').dataset.cat;
+  let vis=0;
+  document.querySelectorAll('.tool-card').forEach(card=>{
+    const show=(activeCat==='all'||card.dataset.cat===activeCat)&&
+               (card.dataset.name.includes(q)||card.querySelector('.tool-desc').textContent.toLowerCase().includes(q));
+    card.classList.toggle('hidden',!show);
+    if(show)vis++;
+  });
+  document.getElementById('no-results').style.display=vis===0?'block':'none';
+}
+document.getElementById('tool-search').addEventListener('input',filterTools);
+document.getElementById('cat-tabs').addEventListener('click',e=>{
+  const btn=e.target.closest('.cat-tab');
+  if(!btn)return;
+  document.querySelectorAll('.cat-tab').forEach(t=>t.classList.remove('active'));
+  btn.classList.add('active');
+  filterTools();
+});
+
+/* ── Government Exam Tools ── */
+const govTools=[
+  {name:'Image Resizer',desc:'Resize photo to exact px required by exam portals. Supports 35×45mm, 200×230px and custom dimensions.',badge:'Must Have',exams:['SSC','UPSC','IBPS','Railway']},
+  {name:'Image Compressor',desc:'Reduce image file size to under 50KB, 100KB or 200KB — standard limits for most govt exam uploads.',badge:'Must Have',exams:['All Exams']},
+  {name:'JPEG Optimizer',desc:'Convert and optimize to JPEG format with exact quality control. Most portals require JPEG only.',badge:'Popular',exams:['UPSC','SSC','CUET']},
+  {name:'JPG to PDF',desc:'Convert your photo or signature image to PDF format for document submission.',badge:null,exams:['NDA','CDS','CAPF']},
+  {name:'Crop Image',desc:'Crop passport-size photo to exact ratio. Remove background borders or extra whitespace quickly.',badge:'Popular',exams:['All Exams']},
+  {name:'Profile Picture Crop',desc:'Square and circle crop optimized for profile/passport photos. Set exact pixel output.',badge:null,exams:['SSC','Police','CTET']},
+  {name:'PNG to JPG',desc:'Convert scanned PNG photos to JPG as required by most government recruitment portals.',badge:null,exams:['IBPS','Railway','PSC']},
+  {name:'Brightness Contrast',desc:'Fix dark or overexposed passport photos. Adjust to meet white background standards.',badge:null,exams:['UPSC','SSC','CTET']},
+];
+const govIconSvg=`<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 7H4a2 2 0 0 0-2 2v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2z"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>`;
+
+document.getElementById('gov-grid').innerHTML=govTools.map(g=>`
+  <a href="${toolURL(g.name)}" class="gov-card">
+    <div style="display:flex;align-items:center;gap:10px">
+      <div class="gov-icon">${govIconSvg}</div>
+      ${g.badge?`<span class="gov-badge">${g.badge}</span>`:''}
+    </div>
+    <div class="gov-name">${g.name}</div>
+    <div class="gov-desc">${g.desc}</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px">
+      ${g.exams.map(e=>`<span style="font-size:11px;font-weight:600;background:var(--gov-light);color:var(--gov);border-radius:9999px;padding:3px 10px">${e}</span>`).join('')}
+    </div>
+    <div class="gov-cta">OPEN TOOL ${chevR}</div>
+  </a>`).join('');
+
+/* ── Convert Smart Finder ── */
+// ALL possible conversions: from → [to list + tool name]
+const allConversions=[
+  {from:'PNG',to:'JPG',tool:'PNG to JPG',desc:'Convert PNG images to compressed JPG'},
+  {from:'PNG',to:'WebP',tool:'PNG to WebP',desc:'Modern WebP format, smaller files'},
+  {from:'PNG',to:'SVG',tool:'PNG to SVG',desc:'AI-powered raster to vector tracing'},
+  {from:'PNG',to:'TIFF',tool:'PNG to TIFF',desc:'Lossless TIFF for print workflows'},
+  {from:'PNG',to:'ICO',tool:'ICO Maker',desc:'Create favicon .ico from PNG'},
+  {from:'PNG',to:'PDF',tool:'Image to PDF',desc:'Pack PNG into a PDF document'},
+  {from:'PNG',to:'Base64',tool:'Image to Base64',desc:'Encode PNG as base64 string'},
+  {from:'JPG',to:'PNG',tool:'JPG to PNG',desc:'Add transparency, convert to PNG'},
+  {from:'JPG',to:'WebP',tool:'JPG to WebP',desc:'Smaller web-ready WebP files'},
+  {from:'JPG',to:'PDF',tool:'JPG to PDF',desc:'JPG photos into a PDF'},
+  {from:'JPG',to:'AVIF',tool:'JPG to AVIF',desc:'Next-gen AVIF compression'},
+  {from:'JPG',to:'TIFF',tool:'TIFF to JPG',desc:'Convert between JPG and TIFF'},
+  {from:'JPG',to:'Base64',tool:'Image to Base64',desc:'Encode JPG as base64 data URL'},
+  {from:'WebP',to:'PNG',tool:'WebP to PNG',desc:'WebP back to universal PNG'},
+  {from:'WebP',to:'JPG',tool:'PNG to JPG',desc:'WebP to compressed JPG'},
+  {from:'SVG',to:'PNG',tool:'SVG to PNG',desc:'Render SVG vector to PNG raster'},
+  {from:'SVG',to:'JPG',tool:'PNG to JPG',desc:'SVG vector to compressed JPG'},
+  {from:'HEIC',to:'JPG',tool:'HEIC to JPG',desc:'iPhone HEIC to universal JPG'},
+  {from:'HEIC',to:'PNG',tool:'JPG to PNG',desc:'iPhone HEIC to PNG'},
+  {from:'BMP',to:'PNG',tool:'BMP to PNG',desc:'Legacy BMP to modern PNG'},
+  {from:'BMP',to:'JPG',tool:'PNG to JPG',desc:'BMP to compressed JPG'},
+  {from:'GIF',to:'MP4',tool:'GIF to MP4',desc:'Animated GIF to MP4 video'},
+  {from:'GIF',to:'PNG',tool:'JPG to PNG',desc:'GIF frame extraction to PNG'},
+  {from:'PDF',to:'PNG',tool:'PDF to Image',desc:'Extract PDF pages as PNG'},
+  {from:'PDF',to:'JPG',tool:'PDF to Image',desc:'Extract PDF pages as JPG'},
+  {from:'ICO',to:'PNG',tool:'SVG to PNG',desc:'Convert ICO to PNG format'},
+  {from:'AVIF',to:'JPG',tool:'AVIF to JPG',desc:'AVIF to universal JPG'},
+  {from:'AVIF',to:'PNG',tool:'JPG to PNG',desc:'AVIF to PNG format'},
+  {from:'TIFF',to:'JPG',tool:'TIFF to JPG',desc:'TIFF to compressed JPG'},
+  {from:'TIFF',to:'PNG',tool:'JPG to PNG',desc:'TIFF to PNG format'},
+  {from:'Base64',to:'PNG',tool:'Base64 to Image',desc:'Decode base64 to PNG image'},
+  {from:'Base64',to:'JPG',tool:'Base64 to Image',desc:'Decode base64 to JPG image'},
+];
+
+const allFormats=[...new Set([...allConversions.map(c=>c.from),...allConversions.map(c=>c.to)])].sort();
+
+function populateSelects(){
+  [document.getElementById('from-fmt'),document.getElementById('to-fmt')].forEach(sel=>{
+    allFormats.forEach(f=>{
+      const o=document.createElement('option');
+      o.value=f;o.textContent=f;
+      sel.appendChild(o);
+    });
+  });
+}
+populateSelects();
+
+function runFinder(){
+  const from=document.getElementById('from-fmt').value;
+  const to=document.getElementById('to-fmt').value;
+  const res=document.getElementById('finder-results');
+  if(!from&&!to){
+    res.innerHTML=`<div class="finder-prompt"><svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><p style="margin-top:8px;font-size:15px;color:var(--muted)">Select both formats above to find the right tool</p></div>`;
+    return;
+  }
+  let matches=allConversions.filter(c=>{
+    if(from&&to) return c.from===from&&c.to===to;
+    if(from) return c.from===from;
+    return c.to===to;
+  });
+  if(matches.length===0){
+    res.innerHTML=`<div class="finder-empty"><svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg><p style="font-size:15px;margin-top:8px">No direct conversion found for ${from||'?'} → ${to||'?'}</p><p style="font-size:13px;margin-top:4px">Try converting via an intermediate format like PNG.</p></div>`;
+    return;
+  }
+  const convSvg=`<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>`;
+  res.innerHTML=`<div class="finder-results-grid">${matches.map(m=>`
+    <a href="${toolURL(m.tool)}" class="finder-card">
+      <div class="finder-card-icon">${convSvg}</div>
+      <div><div class="finder-card-label">${m.from} → ${m.to}</div><div class="finder-card-sub">${m.desc}</div></div>
+    </a>`).join('')}</div>`;
+}
+
+document.getElementById('from-fmt').addEventListener('change',runFinder);
+document.getElementById('to-fmt').addEventListener('change',runFinder);
+document.getElementById('swap-btn').addEventListener('click',()=>{
+  const a=document.getElementById('from-fmt');
+  const b=document.getElementById('to-fmt');
+  [a.value,b.value]=[b.value,a.value];
+  runFinder();
+});
+
+/* ── AI Cards ── */
+const aiCards=[
+  {title:'Background Remover',desc:'Remove backgrounds from photos instantly with AI — no manual selection needed. Works on people, products, animals and objects.'},
+  {title:'Image Upscaler 4x',desc:'Enhance and upscale low-resolution images up to 4× with AI sharpening that recovers detail rather than just blurring.'},
+  {title:'Object Eraser',desc:'Select and erase any unwanted object from your photo. AI fills the gap naturally with content-aware intelligence.'},
+  {title:'Face Enhancer',desc:'Restore blurry, pixelated or damaged faces in photos. Great for old scanned photos and compressed portraits.'},
+  {title:'Image Colorizer',desc:'Automatically add realistic color to black-and-white or grayscale photographs using deep learning.'},
+  {title:'Auto Color Fix',desc:'AI analyzes lighting conditions and fixes white balance, exposure and color tone in a single click.'},
+];
+document.getElementById('ai-grid').innerHTML=aiCards.map(c=>`
+  <a href="${toolURL(c.title)}" class="ai-card">
+    <span class="ai-badge">AI</span>
+    <h3>${c.title}</h3>
+    <p>${c.desc}</p>
+    <div class="ai-cta">TRY NOW ${chevR}</div>
+  </a>`).join('');
+
+/* ── FAQ ── */
+const faqs=[
+  {q:'Is Image Forge completely free?',a:'Yes. All 50+ tools on Image Forge are 100% free with no sign-up, no watermarks and no file size restrictions for standard use.'},
+  {q:'What image formats does Image Forge support?',a:'Image Forge supports PNG, JPG/JPEG, WebP, GIF, BMP, TIFF, AVIF, HEIC, ICO, SVG and more. Specific format support depends on the individual tool.'},
+  {q:'How do I use the Paste to Download feature?',a:'Copy any image to your clipboard (right-click → Copy Image, or Ctrl+C / Cmd+C), then click the paste zone and press Ctrl+V (Windows) or Cmd+V (Mac). Your image will appear and you can download it as PNG, JPG or WebP instantly.'},
+  {q:'Does Image Forge upload my images to a server?',a:'Most tools process images directly in your browser — your files never leave your device. AI-powered tools that require server processing are clearly labeled.'},
+  {q:'Which tool should I use for government exam photo upload?',a:'Use Image Resizer to set exact pixel dimensions, then Image Compressor to reduce file size under the portal limit (usually 50KB–200KB). Most portals also require JPEG format — use PNG to JPG if needed.'},
+  {q:'How does the Smart Format Finder work?',a:'Select your source format (e.g. PNG) and your target format (e.g. JPG) using the two dropdowns in the Convert section. The finder instantly shows you the correct tool and opens it in one click.'},
+  {q:'Can I resize images in bulk?',a:'Yes. The Bulk Resize and Bulk Compressor tools let you upload and process up to 100 images simultaneously, saving all results as a ZIP.'},
+];
+document.getElementById('faq-list').innerHTML=faqs.map((f,i)=>`
+  <div class="faq-item">
+    <button class="faq-q" aria-expanded="false" data-i="${i}">
+      ${f.q}
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+    </button>
+    <div class="faq-a" id="faq-a-${i}">${f.a}</div>
+  </div>`).join('');
+document.getElementById('faq-list').addEventListener('click',e=>{
+  const btn=e.target.closest('.faq-q');
+  if(!btn)return;
+  const i=btn.dataset.i;
+  const ans=document.getElementById(`faq-a-${i}`);
+  const open=btn.getAttribute('aria-expanded')==='true';
+  btn.setAttribute('aria-expanded',!open);
+  ans.classList.toggle('open',!open);
+});
+
+/* ── Paste to Download ── */
+let pastedCanvas=null;
+function handleImageFile(file){
+  if(!file||!file.type.startsWith('image/'))return;
+  const reader=new FileReader();
+  reader.onload=e=>{
+    const img=new Image();
+    img.onload=()=>{
+      pastedCanvas=document.createElement('canvas');
+      pastedCanvas.width=img.naturalWidth;
+      pastedCanvas.height=img.naturalHeight;
+      pastedCanvas.getContext('2d').drawImage(img,0,0);
+      document.getElementById('paste-placeholder').style.display='none';
+      document.getElementById('paste-preview').style.display='block';
+      document.getElementById('pasted-img').src=e.target.result;
+      document.getElementById('paste-actions').style.display='flex';
+    };
+    img.src=e.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+document.addEventListener('paste',e=>{
+  const items=(e.clipboardData||window.clipboardData).items;
+  for(const item of items){if(item.type.startsWith('image/')){handleImageFile(item.getAsFile());break;}}
+});
+const zone=document.getElementById('paste-zone');
+zone.addEventListener('dragover',e=>{e.preventDefault();zone.classList.add('drag-over')});
+zone.addEventListener('dragleave',()=>zone.classList.remove('drag-over'));
+zone.addEventListener('drop',e=>{e.preventDefault();zone.classList.remove('drag-over');handleImageFile(e.dataTransfer.files[0])});
+zone.addEventListener('click',()=>{const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=()=>handleImageFile(i.files[0]);i.click()});
+function downloadCanvas(fmt){
+  if(!pastedCanvas)return;
+  const mime=fmt==='jpg'?'image/jpeg':fmt==='webp'?'image/webp':'image/png';
+  const q=fmt==='jpg'?0.92:fmt==='webp'?0.88:undefined;
+  const url=q?pastedCanvas.toDataURL(mime,q):pastedCanvas.toDataURL(mime);
+  const a=document.createElement('a');a.href=url;a.download=`image-forge.${fmt}`;a.click();
+}
+document.getElementById('dl-png').addEventListener('click',()=>downloadCanvas('png'));
+document.getElementById('dl-jpg').addEventListener('click',()=>downloadCanvas('jpg'));
+document.getElementById('dl-webp').addEventListener('click',()=>downloadCanvas('webp'));
+document.getElementById('clear-paste').addEventListener('click',()=>{
+  pastedCanvas=null;
+  document.getElementById('pasted-img').src='';
+  document.getElementById('paste-preview').style.display='none';
+  document.getElementById('paste-placeholder').style.display='flex';
+  document.getElementById('paste-actions').style.display='none';
+});
+
+buildTools();
+</script>
+</body>
+</html>
