@@ -492,7 +492,7 @@ document.addEventListener('DOMContentLoaded',()=>{
 /* ── Tool slug helper ── */
 const BASE='https://wondermayank.github.io/image/';
 function slug(name){ return name.toLowerCase().replace(/[^a-z0-9]+/g,'_').replace(/^_|_$/g,''); }
-function toolURL(name){ return BASE+slug(name); }
+function toolURL(name){ return BASE+slug(name)+'.html'; }
 
 /* ── Tools Data ── */
 const tools=[
@@ -645,25 +645,25 @@ const allConversions=[
   {from:'JPG',to:'WebP',tool:'JPG to WebP',desc:'Smaller web-ready WebP files'},
   {from:'JPG',to:'PDF',tool:'JPG to PDF',desc:'JPG photos into a PDF'},
   {from:'JPG',to:'AVIF',tool:'JPG to AVIF',desc:'Next-gen AVIF compression'},
-  {from:'JPG',to:'TIFF',tool:'TIFF to JPG',desc:'Convert between JPG and TIFF'},
+  {from:'JPG',to:'TIFF',tool:'JPG to TIFF',desc:'Convert JPG to TIFF format'},
   {from:'JPG',to:'Base64',tool:'Image to Base64',desc:'Encode JPG as base64 data URL'},
   {from:'WebP',to:'PNG',tool:'WebP to PNG',desc:'WebP back to universal PNG'},
-  {from:'WebP',to:'JPG',tool:'PNG to JPG',desc:'WebP to compressed JPG'},
+  {from:'WebP',to:'JPG',tool:'WebP to JPG',desc:'WebP to compressed JPG'},
   {from:'SVG',to:'PNG',tool:'SVG to PNG',desc:'Render SVG vector to PNG raster'},
-  {from:'SVG',to:'JPG',tool:'PNG to JPG',desc:'SVG vector to compressed JPG'},
+  {from:'SVG',to:'JPG',tool:'SVG to JPG',desc:'SVG vector to compressed JPG'},
   {from:'HEIC',to:'JPG',tool:'HEIC to JPG',desc:'iPhone HEIC to universal JPG'},
-  {from:'HEIC',to:'PNG',tool:'JPG to PNG',desc:'iPhone HEIC to PNG'},
+  {from:'HEIC',to:'PNG',tool:'HEIC to PNG',desc:'iPhone HEIC to PNG'},
   {from:'BMP',to:'PNG',tool:'BMP to PNG',desc:'Legacy BMP to modern PNG'},
-  {from:'BMP',to:'JPG',tool:'PNG to JPG',desc:'BMP to compressed JPG'},
+  {from:'BMP',to:'JPG',tool:'BMP to JPG',desc:'BMP to compressed JPG'},
   {from:'GIF',to:'MP4',tool:'GIF to MP4',desc:'Animated GIF to MP4 video'},
-  {from:'GIF',to:'PNG',tool:'JPG to PNG',desc:'GIF frame extraction to PNG'},
+  {from:'GIF',to:'PNG',tool:'GIF to PNG',desc:'GIF frame extraction to PNG'},
   {from:'PDF',to:'PNG',tool:'PDF to Image',desc:'Extract PDF pages as PNG'},
   {from:'PDF',to:'JPG',tool:'PDF to Image',desc:'Extract PDF pages as JPG'},
-  {from:'ICO',to:'PNG',tool:'SVG to PNG',desc:'Convert ICO to PNG format'},
+  {from:'ICO',to:'PNG',tool:'ICO to PNG',desc:'Convert ICO to PNG format'},
   {from:'AVIF',to:'JPG',tool:'AVIF to JPG',desc:'AVIF to universal JPG'},
-  {from:'AVIF',to:'PNG',tool:'JPG to PNG',desc:'AVIF to PNG format'},
+  {from:'AVIF',to:'PNG',tool:'AVIF to PNG',desc:'AVIF to PNG format'},
   {from:'TIFF',to:'JPG',tool:'TIFF to JPG',desc:'TIFF to compressed JPG'},
-  {from:'TIFF',to:'PNG',tool:'JPG to PNG',desc:'TIFF to PNG format'},
+  {from:'TIFF',to:'PNG',tool:'TIFF to PNG',desc:'TIFF to PNG format'},
   {from:'Base64',to:'PNG',tool:'Base64 to Image',desc:'Decode base64 to PNG image'},
   {from:'Base64',to:'JPG',tool:'Base64 to Image',desc:'Decode base64 to JPG image'},
 ];
