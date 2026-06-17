@@ -657,15 +657,15 @@ const allConversions=[
   {from:'BMP',to:'JPG',tool:'BMP to JPG',desc:'BMP to compressed JPG'},
   {from:'GIF',to:'MP4',tool:'GIF to MP4',desc:'Animated GIF to MP4 video'},
   {from:'GIF',to:'PNG',tool:'GIF to PNG',desc:'GIF frame extraction to PNG'},
-  {from:'PDF',to:'PNG',tool:'PDF to Image',desc:'Extract PDF pages as PNG'},
-  {from:'PDF',to:'JPG',tool:'PDF to Image',desc:'Extract PDF pages as JPG'},
+  {from:'PDF',to:'PNG',tool:'PDF to PNG',desc:'Extract PDF pages as PNG'},
+  {from:'PDF',to:'JPG',tool:'PDF to JPG',desc:'Extract PDF pages as JPG'},
   {from:'ICO',to:'PNG',tool:'ICO to PNG',desc:'Convert ICO to PNG format'},
   {from:'AVIF',to:'JPG',tool:'AVIF to JPG',desc:'AVIF to universal JPG'},
   {from:'AVIF',to:'PNG',tool:'AVIF to PNG',desc:'AVIF to PNG format'},
   {from:'TIFF',to:'JPG',tool:'TIFF to JPG',desc:'TIFF to compressed JPG'},
   {from:'TIFF',to:'PNG',tool:'TIFF to PNG',desc:'TIFF to PNG format'},
-  {from:'Base64',to:'PNG',tool:'Base64 to Image',desc:'Decode base64 to PNG image'},
-  {from:'Base64',to:'JPG',tool:'Base64 to Image',desc:'Decode base64 to JPG image'},
+  {from:'Base64',to:'PNG',tool:'Base64 to PNG',desc:'Decode base64 to PNG image'},
+  {from:'Base64',to:'JPG',tool:'Base64 to JPG',desc:'Decode base64 to JPG image'},
 ];
 
 const allFormats=[...new Set([...allConversions.map(c=>c.from),...allConversions.map(c=>c.to)])].sort();
