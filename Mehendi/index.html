@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" data-theme="light">
 <head>
@@ -1046,22 +1045,52 @@ let lbIndex        = 0;
 let favorites      = loadFavorites();
 let showFavsOnly   = false;
 
-const CAT_META = {
-  all:          { label: 'All Designs',   color: '#573AFC' },
-  hand:         { label: 'Hand',          color: '#573AFC' },
-  bridal:       { label: 'Bridal',        color: '#4527E0' },
-  feet:         { label: 'Feet',          color: '#6B4FFF' },
-  hijab:        { label: 'Hijab',         color: '#BCAEFB' },
-  hijab_fashion:{ label: 'Hijab Fashion', color: '#9A7AFB' },
-};
-const CAT_ICONS = {
-  all: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>`,
-  hand: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>`,
+// ════════════════════════════════════════════════════
+//  CATEGORY SYSTEM — fully dynamic, driven by mehndi-db.js
+//  Add new categories to MEHNDI_CATEGORIES in mehndi-db.js
+//  and they auto-appear here — no edits needed in index.html
+// ════════════════════════════════════════════════════
+
+// Icon library keyed by the "icon" field in MEHNDI_CATEGORIES
+const ICON_SVG = {
+  hand:   `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 11V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2"/><path d="M14 10V4a2 2 0 0 0-2-2 2 2 0 0 0-2 2v2"/><path d="M10 10.5V6a2 2 0 0 0-2-2 2 2 0 0 0-2 2v8"/><path d="M18 11a2 2 0 1 1 4 0v3a8 8 0 0 1-8 8h-2c-2.8 0-4.5-.86-5.99-2.34l-3.6-3.6a2 2 0 0 1 2.83-2.82L7 15"/></svg>`,
   bridal: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>`,
-  feet: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5c0 1.1-.51 2.23-1 3h6c1 0 2 .99 2 2v1c0 1-.99 2-2 2H8c-1 0-2 1-2 2s1 2 2 2h8c1 0 2 .99 2 2v1c0 1-.99 2-2 2H8c-2 0-4-1.5-4-3z"/></svg>`,
-  hijab: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M12 11C8.13 11 5 14.13 5 18h14c0-3.87-3.13-7-7-7z"/></svg>`,
-  hijab_fashion: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
+  feet:   `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 16v-2.38C4 11.5 2.97 10.5 3 8c.03-2.72 1.49-6 4.5-6C9.37 2 10 3.8 10 5c0 1.1-.51 2.23-1 3h6c1 0 2 .99 2 2v1c0 1-.99 2-2 2H8c-1 0-2 1-2 2s1 2 2 2h8c1 0 2 .99 2 2v1c0 1-.99 2-2 2H8c-2 0-4-1.5-4-3z"/></svg>`,
+  hijab:  `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="3"/><path d="M12 11C8.13 11 5 14.13 5 18h14c0-3.87-3.13-7-7-7z"/></svg>`,
+  star:   `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12,2 15.09,8.26 22,9.27 17,14.14 18.18,21.02 12,17.77 5.82,21.02 7,14.14 2,9.27 8.91,8.26"/></svg>`,
+  shield: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>`,
+  flower: `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 2a4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4z"/><path d="M20 12a4 4 0 0 1-4 4 4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4z"/><path d="M12 22a4 4 0 0 1-4-4 4 4 0 0 1 4-4 4 4 0 0 1 4 4 4 4 0 0 1-4 4z"/><path d="M4 12a4 4 0 0 1 4-4 4 4 0 0 1 4 4 4 4 0 0 1-4 4 4 4 0 0 1-4-4z"/></svg>`,
+  moon:   `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`,
+  grid:   `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>`,
+  spark:  `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3v1m0 16v1M4.22 4.22l.7.7m12.16 12.16.7.7M3 12h1m16 0h1M4.22 19.78l.7-.7M18.36 5.64l.7-.7"/><circle cx="12" cy="12" r="4"/></svg>`,
+  paint:  `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 13.5V20a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6.5"/><path d="M13 2H6a2 2 0 0 0-2 2v4l8 5 8-5V4a2 2 0 0 0-2-2h-5z"/></svg>`,
 };
+const ICON_DEFAULT = ICON_SVG.grid;
+const ALL_ICON = `<svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>`;
+
+// Build CAT_META dynamically from DB at runtime
+// Falls back gracefully if MEHNDI_CATEGORIES is missing (old db format)
+function buildCatMeta() {
+  const meta = { all: { label: 'All Designs', color: '#573AFC', icon: 'grid' } };
+  const cats = window.MEHNDI_CATEGORIES || {};
+  for (const [key, val] of Object.entries(cats)) {
+    meta[key] = {
+      label: val.label || key,
+      color: val.color || '#573AFC',
+      icon:  val.icon  || 'hand',
+    };
+  }
+  return meta;
+}
+
+// Populated after DB loads
+let CAT_META = {};
+
+function getCatIcon(cat) {
+  const m = CAT_META[cat];
+  if (!m) return ICON_DEFAULT;
+  return ICON_SVG[m.icon] || ICON_DEFAULT;
+}
 
 // ════════════════════════════════════════════════════
 //  FAVOURITES
@@ -1158,6 +1187,9 @@ window.addEventListener('load', () => {
       `<div class="state-box"><p>mehndi-db.js not found — place it in the same folder.</p></div>`;
     return;
   }
+  // Build CAT_META dynamically from DB — any new category added to mehndi-db.js
+  // automatically gets a tab, stat chip, and icon without touching this file.
+  CAT_META = buildCatMeta();
   buildSkeletons();
   buildTabs();
   buildStatsBar();
@@ -1195,16 +1227,19 @@ function buildSkeletons() {
 }
 
 // ════════════════════════════════════════════════════
-//  TABS
+//  TABS — auto-built from MEHNDI_CATEGORIES in the DB
+//  New categories appear automatically as you add images
 // ════════════════════════════════════════════════════
 function buildTabs() {
   const counts = getCategoryCounts();
-  const categories = ['all', ...Object.keys(CAT_META).filter(k => k!=='all' && counts[k] > 0)];
+  // Show only 'all' + categories that have at least 1 image in the DB
+  const categories = ['all', ...Object.keys(CAT_META).filter(k => k !== 'all' && (counts[k] || 0) > 0)];
   document.getElementById('tabsContainer').innerHTML = categories.map(cat => {
     const meta = CAT_META[cat] || { label: cat };
-    const count = cat==='all' ? window.MEHNDI_DB.length : (counts[cat]||0);
+    const icon = cat === 'all' ? ALL_ICON : getCatIcon(cat);
+    const count = cat === 'all' ? window.MEHNDI_DB.length : (counts[cat] || 0);
     return `<button class="tab-btn ${cat===activeCategory?'active':''}" onclick="setCategory('${cat}')" data-cat="${cat}">
-      ${CAT_ICONS[cat]||CAT_ICONS['all']}
+      ${icon}
       ${meta.label}
       <span class="tab-count">${count}</span>
     </button>`;
@@ -1222,14 +1257,14 @@ function setCategory(cat) {
 }
 
 // ════════════════════════════════════════════════════
-//  STATS BAR
+//  STATS BAR — auto-renders all categories with images
 // ════════════════════════════════════════════════════
 function buildStatsBar() {
   const counts = getCategoryCounts();
   const bar = document.getElementById('statsBar');
-  bar.innerHTML = Object.entries(counts).map(([cat,n]) => {
-    const m = CAT_META[cat]||{label:cat};
-    return `<span class="stat-chip"><span class="stat-dot"></span>${m.label}: <strong>${n}</strong></span>`;
+  bar.innerHTML = Object.entries(counts).map(([cat, n]) => {
+    const m = CAT_META[cat] || { label: cat, color: '#573AFC' };
+    return `<span class="stat-chip"><span class="stat-dot" style="background:${m.color}"></span>${m.label}: <strong>${n}</strong></span>`;
   }).join('');
   document.getElementById('headerCount').textContent = `${window.MEHNDI_DB.length} Designs`;
 }
@@ -1244,11 +1279,13 @@ function applyFilter() {
     const catOk = activeCategory==='all' || item.category===activeCategory;
     const favOk = !showFavsOnly || isFaved(item.id);
     const searchOk = !searchQuery || (() => {
-      const m = CAT_META[item.category]||{label:item.category};
+      const m = CAT_META[item.category] || { label: item.category };
       return m.label.toLowerCase().includes(searchQuery) ||
              item.category.toLowerCase().includes(searchQuery) ||
              (item.id||'').toLowerCase().includes(searchQuery) ||
-             (item.timestamp||'').toLowerCase().includes(searchQuery);
+             (item.timestamp||'').toLowerCase().includes(searchQuery) ||
+             (item.source||'').toLowerCase().includes(searchQuery) ||
+             (item.tags||[]).some(t => t.toLowerCase().includes(searchQuery));
     })();
     return catOk && favOk && searchOk;
   });
@@ -1311,7 +1348,7 @@ function renderBatch() {
 function createCard(item, idx) {
   const div = document.createElement('div');
   div.className = 'card';
-  const meta = CAT_META[item.category]||{label:item.category,color:'#573AFC'};
+  const meta = CAT_META[item.category] || { label: item.category, color: '#573AFC' };
   const faved = isFaved(item.id);
   div.innerHTML = `
     <img class="loading" src="${item.medium}" alt="${meta.label} mehndi design" loading="lazy"
@@ -1333,7 +1370,7 @@ function createCard(item, idx) {
       </button>
     </div>
     <div class="card-footer">
-      <span class="card-cat">${meta.label}</span>
+      <span class="card-cat" style="color:${meta.color}">${meta.label}</span>
       <span class="card-date">${item.timestamp||''}</span>
     </div>`;
   div.addEventListener('click', () => openLightbox(idx));
@@ -1409,7 +1446,7 @@ function openLightbox(idx) {
 function renderLb() {
   const item = currentFiltered[lbIndex];
   if (!item) return;
-  const meta = CAT_META[item.category]||{label:item.category};
+  const meta = CAT_META[item.category] || { label: item.category, color: '#573AFC' };
   const img = document.getElementById('lbImg');
   const spinner = document.getElementById('lbSpinner');
   img.classList.add('lb-loading'); img.classList.remove('lb-loaded');
@@ -1418,7 +1455,9 @@ function renderLb() {
   img.onerror = () => spinner.classList.add('hidden');
   img.src = item.large||item.medium;
   document.getElementById('lbCounter').textContent = `${lbIndex+1} / ${currentFiltered.length}`;
-  document.getElementById('lbCat').textContent  = meta.label+' Mehndi';
+  const lbCat = document.getElementById('lbCat');
+  lbCat.textContent  = meta.label+' Mehndi';
+  lbCat.style.color  = meta.color;
   document.getElementById('lbDate').textContent = item.timestamp||'Vintage design';
   document.getElementById('lbDownload').href     = item.large||item.medium;
   document.getElementById('lbDownload').setAttribute('download', `mehndi_${item.id||'design'}.jpg`);
