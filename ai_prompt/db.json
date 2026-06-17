@@ -1,0 +1,98 @@
+[
+  {
+    "id": 1,
+    "title": "Cyberpunk City Rain",
+    "image": "https://images.unsplash.com/photo-1518770660439-4636190af475?w=600",
+    "prompt": "A neon-soaked cyberpunk city street at night during heavy rain. Reflections of red and blue neon signs shimmer on wet pavement. A lone figure in a trench coat walks through the mist. Ultra-detailed, cinematic lighting, blade runner aesthetic, 8K, photorealistic.",
+    "tags": ["cyberpunk", "city", "rain", "night"],
+    "model": "Midjourney v6"
+  },
+  {
+    "id": 2,
+    "title": "Forest Spirit",
+    "image": "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=600",
+    "prompt": "An ancient forest spirit made of twisted roots and glowing moss, standing tall among towering old-growth trees. Bioluminescent particles float around it. Studio Ghibli inspired, painterly style, soft warm light, magical realism.",
+    "tags": ["fantasy", "forest", "spirit", "ghibli"],
+    "model": "Stable Diffusion XL"
+  },
+  {
+    "id": 3,
+    "title": "Desert Astronaut",
+    "image": "https://images.unsplash.com/photo-1446776653964-20c1d3a81b06?w=600",
+    "prompt": "An astronaut sitting alone on a red sand dune at sunset, helmet off, watching twin suns set on an alien desert planet. Dust particles in the air, cinematic wide angle, golden hour light, hyper-realistic, 4K.",
+    "tags": ["scifi", "space", "desert", "alien"],
+    "model": "DALL-E 3"
+  },
+  {
+    "id": 4,
+    "title": "Crystal Cave",
+    "image": "https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400",
+    "prompt": "A vast underground cave filled with enormous amethyst crystals that glow with inner purple light. A tiny explorer with a lantern stands at the entrance. Macro detail on crystals, deep shadows, volumetric light rays, fantasy realism.",
+    "tags": ["fantasy", "cave", "crystal", "exploration"],
+    "model": "Midjourney v6"
+  },
+  {
+    "id": 5,
+    "title": "Ocean Storm",
+    "image": "https://images.unsplash.com/photo-1505118380757-91f5f5632de0?w=600",
+    "prompt": "A massive ocean storm from above, seen from a satellite perspective. The swirling hurricane eye perfectly centered, dark teal and navy blue waves crashing, foam trails forming geometric patterns. Top-down aerial, ultra HD, NASA-style photography.",
+    "tags": ["nature", "ocean", "storm", "aerial"],
+    "model": "Stable Diffusion XL"
+  },
+  {
+    "id": 6,
+    "title": "Samurai Sunset",
+    "image": "https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=600",
+    "prompt": "A lone samurai silhouetted against a vivid orange and pink sunset, standing on a cliff overlooking a misty valley. Cherry blossom petals blow in the wind. Ink wash painting style blended with photorealism. Dramatic composition.",
+    "tags": ["samurai", "japan", "sunset", "silhouette"],
+    "model": "Midjourney v6"
+  },
+  {
+    "id": 7,
+    "title": "Micro World",
+    "image": "https://images.unsplash.com/photo-1550159930-40066082a4fc?w=400",
+    "prompt": "Macro photography of a dewdrop on a spider web at dawn, inside the droplet a perfectly reflected miniature forest scene. Tilt-shift lens effect, soft bokeh, pastel morning light, ultra-detailed, 100mm macro lens aesthetic.",
+    "tags": ["macro", "nature", "water", "reflection"],
+    "model": "DALL-E 3"
+  },
+  {
+    "id": 8,
+    "title": "Floating Islands",
+    "image": "https://images.unsplash.com/photo-1470770903676-69b98201ea1c?w=600",
+    "prompt": "A series of floating sky islands in a pastel sunset sky, each island has a different biome — snowy mountains, tropical jungle, desert, medieval castle. Waterfalls cascade off the edges into clouds. Avatar-inspired, dreamlike, painterly concept art.",
+    "tags": ["fantasy", "islands", "sky", "concept art"],
+    "model": "Stable Diffusion XL"
+  },
+  {
+    "id": 9,
+    "title": "Deep Sea Creature",
+    "image": "https://images.unsplash.com/photo-1518020382113-a7e8fc38eac9?w=500",
+    "prompt": "A bioluminescent deep sea creature never seen before, with translucent body revealing glowing organs inside. Long trailing tendrils of electric blue light. Pitch black ocean background, single light source from creature, ultra realistic photography, 8K.",
+    "tags": ["ocean", "creature", "bioluminescent", "deep sea"],
+    "model": "Midjourney v6"
+  },
+  {
+    "id": 10,
+    "title": "Ancient Library",
+    "image": "https://images.unsplash.com/photo-1507842217343-583bb7270b66?w=500",
+    "prompt": "The interior of an impossibly large ancient library, shelves extending infinitely upward, warm candlelight, floating magical books drifting through the air, a small figure reading at a wooden desk far below. Baroque perspective, chiaroscuro lighting, oil painting style.",
+    "tags": ["library", "fantasy", "books", "architecture"],
+    "model": "DALL-E 3"
+  },
+  {
+    "id": 11,
+    "title": "Neon Tokyo Street",
+    "image": "https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600",
+    "prompt": "A busy Tokyo alley at 2AM packed with ramen shops, vending machines and izakayas, neon kanji signs reflecting off rain-slicked stone, steam rising from grates, a cat sitting on a wooden stool watching the chaos. Hyper-detailed, cinematic photography aesthetic, f/1.4 bokeh.",
+    "tags": ["tokyo", "japan", "night", "street"],
+    "model": "Midjourney v6"
+  },
+  {
+    "id": 12,
+    "title": "Galaxy Portrait",
+    "image": "https://images.unsplash.com/photo-1462331940025-496dfbfc7564?w=500",
+    "prompt": "Portrait of a woman whose face dissolves into a spiral galaxy, stars and nebulae where her hair should be, Milky Way swirling through her eyes. Double exposure technique, dark background, soft purple and blue tones, surreal fine art photography.",
+    "tags": ["portrait", "galaxy", "surreal", "space"],
+    "model": "Stable Diffusion XL"
+  }
+]
