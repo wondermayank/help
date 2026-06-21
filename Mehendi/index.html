@@ -296,6 +296,17 @@ header.scrolled {
 }
 .btn-secondary:hover { border-color: var(--primary); color: var(--primary); }
 .btn-secondary:active { transform: scale(0.95); }
+.btn-ai {
+  display: inline-flex; align-items: center; gap: 7px;
+  background: linear-gradient(135deg, #573AFC 0%, #9A5CFB 50%, #FB5AC0 100%);
+  color: #fff; border: none; border-radius: 9999px;
+  padding: 14px 28px; height: 48px;
+  font-family: 'Inter', sans-serif; font-size: 15px; font-weight: 600;
+  cursor: pointer; transition: transform 0.15s, box-shadow 0.2s;
+  text-decoration: none; box-shadow: 0 4px 16px rgba(87,58,252,0.35);
+}
+.btn-ai:hover { box-shadow: 0 6px 20px rgba(87,58,252,0.45); }
+.btn-ai:active { transform: scale(0.95); }
 
 /* ─── STATS BAR (parchment strip) ───────────────── */
 .stats-section {
@@ -807,6 +818,13 @@ header.scrolled {
       </svg>
       Surprise Me
     </button>
+    <a class="btn-ai" href="https://chatgpt.com/g/g-6a37eeb781988191a58141e4e510e529-mehndi-design-studio-by-wondermayank" target="_blank" rel="noopener noreferrer">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M12 2l1.5 4.5L18 8l-4.5 1.5L12 14l-1.5-4.5L6 8l4.5-1.5L12 2z"/>
+        <path d="M19 15l0.8 2.2L22 18l-2.2 0.8L19 21l-0.8-2.2L16 18l2.2-0.8L19 15z"/>
+      </svg>
+      Make with AI
+    </a>
     <button class="btn-secondary" onclick="setCategory('bridal')">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
         <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
